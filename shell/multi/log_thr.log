@@ -1,0 +1,30 @@
+1,process
+	a,
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5699 0.0  0.1 106096 1180 pts/1 S+ 17:08   0:00 /bin/sh ./thr.sh
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5700 0.0  0.1 106096 1208 pts/1 S+ 17:08   0:00 /bin/sh ./sec.sh sec_print
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5701 0.0  0.0 100904 568 pts/1 S+ 17:08   0:00 sleep 10
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5702 1.0  0.1 110240 1160 pts/2 R+ 17:08   0:00 ps auxZ
+	b,
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5699 0.0  0.1 106096 1180 pts/1 S+ 17:08   0:00 /bin/sh ./thr.sh
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5700 0.0  0.1 106096 1212 pts/1 S+ 17:08   0:00 /bin/sh ./sec.sh sec_print
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5703 0.0  0.0 100904 568 pts/1 S+ 17:08   0:00 sleep 10
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5704 0.0  0.1 110236 1160 pts/2 R+ 17:08   0:00 ps auxZ
+	c,
+		
+
+2,log
+	[pangwz@localhost multi]$ ./thr.sh 
+	print from ./thr.sh
+	exec sec.sh,args:'sec_print' 
+	print from ./sec.sh
+	sec_print
+	hello world form ./sec.sh
+	sec_print wakeup
+	_____________________________________________________________________
+	in sec_sh direct call sec_print
+	sec_print
+	hello world form ./sec.sh
+	sec_print wakeup
+	_____________________________________________________________________
+	./thr.sh: line 17: sec_show: command not found
+	[pangwz@localhost multi]$ 

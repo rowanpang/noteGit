@@ -1,0 +1,16 @@
+#!/usr/bin/expect -f
+
+spawn ssh-keygen -C "publickey_authen_test@inspur"
+expect "ssh/id_rsa): " { send "\n" }
+expect "no passphrase): "  { send "\n" }
+expect "passphrase again: " { send "\n" }
+expect eof
+
+spawn ssh pangwz@localhost
+	expect { 
+		"*(yes/no)?" { send "yes\n";exp_continue; }
+		"*password:" { send_user "key_error\n";exit 1 }
+		"Permission denied*" { send_user "key_error\n";exit 1 }
+		"*$ " { send_user "login ok\n";exit 0 }
+	}
+	expect timeout {exit 1}

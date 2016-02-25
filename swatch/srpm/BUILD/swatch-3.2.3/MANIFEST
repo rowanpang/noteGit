@@ -1,0 +1,17 @@
+MANIFEST
+README
+CHANGES
+COPYRIGHT
+COPYING
+INSTALL
+KNOWN_BUGS
+Makefile.PL
+examples/SendMail.pm
+tools/reswatch
+tools/swatch_oldrc2newrc
+swatch
+t/01cpan_modules.t
+lib/Swatch/Actions.pm
+lib/Swatch/Throttle.pm
+lib/Swatch/Threshold.pm
+META.yml                                 Module meta-data (added by MakeMaker)

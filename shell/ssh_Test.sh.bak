@@ -1,0 +1,134 @@
+###!/bin/bash
+#!/usr/bin/expect -f
+
+#-----------debug info dynamic
+debugEnable=true
+function dyDEBUG()
+{
+	if [ "$debugEnable" = true ];then
+		$@
+	fi
+} 
+
+function ssh_ok_test()
+{
+	if ssh -V > /dev/null 2&>1;then
+		echo "ssh ok"
+	else
+		echo "ssh error,please check system,exit"
+		exit 1
+	fi
+}
+
+function ssh_user_decide()
+{
+	echo "ssh will use user:$ssh_user"
+	echo "Yes:ok.....No:chang user by yourself.Your choice?"
+	read ANS
+	while [ "$ANS" != y -a "$ANS" != Yes -a "$ANS" != yes -a "$ANS" != "n" -a "$ANS" != "No" -a "$ANS" != "no" ]
+	do
+		echo -e "Make right choice??? Yes:ok...No:chang user by yourself: \c"
+		read ANS
+	done
+	
+	case $ANS in 
+	y|Y|yes|Yes) 
+		echo "Your choice is Yse,use user $ssh_user" 
+	;;
+	n|N|No|no) 
+		echo "Your decide to change user,please input the user name"
+		read ssh_user
+		while [ -z "$ssh_user" ]
+		do
+			echo -e "Input a user name:\c"
+			read ssh_user
+		done
+		echo "You use \"$ssh_user\" as user name"
+	;;
+	
+	*) "echo Your choice error,exit 1"
+	
+	esac
+
+	dyDEBUG echo "Decide use user $ssh_user"
+}	
+
+
+function ssh_Authen_method_choice()
+{
+	ssh_Authen_method_enable_default=  #true for enable
+	echo -e "avaiable method,please make your choice:\c"
+
+	if [ "$ssh_Authen_method_enable_default" = true ];then 
+		echo "[default 1,password]"
+	else
+		echo ""
+	fi
+
+	echo "	1,password"
+	echo "	2,public key"
+	
+	read ssh_Authen_method
+
+	#if didn't need default,just disable if condition
+	if [ -z "$ssh_Authen_method" -a "$ssh_Authen_method_enable_default" = true ];then
+		dyDEBUG echo "-in default produce --"	
+		ssh_Authen_method=1
+	fi
+
+	while [ "$ssh_Authen_method" != 1 -a "$ssh_Authen_method" != 2 ]
+	do
+		echo -e "make right choice 1,password 2,public key \c"
+		read ssh_Authen_method
+	done
+
+	dyDEBUG	echo "-------$ssh_Authen_method------"
+	case $ssh_Authen_method in
+	1)
+		ssh_Authen_method_str="password"
+	;;
+
+	2)
+		ssh_Authen_method_str="public key"
+	;;
+
+	*)
+		echo "error choice exit 1"
+	;;
+	
+	esac	
+
+	dyDEBUG echo "choice method is: $ssh_Authen_method $ssh_Authen_method_str"
+}
+
+function ssh_Authen_method_password()
+{
+	if (ssh $ssh_user@localhost &);then
+		echo "ssh password Authen ok ^_^"
+	fi
+
+}
+
+function expect_ok_test()
+{
+	if (which expect);then
+		echo "expect ok"
+#expect << EOF
+#exp_version -exit 5.44 
+#EOF
+	else
+		echo "expect error"
+
+	fi			
+}
+
+
+#main start---------------
+ssh_user=$USER
+ssh_ok_test
+expect_ok_test
+ssh_user_decide
+ssh_Authen_method_choice
+#ssh_Authen_method_password
+
+

@@ -1,0 +1,14 @@
+[pangwz@localhost shell]$ ./ifs.sh 
+old ifs
+0000000: 20 09 0a                                          ..
+new ifs: '&'
+-----new loop---
+a&c d&e                 f&a
+input is:"a c d e                       f a"
+$*='a&c d&e                     f&a'
+1: [a]
+2: [c d]
+3: [e                   f]
+4: [a]
+-----new loop---
+^C[pangwz@localhost shell]$

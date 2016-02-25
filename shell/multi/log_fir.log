@@ -1,0 +1,38 @@
+1,process
+	a,
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5668 0.0  0.1 106096 1232 pts/1 S+ 17:01   0:00 /bin/sh ./fir.sh
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5669 0.0  0.0 100904 568 pts/1 S+ 17:01   0:00 sleep 10
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5671 0.0  0.1 110236 1164 pts/2 R+ 17:01   0:00 ps auxZ
+	b,
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5668 0.0  0.1 106096 1236 pts/1 S+ 17:01   0:00 /bin/sh ./fir.sh
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5672 0.0  0.1 106096 1212 pts/1 S+ 17:01   0:00 /bin/sh ./sec.sh sec_print
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5673 0.0  0.0 100904 564 pts/1 S+ 17:01   0:00 sleep 10
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5674 1.0  0.1 110236 1164 pts/2 R+ 17:01   0:00 ps auxZ
+	c,
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5668 0.0  0.1 106096 1236 pts/1 S+ 17:01   0:00 /bin/sh ./fir.sh
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5676 0.0  0.0 100904 568 pts/1 S+ 17:01   0:00 sleep 10
+		unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pangwz 5677 1.0  0.1 110236 1164 pts/2 R+ 17:01   0:00 ps auxZ
+
+2,log
+	[pangwz@localhost multi]$ ./fir.sh 
+	source sec.sh
+	print from ./fir.sh
+	in sec_sh direct call sec_print
+	sec_print
+	hello world form ./fir.sh
+	sec_print wakeup
+	_____________________________________________pangwz: process-a__________________
+	print from ./fir.sh
+	call sec.sh func 'sec_print'
+	print from ./sec.sh
+	sec_print
+	hello world form ./sec.sh
+	sec_print wakeup
+	_____________________________________________pangwz: process-b__________________
+	in sec_sh direct call sec_print
+	sec_print
+	hello world form ./sec.sh
+	sec_print wakeup
+	sec_show
+	[pangwz@localhost multi]$ 
+	_____________________________________________pangwz: process-c------------------

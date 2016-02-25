@@ -1,0 +1,22 @@
+#!/usr/bin/expect -f
+
+spawn ssh pangwz@localhost
+expect { 
+	"*(yes/no)?" { send "yes\n";exp_continue;}
+	"*password:" { send "i \n";send_user "input pwd" }
+}
+expect { 
+	"Permission denied*" { send_user "pwd_error\n";exit 1 }
+	"*$ " { send_user "login ok\n";exit 0 }
+}
+expect timeout {exit 1}
+
+#timeout {exit 1}
+#expect "Permission denied*" {exit 1}
+#expect "*~]$"
+#send_user "login_ok"
+#expect eof
+
+#interact
+
+

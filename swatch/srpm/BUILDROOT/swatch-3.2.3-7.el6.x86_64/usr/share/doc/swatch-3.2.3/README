@@ -1,0 +1,123 @@
+
+Thank you for your interest in swatch: the Simple WATCHdog.
+
+Swatch is a SourceForge project whose project page is at 
+http://sourceforge.net/projects/swatch and homepage is at
+http://swatch.sourceforge.net
+
+Swatch was originally written to actively monitor messages as
+they are written to a log file via the UNIX syslog utility. For
+a simple demonstration type "perl swatch --examine=FILENAME" with
+FILENAME being the file that you would like to see the contents of.
+All this example will do is demonstrate the different text modes
+that are available with to the echo action.
+
+Read the INSTALL file for installation instructions.
+
+IF YOU ENCOUNTER A BUG...
+
+Please send mail to todd.atkins@stanfordalumni.org about it, but first make
+sure that it is not mentioned in the KNOWN_BUGS file and that you are 
+using the latest release.
+
+MAJOR CHANGES IN VERSION 3.1
+ 
+  Added --extra-include-dirs (or -I) and --extra-modules (or -M) command
+  line options. This allows one to extend the functionality of swatch by
+  defining customized actions. See the modules in the "examples" directory
+  to see how this feature can be used.
+
+  Changed "-I" command option from being shorthand for 
+  "--input-record-separator" to being short for "--extra-include-dirs"
+  in order to be more consistent with perl's command line arguments. 
+
+  Added --tail-program-name and --tail-args command line options. This 
+  allows one to use more robust tail commands like GNU tail. Here is
+  how I use it to watch multiple files and not have to worry when they
+  get rotated:
+
+    % swatch --tail-prog=/usr/local/bin/gtail \
+             --tail-args '--follow=name --lines=1' \
+             --tail-file="/var/log/messages /var/log/snort/alert"
+
+  Added possibility for user to overide "message" option to any action.
+  Changed default tail arguments from "-1 -f" to "-n 0 -f"
+
+  Put action and throttle code into modules named Swatch::Actions and
+  Swatch::Throttle respectively.
+
+  Added --awk-field-syntax and --noawk-field-syntax command line options
+  with --noawk-field-syntax now set as the default
+
+  Added option for user to use their own regular expression to extract a 
+  throttle key from a message using greedy pattern matching.
+
+  Went back to using the system's tail(1) command for tailing files due
+  to all of the problems that folks were experiencing with the File::Tail
+  CPAN module.
+
+  Added --use-cpan-file-tail option to users to keep using the File::Tail
+  module for tailing files.
+
+  Added perlcode to configuration file. This allows for perl hackers to 
+  make use of variables in their configuration files. There is a depth 
+  setting which allows the perlcode to be placed in different levels of 
+  the nested blocks that are used in the watcher script.  Here is how
+  one could use it to define generic regular expressions for matching 
+  and defining fields for different styles of log file lines:
+
+    # matches Snort pre-processor short alerts
+    perlcode my $spp_regex = '\[\*\*\]\s+(\[\d+:\d+:\d+\])\s+([^:]*):.*from (\d+\.\d+\.\d+\.\d+)(.*)$';
+    # matches short Snort alerts ($1 = alert message, $2 = src IP)
+    perlcode my $snort_regex = '\[\*\*\]\s+(.*)\s+\[\*\*\].*\{\w+\} (\d+\.\d+\.\d+\.\d+)';
+    # matches syslog lines ($1 set to everything after the timestamp)
+    perlcode my $syslog_regex = '^\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}.*:(.*)';
+
+    # report every type of snort alert but throttle them
+    watchfor /.*/ and /$snort_regex/
+	throttle 5:00,key=$1 $2
+        echo modes=green
+
+    # report every type of syslog message but throttle them
+    watchfor /.*/ and /$syslog_regex/
+	throttle 5:00,key=$1
+        echo modes=green
+
+OTHER MAJOR CHANGES SINCE VERSION 2.X
+
+The configuration file now has a completely different format. You can still
+use your old configuration files if you use the "--old-style-config" switch
+if you insist.
+
+I have re-written most a lot of the code to take advantage of features
+and modules that were made available with perl 5. 
+
+It now requires perl 5 and the following modules: Time::HiRes, Date::Calc, 
+Date::Format, Date::Manip, Term::ANSIColor, File::Tail.
+
+I have added the seven colors that color xterminals recognize to the echo
+action.
+
+The manual is now embedded into the script in POD format. Use pod2text, 
+pod2html, or your favorite pod2* program to create a more easily readable
+document.
+
+FUTURE DIRECTIONS
+
+I am working on a thresholding module that will behave in a manner that is 
+similar to thresholding in the Snort IDS (www.snort.org). This should 
+eventually replace the current throttling mechanism.
+
+SUGGESTIONS?
+
+Please mail suggestions, problems, and/or complaints about swatch
+to Todd.Atkins@StanfordAlumni.ORG
+
+DONATIONS?
+
+The swatch program is provided to you free of charge. However, if you find
+it useful I encourage you to send in a donation toward its continuous 
+development.  Please send donations online via PayPal (www.paypal.com) using   
+my todd.atkins@stanfordalumni.org address
+
+Thank you.

@@ -1,0 +1,7 @@
+.PHONY:all
+
+map = $(foreach a,$(2),$(call $(1),$(a)))
+o = $(call map,origin,omapMAKE)
+
+all:
+	echo $(o)

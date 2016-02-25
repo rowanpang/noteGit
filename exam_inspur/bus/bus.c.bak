@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef unsigned int UINT;
+
+struct path_instance{
+	UINT *points;
+	UINT nuMember;
+	UINT total;
+//	int (*pathFinished)(struct path_instance);
+	char inUse;
+};
+
+struct paths{
+	struct path_instance* path;
+	UINT total;
+	UINT nuUsed;
+};
+
+#define PATH_INIT_NUM 100
+#define PATH_POINT_INIT_NUM 1000
+
+#define PATH_REALLOC_NUM 50
+#define PATH_POINT_REALLOC_NUM 500
+
+#ifndef false
+#define false 0
+#define true 1
+#endif
+
+int nTotal=4,mTotal=5;
+char needRollBack=false;
+struct paths pathStack;
+struct path_instance curPath;
+int pathStackInit()
+{
+	pathStack.path = malloc(PATH_INIT_NUM*sizeof(struct path_instance));
+	pathStack.total = PATH_INIT_NUM;
+	pathStack.nuUsed = 0;
+	
+	int i;
+	for(i=0;i<pathStack.total;i++)
+	{
+		pathStack.path[i].points = malloc(PATH_POINT_INIT_NUM*sizeof(UINT));
+		pathStack.path[i].nuMember = 0;
+		pathStack.path[i].total = PATH_POINT_INIT_NUM;
+		pathStack.path[i].inUse = false;
+	}
+	
+	curPath = pathStack.path[pathStack.nuUsed];
+	curPath.inUse = true;
+}
+
+int pathStackFree()
+{
+	int i;
+	for(i=0;i<pathStack.total;i++)
+	{
+		free(pathStack.path[i].points);
+	}
+	free(pathStack.path);
+}
+
+int curPathFinished()
+{
+	printf("hello,world path:%d\n",pathStack.nuUsed);
+	pathStack.nuUsed++;
+#if 0
+	curPath = pathStack.path[pathStack.nuUsed];
+	curPath.inUse = true;
+#endif
+	needRollBack = true;
+	printf("out next path:%d\n",pathStack.nuUsed);
+}
+
+int pathPointPush(int n,int m)
+{
+#if 0
+	if(curPath.nuMember < curPath.total)
+	{
+		curPath.points[curPath.nuMember] = n<<16 || m;
+	}else{
+		curPath.points = realloc(curPath.points,(curPath.total+PATH_POINT_REALLOC_NUM));
+		curPath.points[curPath.nuMember] = n<<16 || m;
+	}
+	curPath.nuMember++;
+#endif
+	if(n==nTotal && m==mTotal)
+		curPathFinished();
+}	
+
+int testMove(int n,int m)
+{
+	printf("rollback:%d,n:%d,m:%d\n",needRollBack,n,m);
+	pathPointPush(n,m);
+	if(n<nTotal)
+	{
+		printf("move right\n");
+		testMove(n+1,m);
+	}
+	if(m<mTotal)
+	{
+		printf("move up\n");
+		testMove(n,m+1);	
+	}
+	if(m!=1)
+	{
+		printf("move down\n");
+		m--;
+	}else{
+		printf("move left\n");
+		n--;
+		needRollBack = false;
+	}
+
+	printf("move out\n");
+}
+
+
+int main(int argc,char** argv)
+{
+	int ntmp=1,mtmp=1;
+	testMove(ntmp,mtmp);
+
+	return 0;
+}

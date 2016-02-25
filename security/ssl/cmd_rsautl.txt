@@ -1,0 +1,12 @@
+1,encrypt:
+	openssl rsautl -in test.txt -inkey rowan.x509.pem -certin -encrypt -out test.txt.en
+2,den...
+	openssl rsautl -in test.txt.en -inkey rowan.prikey.pem -decrypt
+
+3,sign
+	openssl rsautl -in test.txt -inkey rowan.prikey.pem -sign -out test.txt.sign
+4,verify
+	openssl rsautl -in test.txt.sign -inkey rowan.x509.pem -certin -verify
+
+
+

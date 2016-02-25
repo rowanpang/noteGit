@@ -1,0 +1,18 @@
+1,ca verify
+	openssl verify -CAfile root_inspur.pem.cer office.inspur.com.pem
+
+2,format change
+	pem-->der
+		openssl x509 -outform der -in certificate.pem -out certificate.der
+	pem-->pkcs7	
+		openssl crl2pkcs7 -nocrl -certfile office.inspur.com.pem -out office.inspur.com.p7b.der -outform DER
+	der-->pem
+		openssl x509 -inform der -in certificate.cer -out certificate.pem
+	pkcs7-->pem
+		openssl pkcs7 -print_certs -in certificate.p7b -out certificate.cer
+		
+3,pkcs7
+	openssl pkcs7 -in office.inspur.com.p7b.der -print_certs -text -noout
+
+4,x509
+	openssl x509 -in office.inspur.com.pem -text -purpose -noout
