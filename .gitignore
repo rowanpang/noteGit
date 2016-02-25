@@ -10,7 +10,10 @@
 # Normal rules
 #
 .*
+*.out
+*.map
 *.o
+*.d
 *.o.*
 *.a
 *.s
