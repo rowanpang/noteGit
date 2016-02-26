@@ -62,7 +62,7 @@ static int parse_cpid(char *cpid)
 		return 0;
 	pid = kzalloc(strlen(cpid)+1,GFP_KERNEL);
 	strcpy(pid,cpid);
-    printk(KERN_DEBUG "--%s--\n",pid);
+	printk(KERN_DEBUG "--%s--\n",pid);
 	has_cpid = 1;
 	while(*pid != '\0'){
 		if(isdigit(*pid)){
@@ -148,7 +148,7 @@ static int __init  selinux_sid_init(void)
 	bool se_enable = 0;
 	pid_t tpid = 0;
 
-    printk(KERN_DEBUG "show selinux sid for process\n");
+	printk(KERN_DEBUG "show selinux sid for process\n");
 	se_enable = selinux_is_enabled();
 	if(!se_enable){
 		printk(KERN_DEBUG "selinux disabled,do nothing\n");
@@ -173,19 +173,19 @@ static int __init  selinux_sid_init(void)
 			if(tmp > 10){
 				break;
 			}
-        }
+		}
 	}else{
 		printk(KERN_DEBUG "else process\n");
 		show_range(spid,epid);
 	}
-    printk(KERN_DEBUG "--------end selinux sid for process\n");
+	printk(KERN_DEBUG "--------end selinux sid for process\n");
 EXIT:
-    return 0;
+	return 0;
 }
 
 static void __exit selinux_sid_exit(void)
 {
-      printk(KERN_DEBUG "selinux_sid exit\n");
+	printk(KERN_DEBUG "selinux_sid exit\n");
 }
 
 MODULE_LICENSE("GPL"); 
