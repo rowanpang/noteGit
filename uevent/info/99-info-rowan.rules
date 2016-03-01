@@ -1,0 +1,1 @@
+RUN+="/home/pangwz/test/uevent/info/udev_info.sh %k %n"

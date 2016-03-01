@@ -1,0 +1,9 @@
+KERNEL!="sd[a-z][0-9]", GOTO="disk_auto_mount_by_label_end"
+SUBSYSTEM!="block",GOTO="disk_auto_mount_by_label_end"
+
+ACTION=="add", ENV{ID_FS_LABEL}!="", RUN+="/bin/mkdir -p /media/$env{ID_FS_LABEL}",RUN+="/bin/mount $env{DEVNAME} /media/$env{ID_FS_LABEL}"
+ACTION=="remove", ENV{ID_FS_LABEL}!="",RUN+="/bin/umount /media/$env{ID_FS_LABEL}",RUN+="/bin/rm -r /media/$env{ID_FS_LABEL}"
+
+
+LABEL="disk_auto_mount_by_label_end"
+

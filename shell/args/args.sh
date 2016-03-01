@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#filename
+echo $0
+
 echo "-var replace--"
 echo ${1+"$@"}
 echo ${1-"$@"}

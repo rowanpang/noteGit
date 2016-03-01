@@ -1,0 +1,1 @@
+KERNEL=="sd[a-z][0-9]", SUBSYSTEM=="block", RUN+="/home/pangwz/test/uevent/diskMount/udev_disk_auto_mount.sh %k %N"
