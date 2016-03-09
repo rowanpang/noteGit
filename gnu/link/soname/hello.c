@@ -1,9 +1,9 @@
 #include <stdio.h>
 extern char msg[128];
-//extern void print();
+extern void foo_print();
 extern int hh;
 int main()
 {
-    print();
+    foo_print();
     printf("----%d-------\n",hh);
 }
