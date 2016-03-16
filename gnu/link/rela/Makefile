@@ -16,5 +16,5 @@ foo.o:foo.c
 	gcc -g -c foo.c -o foo.o
 
 clean:
-	rm -rf foo.o foo.o.fPIC hello.o 
-	rm a.out* 
+	-rm -rf foo.o foo.o.fPIC hello.o* 
+	-rm a.out* 
