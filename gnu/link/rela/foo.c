@@ -22,7 +22,7 @@ void foo_print2(void)
 
 	foo_print();
 
-	printf("compatible foo.so.1 ");
+	printf("compatible foo.so.1\n");
 	printf("%s,from %s\n", msg2,__FILE__);
 
 	return;
