@@ -5,8 +5,8 @@ KVER := $(shell uname -r)
 KSRC := /lib/modules/$(KVER)/build
 
 ifneq ($(KERNELRELEASE),)
-#ccflags-y += -DDEBUG
-obj-m := debug.o
+ccflags-y +=-DDEBUG
+obj-m := rela.o
 
 else
 .PHONY:all,modules
@@ -17,6 +17,6 @@ modules:
 
 .PHONY:clean
 clean:
-	$(MAKE) -C $(KSRC) M=$(shell pwd)  clean
+	$(MAKE) -C $(KSRC) M=$(shell pwd) clean 
 #rm -rf *.mod.c *.mod *.o .*.cmd *.ko 
 endif
