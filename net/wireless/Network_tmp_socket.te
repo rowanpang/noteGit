@@ -1,0 +1,14 @@
+
+module Network_tmp_socket 1.0;
+
+require {
+	type NetworkManager_t;
+	type tmp_t;
+	type initrc_t;
+	class sock_file write;
+	class unix_dgram_socket sendto;
+}
+
+#============= NetworkManager_t ==============
+allow NetworkManager_t initrc_t:unix_dgram_socket sendto;
+allow NetworkManager_t tmp_t:sock_file write;
