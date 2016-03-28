@@ -1,0 +1,16 @@
+#=============================================================================
+#     FileName: 99-wlanudev.rules
+#         Desc: insert wlan auto wpa
+#       Author: Rowan Pang
+#        Email: pangweizhen.2008@hotmail.com
+#     HomePage: 
+#      Version: 0.0.1
+#   LastChange: 2016-03-28 13:19:57
+#      History:
+#=============================================================================
+KERNEL!="wlan[0-9]",GOTO="wlan_wpa_label_end"
+
+ACTION=="add", RUN+="/etc/init.d/wpa_supplicant start"
+ACTION=="remove", RUN+="/etc/init.d/wpa_supplicant stop"
+
+LABEL="wlan_wpa_label_end"
