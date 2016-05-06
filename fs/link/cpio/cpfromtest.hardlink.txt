@@ -1,0 +1,3 @@
+vi test.hardlink.txt  
+vi test.txt
+vi test.symbollink.txt
