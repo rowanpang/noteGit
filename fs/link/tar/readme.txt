@@ -6,6 +6,3 @@
 4,dir cpio
 	cpio 为创建对test.txt相关文件创建的cpio包
 	目录下的txt等为从cpio中解压出来的，可以看到test即test.hardlink依然保持了hardlink属性
-
-5,dir tar
-	tar 打包的hardlink也保持了hardink属性
