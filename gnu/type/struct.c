@@ -40,6 +40,8 @@ int main(int argc,char** argv)
 	st = st;
 
 	union u_1{
+		unsigned int union_32;
+
 		struct u_s_1{
 			unsigned char a;
 			unsigned char b;
@@ -48,8 +50,6 @@ int main(int argc,char** argv)
 			unsigned char e;
 			unsigned char f;
 		}union_sp_8;
-
-		unsigned int union_32;
 
 		struct u_s_2{
 			unsigned short int a;
@@ -61,16 +61,21 @@ int main(int argc,char** argv)
 	u.union_32 = 0x12345678;
 	u.union_sp_16.c = 0x9abc;
 	printf("sizeof(union u):%d\n",sizeof(u));
-	printf("u.union_32:%#x\n",u.union_32);
-	printf("u.union_sp_8.a:%#x\n",u.union_sp_8.a);
-	printf("u.union_sp_8.b:%#x\n",u.union_sp_8.b);
-	printf("u.union_sp_8.c:%#x\n",u.union_sp_8.c);
-	printf("u.union_sp_8.d:%#x\n",u.union_sp_8.d);
-	printf("u.union_sp_8.e:%#x\n",u.union_sp_8.e);
-	printf("u.union_sp_8.f:%#x\n",u.union_sp_8.f);
-	printf("u.union_sp_16.a:%#x\n",u.union_sp_16.a);
-	printf("u.union_sp_16.b:%#x\n",u.union_sp_16.b);
-	printf("u.union_sp_16.c:%#x\n",u.union_sp_16.c);
+	printf("sizeof(union u.union_sp_8):%d\n",sizeof(u.union_sp_8));
+	printf("sizeof(union u.union_sp_16):%d\n",sizeof(u.union_sp_16));
+	printf("u.union_sp_8:%p\n",&u.union_sp_8);
+	printf("u.union_sp_16:%p\n",&u.union_sp_16);
+
+	printf("u.union_32:%p,%#x\n",&u.union_32,u.union_32);
+	printf("u.union_sp_8.a:%p,%#x\n",&u.union_sp_8.a,u.union_sp_8.a);
+	printf("u.union_sp_8.b:%p,%#x\n",&u.union_sp_8.b,u.union_sp_8.b);
+	printf("u.union_sp_8.c:%p,%#x\n",&u.union_sp_8.c,u.union_sp_8.c);
+	printf("u.union_sp_8.d:%p,%#x\n",&u.union_sp_8.d,u.union_sp_8.d);
+	printf("u.union_sp_8.e:%p,%#x\n",&u.union_sp_8.e,u.union_sp_8.e);
+	printf("u.union_sp_8.f:%p,%#x\n",&u.union_sp_8.f,u.union_sp_8.f);
+	printf("u.union_sp_16.a:%p,%#x\n",&u.union_sp_16.a,u.union_sp_16.a);
+	printf("u.union_sp_16.b:%p,%#x\n",&u.union_sp_16.b,u.union_sp_16.b);
+	printf("u.union_sp_16.c:%p,%#x\n",&u.union_sp_16.c,u.union_sp_16.c);
 
 	return 0;
 }

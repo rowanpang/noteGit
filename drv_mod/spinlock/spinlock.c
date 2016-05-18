@@ -5,6 +5,7 @@
 #include <linux/i2c.h>
 #include <linux/err.h>
 #include <linux/kthread.h>
+#include <linux/spinlock.h>
 
 static struct task_struct *thread;
 static struct task_struct *threadA;
@@ -19,11 +20,11 @@ static int threadfn(void *p)
 	int *ret = p;
 	printk("In func %s\n",__func__);
 	*ret = 10;
+	DEFINE_SPINLOCK(my_lock);
 
 	while(!kthread_should_stop()){
-		set_current_state(TASK_INTERRUPTIBLE);
-		schedule_timeout(3*HZ);
-		printk("while In kthread func %s,pid:%d,i:%d,v:%d\n",__func__,current->pid,i,atomic_read(&v));
+		spin_lock(&my_lock);
+
 	}
 
 	printk("exit func %s\n",__func__);
