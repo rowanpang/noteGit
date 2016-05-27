@@ -1,3 +1,3 @@
 #!/bin/bash
  sleep 30 &
- ./L3.sh 
+ ./L3.sh &
