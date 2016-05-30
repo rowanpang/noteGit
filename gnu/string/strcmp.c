@@ -3,6 +3,6 @@
 
 int main(int argc,char** argv)
 {
-	int ret = strcmp("pang","p");
-	printf("cmp ret:%d",ret);
+	int ret = strcmp("pang","pangwz");
+	printf("cmp ret:%d\n",ret);
 }

@@ -1,0 +1,51 @@
+
+//strcpy.c
+a.out:     file format elf64-x86-64
+a.out
+
+.....
+
+0000000000400504 <main>:
+#include<stdio.h>
+#include<string.h>
+
+int main(int argc,char** argv)
+{
+  400504:	55                   	push   %rbp
+  400505:	48 89 e5             	mov    %rsp,%rbp
+  400508:	48 83 ec 30          	sub    $0x30,%rsp
+  40050c:	89 7d dc             	mov    %edi,-0x24(%rbp)
+  40050f:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
+	char *src="pangwz";
+  400513:	48 c7 45 f8 58 06 40 	movq   $0x400658,-0x8(%rbp)
+  40051a:	00 
+	char dst[10]={0};
+  40051b:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
+  400522:	00 
+  400523:	66 c7 45 e8 00 00    	movw   $0x0,-0x18(%rbp)
+
+	strcpy(dst,src);
+  400529:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+  40052d:	48 8d 45 e0          	lea    -0x20(%rbp),%rax
+  400531:	48 89 d6             	mov    %rdx,%rsi
+  400534:	48 89 c7             	mov    %rax,%rdi
+  400537:	e8 d4 fe ff ff       	callq  400410 <strcpy@plt>
+
+	printf("after cpy %s \n",dst);
+  40053c:	b8 5f 06 40 00       	mov    $0x40065f,%eax
+  400541:	48 8d 55 e0          	lea    -0x20(%rbp),%rdx
+  400545:	48 89 d6             	mov    %rdx,%rsi
+  400548:	48 89 c7             	mov    %rax,%rdi
+  40054b:	b8 00 00 00 00       	mov    $0x0,%eax
+  400550:	e8 9b fe ff ff       	callq  4003f0 <printf@plt>
+
+	return 0;
+  400555:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+  40055a:	c9                   	leaveq 
+  40055b:	c3                   	retq   
+  40055c:	90                   	nop
+  40055d:	90                   	nop
+  40055e:	90                   	nop
+  40055f:	90                   	nop
+..........

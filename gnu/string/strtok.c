@@ -3,6 +3,7 @@
 #include <string.h>
 //from man strtok
 //./a.out 'a/bbb///cc;xxx:yyy:' ':;' '/'
+
 int main(int argc, char *argv[])
 {
 	char *str1, *str2, *token, *subtoken;
