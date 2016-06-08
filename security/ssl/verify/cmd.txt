@@ -1,0 +1,19 @@
+1,openssl verify cert.pem
+	-CApath:
+		a,可信证书目录.directory of trusted certificates. 证书名字格式为: 'hash'.0
+			这样，verify时才会找到对应的证书.
+
+		b,'hash':  openssl x509 -hash cert.pem 得到, 如 6da44d09.0.
+			[pangwz@rowanInspur inspur]$ openssl x509 -hash -in root_inspur.pem -noout 
+			6da44d09
+			[pangwz@rowanInspur inspur]$
+	
+	-CAfile:
+		可信任的证书文件.
+	
+
+2,verify chain
+	a,在verify时，首先根据cert.pem构造cert chain
+		cert--> issuer for cert(certA) --> issuer for certA(issuer for cert)-->...--> root ca
+	b,root ca
+		自签名证书被看做为root ca.
