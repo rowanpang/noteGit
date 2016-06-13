@@ -14,7 +14,7 @@ void ctrl_c_handler(int signum){
 	printf("handler for ctrl-c\n");
 	ctrl_c=1;
 }
-
+//man 7 ip for more info
 int main(void)
 {
 	int sk_listen;
@@ -27,11 +27,12 @@ int main(void)
 	sk_listen = socket(AF_INET,SOCK_STREAM,0);
 	svr_addr.sin_family = AF_INET;
 	svr_addr.sin_port = htons(port_listen);
-	if(inet_aton("192.168.137.100",&svr_addr.sin_addr) == 0){
-		perror("when valued addr");
-		ret = -11;
-		goto out;
-	}	
+	svr_addr.sin_addr.s_addr = INADDR_ANY;
+	/*if(inet_aton("192.168.137.100",&svr_addr.sin_addr) == 0){*/
+		/*perror("when valued addr");*/
+		/*ret = -11;*/
+		/*goto out;*/
+	/*}	*/
 
 	if(bind(sk_listen,(struct sockaddr*)&svr_addr,sizeof(svr_addr))){
 		perror("when bind");
