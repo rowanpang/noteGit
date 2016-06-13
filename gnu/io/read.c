@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 void impossible()
 {
@@ -14,7 +15,36 @@ void vulnerable_function() {
 }
 
 int main(int argc, char** argv) {
+	char buf[100] = {0};
 	write(STDOUT_FILENO, "Hello, World\n", 13);
+	int ret;
+	while((ret = read(STDIN_FILENO,buf,99))){
+		if(!strncmp("q",buf,1)){
+			break;
+		}else{
+			printf("ret:%d,readin %d bytes:%s\n",ret,strlen(buf),buf);
+		}
+		bzero(buf,100);
+	}
+
+	printf("flush test start\n");
+	#define READ_SIZE 4
+	while((ret = read(STDIN_FILENO,buf,READ_SIZE))){
+		if(!strncmp("q",buf,1)){
+			break;
+		}else{
+			printf("readin %d bytes:%s\n",strlen(buf),buf);
+		}
+
+		char c;
+		printf("ret %d\n",ret);
+		if((ret == READ_SIZE) && (buf[READ_SIZE - 1] != '\n')){
+			printf("flush\n");
+			while ((c=getchar()) != '\n' && c != EOF);
+		}
+		bzero(buf,100);
+	}
+
 	vulnerable_function();
 }
 
