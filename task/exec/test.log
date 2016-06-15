@@ -1,0 +1,24 @@
+]0;pangwz@rowanInspur:~/test/task/execñœ‡V:[?1034h[pangwz@rowanInspur exec]$ ls
+a.out
+main.c
+Makefile
+test.log
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ ls
+a.out
+main.c
+Makefile
+test.log
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ ls
+a.out
+main.c
+Makefile
+test.log
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ 
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ 
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ 
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ 
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ 
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ ^C
+]0;pangwz@rowanInspur:~/test/task/exec[pangwz@rowanInspur exec]$ exit
+child exit 33280
+father exit
