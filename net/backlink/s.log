@@ -1,0 +1,17 @@
+before listen
+before poll
+cli_addr:192.168.137.100
+cli_addr:6489a8c0
+recv 34 bytes]0;pangwz@rowanInspur:~/backlinkstart readrecv 39 bytes[?1034h[pangwz@rowanInspur backlink]$ start readrecv 66 bytes
+]0;pangwz@rowanInspur:~/backlink[pangwz@rowanInspur backlink]$ start readrecv 66 bytes
+]0;pangwz@rowanInspur:~/backlink[pangwz@rowanInspur backlink]$ start readrecv 115 bytesls
+client
+client.c
+Makefile
+server
+server.c
+s.log
+]0;pangwz@rowanInspur:~/backlink[pangwz@rowanInspur backlink]$ start readrecv 66 bytes
+]0;pangwz@rowanInspur:~/backlink[pangwz@rowanInspur backlink]$ start readrecv 66 bytes
+]0;pangwz@rowanInspur:~/backlink[pangwz@rowanInspur backlink]$ start readhandler for ctrl-c
+terminal by ctrl-c
