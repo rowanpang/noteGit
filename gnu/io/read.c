@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <termios.h>
 
 void impossible()
 {
@@ -18,14 +19,16 @@ int main(int argc, char** argv) {
 	char buf[100] = {0};
 	write(STDOUT_FILENO, "Hello, World\n", 13);
 	int ret;
-	while((ret = read(STDIN_FILENO,buf,99))){
-		if(!strncmp("q",buf,1)){
-			break;
-		}else{
-			printf("ret:%d,readin %d bytes:%s\n",ret,strlen(buf),buf);
-		}
-		bzero(buf,100);
-	}
+	/*
+	 *while((ret = read(STDIN_FILENO,buf,99))){
+	 *    if(!strncmp("q",buf,1)){
+	 *        break;
+	 *    }else{
+	 *        printf("ret:%d,readin %d bytes:%s\n",ret,strlen(buf),buf);
+	 *    }
+	 *    bzero(buf,100);
+	 *}
+	 */
 
 	printf("flush test start\n");
 	#define READ_SIZE 4
@@ -33,14 +36,15 @@ int main(int argc, char** argv) {
 		if(!strncmp("q",buf,1)){
 			break;
 		}else{
-			printf("readin %d bytes:%s\n",strlen(buf),buf);
+			printf("ret:%d,readin %d bytes:%s",ret,strlen(buf),buf);
 		}
 
 		char c;
-		printf("ret %d\n",ret);
 		if((ret == READ_SIZE) && (buf[READ_SIZE - 1] != '\n')){
 			printf("flush\n");
-			while ((c=getchar()) != '\n' && c != EOF);
+			/*fflush(stdin);*/
+			tcflush(STDIN_FILENO,TCIFLUSH);		//仅对terminal有效.
+			/*while ((c=getchar()) != '\n' && c != EOF);*/
 		}
 		bzero(buf,100);
 	}
