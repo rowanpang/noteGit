@@ -24,8 +24,9 @@ int main(int argc,char** argv)
 		/*dup2(pipef2c[0],STDIN_FILENO);*/
 		dup2(pipec2f[1],STDOUT_FILENO);
 		dup2(pipec2f[1],STDERR_FILENO);
-		/*sleep(1);*/
-		ret = execv("/bin/bash",args);
+		sleep(10);
+		/*ret = execv("/bin/bash",args);*/
+		ret = execv("./hello",args);
 		/*execv("/bin/bash",NULL);*/
 		if(ret){
 			perror("when execv");
