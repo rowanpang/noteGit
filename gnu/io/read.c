@@ -42,7 +42,6 @@ int main(int argc, char** argv) {
 		char c;
 		if((ret == READ_SIZE) && (buf[READ_SIZE - 1] != '\n')){
 			printf("flush\n");
-			/*fflush(stdin);*/
 			tcflush(STDIN_FILENO,TCIFLUSH);		//仅对terminal有效.
 			/*while ((c=getchar()) != '\n' && c != EOF);*/
 		}

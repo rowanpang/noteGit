@@ -1,5 +1,8 @@
 .PHONY:all
-all:attr
+all:attr tty
+
+tty:tty.c
+	@gcc tty.c -o tty
 
 attr:attr.c
 	@gcc attr.c -o attr
@@ -7,3 +10,4 @@ attr:attr.c
 .PHONY:clean
 clean:
 	@rm attr
+	@rm tty
