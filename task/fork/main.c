@@ -40,7 +40,7 @@ int main(int argc,char** argv)
 			printf("child pid:%d\n",(int)getpid());
 			printf("count:%d\n",count);
 			printf("t:%d\n",*t);
-			//sleep(3);
+			sleep(10);
 		}
 	}
 
