@@ -10,7 +10,67 @@
 #include <netinet/ip.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <pthread.h>
 
+#define BUFSIZE 1024
+int skipcmd;
+int pipef2c[2];
+int pipec2f[2];
+
+int threadreadexit = 0;
+void *readandsendtosk(void *skp)
+{
+	int ret;
+	char buf[BUFSIZE];
+	int sk = *(int*)skp;
+	do{
+		bzero(buf,BUFSIZE);
+		printf("f:start read pipc2f \n");
+		ret = read(pipec2f[0],buf,BUFSIZE);
+		printf("\tread %d",ret);
+		if(skipcmd){
+			skipcmd = 0;
+			printf("\n");
+			continue;
+		}
+		if(ret == 0){
+			break;
+		}
+		printf(",send to sk\n",ret);
+		ret = send(sk,buf,ret,0);
+		if(threadreadexit){
+			break;
+		}
+	}while(1);
+	pthread_exit(NULL);
+}
+
+int threadrecvexit = 0;
+void *recvskandpipe(void *skp)
+{
+	int ret;
+	char buf[BUFSIZE];
+	int sk = *(int*)skp;
+	do{
+		bzero(buf,BUFSIZE);
+		printf("f:recv from sk \n");
+		ret = recv(sk,buf,sizeof(buf), 0);
+		if(ret == -1 || ret == 0){
+			perror("when recv");
+			ret = -4;
+			break;
+		}else{
+			printf("\trecv %d,write to pipef2c\n",ret);
+			/*skipcmd = 1;*/
+			write(pipef2c[1],buf,ret);
+		}
+	}while(1);
+	
+	pthread_exit(NULL);
+}
+
+
+	
 int main(void)
 {
 	int sk;
@@ -62,8 +122,6 @@ int main(void)
 		}
 	} while(1);
 
-	int pipef2c[2];
-	int pipec2f[2];
 	pipe(pipef2c);
 	pipe(pipec2f);
 
@@ -84,42 +142,15 @@ int main(void)
 	}
 	close(pipec2f[1]);
 	close(pipef2c[0]);
-	char *inter="[client]$";
-	char firstline = 1;
-	while(1){
-		printf("f:start read pipc2f \n");
-		firstline = 1;
-		do{
-			bzero(buf,BUFSIZE);
-			ret = read(pipec2f[0],buf,BUFSIZE);
-			printf("\tread %d",ret);
-			if(firstline){
-				firstline = 0;
-				printf("\n");
-				continue;
-			}
-			printf(",send to sk\n",ret);
-			ret = send(sk,buf,ret,0);
-			if(buf[BUFSIZE -1] && buf[BUFSIZE -1] != '\n' && buf[BUFSIZE -1] != EOF){
-				/*do nothing*/
-			}else if (buf[ret-1] != ' ' && buf[ret -2 ] != '$'){
-				/*do nothing*/
-			}else{
-				break;
-			}
-		}while(1);
 
-		bzero(buf,BUFSIZE);
-		printf("f:recv from sk \n");
-		ret = recv(sk,buf,sizeof(buf), 0);
-		if(ret == -1){
-			perror("when recv");
-			ret = -4;
-			goto out;
-		}else{
-			printf("\trecv %d,write to pipef2c\n",ret);
-			write(pipef2c[1],buf,ret);
-		}
+	while(1){
+		pthread_t thr_read,thr_recv;
+		pthread_create(&thr_read,NULL,readandsendtosk,&sk);
+		pthread_create(&thr_recv,NULL,recvskandpipe,&sk);
+		
+		pthread_join(thr_read,NULL);
+		pthread_join(thr_recv,NULL);
+		
 	}
 	ret = 0;
 out:

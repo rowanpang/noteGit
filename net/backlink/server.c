@@ -100,8 +100,8 @@ int main(void)
 			}while(1);
 			bzero(buf,BUFSIZE);
 			/*strcpy(buf,"server ask:service-->client");*/
-			/*printf("start read");*/
-			/*fflush(stdout);*/
+			printf("start read");
+			fflush(stdout);
 			ret = read(STDIN_FILENO,buf,BUFSIZE);
 			ret=send(sk,buf,ret,0);
 			if(ret == -1){
