@@ -28,8 +28,8 @@ void main (void)
 	pe_2= pa + 2;
 	pa = &(st.arry[2]);
 
-
-	printf("addr test,pa:%ld,pe:%ld,pe_2:%ld\n",pa,pe,pe_2);
+	printf("addr test,pa:%ld,pe:%ld,pe_2:%ld,diff:%ld\n",pa,pe,pe_2,pe_2-pe);
+	printf("addr a[0]:%ld,a[2]:%ld\n",&st.arry[0],&st.arry[2]);
 
 }
 
