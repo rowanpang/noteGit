@@ -65,8 +65,8 @@ fi
 interface=$1
 ifevent=$2
 
-LOG $interface
-#LOG $ifevent
+LOG "if:$interface"
+LOG "reason:$ifevent"
 
 if [ $ifevent == "CONNECTED" ];then
 	LOG "connected event"
