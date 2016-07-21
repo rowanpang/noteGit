@@ -1,0 +1,9 @@
+again
+	git reset --hard a2xx
+
+1,modify A,commit as A
+2,modify B,need amend commit A
+
+
+
+
