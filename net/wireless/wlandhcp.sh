@@ -53,8 +53,11 @@ ifdhclient_release(){
     fi
 }
 
-#main
+chage_route(){
+	ip route add to default via 192.168.137.1
+}
 
+#-------------------main----------------------------------
 LOG_INIT
 
 if [ $# -lt 2 ];then
@@ -75,7 +78,8 @@ if [ $ifevent == "CONNECTED" ];then
 elif [ $ifevent == "DISCONNECTED" ];then
 	LOG "disconnected event"
 	ifdhclient_release
-	ifstatus;
+	ifstatus
+	chage_route
 elif [ $ifevent == "DISCONNECTED_RC" ];then
 	LOG "disconnected_rc event"
 	ifdhclient_release

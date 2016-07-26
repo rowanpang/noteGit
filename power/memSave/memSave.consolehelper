@@ -1,0 +1,5 @@
+USER=root
+PROGRAM=/home/pangwz/test/power/memSave.sh
+KEEP_ENV_VARS=DISPLAY,XAUTHORITY
+#need to keep this evn or i3-msg will be error
+#FALLBACK=true
