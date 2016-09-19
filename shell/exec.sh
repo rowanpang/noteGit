@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/bash ./read.sh
 
 echo "exec testing"
 echo $$
-exec sleep 30
+exec sleep 5
