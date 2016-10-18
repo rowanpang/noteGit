@@ -134,17 +134,25 @@ def rtCmd(ifSpecs,gws,build = True):
 def main():
 	svr = '10.6.6.9'
 	ifnames = []
+	# ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
+	ifnamesDefault = ('wlan0','bridged')
 	if len(sys.argv) > 1:
-		ifnames.extend(sys.argv[1:])
-	else:
-		# ifnames = ('eth0.2','vth1','vth2','vth3')
-		ifnames = ('wlan0','bridged')
+		for arg in sys.argv:
+			if arg in ifnamesDefault:
+				ifnames.append(arg)
+
+	if len(ifnames) < 1:
+		print 'less than 1'
+		ifnames = ifnamesDefault
+
 	# print ifnames
+	# exit()
 	ifSpecs = {}
 	for ifname in ifnames:
 		# print ifname
 		ifSpecs[ifname] = ifGetAddr(ifname)
-		# print ifSpecs
+	# print ifSpecs
+	# exit()
 	
 	rtCmd(ifSpecs,ifGetGws(ifSpecs))
 	for ifSpec in ifSpecs.items():
