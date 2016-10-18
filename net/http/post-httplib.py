@@ -1,33 +1,28 @@
 #!/usr/bin/env python2.7
 #coding: utf-8
 
-import httplib 
+import httplib,struct,fcntl,socket
 import urllib
 import base64
 import sys
 import json
 
-svr = '10.6.6.9'
-src0 = '10.200.40.25'  #eth0.2
-src1 = '10.200.40.29'  #vth1
-src2 = '10.200.40.34'  #vth2
-src3 = '10.200.40.37'  #vth3
 
-#src = '192.168.1.100'
-src = src0
-if len(sys.argv) >=2:
-	if sys.argv[1] == '1':
-		src = src1
-	if sys.argv[1] == '2':
-		src = src2
-	if sys.argv[1] == '3':
-		src = src3
-print src
+def ifGetAddr(ifname):
+	s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+	ifreq = fcntl.ioctl(s.fileno(),0x8915, #SIOCGIFADDR
+				struct.pack('256s',ifname))
+	ip = socket.inet_ntoa(ifreq[20:24])
+	s.close()
+	return ip
 
-def svrConnection(svr,src = ''):
+def svrConnection(svr,srcIp = None,srcPort = 6666):
 	global conn
-	conn = httplib.HTTPConnection(host=svr, source_address=(src,6666))
-	#conn = httplib.HTTPConnection(host=svr)
+	if srcIp is None:
+		conn = httplib.HTTPConnection(host=svr)
+	else:
+		conn = httplib.HTTPConnection(host=svr, source_address=(srcIp,srcPort))
+
 	conn.connect()
 	return conn
 	
@@ -58,8 +53,12 @@ def repstr2dict(repbody,part = True):
 	repdict = json.loads(jsonstr)
 	return repdict
 
-def main():
-	svrConnection(svr,src)
+def ifAuthen(svr,ifSpec = None):
+	if ifSpec is None:
+		svrConnection(svr)
+	else:
+		svrConnection(svr,ifSpec[1])
+
 	urlreq = '/a/ajax.php?tradecode=getdeviceinfoprocess&gettype=ipgetmac'
 	referer = 'http://10.6.6.9/a/mobile/wel.html'
 	connkeep = 'keep-alive'
@@ -70,8 +69,7 @@ def main():
 					'UrlAscid':''
 				}
 	infoRepDict = repstr2dict(svrPostGotRep(urlreq,referer,connkeep,dataGetInfo))
-	print infoRepDict
-	
+	# print infoRepDict
 	urlreq = '/a/ajax.php?tradecode=net_auth&type=User&NewMobile=1'
 	referer = 'http://10.6.6.9/a/mobile/auth.html'
 	connkeep = 'close'
@@ -86,8 +84,45 @@ def main():
 	dataAuth['deviceid'] = infoRepDict['DeviceID']
 
 	authRepDict = repstr2dict(svrPostGotRep(urlreq,referer,connkeep,dataAuth))
-	print authRepDict
+	# print authRepDict['IsDisabled']
+	if authRepDict['IsDisabled'] == '0':
+		print 'successful!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
+	else:
+		print 'error!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
 	
 	conn.close()
 
-main()
+
+src0 = '10.200.40.25'  #eth0.2
+src1 = '10.200.40.29'  #vth1
+src2 = '10.200.40.34'  #vth2
+src3 = '10.200.40.37'  #vth3
+
+src = '192.168.1.100'
+if len(sys.argv) >=2:
+	if sys.argv[1] == '1':
+		src = src1
+	if sys.argv[1] == '2':
+		src = src2
+	if sys.argv[1] == '3':
+		src = src3
+print src
+
+def main():
+	svr = '10.6.6.9'
+	# ifs = ('eth0.2','vth1','vth2','vth3')
+	ifs = ('wlan0',)
+	ips = {}
+	for ifname in ifs:
+		print ifname
+		ips[ifname] = ifGetAddr(ifname)
+
+	for ifSpec in ips.items():
+		print ifSpec[0]
+		print ifSpec[1]
+		ifAuthen(svr,ifSpec)
+
+if __name__ == '__main__':
+	main()
+
+
