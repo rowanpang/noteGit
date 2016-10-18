@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 #coding: utf-8
 
-import httplib,struct,fcntl,socket
+import httplib,struct,fcntl,socket,os
 import urllib
 import base64
 import sys
@@ -92,35 +92,56 @@ def ifAuthen(svr,ifSpec = None):
 	
 	conn.close()
 
+def ifGetGws(ifSpecs):
+	gwsAuto = {}
+	rts = os.popen('ip route').readlines()
+	for rt in rts:
+		rtl = rt.split()
+		# print rtl[0] + ' ' + rtl[4] + ' ' 
+		# print ifSpecs.keys()
+		if rtl[0] == 'default' and rtl[4] in ifSpecs.keys():
+			gwsAuto[rtl[4]] = rtl[2]
+	# print gwsAuto
+	return gwsAuto
+	
 
-src0 = '10.200.40.25'  #eth0.2
-src1 = '10.200.40.29'  #vth1
-src2 = '10.200.40.34'  #vth2
-src3 = '10.200.40.37'  #vth3
+def rtCmd(ifSpecs,gws,build = True):
+	if build == True:
+		cmd = 'add'
+	else:
+		cmd = 'del'
+	
+	rtTable = 150
+	pref = 32000
+	for ifSpec in ifSpecs.items():
+		cmdStr = 'ip route %s to default via %s dev %s table %d' % (cmd,gws[ifSpec[0]],ifSpec[0],rtTable)
+		# print cmdStr
+		os.system(cmdStr)
+		cmdStr = 'ip rule %s from %s pref %d table %d' %(cmd,ifSpec[1],pref,rtTable)
+		# print cmdStr
+		os.system(cmdStr)
+		pref -= 1
+		rtTable -= 1
 
-src = '192.168.1.100'
-if len(sys.argv) >=2:
-	if sys.argv[1] == '1':
-		src = src1
-	if sys.argv[1] == '2':
-		src = src2
-	if sys.argv[1] == '3':
-		src = src3
-print src
-
+# src0 = '10.200.40.25'  #eth0.2
+# src1 = '10.200.40.29'  #vth1
+# src2 = '10.200.40.34'  #vth2
+# src3 = '10.200.40.37'  #vth3
 def main():
 	svr = '10.6.6.9'
-	# ifs = ('eth0.2','vth1','vth2','vth3')
-	ifs = ('wlan0',)
-	ips = {}
-	for ifname in ifs:
-		print ifname
-		ips[ifname] = ifGetAddr(ifname)
-
-	for ifSpec in ips.items():
+	# ifnames = ('eth0.2','vth1','vth2','vth3')
+	ifnames = ('wlan0','bridged')
+	ifSpecs = {}
+	for ifname in ifnames:
+		# print ifname
+		ifSpecs[ifname] = ifGetAddr(ifname)
+	
+	rtCmd(ifSpecs,ifGetGws(ifSpecs))
+	for ifSpec in ifSpecs.items():
 		print ifSpec[0]
-		print ifSpec[1]
+		# print ifSpec[1]
 		ifAuthen(svr,ifSpec)
+	rtCmd(ifSpecs,ifGetGws(ifSpecs),False)
 
 if __name__ == '__main__':
 	main()
