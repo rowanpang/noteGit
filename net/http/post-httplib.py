@@ -1,5 +1,9 @@
 #!/usr/bin/env python2.7
 #coding: utf-8
+#Usage: 
+	# ./post-httplib.py	or 
+	# ./post-httplib.py eth0 eth1
+
 
 import httplib,struct,fcntl,socket,os
 import urllib
@@ -129,12 +133,18 @@ def rtCmd(ifSpecs,gws,build = True):
 # src3 = '10.200.40.37'  #vth3
 def main():
 	svr = '10.6.6.9'
-	# ifnames = ('eth0.2','vth1','vth2','vth3')
-	ifnames = ('wlan0','bridged')
+	ifnames = []
+	if len(sys.argv) > 1:
+		ifnames.extend(sys.argv[1:])
+	else:
+		# ifnames = ('eth0.2','vth1','vth2','vth3')
+		ifnames = ('wlan0','bridged')
+	# print ifnames
 	ifSpecs = {}
 	for ifname in ifnames:
 		# print ifname
 		ifSpecs[ifname] = ifGetAddr(ifname)
+		# print ifSpecs
 	
 	rtCmd(ifSpecs,ifGetGws(ifSpecs))
 	for ifSpec in ifSpecs.items():
