@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env /usr/local/bin/python2.7
 #coding: utf-8
 #Usage: 
 	# ./post-httplib.py	or 
@@ -45,19 +45,38 @@ def svrPostGotRep(urlreq,ref,connkeep,data):
 	conn.endheaders()
 	conn.send(dataUrl)
 	rep = conn.getresponse()
-	return rep.read()
+	return rep
 
-def repstr2dict(repbody,part = True):
+def repstr2dict(repbody,coding,part = True):
 	# print repbody
 	if part:
 		jsonstr = repbody.replace(', "Tel','}$')
 	jsonstr = jsonstr[jsonstr.find('{'):jsonstr.find('$')].decode('gbk').encode('utf8').\
-		replace(' ','"',1).replace(':','":',1).replace('\'','"').replace('(','-').\
-		replace(')','-')
+			replace(' ','"',1).replace(':','":',1).replace('\'','"').replace('(','-').\
+			replace(')','-')
 	repdict = json.loads(jsonstr)
 	return repdict
 
+def repParser(rep):
+	isJson = True
+	repbody = rep.read()
+	if repbody.find('__res = {') == -1:
+		isJson = False
+	# print isJson
+	# print rep.getheader('Content-Type')
+	coding = rep.getheader('Content-Type').split()[1].split('=')[1].lower()
+	# print coding
+
+	if isJson is True:
+		repdict = repstr2dict(repbody,coding)		
+	else:
+		repdict = repbody.decode(coding).encode('utf8')
+
+	return repdict,isJson
+	
 def ifAuthen(svr,ifSpec = None):
+	ret = False
+
 	if ifSpec is None:
 		svrConnection(svr)
 	else:
@@ -72,8 +91,9 @@ def ifAuthen(svr,ifSpec = None):
 					'browser':'Firefox',
 					'UrlAscid':''
 				}
-	infoRepDict = repstr2dict(svrPostGotRep(urlreq,referer,connkeep,dataGetInfo))
+	infoRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataGetInfo))
 	# print infoRepDict
+	# print '----isJson:%d---' % isJson
 	urlreq = '/a/ajax.php?tradecode=net_auth&type=User&NewMobile=1'
 	referer = 'http://10.6.6.9/a/mobile/auth.html'
 	connkeep = 'close'
@@ -87,14 +107,23 @@ def ifAuthen(svr,ifSpec = None):
 	dataAuth['password'] = base64.b64encode(pwd)
 	dataAuth['deviceid'] = infoRepDict['DeviceID']
 
-	authRepDict = repstr2dict(svrPostGotRep(urlreq,referer,connkeep,dataAuth))
-	# print authRepDict['IsDisabled']
-	if authRepDict['IsDisabled'] == '0':
-		print 'successful!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
+	authRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataAuth))
+	# print '----isJson:%d---' % isJson
+	# exit()
+	if isJson == True:
+		if authRepDict['IsDisabled'] == '0':
+			print 'successful!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
+			ret = True
+		else:
+			print 'error!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
+			ret = False
 	else:
+		ret = False
 		print 'error!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
-	
+		print 'error msg %s' % authRepDict
+
 	conn.close()
+	return ret
 
 def ifGetGws(ifSpecs):
 	gwsAuto = {}
