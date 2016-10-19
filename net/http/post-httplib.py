@@ -10,15 +10,19 @@ import urllib
 import base64
 import sys
 import json
+import getpass
 
 
-def ifGetAddr(ifname):
-	s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-	ifreq = fcntl.ioctl(s.fileno(),0x8915, #SIOCGIFADDR
-				struct.pack('256s',ifname))
-	ip = socket.inet_ntoa(ifreq[20:24])
-	s.close()
-	return ip
+def ifGetAddr(ifnames):
+	ifSpecs = {}
+	for ifname in ifnames:
+		s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+		ifreq = fcntl.ioctl(s.fileno(),0x8915, #SIOCGIFADDR
+					struct.pack('256s',ifname))
+		ip = socket.inet_ntoa(ifreq[20:24])
+		s.close()
+		ifSpecs[ifname] = ip
+	return ifSpecs
 
 def svrConnection(svr,srcIp = None,srcPort = 6666):
 	global conn
@@ -73,9 +77,41 @@ def repParser(rep):
 		repdict = repbody.decode(coding).encode('utf8')
 
 	return repdict,isJson
+
+authenUser = ''
+def ifAuthenGetUser():
+	global authenUser
+	authenUserDefault = 'pangweizhenbj'
+	if len(authenUser) != 0: 
+		return authenUser
+
+	authenUser = raw_input('Input username to be authen[%s]: ' %authenUserDefault);	
+	if len(authenUser) == 0:
+		authenUser = authenUserDefault
+
+	return authenUser
+
+authenPWD = ''
+def ifAuthenGetPWD():
+	global authenPWD
+	if len(authenPWD) != 0:
+		return authenPWD
+
+	authenPWD = getpass.getpass();
+	while len(authenPWD) == 0:
+		authenPWD = getpass.getpass();
+
+	return authenPWD
 	
+# ifSpec[0]:ifname
+# ifSpec[1]:ifsrc
 def ifAuthen(svr,ifSpec = None):
 	ret = False
+	print 'Authen for: %s' %ifSpec[0]
+	userName = ifAuthenGetUser()
+	pwd = ifAuthenGetPWD()
+	print userName
+	print pwd
 
 	if ifSpec is None:
 		svrConnection(svr)
@@ -92,8 +128,11 @@ def ifAuthen(svr,ifSpec = None):
 					'UrlAscid':''
 				}
 	infoRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataGetInfo))
-	# print infoRepDict
-	# print '----isJson:%d---' % isJson
+	if not isJson:
+		print 'error msg %s' % infoRepDict
+		conn.close()
+		return ret
+
 	urlreq = '/a/ajax.php?tradecode=net_auth&type=User&NewMobile=1'
 	referer = 'http://10.6.6.9/a/mobile/auth.html'
 	connkeep = 'close'
@@ -101,29 +140,44 @@ def ifAuthen(svr,ifSpec = None):
 			'password':'',
 			'deviceid':'',
 			'saveuserpass':1 }
-	userName = 'pangweizhenbj'
-	pwd = 'inspur#2cPWZ'
 	dataAuth['user_name'] = base64.b64encode(userName)
 	dataAuth['password'] = base64.b64encode(pwd)
 	dataAuth['deviceid'] = infoRepDict['DeviceID']
 
 	authRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataAuth))
 	# print '----isJson:%d---' % isJson
-	# exit()
 	if isJson == True:
 		if authRepDict['IsDisabled'] == '0':
 			print 'successful!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
 			ret = True
 		else:
 			print 'error!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
-			ret = False
 	else:
-		ret = False
 		print 'error!! Auth IP:%s,MAC:%s !' % (infoRepDict['IP'],infoRepDict['Mac'])
 		print 'error msg %s' % authRepDict
 
 	conn.close()
 	return ret
+
+gwsPrompt = {} 
+def ifGetGwsPrompt(ifname):
+	global gwsPrompt	
+	try:
+		return gwsPrompt[ifname]
+	except KeyError,key:
+		print '%s,not in prompt cache' %key
+
+	while True:
+		gw = raw_input('Auto get err,please manual input gateway for %s: ' %ifname)
+		try:
+			socket.inet_aton(gw)
+			break
+		except socket.error,e:
+			print 'gw format error %s,again' %e
+			continue
+	
+	gwsPrompt[ifname] = gw
+	return gw
 
 def ifGetGws(ifSpecs):
 	gwsAuto = {}
@@ -132,9 +186,16 @@ def ifGetGws(ifSpecs):
 		rtl = rt.split()
 		# print rtl[0] + ' ' + rtl[4] + ' ' 
 		# print ifSpecs.keys()
-		if rtl[0] == 'default' and rtl[4] in ifSpecs.keys():
+		if rtl[0] == 'default' and rtl[4] in ifSpecs.keys() and (not rtl[4] in  gwsAuto.keys()):
 			gwsAuto[rtl[4]] = rtl[2]
 	# print gwsAuto
+	
+	for ifname in ifSpecs.keys():
+		if ifname in gwsAuto.keys():
+			continue
+		else:
+			gwsAuto[ifname] = ifGetGwsPrompt(ifname)
+
 	return gwsAuto
 	
 
@@ -156,40 +217,38 @@ def rtCmd(ifSpecs,gws,build = True):
 		pref -= 1
 		rtTable -= 1
 
-# src0 = '10.200.40.25'  #eth0.2
-# src1 = '10.200.40.29'  #vth1
-# src2 = '10.200.40.34'  #vth2
-# src3 = '10.200.40.37'  #vth3
-def main():
-	svr = '10.6.6.9'
+def ifNamesConfirm(default):
 	ifnames = []
-	# ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
-	ifnamesDefault = ('wlan0','bridged')
 	if len(sys.argv) > 1:
 		for arg in sys.argv:
 			if arg in ifnamesDefault:
 				ifnames.append(arg)
-
 	if len(ifnames) < 1:
 		print 'less than 1'
-		ifnames = ifnamesDefault
+		ifnames = default
+	return ifnames
 
-	# print ifnames
-	# exit()
-	ifSpecs = {}
-	for ifname in ifnames:
-		# print ifname
-		ifSpecs[ifname] = ifGetAddr(ifname)
-	# print ifSpecs
-	# exit()
-	
+def ifAuthens(svr,ifSpecs = None):
+	if ifSpecs is None:
+		ifAuthen(svr)
+	else:
+		for ifSpec in ifSpecs.items():
+			ifAuthen(svr,ifSpec)
+
+def main():
+	svr = '10.6.6.9'
+	# ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
+	ifnamesDefault = ('wlan0','bridged')
+	ifnames = ifNamesConfirm(ifnamesDefault)
+	ifSpecs = ifGetAddr(ifnames)
 	rtCmd(ifSpecs,ifGetGws(ifSpecs))
-	for ifSpec in ifSpecs.items():
-		print ifSpec[0]
-		# print ifSpec[1]
-		ifAuthen(svr,ifSpec)
-	rtCmd(ifSpecs,ifGetGws(ifSpecs),False)
+	ifAuthens(svr,ifSpecs)
+	rtCmd(ifSpecs,ifGetGws(ifSpecs),build = False)
 
+# src0 = '10.200.40.25'  #eth0.2
+# src1 = '10.200.40.29'  #vth1
+# src2 = '10.200.40.34'  #vth2
+# src3 = '10.200.40.37'  #vth3
 if __name__ == '__main__':
 	main()
 
