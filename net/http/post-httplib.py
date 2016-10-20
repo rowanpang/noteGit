@@ -25,7 +25,6 @@ def ifGetAddr(ifnames):
 	return ifSpecs
 
 def svrConnection(svr,srcIp = None,srcPort = 6666):
-	global conn
 	if srcIp is None:
 		conn = httplib.HTTPConnection(host=svr)
 	else:
@@ -34,7 +33,7 @@ def svrConnection(svr,srcIp = None,srcPort = 6666):
 	conn.connect()
 	return conn
 	
-def svrPostGotRep(urlreq,ref,connkeep,data):
+def svrPostGotRep(conn,urlreq,ref,connkeep,data):
 	UserAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0'
 	conn.putrequest("POST",urlreq) 
 	conn.putheader("User-Agent",UserAgent)
@@ -114,9 +113,9 @@ def ifAuthen(svr,ifSpec = None):
 	print pwd
 
 	if ifSpec is None:
-		svrConnection(svr)
+		conn = svrConnection(svr)
 	else:
-		svrConnection(svr,ifSpec[1])
+		conn = svrConnection(svr,ifSpec[1])
 
 	urlreq = '/a/ajax.php?tradecode=getdeviceinfoprocess&gettype=ipgetmac'
 	referer = 'http://10.6.6.9/a/mobile/wel.html'
@@ -127,7 +126,7 @@ def ifAuthen(svr,ifSpec = None):
 					'browser':'Firefox',
 					'UrlAscid':''
 				}
-	infoRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataGetInfo))
+	infoRepDict,isJson = repParser(svrPostGotRep(conn,urlreq,referer,connkeep,dataGetInfo))
 	if not isJson:
 		print 'error msg %s' % infoRepDict
 		conn.close()
@@ -144,7 +143,7 @@ def ifAuthen(svr,ifSpec = None):
 	dataAuth['password'] = base64.b64encode(pwd)
 	dataAuth['deviceid'] = infoRepDict['DeviceID']
 
-	authRepDict,isJson = repParser(svrPostGotRep(urlreq,referer,connkeep,dataAuth))
+	authRepDict,isJson = repParser(svrPostGotRep(conn,urlreq,referer,connkeep,dataAuth))
 	# print '----isJson:%d---' % isJson
 	if isJson == True:
 		if authRepDict['IsDisabled'] == '0':
@@ -173,7 +172,7 @@ def ifGetGwsPrompt(ifname):
 			socket.inet_aton(gw)
 			break
 		except socket.error,e:
-			print 'gw format error %s,again' %e
+			print 'gw format error: %s,again' %e
 			continue
 	
 	gwsPrompt[ifname] = gw
@@ -221,7 +220,7 @@ def ifNamesConfirm(default):
 	ifnames = []
 	if len(sys.argv) > 1:
 		for arg in sys.argv:
-			if arg in ifnamesDefault:
+			if arg in default:
 				ifnames.append(arg)
 	if len(ifnames) < 1:
 		print 'less than 1'
@@ -237,6 +236,9 @@ def ifAuthens(svr,ifSpecs = None):
 
 def main():
 	svr = '10.6.6.9'
+	if os.getuid() != 0:
+		print 'need run as root,exit!'
+		exit()
 	# ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
 	ifnamesDefault = ('wlan0','bridged')
 	ifnames = ifNamesConfirm(ifnamesDefault)
