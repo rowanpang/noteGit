@@ -32,4 +32,4 @@ def gitToGithub(file):
 if __name__ == '__main__':
 	ipFile = '/tmp/rowan/ipWan-%s' %os.uname()[1]
 
-	ipWanGet()
+	ipWanGet(ipFile)
