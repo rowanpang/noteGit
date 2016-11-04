@@ -9,7 +9,7 @@ c,模块：
 
 d,a.out / a.out.hello.fPIC / a.out.foo.fPIC / a.out.fPIC
 	hello.o + foo.o -->a.out
-	hello.o.fPIC = foo.o ---->a.out.hello.fPIC
+	hello.o.fPIC + foo.o ---->a.out.hello.fPIC
 	.........
 	hello.o.fPIC + foo.o.fPIC ------>a.out.fPIC	
 
