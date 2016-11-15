@@ -3,14 +3,14 @@
 target=hosts-$(date +%Y%m%d)
 #echo $target
 date +%M%S
-#wget --no-check-certificate https://raw.githubusercontent.com/racaljk/hosts/master/hosts -O $target
+wget --no-check-certificate https://raw.githubusercontent.com/racaljk/hosts/master/hosts -O $target
 ln -sf $target hosts
 
 git add $target
 git add hosts
 
 function isExist() {
-	echo "test $1"
+	#echo "test $1"
 	[ $1 == "hosts" ] || [ $1 == $target ] || return 1
 }
 
@@ -18,9 +18,10 @@ function pureCommit {
 	for changed in `git status -s | awk {'print $2'}`;do
 		isExist $changed
 		if [  $? -eq 0 ];then
-			echo "exist"
+			#echo "exist"
+			continue
 		else
-			echo "not exist"
+			#echo "not exist"
 			return 1
 		fi
 	done
