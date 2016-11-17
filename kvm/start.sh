@@ -20,8 +20,9 @@ vncPort=""
 function gotDomainVncPort(){
 	local pid port pids
 	local pidPort=( )
+	oldIFS="$IFS"
+	IFS=$'\n'
 	allVnc=`netstat -nptl 2>/dev/null | grep ":59[0-9][0-9]"`
-	IFS='\n'
 	for vnc in $allVnc;do
 		unset pid port
 		#echo $vnc
@@ -30,6 +31,7 @@ function gotDomainVncPort(){
 		pids="$pid $pids" 
 		pidPort[$pid]=$port	
 	done
+	IFS="$oldIFS"
 	#trim ^\s and \s$
 	pids=$(echo $pids | sed 's/^\s\?\([0-9]\+\)\s\?$/\1/')
 	for pid in $pids;do
@@ -57,4 +59,6 @@ function create(){
 #main
 echo "domain: $domain"
 echo "xmlConfig: $xmlConfig"
+i3-msg 'floating toggle ;resize set 270 200;move position 10 20' >/dev/null 2>&1
 create
+i3-msg 'floating toggle'  >/dev/null 2>&1
