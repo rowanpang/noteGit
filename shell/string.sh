@@ -6,3 +6,6 @@ for p in ${tempdirs}
 do
 	echo ${p}
 done
+
+spaceString="     asdf"
+echo $spaceString
