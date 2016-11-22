@@ -31,6 +31,7 @@ function gotDomainVncPort(){
 		pids="$pid $pids" 
 		pidPort[$pid]=$port	
 	done
+
 	IFS="$oldIFS"
 	#trim ^\s and \s$
 	pids=$(echo $pids | sed 's/^\s\?\([0-9]\+\)\s\?$/\1/')
@@ -52,7 +53,7 @@ function create(){
 
 	vncPort=$(gotDomainVncPort)
 	echo "vncPort: $vncPort"
-	vncviewer :$vncPort
+	vncviewer :$vncPort   >/dev/null 2>&1
 	
 	virsh destroy $domain
 }
