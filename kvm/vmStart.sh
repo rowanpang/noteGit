@@ -57,9 +57,47 @@ function create(){
 	
 	virsh destroy $domain
 }
+
+function getCurWorkSpace(){
+	pyName=/tmp/getFocusWorkSpace.py
+cat << EOF > $pyName
+#!/bin/env python
+
+import sys
+import os
+import json
+
+jsonStr=os.popen('i3-msg -t get_workspaces').readline()
+dicts = json.loads(jsonStr)                                                             
+for d in dicts:
+    if d['focused'] == True:
+        print d['num']
+EOF
+
+	chmod a+x $pyName
+	curWorkSpace=$($pyName)
+	echo $curWorkSpace
+	rm $pyName
+}
+
 #main
+curWS=$(getCurWorkSpace)
 echo "domain: $domain"
 echo "xmlConfig: $xmlConfig"
+echo "curWorkSpace: $curWS"
 i3-msg 'floating toggle ;resize set 270 200;move position 10 20' >/dev/null 2>&1
 create
+timeWait=0
+sliceWait=1
+while [ 0 ];do
+	hereWS=$(getCurWorkSpace)
+	if [ $hereWS -eq $curWS ];then
+		break
+	else
+		sleep $sliceWait
+		let timeWait+=$sliceWait
+		echo "had wait for focus: $timeWait seconds"
+	fi
+done
+
 i3-msg 'floating toggle'  >/dev/null 2>&1
