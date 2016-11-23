@@ -27,3 +27,5 @@
 	m4 = mergetool -t v4
 [gui]
 	recentrepo = /home/pangwz/kernel/linus_git
+[push]
+	default = matching
