@@ -1,0 +1,56 @@
+1,call(e8) 指令中offset值的说明
+	a,exp show() ---> show2()
+	b,
+		 show2();
+	  40055f:   b8 00 00 00 00          mov    $0x0,%eax
+	  400564:   e8 cd ff ff ff          callq  400536 <show2>
+			e8:为指令代码
+			ffffffcd:为目的地与next ip 之间的offset.
+	  400569:   90                      nop
+		callToAddr = 400536
+		offset = ffffffcd
+		next-ip = 400569
+	
+	c,callToAddr = offset + 'next-ip'addr
+		offset为符号数，所以加法运算舍弃进位：
+				 400569
+			+  ffffffcd
+			=  0x400536
+	d,offset = callToAddr - 'next-ip'
+	    400536
+	  - 400569
+	  = ffffcd
+
+0000000000400536 <show2>:
+void show2()
+{
+  400536:   55                      push   %rbp
+  400537:   48 89 e5                mov    %rsp,%rbp
+    printf("msg from show2\n");
+  40053a:   bf 30 06 40 00          mov    $0x400630,%edi
+  40053f:   e8 cc fe ff ff          callq  400410 <puts@plt>
+}
+  400544:   90                      nop
+  400545:   5d                      pop    %rbp
+  400546:   c3                      retq   
+
+0000000000400547 <show>:
+void show(char* msg)
+{
+  400547:   55                      push   %rbp
+  400548:   48 89 e5                mov    %rsp,%rbp
+  40054b:   48 83 ec 10             sub    $0x10,%rsp
+  40054f:   48 89 7d f8             mov    %rdi,-0x8(%rbp)
+    printf("%s\n",msg);
+  400553:   48 8b 45 f8             mov    -0x8(%rbp),%rax                
+  400557:   48 89 c7                mov    %rax,%rdi
+  40055a:   e8 b1 fe ff ff          callq  400410 <puts@plt>
+    show2();
+  40055f:   b8 00 00 00 00          mov    $0x0,%eax
+  400564:   e8 cd ff ff ff          callq  400536 <show2>
+}
+  400569:   90                      nop
+  40056a:   c9                      leaveq 
+  40056b:   c3                      retq   
+
+

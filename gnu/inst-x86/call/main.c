@@ -1,8 +1,14 @@
 #include <stdio.h>
 
+void show2()
+{
+	printf("msg from show2\n");
+}
+
 void show(char* msg)
 {
 	printf("%s\n",msg);
+	show2();
 }
 
 

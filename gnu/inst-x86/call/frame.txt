@@ -1,0 +1,65 @@
+1,gdb ./inst
+	break *show2 +9
+	run
+	info stack
+		#0  0x000000000040053f in show2 () at main.c:5
+		#1  0x0000000000400569 in show (msg=0x400646 "msg") at main.c:11
+		#2  0x0000000000400585 in main (argc=1, argv=0x7fffffffdfc8) at main.c:18
+		
+		//3个stack对应了3个satck frame[0-2]
+		//frame0:最前面的stack，即show call show2出现的stack
+		//frame1:main call show 出现的stack
+		//frame2: xxx call main 出现的stack
+
+	info frame 2
+		Stack frame at 0x7fffffffdef0:  
+                #//根据下面的示例分析,这个值是执行call指令时的rsp值. call指令执行会有一个push操作.
+				#//call指令的执行引起了新的frame.
+		 rip = 0x400585 in main (main.c:18); saved rip = 0x7ffff7a3c790                           
+		 caller of frame at 0x7fffffffded0
+		 source language c.
+		 Arglist at 0x7fffffffdee0, args: argc=1, argv=0x7fffffffdfc8
+		 Locals at 0x7fffffffdee0, Previous frame's sp is 0x7fffffffdef0
+		 Saved registers:
+		  rbp at 0x7fffffffdee0, rip at 0x7fffffffdee8
+	
+	info frame 1
+		Stack frame at 0x7fffffffded0:
+		 rip = 0x400569 in show (main.c:11); saved rip = 0x400585
+		 called by frame at 0x7fffffffdef0, caller of frame at 0x7fffffffdeb0
+		 source language c.
+		 Arglist at 0x7fffffffdec0, args: msg=0x400646 "msg"
+		 Locals at 0x7fffffffdec0, Previous frame's sp is 0x7fffffffded0
+		 Saved registers:
+		  rbp at 0x7fffffffdec0, rip at 0x7fffffffdec8
+
+	info frame 0
+		Stack frame at 0x7fffffffdeb0:
+		 rip = 0x40053f in show2 (main.c:5); saved rip = 0x400569
+		 called by frame at 0x7fffffffded0
+		 source language c.
+		 Arglist at 0x7fffffffdea0, args: 
+		 Locals at 0x7fffffffdea0, Previous frame's sp is 0x7fffffffdeb0
+		 Saved registers:
+		  rbp at 0x7fffffffdea0, rip at 0x7fffffffdea8
+
+  +-------------------------------+------------------------------------------------------------------------------------------------------+
+  | 			sp-0x7fffffff	  | 		value                                                                                        |
+  +-------------------------------+------------------------------------------------------------------------------------------------------+
+  | frame2 start:	def0		  | 	0x7fffffffdfc8                                                                                   |
+  | 				dee8		  | 	0x7ffff7acc790		next rip after main, pushed by call instruction.                             |
+  | 				dee0		  | 	0x4005a0			pre rbp,valued by main push %rbp.指令执行之后rsp = rbp = dee0                |
+  | 				dedc		  | 	0x00000001			main() rdi,0x0000000000400574 <+8>:0x0000000000400574mov    %edi,-0x4(%rbp)  |
+  | 				ded8		  | 	0x00000000				auto.                                                                    |
+  | frame1 start:   ded0		  | 	0x7fffffffdfc8		main() rsi, .... <+11>                                                       |
+  | 				dec8		  | 	0x400585			main-call() next rip after show(),pushed by call instruction.                |
+  | 				dec0		  | 	0x7fffffffdee0		show() push %rbp                                                             |
+  | 				deb8		  | 	0x400646			show() <+8> %rdi --> stack  即,"msg"的地址.                                  |
+  | frame0 start:	deb0		  | 	0x400440				随机的吗? show()汇编中并没有看到这个的赋值及使用.                        |
+  | 				dea8		  | 	0x4000569			show-call() next rip after show2(),pushed by call instruction.               |
+  | 				dea0		  | 	0x7fffffffdec0		show2() push %rbp                                                            |
+  +-------------------------------+------------------------------------------------------------------------------------------------------+
+			
+
+		
+
