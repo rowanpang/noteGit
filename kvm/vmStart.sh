@@ -15,6 +15,8 @@ fi
 domain=${1%%.*}
 xmlConfig=${domain}.xml
 vncPort=""
+savedDir="/home/pangwz/.config/libvirt/qemu/save/"
+domainSave=$savedDir$domain.save
 
 #confirm vncPort for domain throw /proc/$pid/cmdline
 function gotDomainVncPort(){
@@ -49,7 +51,14 @@ function gotDomainVncPort(){
 
 function create(){
 	
-	virsh create $xmlConfig
+	if [ -r $domainSave ];then
+		echo -e "\033[1;31m restore domain $domainSave && delete it\033[0m"
+		virsh restore $domainSave
+		rm -rf $domainSave
+	else
+		echo -e "\033[1;31m create domain $xmlConfig \033[0m"
+		virsh create $xmlConfig
+	fi
 
 	vncPort=$(gotDomainVncPort)
 	echo "vncPort: $vncPort"
