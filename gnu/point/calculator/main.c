@@ -1,6 +1,7 @@
 #include<stdio.h>
 
 struct my_st{
+	int first;
 	int day;
 	int mo;
 	int arry[3];
@@ -30,6 +31,9 @@ void main (void)
 
 	printf("addr test,pa:%ld,pe:%ld,pe_2:%ld,diff:%ld\n",pa,pe,pe_2,pe_2-pe);
 	printf("addr a[0]:%ld,a[2]:%ld\n",&st.arry[0],&st.arry[2]);
+
+	struct my_st st2={.first= 9,};
+	printf("&st2:%p, &st2.first:%p\n",&st2,&st2.first);
 
 }
 
