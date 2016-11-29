@@ -32,7 +32,7 @@ int main(int argc,char **argv)
 		"lock addl %2, %1\n\t"
 		:"=r"(b),"=m"(total)
 		:"r"(a)
-		:"%eax"
+		:"eax"
 		);
 	int c = b;	
 	caller();
