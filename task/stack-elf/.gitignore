@@ -1,0 +1,6 @@
+a.strip
+elf.diff.log
+elf.log
+elf.strip.log
+objdump.log
+objdump.strip.log

@@ -1,6 +1,6 @@
 layout:
 	stack segment:
-			segment do_execev 过程中自动分配,vma 每次执行可能不同.
+			segment do_execev 过程中自动分配,vma 每次执行可能不同,gdb 应该是disable了random. 每次stack的位置不变.
 			start 			end				size
 	  0x7ffffffde000     0x7ffffffff000    0x21000          0                           [stack] 
 	+--------+--------------------+  f000
@@ -67,7 +67,7 @@ layout:
 	#以上,由create_elf_tables 过程中写入.                                                                                          |                           |
                                                                                                                                    |                           |
 gdb ./a.out                                                                                                                        |                           |
-	(gdb) set args "pangwzHello"   内核中将看不到'"',pangwz                                                                        |                           |
+	(gdb) set args "pangwzHello"   内核prepare的stack中将看不到'"',pangwz                                                          |                           |
 	(gdb) show args                                                                                                                |                           |
 		Argument list to give program being debugged when it is started is ""pangwzHello"".                                        |                           |
 	(gdb) break main                                                                                                               |                           |
@@ -100,7 +100,7 @@ gdb ./a.out                                                                     
 			  0x7ffff7ffa000     0x7ffff7ffb000     0x1000          0                                                                   |                      |
 			  0x7ffff7ffb000     0x7ffff7ffd000     0x2000          0                           [vvar]                                  |                      |
 			  0x7ffff7ffd000     0x7ffff7fff000     0x2000          0                           [vdso]                                  |                      |
-			  0x7ffffffde000     0x7ffffffff000    0x21000          0                           [stack]                                 |                      |
+			  0x7ffffffde000     0x7ffffffff000    0x21000          0                           [stack]   4k size 一个page size         |                      |
 		  0xffffffffff600000 0xffffffffff601000     0x1000          0                   [vsyscall]                                      |                      |
 	(gdb) info stack                                                                                                                    |                      |
 		#0  main (argc=2, argv=0x7fffffffe198) at main.c:19                                                                             |                     /
