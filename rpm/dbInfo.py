@@ -32,16 +32,13 @@ def printHeader(h):
     ds = h.dsFromHeader('Providename')
     print ds
     print ds.EVR()
-    print ds.Ix()
-    print ds.Instance()
     print "Requires:"
     ds = h.dsFromHeader('requirename')
     print ds
+    print ds.EVR()
     print len(ds)
     for d in ds:
-            print d.DNEVR()
-    print ds.EVR()
-    print ds.Instance()
+        print d.DNEVR()
     if h.dsFromHeader('obsoletename'):
         print "Obsoletes:"
         print h.dsFromHeader('obsoletename')
