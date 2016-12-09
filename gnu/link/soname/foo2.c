@@ -5,6 +5,7 @@ int hh = 100;
 void foo_print()
 {
 	printf("%s,from %s\n", msg,__FILE__);
+	printf("compatible for foo.so.1\n");
 }
 
 char msg2[128]="msg2,Hello world";
