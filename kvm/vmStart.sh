@@ -15,8 +15,9 @@ fi
 domain=${1%%.*}
 xmlConfig=${domain}.xml
 vncPort=""
-savedDir="/home/pangwz/.config/libvirt/qemu/save/"
-domainSave=$savedDir$domain.save
+domainSavedDir="/home/pangwz/.config/libvirt/qemu/save/"
+domainSaved=$domainSavedDir$domain.save
+domainFSDir=${domain}FS/
 
 #confirm vncPort for domain throw /proc/$pid/cmdline
 function gotDomainVncPort(){
@@ -49,23 +50,6 @@ function gotDomainVncPort(){
 	[ $match ] || echo "not found vnc port for $domain" && exit -1
 }
 
-function create(){
-	
-	if [ -r $domainSave ];then
-		echo -e "\033[1;31m restore domain $domainSave && delete it\033[0m"
-		virsh restore $domainSave
-		rm -rf $domainSave
-	else
-		echo -e "\033[1;31m create domain $xmlConfig \033[0m"
-		virsh create $xmlConfig
-	fi
-
-	vncPort=$(gotDomainVncPort)
-	echo "vncPort: $vncPort"
-	vncviewer :$vncPort   >/dev/null 2>&1
-	
-	virsh destroy $domain
-}
 
 function getCurWorkSpace(){
 	pyName=/tmp/getFocusWorkSpace.py
@@ -88,6 +72,25 @@ EOF
 	echo $curWorkSpace
 	rm $pyName
 }
+
+function create(){
+	
+	if [ -r $domainSaved ];then
+		echo -e "\033[1;31m restore domain $domainSaved && delete it\033[0m"
+		virsh restore $domainSaved
+		rm -rf $domainSaved
+	else
+		echo -e "\033[1;31m create domain $xmlConfig \033[0m"
+		virsh create $xmlConfig
+	fi
+
+	vncPort=$(gotDomainVncPort)
+	echo "vncPort: $vncPort"
+	vncviewer :$vncPort   >/dev/null 2>&1
+	
+	virsh destroy $domain
+}
+
 
 #main
 curWS=$(getCurWorkSpace)
