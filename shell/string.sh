@@ -9,3 +9,6 @@ done
 
 spaceString="     asdf"
 echo $spaceString
+
+str="abcd"
+echo ${str:0:10}
