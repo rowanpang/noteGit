@@ -48,6 +48,29 @@ domainSavedDir="/home/pangwz/.config/libvirt/qemu/save/"
 domainSaved=$domainSavedDir$domain.save
 domainFSDir=${domain}FS/
 
+function domainCreate(){
+	local ret;
+	if [ -r $domainSaved ];then
+		verbose echo "restore domain $domainSaved"
+		#echo -e "\033[1;32m restore domain $domainSaved && delete it\033[0m"
+		virsh restore $domainSaved
+		ret=$?
+		rm -rf $domainSaved
+	else
+		verbose echo "create domain $xmlConfig"
+		#echo -e "\033[1;32m create domain $xmlConfig \033[0m"
+		virsh create $xmlConfig
+		ret=$?
+	fi
+
+	if [ $ret -eq 0 ];then
+		echo -e "\033[1;32mdomain $xmlConfig up\033[0m"
+	else
+		echo -e "\033[1;31mdomain $xmlConfig up failed,exit -1\033[0m"
+		exit -1
+	fi
+}
+
 #confirm vncPort for domain throw /proc/$pid/cmdline
 function gotDomainVncPort(){
 	local pid port pids
@@ -79,28 +102,7 @@ function gotDomainVncPort(){
 	[ $match ] || { echo -e "\033[1;31m\t\terror!!!not found vnc port for $domain,exit -2\033[0m" && exit -2; }
 }
 
-function create(){
-	local ret;
-	if [ -r $domainSaved ];then
-		verbose echo "restore domain $domainSaved"
-		#echo -e "\033[1;32m restore domain $domainSaved && delete it\033[0m"
-		virsh restore $domainSaved
-		ret=$?
-		rm -rf $domainSaved
-	else
-		verbose echo "create domain $xmlConfig"
-		#echo -e "\033[1;32m create domain $xmlConfig \033[0m"
-		virsh create $xmlConfig
-		ret=$?
-	fi
-
-	if [ $ret -eq 0 ];then
-		echo -e "\033[1;32mdomain $xmlConfig up\033[0m"
-	else
-		echo -e "\033[1;31mdomain $xmlConfig up failed,exit -1\033[0m"
-		exit -2
-	fi
-
+function vncViewer(){
 	vncPort=$(gotDomainVncPort)
 	echo "vncPort: $vncPort"
 	vncviewer :$vncPort   >/dev/null 2>&1
@@ -179,8 +181,10 @@ echo "xmlConfig: $xmlConfig"
 echo "curWorkSpace: $curWS"
 #topleft 10 20
 #top right 1330 10
+domainCreate
 i3-msg 'floating toggle ;resize set 270 200;move position 1330 00' >/dev/null 2>&1
-create
+vncViewer
+
 timeWait=0
 sliceWait=1
 while [ 0 ];do
