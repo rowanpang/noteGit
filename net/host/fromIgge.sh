@@ -6,9 +6,6 @@ date +%M%S
 wget --no-check-certificate https://raw.githubusercontent.com/racaljk/hosts/master/hosts -O $target
 ln -sf $target hosts
 
-git add $target
-git add hosts
-
 function isExist() {
 	#echo "test $1"
 	[ $1 == "hosts" ] || [ $1 == $target ] || return 1
@@ -28,8 +25,10 @@ function pureCommit {
 }
 
 pureCommit
-
-if [ $? -eq 0 ];then
+ret=$?
+git add $target
+git add hosts
+if [ $ret -eq 0 ];then
 	echo "can commit"
 	git commit
 else
