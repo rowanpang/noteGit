@@ -6,4 +6,4 @@ hello:hello.s
 	@ld hello.o -o hello.out
 
 clean:
-	@-rm hello.o hello.out gcc-hello.out nolibc.o nolibc.out
+	@-rm hello.o hello.out 
