@@ -1,3 +1,23 @@
+2,layout
+	a,frame 是按照call指令执行划分的，frame at: 'addr',这个addr按照call指令说明，应该为caling cs
+	b,ref mcu_cpu/x86/instruction/call/calls.jpg
+  +-------------------------------+----------------------+-------------------------------------------------------------------------------+
+  | 		%sp-0x7fffffff		  | 		value        |                     valued by                                                 |
+  +-------------------------------+----------------------+-------------------------------------------------------------------------------+
+  | frame2 start:	def0		  | 	0x7fffffffdfc8   |                                                                               |
+  | 				dee8		  | 	0x7ffff7acc790	 |  next rip after main, pushed by call instruction.                             |
+  | 				dee0		  | 	0x4005a0		 |  push %rbp in main(),pre %rbp=0x4005a0.指令执行之后rsp = rbp = dee0           |
+  | 				dedc		  | 	0x00000001		 |  main() <+8>:0x0000000000400574 mov    %edi,-0x4(%rbp),保存edi的值.           |
+  | 				ded8		  | 	0x00000000		 |  stack 8字节对齐,前面四个字节保存了edi,这里跳过，为init value = 0             |
+  | frame1 start:   ded0		  | 	0x7fffffffdfc8	 |  main() rsi, .... <+11>                                                       |
+  | 				dec8		  | 	0x400585		 |  callq in main(),next rip after show(),pushed by call instruction.            |
+  | 				dec0		  | 	0x7fffffffdee0	 |  push %rbp in show()                                                          |
+  | 				deb8		  | 	0x400646		 |  show() <+8> %rdi --> stack  即,保存了main() 传入的"msg"的地址.               |
+  | frame0 start:	deb0		  | 	0x400440		 |  	随机的吗? show()汇编中并没有看到这个的赋值及使用.                        |
+  | 				dea8		  | 	0x4000569		 |  callq in show(), 0x4000569 为callq 的下一条指令,即show2()返回后的执行地址.   |
+  | 				dea0		  | 	0x7fffffffdec0	 |  push %rbp,show2()                                                            |
+  +-------------------------------+----------------------+-------------------------------------------------------------------------------+
+			
 1,gdb ./inst
 	break *show2 +9
 	run
@@ -7,13 +27,12 @@
 		#2  0x0000000000400585 in main (argc=1, argv=0x7fffffffdfc8) at main.c:18
 		
 		//3个stack对应了3个satck frame[0-2]
-		//frame0:最前面的stack，即show call show2出现的stack
+		//frame0:最新的stack，即show call show2出现的stack
 		//frame1:main call show 出现的stack
-		//frame2: xxx call main 出现的stack
+		//frame2:xxx call main 出现的stack
 
 	info frame 2
 		Stack frame at 0x7fffffffdef0:  
-                #//根据下面的示例分析,这个值是执行call指令时的rsp值. call指令执行会有一个push操作.
 				#//call指令的执行引起了新的frame.
 		 rip = 0x400585 in main (main.c:18); saved rip = 0x7ffff7a3c790                           
 		 caller of frame at 0x7fffffffded0
@@ -42,24 +61,3 @@
 		 Locals at 0x7fffffffdea0, Previous frame's sp is 0x7fffffffdeb0
 		 Saved registers:
 		  rbp at 0x7fffffffdea0, rip at 0x7fffffffdea8
-
-  +-------------------------------+------------------------------------------------------------------------------------------------------+
-  | 			sp-0x7fffffff	  | 		value                                                                                        |
-  +-------------------------------+------------------------------------------------------------------------------------------------------+
-  | frame2 start:	def0		  | 	0x7fffffffdfc8                                                                                   |
-  | 				dee8		  | 	0x7ffff7acc790		next rip after main, pushed by call instruction.                             |
-  | 				dee0		  | 	0x4005a0			pre rbp,valued by main push %rbp.指令执行之后rsp = rbp = dee0                |
-  | 				dedc		  | 	0x00000001			main() rdi,0x0000000000400574 <+8>:0x0000000000400574mov    %edi,-0x4(%rbp)  |
-  | 				ded8		  | 	0x00000000				auto.                                                                    |
-  | frame1 start:   ded0		  | 	0x7fffffffdfc8		main() rsi, .... <+11>                                                       |
-  | 				dec8		  | 	0x400585			main-call() next rip after show(),pushed by call instruction.                |
-  | 				dec0		  | 	0x7fffffffdee0		show() push %rbp                                                             |
-  | 				deb8		  | 	0x400646			show() <+8> %rdi --> stack  即,"msg"的地址.                                  |
-  | frame0 start:	deb0		  | 	0x400440				随机的吗? show()汇编中并没有看到这个的赋值及使用.                        |
-  | 				dea8		  | 	0x4000569			show-call() next rip after show2(),pushed by call instruction.               |
-  | 				dea0		  | 	0x7fffffffdec0		show2() push %rbp                                                            |
-  +-------------------------------+------------------------------------------------------------------------------------------------------+
-			
-
-		
-
