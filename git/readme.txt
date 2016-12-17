@@ -1,1 +1,1 @@
-1,ln -s ~/.gitconfig ~/test/git/gitconfig
+ln -s ~/test/git/gitconfig ~/.gitconfig
