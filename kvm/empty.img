@@ -1,1 +1,0 @@
-qemu-img create -f raw empty.img 30G
