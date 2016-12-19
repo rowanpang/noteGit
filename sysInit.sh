@@ -115,6 +115,8 @@ function initI3wm(){
 
 	#polkit-gnome
 	pkgCheckInstall polkit-gnome
+	#wallpaper
+	pkgCheckInstall feh 
 }
 
 function initNutstore(){
