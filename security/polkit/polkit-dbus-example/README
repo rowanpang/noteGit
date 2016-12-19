@@ -1,0 +1,5 @@
+An example of using policykit and dbus -- 
+based on Robert's code. http://github.com/herzi/polkit-dbus-e…
+
+This is a simple example of how to use plicykit and dbus in order to provide a
+priviliged/unpriviliged communication bridge between two processes.
