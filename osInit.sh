@@ -118,6 +118,14 @@ function initI3wm(){
 	pkgCheckInstall polkit-gnome
 	#wallpaper
 	pkgCheckInstall feh 
+	#xtrlock
+	pkgCheckInstall pam-devel
+	#memSave
+	local memSaveDir="${dir}screenlock/memSave/"
+	sed -i "s;PROGRAM=.*;PROGRAM=${memSaveDir}memSave.sh;" ${memSaveDir}memSave.consolehelper
+	sudo ln -sf ${memSaveDir}memSave.consolehelper /etc/security/console.apps/memSave
+	sudo ln -sf ${memSaveDir}memsave.pam /etc/pam.d/memsave
+	sudo ln -rsf `which consolehelper` /usr/bin/memSave 
 }
 
 function initNutstore(){
