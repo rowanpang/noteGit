@@ -34,6 +34,6 @@ echo $cmd $targetDir $targetFile
 if [ $targetDir ];then
 	dirGit $cmd $targetDir $targetFile
 else
-	perDirGit $1
+	perDirGit $cmd
 fi
 	

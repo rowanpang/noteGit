@@ -59,6 +59,10 @@ function initCheck(){
 		mkdir -p $TOOLSDIR
 		#cd $TOOLSDIR
 	fi
+
+	#dirGit
+	[ -f ${HOMEDIR}noteGit/git/dirGit.sh ] && ln -s ${HOMEDIR}noteGit/git/dirGit.sh ${TOOLSDIR}dirGit.sh && chmod a+x ${TOOLSDIR}dirGit.sh
+
 }
 
 #keyboard
