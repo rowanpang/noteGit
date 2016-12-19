@@ -169,6 +169,8 @@ function initXXnet(){
 	else
 		verbose "$dir exist" 
 	fi
+
+	pkgCheckInstall pyOpenSSL
 }
 
 function main(){
