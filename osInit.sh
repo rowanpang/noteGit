@@ -44,7 +44,22 @@ function pkgCheckInstall(){
 		fi
 	fi
 }
-	
+
+HOMEDIR="/home/$USER/"
+TOOLSDIR="${HOMEDIR}tools/"
+function initCheck(){
+	local who=`whoami`
+	[ "$who" == "$USER" ] || lerror "effective user:$who is not login user:$USER"
+	[ -f ${HOMEDIR}.gitconfig ] || lerror " prepare .gitconfig first,exit" 
+	[ -f ${HOMEDIR}.ssh/id_rsa ] || lerror "prepare ssh key first,exit"
+	if [ -d $TOOLSDIR ];then
+		verbose "$TOOLSDIR exist"
+		#exit 0
+	else
+		mkdir -p $TOOLSDIR
+		#cd $TOOLSDIR
+	fi
+}
 
 #keyboard
 xorgKeyboardConf=/etc/X11/xorg.conf.d/00-keyboard.conf
@@ -64,21 +79,6 @@ function initKeyBoard(){
 	fi
 }
 
-HOMEDIR="/home/$USER/"
-TOOLSDIR="${HOMEDIR}tools/"
-function initCheck(){
-	local who=`whoami`
-	[ "$who" == "$USER" ] || lerror "effective user:$who is not login user:$USER"
-	[ -f ${HOMEDIR}.gitconfig ] || lerror " prepare .gitconfig first,exit" 
-	[ -f ${HOMEDIR}.ssh/id_rsa ] || lerror "prepare ssh key first,exit"
-	if [ -d $TOOLSDIR ];then
-		verbose "$TOOLSDIR exist"
-		#exit 0
-	else
-		mkdir -p $TOOLSDIR
-		#cd $TOOLSDIR
-	fi
-}
 
 function initVim(){
 	local dir=${TOOLSDIR}vim/
@@ -107,7 +107,7 @@ function initI3wm(){
 	#pkgCheckInstall i3-doc      #about 124Mib,too big ignore
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/i3.git $dir
-		ln -s ${dir}config-v4.12 ${dir}config	
+		ln -rsf ${dir}config-v4.12 ${dir}config	
 		ln -s $dir ${HOMEDIR}.i3
 	else
 		verbose "$dir exist" 
@@ -144,6 +144,23 @@ function initSynergy(){
 	fi
 }
 
+function initToolsMisc(){
+	local dir=${TOOLSDIR}toolsMisc/
+	if [ ! -d $dir ];then
+		git clone git@github.com:rowanpang/toolsMisc.git $dir
+	else
+		verbose "$dir exist" 
+	fi
+	
+#kvm
+	local kvmDir=${HOMEDIR}vm-iso/
+	[ -d $kvmDir ] || mkdir -p $kvmDir
+	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
+	ln -sf ${dir}kvm/vmStart.sh ${kvmDir}vmStart.sh
+	ln -sf ${dir}kvm/isoMK.sh ${kvmDir}isoMK.sh
+}
+	
+
 function main(){
 	callFunc initCheck
 	callFunc initVim
@@ -151,6 +168,7 @@ function main(){
 	callFunc initNutstore
 	callFunc initSynergy
 	callFunc initI3wm
+	callFunc initToolsMisc
 }
 
 #main
