@@ -152,14 +152,24 @@ function initToolsMisc(){
 		verbose "$dir exist" 
 	fi
 	
-#kvm
+	#kvm
 	local kvmDir=${HOMEDIR}vm-iso/
 	[ -d $kvmDir ] || mkdir -p $kvmDir
 	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
 	ln -sf ${dir}kvm/vmStart.sh ${kvmDir}vmStart.sh
 	ln -sf ${dir}kvm/isoMK.sh ${kvmDir}isoMK.sh
 }
-	
+
+function initXXnet(){
+	local dir=${TOOLSDIR}xx-net/
+	if [ ! -d $dir ];then
+		git clone git@github.com:rowanpang/XX-Net.git $dir
+		sudo ln -s ${dir}code/default/xx_net.sh /etc/init.d/xx_net
+		sudo chkconfig --add xx_net
+	else
+		verbose "$dir exist" 
+	fi
+}
 
 function main(){
 	callFunc initCheck
@@ -169,6 +179,7 @@ function main(){
 	callFunc initSynergy
 	callFunc initI3wm
 	callFunc initToolsMisc
+	callFunc initXXnet
 }
 
 #main
