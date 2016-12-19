@@ -12,11 +12,12 @@ function dirGit(){
 
 	if [ -d $dir/.git ];then
 		echo "--------------git for $dir---------------------"
-		if [ $file ];then	
-			git -C $dir $cmd ${dir}/${file}
-		else
-			git -C $dir $cmd 
-		fi
+		git -C $dir $cmd ${file#*\/}
+		#if [ $file ];then	
+			#git -C $dir $cmd ${file}
+		#else
+			#git -C $dir $cmd 
+		#fi
 	fi
 }
 function perDirGit(){
