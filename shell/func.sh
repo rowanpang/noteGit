@@ -13,4 +13,9 @@ function f2(){
 	#return "fun2"
 }
 
-f2
+function lsudo(){
+	#local cmd="$@";sudo $cmd   not use this type,error! for $@ conatin ' '"
+	sudo "$@"
+}
+
+lsudo sed 's#auth\s\+sufficient\s\+pam_unix.so\s\+#& nodelay #' /etc/pam.d/system-auth
