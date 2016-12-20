@@ -27,19 +27,26 @@ function callFunc(){
 }
 
 #$1,pkg name
-#$2==noInstall,do not install
+#$2==noInstall,do not install else other repos...
 function pkgCheckInstall(){
-	count=`rpm -qa "$1" | grep -c "$1"`
+	local pkg=$1
+	count=`rpm -qa "$pkg" | grep -c "$pkg"`
 	if [ $count -gt 0 ];then
-		verbose "$1 has been installed,return"
+		verbose "$pkg has been installed,return"
 		return 0	
 	else
 		if [ "$2" == "noInstall" ];then
-			lwarn "$1 not installed and disable install"
+			lwarn "$pkg not installed and disable install"
 			return 1	
 		else
+			shift 
+			local enabledRepo="--enablerepo=fedora "
+			for repo in $@;do
+				enabledRepo="$enabledRepo --enablerepo=$repo"
+			done	
 			#dnf --assumeyes --disablerepo=* --enablerepo=fedora install "$1"	
-			sudo dnf --disablerepo=* --enablerepo=fedora install "$1"	
+			#sudo dnf --disablerepo=* --enablerepo=fedora install "$1"	
+			sudo dnf --disablerepo=* $enabledRepo install "$pkg"	
 			return 0
 		fi
 	fi
@@ -186,6 +193,11 @@ function initXXnet(){
 	pkgCheckInstall pyOpenSSL
 }
 
+function initWine(){
+	pkgCheckInstall samba-winbind-clients updates 
+	pkgCheckInstall wine updates
+}
+
 function main(){
 	callFunc initCheck
 	callFunc initVim
@@ -195,6 +207,7 @@ function main(){
 	callFunc initI3wm
 	callFunc initToolsMisc
 	callFunc initXXnet
+	#callFunc initWine
 }
 
 #main
