@@ -18,6 +18,12 @@ function lerror(){
 	exit -1
 }
 
+function lsudo(){
+	local cmd=$@
+	echo -e "\033[1;32msudo for:" "$cmd" "\033[0m"
+	sudo $cmd
+}
+
 function callFunc(){
 	echo "======================$1 in========================"
 	$1
@@ -45,14 +51,15 @@ function pkgCheckInstall(){
 				enabledRepo="$enabledRepo --enablerepo=$repo"
 			done	
 			#dnf --assumeyes --disablerepo=* --enablerepo=fedora install "$1"	
-			#sudo dnf --disablerepo=* --enablerepo=fedora install "$1"	
-			sudo dnf --disablerepo=* $enabledRepo install "$pkg"	
+			#lsudo dnf --disablerepo=* --enablerepo=fedora install "$1"	
+			lsudo dnf --disablerepo=* $enabledRepo install "$pkg"	
 			return 0
 		fi
 	fi
 }
 
 HOMEDIR="/home/$USER/"
+ROOTHOME="/root/"
 TOOLSDIR="${HOMEDIR}tools/"
 function initCheck(){
 	local who=`whoami`
@@ -82,7 +89,7 @@ function initKeyBoard(){
 		local count=`grep -c 'ctrl:swapcaps' $xorgKeyboardConf`
 		if [ $count -eq 0 ];then 
 			verbose "modify $xorgKeyboardConf"
-			sudo sed -i '/EndSection/ i \\tOption "XKbOptions" "ctrl:swapcaps"' $xorgKeyboardConf
+			lsudo sed -i '/EndSection/ i \\tOption "XKbOptions" "ctrl:swapcaps"' $xorgKeyboardConf
 		else
 			verbose "$xorgKeyboardConf had configured"
 		fi
@@ -100,10 +107,11 @@ function initVim(){
 	pkgCheckInstall cscope 
 	if [ ! -d $dir ];then 
 		git clone git@github.com:rowanpang/vim_noVundle.git $dir
-		ln -s $dir ${HOMEDIR}.vim
 	else
 		verbose "$dir exist"
 	fi
+	[ -L ${HOMEDIR}.vim ] ||  ln -s $dir ${HOMEDIR}.vim
+	[ -L ${ROOTHOME}.vim ] || lsudo ln -sf $dir ${ROOTHOME}.vim			#for root vim
 }
 
 function initI3wm(){
@@ -134,9 +142,9 @@ function initI3wm(){
 	#memSave
 	local memSaveDir="${dir}screenlock/memSave/"
 	sed -i "s;PROGRAM=.*;PROGRAM=${memSaveDir}memSave.sh;" ${memSaveDir}memSave.consolehelper
-	sudo ln -sf ${memSaveDir}memSave.consolehelper /etc/security/console.apps/memSave
-	sudo ln -sf ${memSaveDir}memsave.pam /etc/pam.d/memsave
-	sudo ln -rsf `which consolehelper` /usr/bin/memSave 
+	lsudo ln -sf ${memSaveDir}memSave.consolehelper /etc/security/console.apps/memSave
+	lsudo ln -sf ${memSaveDir}memsave.pam /etc/pam.d/memsave
+	lsudo ln -rsf `which consolehelper` /usr/bin/memSave 
 }
 
 function initNutstore(){
@@ -147,7 +155,7 @@ function initNutstore(){
 	local pkgInfo=`rpm -qi nautilus-nutstore`	
 	if ! [ ${#pkgInfo} -gt 30 ];then
 		verbose "installing nutstore"
-		sudo rpm -i https://www.jianguoyun.com/static/exe/installer/fedora/nautilus_nutstore_amd64.rpm
+		lsudo rpm -i https://www.jianguoyun.com/static/exe/installer/fedora/nautilus_nutstore_amd64.rpm
 	else
 		verbose "nutstore installed"
 	fi
@@ -158,7 +166,7 @@ function initSynergy(){
 	local dir=${TOOLSDIR}synergy/
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/synergy.git $dir
-		sudo ln -s ${dir}synergy.conf /etc/synergy.conf
+		lsudo ln -s ${dir}synergy.conf /etc/synergy.conf
 	else
 		verbose "$dir exist" 
 	fi
@@ -182,17 +190,17 @@ function initToolsMisc(){
 	#diskMount
 	local uRulesDir="/etc/udev/rules.d/"
 	local udevdService="/etc/systemd/system/systemd-udevd.service"
-	sudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
-	sudo cp /usr/lib/systemd/system/systemd-udevd.service ${udevdService}
-	sudo sed -i 's;^MountFlags;#&;' ${udevdService}
+	lsudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
+	lsudo cp /usr/lib/systemd/system/systemd-udevd.service ${udevdService}
+	lsudo sed -i 's;^MountFlags;#&;' ${udevdService}
 }
 
 function initXXnet(){
 	local dir=${TOOLSDIR}xx-net/
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/XX-Net.git $dir
-		sudo ln -s ${dir}code/default/xx_net.sh /etc/init.d/xx_net
-		sudo chkconfig --add xx_net
+		lsudo ln -s ${dir}code/default/xx_net.sh /etc/init.d/xx_net
+		lsudo chkconfig --add xx_net
 	else
 		verbose "$dir exist" 
 	fi
