@@ -68,7 +68,7 @@ function initCheck(){
 	fi
 
 	#dirGit
-	[ -f ${HOMEDIR}noteGit/git/dirGit.sh ] && ln -s ${HOMEDIR}noteGit/git/dirGit.sh ${TOOLSDIR}dirGit.sh && chmod a+x ${TOOLSDIR}dirGit.sh
+	[ -L ${HOMEDIR}noteGit/git/dirGit.sh ] && ln -s ${HOMEDIR}noteGit/git/dirGit.sh ${TOOLSDIR}dirGit.sh && chmod a+x ${TOOLSDIR}dirGit.sh
 
 }
 
@@ -178,6 +178,13 @@ function initToolsMisc(){
 	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
 	ln -sf ${dir}kvm/vmStart.sh ${kvmDir}vmStart.sh
 	ln -sf ${dir}kvm/isoMK.sh ${kvmDir}isoMK.sh
+
+	#diskMount
+	local uRulesDir="/etc/udev/rules.d/"
+	local udevdService="/etc/systemd/system/systemd-udevd.service"
+	sudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
+	sudo cp /usr/lib/systemd/system/systemd-udevd.service ${udevdService}
+	sudo sed -i 's;^MountFlags;#&;' ${udevdService}
 }
 
 function initXXnet(){
