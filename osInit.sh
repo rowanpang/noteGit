@@ -1,8 +1,7 @@
 #!/bin/bash
 
-DEBUG='yes'
 function verbose(){
-	if [ $DEBUG == 'yes' ];then 
+	if [ "$DEBUG" == 'yes' ];then 
 		echo $@
 	fi
 }
@@ -19,16 +18,15 @@ function lerror(){
 }
 
 function lsudo(){
-	local cmd=$@
-	echo -e "\033[1;32msudo for:" "$cmd" "\033[0m"
-	sudo $cmd
+	echo -e "\033[1;32msudo for:"\""$@"\""\033[0m"
+	sudo "$@"
 }
 
 function callFunc(){
-	echo "======================$1 in========================"
+	verbose "=================func:$1 in========================"
 	$1
 	local ret=$?
-	echo "======================$1 finished=================="
+	verbose "=================func:$1 finished=================="
 	return $ret
 }
 
@@ -75,8 +73,15 @@ function initCheck(){
 	fi
 
 	#dirGit
-	[ -L ${HOMEDIR}noteGit/git/dirGit.sh ] && ln -s ${HOMEDIR}noteGit/git/dirGit.sh ${TOOLSDIR}dirGit.sh && chmod a+x ${TOOLSDIR}dirGit.sh
-
+    local dirGit="{HOMEDIR}noteGit/git/dirGit.sh"
+	if [ ! -L ${TOOLSDIR}dirGit.sh ];then
+		ln -s ${dirGit} ${TOOLSDIR}dirGit.sh 
+		chmod a+x ${TOOLSDIR}dirGit.sh
+	fi
+    local preDir="$PWD"
+    cd $TOOLSDIR
+	${TOOLSDIR}dirGit.sh pull
+    cd $preDir
 }
 
 #keyboard
@@ -140,8 +145,10 @@ function initI3wm(){
 	#xtrlock
 	pkgCheckInstall pam-devel
 	#memSave
+	pkgCheckInstall usermode-gtk
 	local memSaveDir="${dir}screenlock/memSave/"
 	sed -i "s;PROGRAM=.*;PROGRAM=${memSaveDir}memSave.sh;" ${memSaveDir}memSave.consolehelper
+	lsudo sed -i 's;auth\s\+sufficient\s\+pam_unix.so.*;& nodelay;' /etc/pam.d/system-auth
 	lsudo ln -sf ${memSaveDir}memSave.consolehelper /etc/security/console.apps/memSave
 	lsudo ln -sf ${memSaveDir}memsave.pam /etc/pam.d/memsave
 	lsudo ln -rsf `which consolehelper` /usr/bin/memSave 
@@ -222,8 +229,9 @@ function main(){
 	callFunc initI3wm
 	callFunc initToolsMisc
 	callFunc initXXnet
-	#callFunc initWine
 }
 
 #main
+DEBUG=''
+[ $1 ] &&  DEBUG='yes'
 main

@@ -1,10 +1,5 @@
 #!/bin/sh
 
-[ $# -gt 0 ] || { echo "Usage: $0 gitcmd [dir] [files]" && exit -1; }
-cmd=$1 && shift
-[ $1 ] && targetDir=$1 && shift
-[ $1 ] && targetFile=$1 && shift
-
 function dirGit(){
 	local cmd=$1
 	local dir=$2
@@ -20,6 +15,7 @@ function dirGit(){
 		#fi
 	fi
 }
+
 function perDirGit(){
 	local cmd=$1
 	for dir in `ls`;do
@@ -31,10 +27,15 @@ function perDirGit(){
 }
 
 #main
-echo $cmd $targetDir $targetFile 
+[ $# -gt 0 ] || { echo "Usage: $0 gitcmd [dir] [files]" && exit -1; }
+[ $1 ] && cmd=$1 && shift
+[ $1 ] && targetDir=$1 && shift
+[ $1 ] && targetFile=$1 && shift
+
+echo "$0 workdir:$PWD"
+echo -e "\tcmd is:$cmd $targetDir $targetFile"
 if [ $targetDir ];then
 	dirGit $cmd $targetDir $targetFile
 else
 	perDirGit $cmd
 fi
-	
