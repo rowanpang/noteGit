@@ -148,12 +148,25 @@ function initI3wm(){
 	pkgCheckInstall pam-devel
 	#memSave
 	pkgCheckInstall usermode-gtk
+	pkgCheckInstall i3lock
 	local memSaveDir="${dir}screenlock/memSave/"
+	local pamConf="/etc/pam.d/system-auth"
 	sed -i "s;PROGRAM=.*;PROGRAM=${memSaveDir}memSave.sh;" ${memSaveDir}memSave.consolehelper
-	lsudo sed -i 's;auth\s\+sufficient\s\+pam_unix.so.*;& nodelay;' /etc/pam.d/system-auth
+	lsudo sed -i 's;auth\s\+sufficient\s\+pam_unix.so.*;& nodelay;' $pamConf				#disable pwd error delay
 	lsudo ln -sf ${memSaveDir}memSave.consolehelper /etc/security/console.apps/memSave
 	lsudo ln -sf ${memSaveDir}memsave.pam /etc/pam.d/memsave
 	lsudo ln -rsf `which consolehelper` /usr/bin/memSave 
+
+	#---------disable pwd quality check
+	local oldUnix="$(sed --quiet '/^password\s\+\S\+\s\+pam_unix.so.*/ p' $pamConf)"
+	local newUnix=$(echo "$oldUnix" | sed 's/use_authtok//')
+	lsudo sed -i 's/^password\s\+\S\+\s\+pam_pwquality.so.*/#&/' $pamConf
+	lsudo sed -i 's/^password\s\+\S\+\s\+pam_cracklib.*/#&/' $pamConf
+	if [ "$oldUnix" != "$newUnix" ];then
+		lsudo sed -i 's/^password\s\+\S\+\s\+pam_unix.so.*/#&/' $pamConf
+		lsudo sed -i "/#password\s\+\S\+\s\+pam_unix.so.*/a$newUnix" $pamConf
+	fi
+	#end---------disable pwd quality check
 }
 
 function initNutstore(){
