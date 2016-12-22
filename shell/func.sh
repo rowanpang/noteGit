@@ -18,4 +18,3 @@ function lsudo(){
 	sudo "$@"
 }
 
-lsudo sed 's#auth\s\+sufficient\s\+pam_unix.so\s\+#& nodelay #' /etc/pam.d/system-auth
