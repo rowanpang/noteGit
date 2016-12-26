@@ -211,17 +211,22 @@ function initToolsMisc(){
 
 	#diskMount
 	local uRulesDir="/etc/udev/rules.d/"
-	local udevdService="/etc/systemd/system/systemd-udevd.service"
+	local etcSymdDir="/etc/systemd/system/"
 	lsudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
-	lsudo cp /usr/lib/systemd/system/systemd-udevd.service ${udevdService}
-	lsudo sed -i 's;^MountFlags;#&;' ${udevdService}
+	lsudo cp ${dir}diskMount/auto*.service $etcSymdDir
+	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I add;" ${etcSymdDir}autoMount.service
+	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I remove;" ${etcSymdDir}autoUmount.service
+
+	local selfSymdUdevd="${etcSymdDir}systemd-udevd.service"
+	lsudo cp /usr/lib/systemd/system/systemd-udevd.service ${selfSymdUdevd}
+	lsudo sed -i 's;^MountFlags;#&;' ${selfSymdUdevd}
 }
 
 function initXXnet(){
 	local dir=${TOOLSDIR}xx-net/
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/XX-Net.git $dir
-		lsudo ln -s ${dir}code/default/xx_net.sh /etc/init.d/xx_net
+		lsudo cp ${dir}code/default/xx_net.sh /etc/init.d/xx_net
 		lsudo chkconfig --add xx_net
 	else
 		verbose "$dir exist" 
