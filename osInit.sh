@@ -203,6 +203,7 @@ function initToolsMisc(){
 	fi
 	
 	#kvm
+	pkgCheckInstall virt-manager
 	local kvmDir=${HOMEDIR}vm-iso/
 	[ -d $kvmDir ] || mkdir -p $kvmDir
 	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
