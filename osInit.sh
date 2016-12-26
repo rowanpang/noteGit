@@ -214,8 +214,8 @@ function initToolsMisc(){
 	local etcSymdDir="/etc/systemd/system/"
 	lsudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
 	lsudo cp ${dir}diskMount/auto*.service $etcSymdDir
-	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I add;" ${etcSymdDir}autoMount.service
-	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I remove;" ${etcSymdDir}autoUmount.service
+	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I add;" ${etcSymdDir}autoMount@.service
+	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I remove;" ${etcSymdDir}autoUmount@.service
 
 	local selfSymdUdevd="${etcSymdDir}systemd-udevd.service"
 	lsudo cp /usr/lib/systemd/system/systemd-udevd.service ${selfSymdUdevd}
