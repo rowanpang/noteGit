@@ -89,7 +89,7 @@ xorgKeyboardConf=/etc/X11/xorg.conf.d/00-keyboard.conf
 function initKeyBoard(){
 	#swapcaps,ctrl
 	pkgCheckInstall xorg-x11-xkb-utils
-	setxkbmap -option ctrl:swapcaps
+	#setxkbmap -option ctrl:swapcaps
 	if [ -f $xorgKeyboardConf ];then
 		local count=`grep -c 'ctrl:swapcaps' $xorgKeyboardConf`
 		if [ $count -eq 0 ];then 
@@ -118,7 +118,7 @@ function initVim(){
 	[ -L ${HOMEDIR}.vim ] ||  ln -s $dir ${HOMEDIR}.vim
 	[ -L ${ROOTHOME}.vim ] || lsudo ln -sf $dir ${ROOTHOME}.vim			#for root vim
 
-	lsudo sed  -i 's; \[\s\+\"`.*\];#&;' /etc/profile.d/vim.sh
+	lsudo sed  -i 's; \[\s\+.*\]\s\+\&\&\s\+return$;#&;' /etc/profile.d/vim.sh
 }
 
 function initI3wm(){
