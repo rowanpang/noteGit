@@ -204,11 +204,13 @@ function initToolsMisc(){
 	
 	#kvm
 	pkgCheckInstall virt-manager
+	pkgCheckInstall libvirt-client
 	local kvmDir=${HOMEDIR}vm-iso/
 	[ -d $kvmDir ] || mkdir -p $kvmDir
 	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
 	ln -sf ${dir}kvm/vmStart.sh ${kvmDir}vmStart.sh
 	ln -sf ${dir}kvm/isoMK.sh ${kvmDir}isoMK.sh
+	ln -sf ${dir}kvm/vmUsb.sh ${kvmDir}vmUsb.sh
 
 	#diskMount
 	local uRulesDir="/etc/udev/rules.d/"
