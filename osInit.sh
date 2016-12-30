@@ -229,12 +229,13 @@ function initXXnet(){
 	local dir=${TOOLSDIR}xx-net/
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/XX-Net.git $dir
-		lsudo cp ${dir}code/default/xx_net.sh /etc/init.d/xx_net
-		lsudo chkconfig --add xx_net
 	else
 		verbose "$dir exist" 
 	fi
 
+	lsudo cp ${dir}code/default/xx_net.sh /etc/init.d/xx_net
+	lsudo sed -i "/^PACKAGE_VER_FILE=/ iPACKAGE_PATH=${dir}" /etc/init.d/xx_net
+	lsudo chkconfig --add xx_net
 	pkgCheckInstall pyOpenSSL
 }
 
