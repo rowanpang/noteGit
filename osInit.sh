@@ -215,7 +215,7 @@ function initToolsMisc(){
 	#diskMount
 	local uRulesDir="/etc/udev/rules.d/"
 	local etcSymdDir="/etc/systemd/system/"
-	lsudo ln -sf ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
+	lsudo cp ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
 	lsudo cp ${dir}diskMount/auto*.service $etcSymdDir
 	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I add;" ${etcSymdDir}autoMount@.service
 	lsudo sed -i "s;^ExecStart=.*;ExecStart=${dir}diskMount/udev_disk_auto_mount.sh %I remove;" ${etcSymdDir}autoUmount@.service
@@ -234,7 +234,7 @@ function initXXnet(){
 	fi
 
 	lsudo cp ${dir}code/default/xx_net.sh /etc/init.d/xx_net
-	lsudo sed -i "/^PACKAGE_VER_FILE=/ iPACKAGE_PATH=${dir}" /etc/init.d/xx_net
+	lsudo sed -i "/^PACKAGE_VER_FILE=/ iPACKAGE_PATH=\"${dir}code/\"" /etc/init.d/xx_net
 	lsudo chkconfig --add xx_net
 	pkgCheckInstall pyOpenSSL
 }
