@@ -20,6 +20,10 @@ function lerror(){
 function lsudo(){
 	echo -e "\033[1;32msudo for:"\""$@"\""\033[0m"
 	sudo "$@"
+	if [ $? -eq 1 ];then
+		echo -e "\033[1;32m""sudo authen error exit -1""\033[0m"
+		exit -1
+	fi
 }
 
 function callFunc(){
@@ -51,14 +55,16 @@ function pkgCheckInstall(){
 			#dnf --assumeyes --disablerepo=* --enablerepo=fedora install "$1"	
 			#lsudo dnf --disablerepo=* --enablerepo=fedora install "$1"	
 			lsudo dnf --disablerepo=* $enabledRepo install "$pkg"	
-			return 0
+			return $? 
 		fi
 	fi
 }
 
-HOMEDIR="/home/$USER/"
-ROOTHOME="/root/"
-TOOLSDIR="${HOMEDIR}tools/"
+function disableSelinux(){
+	lsudo setenforce 0
+	lsudo sed -i 's;SELINUX=enforcing;SELINUX=disabled;' /etc/selinux/config
+}
+
 function initCheck(){
 	local who=`whoami`
 	[ "$who" == "$USER" ] || lerror "effective user:$who is not login user:$USER"
@@ -204,6 +210,7 @@ function initToolsMisc(){
 	
 	#kvm
 	pkgCheckInstall virt-manager
+	[ $? ] && lsudo usermod --append --groups libvirt $USER
 	pkgCheckInstall libvirt-client
 	local kvmDir=${HOMEDIR}vm-iso/
 	[ -d $kvmDir ] || mkdir -p $kvmDir
@@ -227,6 +234,7 @@ function initToolsMisc(){
 
 function initXXnet(){
 	local dir=${TOOLSDIR}xx-net/
+	pkgCheckInstall pyOpenSSL
 	if [ ! -d $dir ];then
 		git clone git@github.com:rowanpang/XX-Net.git $dir
 	else
@@ -236,7 +244,6 @@ function initXXnet(){
 	lsudo cp ${dir}code/default/xx_net.sh /etc/init.d/xx_net
 	lsudo sed -i "/^PACKAGE_VER_FILE=/ iPACKAGE_PATH=\"${dir}code/\"" /etc/init.d/xx_net
 	lsudo chkconfig --add xx_net
-	pkgCheckInstall pyOpenSSL
 }
 
 function initWine(){
@@ -244,8 +251,14 @@ function initWine(){
 	pkgCheckInstall wine updates
 }
 
+function initWireshark(){
+	pkgCheckInstall wireshark-gtk
+	[ $? ] && lsudo usermod --append --groups wireshark,usbmon $USER
+}
+
 function main(){
 	callFunc initCheck
+	callFunc disableSelinux
 	callFunc initVim
 	callFunc initKeyBoard
 	callFunc initNutstore
@@ -253,9 +266,14 @@ function main(){
 	callFunc initI3wm
 	callFunc initToolsMisc
 	callFunc initXXnet
+	callFunc initWireshark
 }
 
 #main
 DEBUG=''
+HOMEDIR="/home/$USER/"
+ROOTHOME="/root/"
+TOOLSDIR="${HOMEDIR}tools/"
+
 [ $1 ] &&  DEBUG='yes'
 main
