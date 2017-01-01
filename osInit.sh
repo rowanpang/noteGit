@@ -61,8 +61,10 @@ function pkgCheckInstall(){
 }
 
 function disableSelinux(){
-	lsudo setenforce 0
-	lsudo sed -i 's;SELINUX=enforcing;SELINUX=disabled;' /etc/selinux/config
+	if [ `selinuxenabled` ];then 
+		lsudo setenforce 0
+		lsudo sed -i 's;SELINUX=enforcing;SELINUX=disabled;' /etc/selinux/config
+	fi
 }
 
 function initCheck(){
@@ -200,18 +202,14 @@ function initSynergy(){
 	fi
 }
 
-function initToolsMisc(){
-	local dir=${TOOLSDIR}toolsMisc/
-	if [ ! -d $dir ];then
-		git clone git@github.com:rowanpang/toolsMisc.git $dir
-	else
-		verbose "$dir exist" 
-	fi
-	
-	#kvm
+#called by initToolsMisc,shouldn't directly call
+function initKvm(){
+	[ $1 ] || lerror "init kvm need dir param"
+	local dir=$1
 	pkgCheckInstall virt-manager
 	[ $? ] && lsudo usermod --append --groups libvirt $USER
 	pkgCheckInstall libvirt-client
+
 	local kvmDir=${HOMEDIR}vm-iso/
 	[ -d $kvmDir ] || mkdir -p $kvmDir
 	ln -rsf ${dir}kvm/fw24.xml ${dir}kvm/template.xml
@@ -219,7 +217,16 @@ function initToolsMisc(){
 	ln -sf ${dir}kvm/isoMK.sh ${kvmDir}isoMK.sh
 	ln -sf ${dir}kvm/vmUsb.sh ${kvmDir}vmUsb.sh
 
-	#diskMount
+	pkgCheckInstall bridge-utils
+	pkgCheckInstall NetworkManager
+	#TODO add slave for bridge0
+	#nmcli connection add ifname bridge0 con-name bridge0 type bridge
+}
+
+#called by initToolsMisc,shouldn't directly call
+function initDiskMount(){
+	[ $1 ] || lerror "init diskMount need dir param"
+	local dir=$1
 	local uRulesDir="/etc/udev/rules.d/"
 	local etcSymdDir="/etc/systemd/system/"
 	lsudo cp ${dir}diskMount/99-udisk.rules ${uRulesDir}99-udisk.rules
@@ -230,6 +237,19 @@ function initToolsMisc(){
 	local selfSymdUdevd="${etcSymdDir}systemd-udevd.service"
 	lsudo cp /usr/lib/systemd/system/systemd-udevd.service ${selfSymdUdevd}
 	lsudo sed -i 's;^MountFlags;#&;' ${selfSymdUdevd}
+}
+
+function initToolsMisc(){
+	local dir=${TOOLSDIR}toolsMisc/
+	if [ ! -d $dir ];then
+		git clone git@github.com:rowanpang/toolsMisc.git $dir
+	else
+		verbose "$dir exist" 
+	fi
+	#kvm
+	initKvm $dir
+	#diskMount
+	initDiskMount $dir
 }
 
 function initXXnet(){
