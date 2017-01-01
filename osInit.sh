@@ -253,6 +253,7 @@ function initWine(){
 
 function initWireshark(){
 	pkgCheckInstall wireshark-gtk
+	pkgCheckInstall wireshark-qt
 	[ $? ] && lsudo usermod --append --groups wireshark,usbmon $USER
 }
 
