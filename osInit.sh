@@ -175,6 +175,8 @@ function initI3wm(){
 		lsudo sed -i "/#password\s\+\S\+\s\+pam_unix.so.*/a$newUnix" $pamConf
 	fi
 	#end---------disable pwd quality check
+	#terminal for nautilus
+	pkgCheckInstall gnome-terminal-nautilus
 }
 
 function initNutstore(){
