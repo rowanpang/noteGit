@@ -219,8 +219,22 @@ function initKvm(){
 
 	pkgCheckInstall bridge-utils
 	pkgCheckInstall NetworkManager
-	#TODO add slave for bridge0
-	#nmcli connection add ifname bridge0 con-name bridge0 type bridge
+
+	local bridgeName="bridge0"
+	local bridgeConName=$bridgeName
+	local slave=$(ip link | grep '^[1-9]\+: en*' | awk 'BEGIN {FS=":"} { print $2}')
+	local slaveConName="${bridgeName}-slave-${slave}"
+
+	if ! [ $(brctl show | grep -c $bridgeName) -gt 0 ];then
+		verbose "add bridge con $bridgeConName"
+		nmcli connection add ifname $bridgeName con-name $bridgeConName type bridge
+		nmcli connection up $bridgeConName
+	fi
+	if ! [ $(brctl show | grep $bridgeName | grep -c $slave) -gt 0 ];then
+		verbose "add slave $slave to $bridgeName and make connection $slaveConName"
+		nmcli connection add ifname ${slave} con-name $slaveConName type  bridge-slave master $bridgeName
+		nmcli connection up $slaveConName
+	fi
 }
 
 #called by initToolsMisc,shouldn't directly call
