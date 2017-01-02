@@ -124,7 +124,7 @@ function initVim(){
 		verbose "$dir exist"
 	fi
 	[ -L ${HOMEDIR}.vim ] ||  ln -s $dir ${HOMEDIR}.vim
-	[ -L ${ROOTHOME}.vim ] || lsudo ln -sf $dir ${ROOTHOME}.vim			#for root vim
+	lsudo [ -L ${ROOTHOME}.vim ] || lsudo ln -sf $dir ${ROOTHOME}.vim			#for root vim
 
 	lsudo sed  -i 's; \[\s\+.*\]\s\+\&\&\s\+return$;#&;' /etc/profile.d/vim.sh
 }
