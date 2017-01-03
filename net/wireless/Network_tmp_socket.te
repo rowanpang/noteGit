@@ -2,11 +2,11 @@
 module Network_tmp_socket 1.0;
 
 require {
-	type NetworkManager_t;
-	type tmp_t;
-	type initrc_t;
-	class sock_file write;
-	class unix_dgram_socket sendto;
+    type NetworkManager_t;
+    type tmp_t;
+    type initrc_t;
+    class sock_file write;
+    class unix_dgram_socket sendto;
 }
 
 #============= NetworkManager_t ==============

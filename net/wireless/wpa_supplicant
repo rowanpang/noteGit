@@ -38,58 +38,58 @@ dhcp_action=/home/pangwz/test/net/wireless/wlandhcp.sh
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
 
 start() {
- 	echo -n $"Starting $prog: $conf, $INTERFACES, $DRIVERS"
-	daemon $prog -c $conf $INTERFACES $DRIVERS -B $OTHER_ARGS
-	retval=$?
-	echo
-	[ $retval -eq 0 ] && touch $lockfile
-	wpa_cli -a $dhcp_action -B
-	return $retval
+     echo -n $"Starting $prog: $conf, $INTERFACES, $DRIVERS"
+    daemon $prog -c $conf $INTERFACES $DRIVERS -B $OTHER_ARGS
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    wpa_cli -a $dhcp_action -B
+    return $retval
 }
 
 stop() {
-	$dhcp_action ${INTERFACES##-i} DISCONNECTED_RC
-	echo -n $"Stopping $prog: "
-	killproc $prog
-	retval=$?
-	echo
-	[ $retval -eq 0 ] && rm -f $lockfile
-	return $retval
+    $dhcp_action ${INTERFACES##-i} DISCONNECTED_RC
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
 }
 
 restart() {
-	stop
-	start
+    stop
+    start
 }
 
 reload() {
-	restart
+    restart
 }
 
 force_reload() {
-	restart
+    restart
 }
 
 fdr_status() {
-	status $prog
+    status $prog
 }
 
 
 case "$1" in
-	start|stop|restart|reload)
-  		$1
-		;;
-	force-reload)
-		force_reload
-		;;
-	status)
-		fdr_status
-		;;
-	condrestart|try-restart)
-		[ -f $lockfile ] && restart
-		;;
-	*)
-		echo $"Usage: $0 {start|stop|status|restart|try-restart|reload|force-reload}"
-		exit 1
+    start|stop|restart|reload)
+          $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        fdr_status
+        ;;
+    condrestart|try-restart)
+        [ -f $lockfile ] && restart
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|try-restart|reload|force-reload}"
+        exit 1
 esac
 
