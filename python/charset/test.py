@@ -20,15 +20,15 @@ src3 = 3
 src = 0
 
 if len(sys.argv) >=2:
-	print 'has arg'
-	if sys.argv[1] == '1':
-		print 'con 1'
-		src = src1
-	if sys.argv[1] == '2':
-		print 'con 2'
-		src = src2
-	if sys.argv[1] == '3':
-		print 'con 3'
-		src = src3
+    print 'has arg'
+    if sys.argv[1] == '1':
+        print 'con 1'
+        src = src1
+    if sys.argv[1] == '2':
+        print 'con 2'
+        src = src2
+    if sys.argv[1] == '3':
+        print 'con 3'
+        src = src3
 
 print 'here %d' %src
