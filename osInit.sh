@@ -181,11 +181,11 @@ function initI3wm(){
     #volume
     pkgCheckInstall volumeicon
     pkgCheckInstall pavucontrol
-    sed -i "/^#volumeicon/ aexec /usr/bin/volumeicon" ${dir}config
+    #sed -i "/^#volumeicon/ aexec /usr/bin/volumeicon" ${dir}config
 
     #nm-applet
     pkgCheckInstall network-manager-applet
-    sed -i "/^#nm-applet/ aexec /usr/bin/nm-applet" ${dir}config
+    #sed -i "/^#nm-applet/ aexec /usr/bin/nm-applet" ${dir}config
 
 }
 
