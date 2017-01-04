@@ -265,6 +265,12 @@ function initDiskMount(){
     lsudo sed -i 's;^MountFlags;#&;' ${selfSymdUdevd}
 }
 
+function initHttpShare(){
+    [ $1 ] || lerror "init diskMount need dir param"
+    local dir=$1
+    lsudo ln -sf ${dir}httpShare/httpShare.sh /usr/bin/httpShare.sh
+}
+
 function initToolsMisc(){
     local dir=${TOOLSDIR}toolsMisc/
     if [ ! -d $dir ];then
@@ -276,6 +282,8 @@ function initToolsMisc(){
     initKvm $dir
     #diskMount
     initDiskMount $dir
+    #httpShare
+    initHttpShare $dir
 }
 
 function initXXnet(){
@@ -324,6 +332,4 @@ ROOTHOME="/root/"
 TOOLSDIR="${HOMEDIR}tools/"
 
 [ $1 ] &&  DEBUG='yes'
-initI3wm
-exit
 main
