@@ -177,6 +177,16 @@ function initI3wm(){
     #end---------disable pwd quality check
     #terminal for nautilus
     pkgCheckInstall gnome-terminal-nautilus
+
+    #volume
+    pkgCheckInstall volumeicon
+    pkgCheckInstall pavucontrol
+    sed -i "/^#volumeicon/ aexec /usr/bin/volumeicon" ${dir}config
+
+    #nm-applet
+    pkgCheckInstall network-manager-applet
+    sed -i "/^#nm-applet/ aexec /usr/bin/nm-applet" ${dir}config
+
 }
 
 function initNutstore(){
@@ -307,10 +317,13 @@ function main(){
 }
 
 #main
+
 DEBUG=''
 HOMEDIR="/home/$USER/"
 ROOTHOME="/root/"
 TOOLSDIR="${HOMEDIR}tools/"
 
 [ $1 ] &&  DEBUG='yes'
+initI3wm
+exit
 main
