@@ -263,8 +263,6 @@ def main():
         print 'need run as root,exit!'
         exit()
     ifSpecs = ifGetAddr(ifnames)
-    print ifSpecs
-    exit()
     rtCmd(ifSpecs,ifGetGws(ifSpecs))
     ifAuthens(svr,ifSpecs)
     rtCmd(ifSpecs,ifGetGws(ifSpecs),build = False)
