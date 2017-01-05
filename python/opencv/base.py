@@ -9,3 +9,4 @@ if not cap:
 ret, img = cap.read()
 
 cv2.imwrite('pic.jpg', img)
+cap.release()

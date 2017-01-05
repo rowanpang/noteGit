@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/local/bin/python2.7
+#!/usr/bin/env /usr/bin/python
 #coding: utf-8
 #Usage: 
     # ./post-httplib.py     or 
@@ -189,17 +189,19 @@ def ifNamesConfirm(default):
             if arg in default:
                 ifnames.append(arg)
     if len(ifnames) < 1:
-        print 'less than 1'
+        print 'not select ifname,use default'
         ifnames = default
     return ifnames
 
 def ifGetAddr(ifnames):
     ifSpecs = {}
     for ifname in ifnames:
+        print ifname
         s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         ifreq = fcntl.ioctl(s.fileno(),0x8915, #SIOCGIFADDR
                     struct.pack('256s',ifname))
         ip = socket.inet_ntoa(ifreq[20:24])
+        print ip
         s.close()
         ifSpecs[ifname] = ip
     return ifSpecs
@@ -230,18 +232,36 @@ def ifAuthens(svr,ifSpecs = None):
         for ifSpec in ifSpecs.items():
             ifAuthen(svr,ifSpec)
 
+def ifnamesAuto(master):
+    from subprocess import Popen,PIPE
+    p=Popen(["ip", "link"],stdout=PIPE,stderr=PIPE)
+    p.wait()
+    subRet=p.communicate()
+    ifnamesAuto=[]
+    for line in subRet[0].splitlines():
+	iterms = line.split(':')
+	if iterms[1].find(master) != -1:
+	    # print iterms[1]
+	    # print iterms[1].lstrip().split('@')[0]
+            ifnamesAuto.append(iterms[1].strip().split('@')[0])
+    return ifnamesAuto
+    
 #for ifSpecs[x]=value ,key is ifname,value is ip for ifname.
 #for ifSpec will be a (key, value) pair for ifSpecs.
 # ifSpec[0]:ifname 
 # ifSpec[1]:ifsrc 
+
 def main():
     svr = '10.6.6.9'
+    master = 'wlp0s20u7u4'
+    # ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
+    ifnamesDefault = ('wlan0','bridged')
+    ifnamesDefault = ifnamesAuto(master)
+    print ifnamesDefault
+    ifnames = ifNamesConfirm(ifnamesDefault)        #default ifnames to authen.
     if os.getuid() != 0:
         print 'need run as root,exit!'
         exit()
-    # ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
-    ifnamesDefault = ('wlan0','bridged')
-    ifnames = ifNamesConfirm(ifnamesDefault)        #default ifnames to authen.
     ifSpecs = ifGetAddr(ifnames)
     rtCmd(ifSpecs,ifGetGws(ifSpecs))
     ifAuthens(svr,ifSpecs)

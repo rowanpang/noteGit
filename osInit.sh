@@ -177,6 +177,16 @@ function initI3wm(){
     #end---------disable pwd quality check
     #terminal for nautilus
     pkgCheckInstall gnome-terminal-nautilus
+
+    #volume
+    pkgCheckInstall volumeicon
+    pkgCheckInstall pavucontrol
+    #sed -i "/^#volumeicon/ aexec /usr/bin/volumeicon" ${dir}config
+
+    #nm-applet
+    pkgCheckInstall network-manager-applet
+    #sed -i "/^#nm-applet/ aexec /usr/bin/nm-applet" ${dir}config
+
 }
 
 function initNutstore(){
@@ -255,6 +265,12 @@ function initDiskMount(){
     lsudo sed -i 's;^MountFlags;#&;' ${selfSymdUdevd}
 }
 
+function initHttpShare(){
+    [ $1 ] || lerror "init diskMount need dir param"
+    local dir=$1
+    lsudo ln -sf ${dir}httpShare/httpShare.sh /usr/bin/httpShare.sh
+}
+
 function initToolsMisc(){
     local dir=${TOOLSDIR}toolsMisc/
     if [ ! -d $dir ];then
@@ -266,6 +282,8 @@ function initToolsMisc(){
     initKvm $dir
     #diskMount
     initDiskMount $dir
+    #httpShare
+    initHttpShare $dir
 }
 
 function initXXnet(){
@@ -307,6 +325,7 @@ function main(){
 }
 
 #main
+
 DEBUG=''
 HOMEDIR="/home/$USER/"
 ROOTHOME="/root/"
