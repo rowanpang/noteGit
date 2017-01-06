@@ -237,6 +237,11 @@ function initKvm(){
     local slave=$(ip link | grep '^[1-9]\+: en*' | awk 'BEGIN {FS=":"} { print $2}')
     local slaveConName="${bridgeName}-slave-${slave}"
 
+    local qemuConfig="/etc/qemu/bridge.conf"
+    if [ $(cat $qemuConfig | grep -c $bridgeName) -lt 1 ];then
+	lsudo sed -i "$ iallow bridge0" $qemuConfig
+    fi
+
     if ! [ $(brctl show | grep -c $bridgeName) -gt 0 ];then
         verbose "add bridge con $bridgeConName"
         nmcli connection add ifname $bridgeName con-name $bridgeConName type bridge
@@ -311,8 +316,13 @@ function initWireshark(){
     [ $? ] && lsudo usermod --append --groups wireshark,usbmon $USER
 }
 
+function initGNU(){
+    pkgCheckInstall gcc-c++	 #will auto dependence gcc e.g
+}
+
 function main(){
     callFunc initCheck
+    callFunc initGNU
     callFunc disableSelinux
     callFunc initVim
     callFunc initKeyBoard
