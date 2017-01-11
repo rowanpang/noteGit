@@ -1,4 +1,16 @@
 #!/bin/sh
+#arg1:build or unbuild or none
+#arg2:Ops num,
+#    when build do [1,num)
+#    when unbuild do (vthMax-num,vthmax] ,vthmax=7 for vth7
+
+usage(){
+    echo "./mwanInit.sh"
+    echo "./mwanInit.sh unbuild"
+
+    echo "./mwanInit.sh build 2 or ./mwanInit.sh 2"
+    echo "./mwanInit.sh unbuild 2"
+}
 
 verbose(){
     if [ "$DEBUG" == 'yes' ];then 
@@ -76,6 +88,20 @@ linkCheckBuild(){
     fi
 }
 
+ifCheckBuildPost(){
+    if [ "$(uci changes network)" ];then
+	verbose "ifCheckBuildPost network commit and reload"
+	uci commit network
+	/etc/init.d/network reload
+    fi 
+
+    if [ "$(uci changes firewall)" ];then
+	verbose "ifCheckBuildPost firewall commit and reload"
+	uci commit firewall 
+	/etc/init.d/firewall reload
+    fi
+}
+
 ifCheckBuild(){
     local vlink="$1"
     local master="$2"
@@ -119,7 +145,7 @@ ifCheckBuild(){
 	    curMember=${curMember#\'}
 	    curMember=${curMember%\'}
 	    uci delete $cfg
-	    uci add_list "$cfg=${curMember}"
+	    uci set "$cfg=${curMember}"
 	fi	
     else
 	local hostName=$(uci get system.@system[0].hostname)-${vlinkIndex}
@@ -135,18 +161,23 @@ ifCheckBuild(){
             uci set "network.${ifName}.metric=$metric"
 	    #uci set "network.${ifName}.hostname=$hostName"
     	fi
-    	uci commit  #need before firewall commit
 	
 	if [ $(echo "$curMember" | grep -c $ifName) -lt 1 ];then
 	    verbose "add $ifName to firewall zone $fzone"
 	    uci delete $cfg
 	    curMember=${curMember#\'}
 	    curMember=${curMember%\'}
-	    uci add_list "$cfg=${curMember} $ifName"
+	    uci set "$cfg=${curMember} $ifName"
 	fi
     fi 
+}
 
-    uci commit
+mwan3ConfigPost(){
+    if [ "$(uci changes mwan3)" ];then
+	verbose "mwan3ConfigPost commit and restart"
+	uci commit mwan3
+	mwan3 restart
+    fi
 }
 
 mwan3Config(){
@@ -212,25 +243,40 @@ mwan3Config(){
     fi 
 }
 
+#arg0: func 
+#arg1: build/unbuild
 forEachvlink(){
-    [ $# -gt 0 ] || lerror "no func to exec"
-
+    [ $# -gt 1 ] || lerror "no func OR no cmd args"
     local master="eth0.2"
     local vthIndexStart=1                                                            
-    local vthNum=5                                                                     
-    [ $vthTotal ] && vthNum=$vthTotal
-    let vthMax=$vthNum+$vthIndexStart                                                   
+    local vthOpsNum=8
+    local doFunc="$1" && shift 
+    local doWhat="$1" 
+    local doFuncPost="${doFunc}Post"
 
-    local doFunc="$1"
-    shift 
-    
-    verbose "for each vlink call func: \"$doFunc\""
-    local i=$vthIndexStart                                                              
+    [ $opsNum -ne 255 ] && vthOpsNum=$opsNum
+
+    if [ "$doWhat" == "build" ];then
+    	let local vthMax=$vthOpsNum+$vthIndexStart                                                   
+    	local i=$vthIndexStart                                                              
+    else
+ 	let local vthMax=$(ip link | grep -c "$vlinkPrefix[0-9]\+@$master")+1
+    	[ $opsNum -ne 255 ] || vthOpsNum=$vthMax
+	[ $vthOpsNum -ge $vthMax ] && let vthOpsNum=$vthMax-1
+	let local i=$vthMax-$vthOpsNum
+    fi	
+
+    verbose "vlink [$i,$vthMax) call func: \"$doFunc\" do: \"$doWhat\""
+
     while [ $i -lt $vthMax ];do                                                         
         local vthName="${vlinkPrefix}$i"                                                           
         let i+=1                                                                        
         $doFunc $vthName $master $@
     done       
+
+    if [ "X$(type -t ${doFuncPost})" != "X" ];then
+	$doFuncPost
+    fi
 }
  
 initMwan(){
@@ -238,19 +284,31 @@ initMwan(){
     pkgCheckInstall mwan3
     pkgCheckInstall luci-app-mwan3
     pkgCheckInstall ip
-   
+
+    echo    
     local cmd="build" 
     [ "$1" == "unbuild" ] && cmd="unbuild" 
-    forEachvlink linkCheckBuild $cmd
-    forEachvlink ifCheckBuild $cmd
-    forEachvlink mwan3Config $cmd
+    if [ $cmd == "build" ];then
+	forEachvlink linkCheckBuild $cmd
+	echo    
+	forEachvlink ifCheckBuild $cmd
+	echo    
+	forEachvlink mwan3Config $cmd
+    else
+	forEachvlink mwan3Config $cmd
+	echo    
+	forEachvlink ifCheckBuild $cmd
+	echo    
+	forEachvlink linkCheckBuild $cmd
+    fi
 }
 
 #main
 DEBUG='yes'
-
 vlinkPrefix="vth"
 vifPrefix="vwan"
-vthTotal=5
+opsNum=255
+[ "$1" == "unbuild" ] && { doWhat="unbuild";shift; }
+[ "$1" ] && opsNum=$1
 
-initMwan $@
+initMwan $doWhat
