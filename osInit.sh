@@ -187,6 +187,9 @@ function initI3wm(){
     pkgCheckInstall network-manager-applet
     #sed -i "/^#nm-applet/ aexec /usr/bin/nm-applet" ${dir}config
 
+    #terminator
+    pkgCheckInstall terminator
+    ln -sf ${dir}dep/terminator/config ${HOMEDIR}.config/terminator/config 
 }
 
 function initNutstore(){
@@ -215,7 +218,7 @@ function initSynergy(){
 }
 
 #called by initToolsMisc,shouldn't directly call
-function initKvm(){
+function toolsMisc_kvm(){
     [ $1 ] || lerror "init kvm need dir param"
     local dir=$1
     pkgCheckInstall virt-manager
@@ -255,7 +258,7 @@ function initKvm(){
 }
 
 #called by initToolsMisc,shouldn't directly call
-function initDiskMount(){
+function toolsMisc_diskMount(){
     [ $1 ] || lerror "init diskMount need dir param"
     local dir=$1
     local uRulesDir="/etc/udev/rules.d/"
@@ -270,7 +273,7 @@ function initDiskMount(){
     lsudo sed -i 's;^MountFlags;#&;' ${selfSymdUdevd}
 }
 
-function initHttpShare(){
+function toolsMisc_httpShare(){
     [ $1 ] || lerror "init diskMount need dir param"
     local dir=$1
     lsudo ln -sf ${dir}httpShare/httpShare.sh /usr/bin/httpShare.sh
@@ -284,11 +287,11 @@ function initToolsMisc(){
         verbose "$dir exist" 
     fi
     #kvm
-    initKvm $dir
+    toolsMisc_kvm $dir
     #diskMount
-    initDiskMount $dir
+    toolsMisc_diskMount $dir
     #httpShare
-    initHttpShare $dir
+    toolsMisc_httpShare $dir
 }
 
 function initXXnet(){
