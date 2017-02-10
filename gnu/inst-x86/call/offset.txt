@@ -1,25 +1,25 @@
 1,call(e8) 指令中offset值的说明
-	a,exp show() ---> show2()
-	b,
-		 show2();
-	  40055f:   b8 00 00 00 00          mov    $0x0,%eax
-	  400564:   e8 cd ff ff ff          callq  400536 <show2>
-			e8:为指令代码
-			ffffffcd:为目的地与next ip 之间的offset.
-	  400569:   90                      nop
-		callToAddr = 400536
-		offset = ffffffcd
-		next-ip = 400569
-	
-	c,callToAddr = offset + 'next-ip'addr
-		offset为符号数，所以加法运算舍弃进位：
-				 400569
-			+  ffffffcd
-			=  0x400536
-	d,offset = callToAddr - 'next-ip'
-	    400536
-	  - 400569
-	  = ffffcd
+    a,exp show() ---> show2()
+    b,
+         show2();
+      40055f:   b8 00 00 00 00          mov    $0x0,%eax
+      400564:   e8 cd ff ff ff          callq  400536 <show2>
+            e8:为指令代码
+            ffffffcd:为目的地与next ip 之间的offset.
+      400569:   90                      nop
+        callToAddr = 400536
+        offset = ffffffcd
+        next-ip = 400569
+    
+    c,callToAddr = offset + 'next-ip'addr
+        offset为符号数，所以加法运算舍弃进位：
+                 400569
+            +  ffffffcd
+            =  0x400536
+    d,offset = callToAddr - 'next-ip'
+        400536
+      - 400569
+      = ffffcd
 
 0000000000400536 <show2>:
 void show2()
