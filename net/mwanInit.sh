@@ -46,9 +46,13 @@ pkgCheckInstall(){
     fi
 }
 
+macTmp="zero d2:7b:1f:29:4c:90 ee:76:20:14:c9:7e de:c1:16:9d:a4:12 8a:46:a9:00:79:98 aa:78:a3:36:58:c0 
+	36:98:03:22:c8:ed 96:15:f6:06:89:7b 9e:9c:b3:d7:0e:44 be:a5:57:90:ef:b2 1e:e8:35:d1:e4:e4"
+
 linkCheckBuild(){
     local vlink=$1
     local master=$2
+    local vlinkIndex=${vlink#${vlinkPrefix}}
     shift 2
     
     local initScript="/etc/rc.local"
@@ -69,13 +73,22 @@ linkCheckBuild(){
 
     else
     	local cmd="ip link add link $master $vlink type macvlan"
-    	local cmd2="ifconfig $vlink up"
+	local i=0;
+	local maclink;
+	for mac in $macTmp;do
+		[ $i -eq $vlinkIndex ] && maclink=$mac
+		let i+=1
+	done
+    	local cmd2="ifconfig $vlink hw ether $maclink"
+    	local cmd3="ifconfig $vlink up"
 
 	if [ $(ip link | grep -c "${vlink}@${master}") -lt 1 ];then
 	    verbose "do cmd: \"$cmd\""
 	    $cmd
       	    verbose "do cmd: \"$cmd2\""
 	    $cmd2
+      	    verbose "do cmd: \"$cmd3\""
+	    $cmd3
 	fi
 
 	if [ $(cat $initScript | grep -c "$vlink") -lt 1 ];then
@@ -83,6 +96,7 @@ linkCheckBuild(){
 	    verbose "write \"$cmd2\" to $initScript"
  	    sed -i "/^#vlinkEnd/ i${cmd}"  $initScript
  	    sed -i "/^#vlinkEnd/ i${cmd2}" $initScript
+ 	    sed -i "/^#vlinkEnd/ i${cmd3}" $initScript
 	    sed -i "/^#vlinkEnd/ i" $initScript
         fi
     fi
