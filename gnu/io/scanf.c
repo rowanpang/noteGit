@@ -27,7 +27,7 @@ fscanf:
     fscanf(fp,"%d %d",&a,&b);
     fscanf(fp,"%d",&c);
     printf("fscanf:a:%d,b:%d,c:%d\n",a,b,c);
-    close(fp);
+    fclose(fp);
     return 0;
 
 }
