@@ -3,12 +3,12 @@
 
 int main(int argc,char** argv)
 {
-	char *src="pangwz";
-	char dst[10]={0};
+    char *src="pangwz";
+    char dst[10]={0};
 
-	strcpy(dst,src);
+    strcpy(dst,src);
 
-	printf("after cpy %s \n",dst);
+    printf("after cpy %s \n",dst);
 
-	return 0;
+    return 0;
 }

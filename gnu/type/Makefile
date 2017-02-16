@@ -1,7 +1,7 @@
 .PHONY:all
 all:
-	@gcc struct.c -o x86_64.out
-	@gcc -m32 struct.c -o i386.out
+	@gcc -g struct.c -o x86_64.out
+	@gcc -g -m32 struct.c -o i386.out
 
 clean:
-	@rm i386.out x86_64.out
+	@-rm i386.out x86_64.out
