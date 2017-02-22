@@ -28,7 +28,7 @@ prepare2:
 all:built-in.o prepare0 prepare1 prepare2
 	@ echo target_v: $@ 
 #	@ echo CURPATH:	$(CURDIR)
-#	@ echo dir CURPATH:	$(dir $(CURDIR))
+	@ echo dir CURPATH:	$(dir $(CURDIR))
 #	@ echo kbuild-dir: $(kbuild-dir)
 #	@ echo kbuild-dir_1: $(kbuild-dir_1)
 #	@ echo filter_test: $(filter_test)
