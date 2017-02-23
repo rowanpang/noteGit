@@ -32,6 +32,6 @@ def gitToGithub(file):
     os.system('git push')
 
 if __name__ == '__main__':
-    ipFile = '/tmp/rowan/github/net/ip/ipWan-%s' %os.uname()[1]
+    ipFile = '/tmp/rowan/github/net/ipSync/ipWan-%s' %os.uname()[1]
     ipWanGet(ipFile)
     gitToGithub(ipFile)
