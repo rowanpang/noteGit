@@ -2,6 +2,7 @@
 #coding:UTF-8
 # ref http://blog.chinaunix.net/uid-25885064-id-3447914.html
 
+import sys
 import socket,struct,fcntl
 
 def getIpAddr(ifname):
@@ -10,15 +11,18 @@ def getIpAddr(ifname):
 			struct.pack('256s',ifname))
 	ip = socket.inet_ntoa(ifreq[20:24])
 	s.close()
-	print ip
+	# print ip
 	return ip
 	
 ips = []
-ips.append(getIpAddr('lo'))
-ips.append(getIpAddr('bridged'))
-ips.append(getIpAddr('wlan0'))
+# ips.append(getIpAddr('lo'))
+# ips.append(getIpAddr('bridged'))
+# ips.append(getIpAddr('wlan0'))
 
-print ips
+# print ips
 
-for ip in ips:
-	print ip
+# for ip in ips:
+	# print ip
+for arg in sys.argv[1:]:
+    print "IF:%s,IP:%s"  %(arg,getIpAddr(arg))
+    # getIpAddr(sys.argv[1])
