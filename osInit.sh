@@ -189,6 +189,7 @@ function initI3wm(){
 
     #terminator
     pkgCheckInstall terminator
+    mkdir -p ${HOMEDIR}.config/terminator
     ln -sf ${dir}dep/terminator/config ${HOMEDIR}.config/terminator/config 
 }
 
