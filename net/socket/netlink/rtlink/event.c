@@ -67,12 +67,13 @@ int main(int argc, char* argv[])
 	.msg_controllen = 0,
 	.msg_flags	= 0
     };
+    printf("align nlh:%d\n",NLMSG_ALIGN(sizeof(struct nlmsghdr)));
     while(1){
 	len = recvmsg(fd, &msg, 0);
 	printf("recv msg len:%d\n",len);
 	for(nh = (struct nlmsghdr*)buf;NLMSG_OK(nh,len); nh = NLMSG_NEXT(nh, len)) {
 	    printf("nh->nlmsg_type:%d\n",nh->nlmsg_type);
-	    printf("payload len:%d\n",NLMSG_PAYLOAD(nh,len));
+	    printf("payload len:%d\n",NLMSG_PAYLOAD(nh,0));
 	    if (nh->nlmsg_type == NLMSG_DONE)
 	       break;
 
@@ -81,6 +82,34 @@ int main(int argc, char* argv[])
 		    break;
 		}
 	    }
+
+	    if (nh->nlmsg_type == RTM_NEWLINK) {
+		struct ifinfomsg *ifmsg = NLMSG_DATA(nh);
+		printf("align ifinfomsg:%d\n",NLMSG_ALIGN(sizeof(struct ifinfomsg)));
+		printf("ifinfomsg.ifi_family:%d\n",ifmsg->ifi_family);
+		printf("ifinfomsg.ifi_type:%d\n",ifmsg->ifi_type);
+
+		struct rtattr *rta = (struct rtattr*)((char *)ifmsg + NLMSG_ALIGN(sizeof(struct ifinfomsg)));
+		int rtlen = NLMSG_PAYLOAD(nh,sizeof(struct ifinfomsg));
+		char *rtaData = NULL;
+		int i = 0;
+		printf("rta:%p,len:%d\n",rta,rtlen);
+		for(rta;RTA_OK(rta,rtlen);rta=RTA_NEXT(rta,rtlen)){
+		    printf("rta.rta_len:%d\n",rta->rta_len);
+		    printf("rta.rta_type:%d\n",rta->rta_type);
+		    printf("payload len:%d\n",RTA_PAYLOAD(rta));
+		    rtaData = RTA_DATA(rta);
+		    if(rta->rta_type == 3){
+			printf("%s \n",rtaData);
+		    }else{
+			for(i = 0;i < rta->rta_len;i++)
+			    printf("%d ",rtaData[i]);
+		    }
+		    printf("\n");
+		}
+
+	    }
+
 	}
 
 	printf("\n");
