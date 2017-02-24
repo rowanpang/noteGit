@@ -36,6 +36,7 @@ function callFunc(){
 
 #$1,pkg name
 #$2==noInstall,do not install else other repos...
+#$.==enable repo
 function pkgCheckInstall(){
     local pkg=$1
     count=`rpm -qa "$pkg" | grep -c "$pkg"`
@@ -68,6 +69,17 @@ function disableSelinux(){
 }
 
 function initCheck(){
+    if [ -r /etc/redhat-release ];then
+	case $(cat /etc/redhat-release) in
+	    Fedora*):
+		Vendor=fedora
+		Ver=$(rpm -E %fedora)
+		;;
+	esac
+    fi
+    
+    return
+
     local who=`whoami`
     [ "$who" == "$USER" ] || lerror "effective user:$who is not login user:$USER"
     [ -f ${HOMEDIR}.gitconfig ] || lerror " prepare .gitconfig first,exit" 
@@ -324,8 +336,22 @@ function initGNU(){
     pkgCheckInstall gcc-c++	 #will auto dependence gcc e.g
 }
 
+function initRepo(){
+    if [ $Vendor == "fedora" ];then
+	lsudo dnf --assumeyes install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    fi
+
+    lsudo sed -i "s/^metadate_expire=.*/#&/" /etc/yum.repos.d/*
+    lsudo sed -i "$ a metadate_expire=never" /etc/dnf/dnf.conf
+}
+
+function initSoft(){
+    pkgCheckInstall mplayer rpmfusion-free rpmfusion-free-updates
+}
+
 function main(){
     callFunc initCheck
+    callFunc initRepo
     callFunc initGNU
     callFunc disableSelinux
     callFunc initVim
