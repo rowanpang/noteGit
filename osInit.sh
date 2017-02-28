@@ -347,6 +347,7 @@ function initRepo(){
 
 function initSoft(){
     pkgCheckInstall mplayer rpmfusion-free rpmfusion-free-updates
+    pkgCheckInstall kernel-devel
 }
 
 function main(){
