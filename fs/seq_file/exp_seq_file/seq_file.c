@@ -14,92 +14,92 @@ static char str[128]={"pangwz12345678"};
 
 static void *my_seq_start(struct seq_file *s, loff_t *pos)
 {
-	printk("In %s\n",__FUNCTION__);	
-	if(*pos < strlen(str)){
-		return pos;
-	}
+    printk("In %s\n",__FUNCTION__);    
+    if(*pos < strlen(str)){
+        return pos;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 static void *my_seq_next(struct seq_file *f, void *v, loff_t *pos)
 {
-	printk("In %s\n",__FUNCTION__);	
-	(*pos)++;
-	if(*pos >= strlen(str)){
-		return NULL;
-	}
-	return pos;
+    printk("In %s\n",__FUNCTION__);    
+    (*pos)++;
+    if(*pos >= strlen(str)){
+        return NULL;
+    }
+    return pos;
 }
 
 static int my_seq_show(struct seq_file *f, void *v)
 {
-	loff_t pos = *(loff_t*)v;
-	printk("In %s\n",__FUNCTION__);	
+    loff_t pos = *(loff_t*)v;
+    printk("In %s\n",__FUNCTION__);    
 
-	seq_printf(f,"%c\n",*(str+pos));
+    seq_printf(f,"%c\n",*(str+pos));
 
-	return 0;
+    return 0;
 }
 
 static void my_seq_stop(struct seq_file *f, void *v)
 {
-	printk("In %s\n",__FUNCTION__);	
+    printk("In %s\n",__FUNCTION__);    
 }
 
 static struct seq_operations my_seq_ops = {
-	.start = my_seq_start,
-	.next = my_seq_next,
-	.stop = my_seq_stop,
-	.show = my_seq_show
+    .start = my_seq_start,
+    .next = my_seq_next,
+    .stop = my_seq_stop,
+    .show = my_seq_show
 };
 
 static int seq_file_open(struct inode *inode, struct file *file)
 {
-	return seq_open(file, &my_seq_ops);
+    return seq_open(file, &my_seq_ops);
 };
 
 static int single_seq_show(struct seq_file *f, void *v)
 {
-	printk("In %s\n",__FUNCTION__);	
+    printk("In %s\n",__FUNCTION__);    
 
-	seq_printf(f,"%s\n",str);
+    seq_printf(f,"%s\n",str);
 
-	return 0;
+    return 0;
 }
 
 static int single_file_open(struct inode *inode, struct file *file)
 {
-	return single_open(file, &single_seq_show,NULL);
+    return single_open(file, &single_seq_show,NULL);
 };
 
 static struct file_operations seq_file_ops = {
-	.owner = THIS_MODULE,
-	.open = seq_file_open,
-	.read = seq_read,
-	.llseek = seq_lseek,
-	.release = seq_release
+    .owner = THIS_MODULE,
+    .open = seq_file_open,
+    .read = seq_read,
+    .llseek = seq_lseek,
+    .release = seq_release
 };
 
 static struct file_operations single_file_ops = {
-	.owner = THIS_MODULE,
-	.open = single_file_open,
-	.read = seq_read,
-	.llseek = seq_lseek,
-	.release = seq_release
+    .owner = THIS_MODULE,
+    .open = single_file_open,
+    .read = seq_read,
+    .llseek = seq_lseek,
+    .release = seq_release
 };
 static int __init  seq_file_init(void)
 {
-	proc_create("seq_test_rowan", 0, NULL, &seq_file_ops);
-	proc_create("single_test_rowan", 0, NULL, &single_file_ops);
+    proc_create("seq_test_rowan", 0, NULL, &seq_file_ops);
+    proc_create("seq_single_test_rowan", 0, NULL, &single_file_ops);
 
     return 0;
 }
 
 static void __exit seq_file_exit(void)
 {
-	remove_proc_entry("seq_test_rowan",NULL);
-	remove_proc_entry("single_test_rowan",NULL);
+    remove_proc_entry("seq_test_rowan",NULL);
+    remove_proc_entry("single_test_rowan",NULL);
 }
 
 MODULE_LICENSE("GPL"); 
