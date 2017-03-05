@@ -356,6 +356,7 @@ function initRepo(){
 function initSoft(){
     pkgCheckInstall mplayer rpmfusion-free rpmfusion-free-updates
     pkgCheckInstall kernel-devel
+    pkgCheckInstall mediainfo
 }
 
 function main(){
@@ -371,6 +372,7 @@ function main(){
     callFunc initToolsMisc
     callFunc initXXnet
     callFunc initWireshark
+    callFunc initSoft
 }
 
 #main
