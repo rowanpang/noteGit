@@ -357,6 +357,7 @@ function initSoft(){
     pkgCheckInstall mplayer rpmfusion-free rpmfusion-free-updates
     pkgCheckInstall kernel-devel
     pkgCheckInstall mediainfo
+    pkgCheckInstall nmap
 }
 
 function main(){
