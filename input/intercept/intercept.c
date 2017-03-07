@@ -7,15 +7,18 @@
 
 static bool intercept_filter(struct input_handle *handle, unsigned int type, unsigned int code, int value)
 {
-    static char toFilter=2;
+    static char toFilter=3;
     char ret = 0;
-    pr_info("code %d,value:%d\n",code,value);
     if (toFilter == 0){
 	ret = 0;
     }else{
 	ret = 1;
 	toFilter--;
     }
+    if (type != 3){
+	pr_info("type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+    }
+    ret = 0;
     return ret;
 }
 
@@ -58,8 +61,9 @@ static void intercept_disconnect(struct input_handle *handle)
 
 static const struct input_device_id intercept_ids[] = {
     {
-	.flags = INPUT_DEVICE_ID_MATCH_EVBIT,
+	.flags = INPUT_DEVICE_ID_MATCH_EVBIT|INPUT_DEVICE_ID_MATCH_KEYBIT,
 	.evbit = { BIT_MASK(EV_KEY) },
+	.keybit = { BIT_MASK(KEY_LEFTALT) },
     },
     { },
 };
