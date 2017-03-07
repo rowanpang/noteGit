@@ -17,7 +17,7 @@ static int threadfn(void *p)
 
 	while(!kthread_should_stop()){
 		set_current_state(TASK_UNINTERRUPTIBLE);
-		schedule_timeout(20*HZ);
+		schedule_timeout(120*HZ);
 				
 		printk("threadfn pid:%d wakeup,and sleep immedialy\n",current->pid);	
 	}
