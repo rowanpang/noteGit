@@ -5,20 +5,25 @@
 #include <linux/slab.h>
 #include <linux/printk.h> 
 
+int doIt = 0;
+module_param(doIt,int,0700);
+
 static bool intercept_filter(struct input_handle *handle, unsigned int type, unsigned int code, int value)
 {
     static char toFilter=3;
     char ret = 0;
     if (toFilter == 0){
-	ret = 0;
-    }else{
 	ret = 1;
+    }else{
+	ret = 0;
 	toFilter--;
     }
-    if (type != 3){
-	pr_info("type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+    
+    pr_info("type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+    if(!doIt){
+	ret = 0;
     }
-    ret = 0;
+
     return ret;
 }
 
