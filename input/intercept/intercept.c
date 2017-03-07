@@ -7,8 +7,16 @@
 
 static bool intercept_filter(struct input_handle *handle, unsigned int type, unsigned int code, int value)
 {
+    static char toFilter=2;
+    char ret = 0;
     pr_info("code %d,value:%d\n",code,value);
-    return 0;
+    if (toFilter == 0){
+	ret = 0;
+    }else{
+	ret = 1;
+	toFilter--;
+    }
+    return ret;
 }
 
 static int intercept_connect(struct input_handler *handler, struct input_dev *dev, const struct input_device_id *id)
