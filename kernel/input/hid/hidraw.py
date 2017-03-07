@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#./hidraw /dev/hidrawX 
 import sys
 import struct
 import binascii
@@ -13,7 +14,7 @@ def main():
 	while True:
 		print "new read %d"  %i
 		if i == 0:
-			sleep(40)
+			sleep(1)
 		data = hidraw.read(8)
 		# print ''.join(map(lambda x: (hex(ord(x))[2:] + ' ')[-3:], struct.unpack('!8c', data)))
 		print binascii.b2a_hex(data)
