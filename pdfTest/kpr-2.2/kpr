@@ -1,0 +1,84 @@
+#!/bin/bash
+
+function usage(){
+    echo -e "Usage: $0 'file'"
+    exit
+}
+
+function optParser(){
+    while [ $# -gt 0 ];do
+	case $1 in
+	    clean)
+		unprepare
+		exit
+		;;
+	    -s|single-line)
+		singline="yes"
+		;;
+	    *)
+		fileToPrint=$1
+		;;
+	esac
+	shift
+    done
+}
+
+CPDF='./cpdf'
+function osCheck(){
+    if [ -f /etc/inspur-release ];then
+	isKUX="yes"
+    fi
+}
+
+function main(){
+    optParser "$@"
+    osCheck
+    [ $fileToPrint ] || usage
+
+    directPdf=$(mktemp)
+    printPdf=$(mktemp)
+    enscript --quiet --no-header --output=- $fileToPrint | ps2pdf - $directPdf
+    
+    if [ "$isKUX" ];then
+	xattrCmd="kuxgetfilexattr"
+    else
+	xattrCmd="getfattr -n security.selinux"
+    fi
+
+    markText="$($xattrCmd $fileToPrint 2>/dev/null)"	
+    if [ "$singline" ];then
+	markText=$(echo $markText)
+    else
+	markText=$(echo "$markText" | sed ':a;N;$!ba;s/\n/\\n/g')	  
+    fi
+    #echo $markText
+    if ! [ "$markText" ];then
+	markText="$fileToPrint \n No label for this file"
+    fi
+
+    ${CPDF}				\
+	-add-text "$markText" 		\
+	-color "red"			\
+	-justify-right			\
+	-font Times-Roman		\
+	-font-size 20			\
+	-outline			\
+	-diagonal			\
+	$directPdf -o $printPdf
+
+    fileName="$(basename $fileToPrint)"
+    filePrintedName="${fileName//./_}.pdf"
+    filePrinted="$HOME/Desktop/${filePrintedName}"
+
+    if ! [ "$isKUX" ];then
+	lpr $printPdf -C $filePrintedName
+	while ! [ -f $filePrinted ];do sleep 1;done
+    else
+	filePrinted=$printPdf
+    fi
+
+    mv $filePrinted ${filePrintedName}
+}
+
+#---------------main------------------------
+main "$@"

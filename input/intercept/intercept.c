@@ -6,7 +6,7 @@
 #include <linux/printk.h> 
 
 int doIt = 0;
-module_param(doIt,int,0700);
+module_param(doIt,int,0600);
 
 static bool intercept_filter(struct input_handle *handle, unsigned int type, unsigned int code, int value)
 {
