@@ -20,6 +20,7 @@ echo ${fileName//./_}
 testOut="asdfasdf   
 adfkajdfla"
 
+#use type `cmd` will can not replace '\n'
 testOut2="$(echo "$testOut" | sed ':a;N;$!ba;s#\n#\\n#')"
 echo "$testOut"
 echo -e $testOut
