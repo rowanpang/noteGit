@@ -10,4 +10,6 @@ function libinit(){
     varValuedbylibInit="lib init test"
 }
 
+program=$0
+localdir=$(dirname $program)
 [ "$1" ==  "libinit" ] && libinit

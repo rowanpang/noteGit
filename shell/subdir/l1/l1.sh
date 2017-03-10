@@ -1,12 +1,13 @@
 #!/bin/bash
 . ./lib.sh
 
-program=$0
 function main(){
-    echo "exec:$program ----------- curdir:$PWD"
+    echo "exec:$0 ----------- curdir:$PWD"
+    echo "program:$program ----localdir:$localdir"
     #sourced but not do libinit so,not valued
     echo "var $varValuedbylibInit"
     echo "libinited $libinited"
+
 
     funcShare
 }

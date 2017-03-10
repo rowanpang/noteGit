@@ -1,9 +1,9 @@
 #!/bin/bash
 source ./lib.sh
 
-program=$0
 function main(){
-    echo "exec:$program ----------- curdir:$PWD"
+    echo "exec:$0 ----------- curdir:$PWD"
+    echo "program:$program ----localdir:$localdir"
     funcShare "from $program"
 }
 
