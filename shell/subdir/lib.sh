@@ -5,7 +5,9 @@ function funcShare(){
 }
 
 function libinit(){
-    echo "libinit,will do every source"
+    echo "libinit,will do every source $libinited"
+    libinited="yes"
+    varValuedbylibInit="lib init test"
 }
 
-[ "$1" == "libinit" ] && libinit
+[ "$1" ==  "libinit" ] && libinit
