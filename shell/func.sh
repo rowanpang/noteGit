@@ -18,3 +18,8 @@ function lsudo(){
     sudo "$@"
 }
 
+dir="adf" f2
+echo $dir
+echo
+dir="adf";f2
+echo $dir
