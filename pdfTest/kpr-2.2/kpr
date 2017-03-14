@@ -23,7 +23,7 @@ function optParser(){
     done
 }
 
-CPDF='./cpdf'
+CPDF='cpdf'
 function osCheck(){
     if [ -f /etc/inspur-release ];then
 	isKUX="yes"
@@ -34,6 +34,7 @@ function main(){
     optParser "$@"
     osCheck
     [ $fileToPrint ] || usage
+    [ -f $fileToPrint ] || { echo "file not exist";exit; }
 
     directPdf=$(mktemp)
     printPdf=$(mktemp)
@@ -68,9 +69,15 @@ function main(){
 
     fileName="$(basename $fileToPrint)"
     filePrintedName="${fileName//./_}.pdf"
-    filePrinted="$HOME/Desktop/${filePrintedName}"
+    [ -d "$HOME/Desktop" ] && outDir="$HOME/Desktop" || outDir="$HOME"
+    filePrinted="${outDir}/${filePrintedName}"
 
-    if ! [ "$isKUX" ];then
+    $(timeout 0.2s lpr)
+    local tmpRet=$?
+    if [ "$tmpRet" -eq 124 ];then		#if ret 124,timeout. lpr ok.
+	local hasDefault="yes"
+    fi
+    if [ "$hasDefault" ];then
 	lpr $printPdf -C $filePrintedName
 	while ! [ -f $filePrinted ];do sleep 1;done
     else
