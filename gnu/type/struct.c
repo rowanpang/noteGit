@@ -81,6 +81,12 @@ int main(int argc,char** argv)
 
     char* pArray[]={ "a","b"};
     printf("sizeof(pArray):%d\n",sizeof(pArray)/sizeof(char*));
+    
+    int a = 2;
+    _Bool testBool=3;
+    _Bool testBool2=a;
+    printf("sizeof(testBool):%d,value:%d\n",sizeof(testBool),testBool);
+    printf("sizeof(testBool2):%d,value:%d\n",sizeof(testBool2),testBool2);
 
     return 0;
 }
