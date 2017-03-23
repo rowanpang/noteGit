@@ -1,6 +1,6 @@
-#!/bin/bash ./read.sh
+#!/bin/bash 
 
 echo "exec testing"
 echo $$
-exec sleep 5
-
+exec /usr/bin/vim a.txt
+echo "exec finished"		#will not show this msg
