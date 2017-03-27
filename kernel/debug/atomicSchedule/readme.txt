@@ -1,14 +1,4 @@
-----------WARNNING: this is an abnormal test suit
+1,此列并不能got atomic Schedule error.
+    在使用schedule时已经做了兼容处理，disable掉了preempt,所以不会看到error.
 
-	d,if kernel configed as disable preempt,this suit ok
-	    just for test 	    
-
-	a,can work on smp,on up will crash,soft lockup
-	b,thread
-		A,got spinlock and sleep-->shedule()
-		B,release the cpu for this task. 
-			--->abnormal, spinlock disable preempt 
-	
-	c,threadA
-		just as thread,but wait for the samelock
-		
+2,在中断上下文中可以看到.
