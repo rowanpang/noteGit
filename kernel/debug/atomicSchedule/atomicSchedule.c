@@ -19,6 +19,9 @@ static int __init pmount_init(void)
     mutex_unlock(&my_mutex);
     printk("In func %s,mutexCount:%d\n",__func__,atomic_read(&my_mutex.count));
 
+    set_current_state(TASK_INTERRUPTIBLE);
+    schedule_timeout(10*HZ);
+
     spin_unlock(&my_lock);
     return ret;
 }
