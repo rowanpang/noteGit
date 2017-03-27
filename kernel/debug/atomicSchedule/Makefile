@@ -13,6 +13,8 @@ obj_o := $(patsubst %.c, %.o, $(src_c))
 obj-m += $(TEST_MOD_NAME).o
 $(TEST_MOD_NAME)-objs += $(obj_o)
 
+ccflags-y += -Wno-error=unused-variable
+
 else
 
 .PHONY:all,modules
