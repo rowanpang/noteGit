@@ -56,7 +56,7 @@ int main(int argc,char **argv)
 
     ret = ioctl(fd,KDGETMODE,&ttyMode);
     if (ret == -1) {
-	perror("error for KDGETLED");
+	perror("error for KDGETMODE");
 	ret = errno;
 	goto CLOSE;
     }
@@ -64,9 +64,9 @@ int main(int argc,char **argv)
     
     if (ttyModeRevert){
 	ttyMode ^= 1;
-	ret = ioctl(fd,KDSETMODE,&ttyMode);
+	ret = ioctl(fd,KDSETMODE,ttyMode);
 	if (ret == -1) {
-	    perror("error for KDGETLED");
+	    perror("error for KDSETMODE");
 	    ret = errno;
 	    goto CLOSE;
 	}
