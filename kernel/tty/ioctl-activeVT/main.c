@@ -11,6 +11,10 @@
 
 typedef _Bool bool;
 
+/*
+ *usage:
+ *    arg1: int X: change to vt x defautl is 3.
+ */
 int main(int argc,char **argv)
 {
     int ret=0;
