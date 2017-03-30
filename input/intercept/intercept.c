@@ -106,17 +106,18 @@ static int __init  example_init(void)
 	intercept_handler_registed = true;
     }
 
-    
+    pr_info("out func :%s\n",__func__);
     return 0;
 }
 
 static void __exit example_exit(void)
 {
-    pr_info("exit in func :%s\n",__func__);
+    pr_info("in func :%s\n",__func__);
     if(intercept_handler_registed){
 	input_unregister_handler(&intercept_handler);
 	intercept_handler_registed = false;
     }
+    pr_info("out func :%s\n",__func__);
 }
 
 MODULE_LICENSE("GPL"); 
