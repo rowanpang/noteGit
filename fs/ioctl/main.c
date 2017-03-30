@@ -54,7 +54,16 @@ int main(int argc,char **argv)
 	ret = errno;
 	goto CLOSE;
     }
-    printf("tty work mode state :%s\n",ttyModeStr[ttyMode]);
+    printf("tty work cur mode: %s\n",ttyModeStr[ttyMode]);
+
+    ttyMode ^= 1;
+    ret = ioctl(fd,KDSETMODE,&ttyMode);
+    if (ret == -1) {
+	perror("error for KDGETLED");
+	ret = errno;
+	goto CLOSE;
+    }
+    printf("tty work mode set to: %s\n",ttyModeStr[ttyMode]);
 
 CLOSE: 
     close(fd);
