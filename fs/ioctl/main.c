@@ -23,12 +23,18 @@ int main(int argc,char **argv)
 	"text",
 	"graphics",
     };
+    char ttyModeRevert=0;
 
     if (argc >1){
 	sprintf(devpath,"%s%s",DEVPREFIX,argv[1]);
     }else{
 	sprintf(devpath,"%s%s",DEVPREFIX,"1");
     }
+
+    if (argc > 2){
+	ttyModeRevert = 1;
+    }
+
     
     printf("target dev is %s\n",devpath);
 
@@ -55,15 +61,17 @@ int main(int argc,char **argv)
 	goto CLOSE;
     }
     printf("tty work cur mode: %s\n",ttyModeStr[ttyMode]);
-
-    ttyMode ^= 1;
-    ret = ioctl(fd,KDSETMODE,&ttyMode);
-    if (ret == -1) {
-	perror("error for KDGETLED");
-	ret = errno;
-	goto CLOSE;
+    
+    if (ttyModeRevert){
+	ttyMode ^= 1;
+	ret = ioctl(fd,KDSETMODE,&ttyMode);
+	if (ret == -1) {
+	    perror("error for KDGETLED");
+	    ret = errno;
+	    goto CLOSE;
+	}
+	printf("tty work mode set to: %s\n",ttyModeStr[ttyMode]);
     }
-    printf("tty work mode set to: %s\n",ttyModeStr[ttyMode]);
 
 CLOSE: 
     close(fd);
