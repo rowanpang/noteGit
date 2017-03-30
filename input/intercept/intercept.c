@@ -12,14 +12,26 @@ static bool intercept_filter(struct input_handle *handle, unsigned int type, uns
 {
     static char toFilter=3;
     char ret = 0;
+#define evenTypeStrNum 5
+    char *typeStr[evenTypeStrNum]={
+	"sync",
+	"key",
+	"rel",
+	"abs",
+	"msc",
+    };
     if (toFilter == 0){
 	ret = 1;
     }else{
 	ret = 0;
 	toFilter--;
     }
-    
-    pr_info("type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+    if (type < evenTypeStrNum){
+	pr_info("input--:event type:%s,code:%d,value:%d\n",typeStr[type],code,value);
+    }else{
+	pr_info("input--:event type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+    }
+
     if(!doIt){
 	ret = 0;
     }
