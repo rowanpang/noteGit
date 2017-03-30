@@ -7,6 +7,7 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<linux/kd.h>
+#include<linux/vt.h>
 
 typedef _Bool bool;
 
@@ -64,6 +65,17 @@ int main(int argc,char **argv)
     
     if (ttyModeRevert){
 	ttyMode ^= 1;
+	if (ttyMode == 0){
+	    ret = ioctl(fd,VT_UNLOCKSWITCH);
+            if (ret == -1) {
+           	perror("error for KDSETMODE");
+		ret = errno;
+		goto CLOSE;
+            }else{
+		printf("vc text mode unlock switch");
+	    }
+	}
+
 	ret = ioctl(fd,KDSETMODE,ttyMode);
 	if (ret == -1) {
 	    perror("error for KDSETMODE");
