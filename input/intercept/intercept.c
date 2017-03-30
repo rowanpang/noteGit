@@ -27,11 +27,14 @@ static bool intercept_filter(struct input_handle *handle, unsigned int type, uns
 	toFilter--;
     }
     if (type < evenTypeStrNum){
-	pr_info("input--:event type:%s,code:%d,value:%d\n",typeStr[type],code,value);
+	pr_info("input--:event type:%-10s,code:%-10d,value:%d\n",typeStr[type],code,value);
     }else{
-	pr_info("input--:event type %d,code %d,value:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
+	pr_info("input--:event type %d,\tcode %d,\tvalue:%d. --ret:%d,toFilter:%d\n",type,code,value,ret,toFilter);
     }
-
+    
+    if ( type == EV_SYN){
+	pr_info("\n");
+    }
     if(!doIt){
 	ret = 0;
     }
