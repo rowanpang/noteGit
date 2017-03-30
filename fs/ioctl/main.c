@@ -55,6 +55,20 @@ int main(int argc,char **argv)
     }
     printf("led state :%d\n",ledState);
 
+    struct vt_mode vtMode;
+    char *vtModeStr[3]={
+	"auto",
+	"process",
+	"ackacq",
+    };
+    ret = ioctl(fd,VT_GETMODE,&vtMode);
+    if (ret == -1) {
+	perror("error for VT_GETMODE");
+	ret = errno;
+	goto CLOSE;
+    }
+    printf("cur vt->mode: %s\n",vtModeStr[vtMode.mode]);
+
     ret = ioctl(fd,KDGETMODE,&ttyMode);
     if (ret == -1) {
 	perror("error for KDGETMODE");
