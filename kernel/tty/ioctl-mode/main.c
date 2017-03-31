@@ -35,7 +35,7 @@ int main(int argc,char **argv)
     if (argc >1){
 	sprintf(devpath,"%s%s",DEVPREFIX,argv[1]);
     }else{
-	sprintf(devpath,"%s%s",DEVPREFIX,"1");
+	sprintf(devpath,"%s%s",DEVPREFIX,"");
     }
 
     if (argc > 2){
@@ -74,6 +74,8 @@ int main(int argc,char **argv)
 	goto CLOSE;
     }
     printf("cur vt->mode: %s\n",vtModeStr[vtMode.mode]);
+    printf("cur vt->relsig: %d\n",vtMode.relsig);
+    printf("cur vt->acqsig: %d\n",vtMode.acqsig);
 
     struct vt_stat vtState;
     ret = ioctl(fd,VT_GETSTATE,&vtState);
@@ -95,6 +97,17 @@ int main(int argc,char **argv)
     if (vcModeRevert){
 	vcMode ^= 1;
 	if (vcMode == 0){
+	    struct vt_mode nvtm = vtMode;
+	    nvtm.mode = VT_AUTO;
+	    nvtm.relsig = 0;
+	    nvtm.acqsig = 0;
+	    ret = ioctl(fd,VT_SETMODE,&nvtm);
+	    if (ret == -1) {
+		perror("error for VT_SETMODE");
+		ret = errno;
+		goto CLOSE;
+	    }
+
 	    ret = ioctl(fd,VT_UNLOCKSWITCH);
             if (ret == -1) {
            	perror("error for KDSETMODE");
