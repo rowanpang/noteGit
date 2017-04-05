@@ -84,7 +84,7 @@ int main(int argc,char **argv)
 	ret = errno;
 	goto CLOSE;
     }
-    printf("cur active vt num: %d\n",vtState.v_active);
+    printf("cur active vt: %d\n",vtState.v_active);
 
     ret = ioctl(fd,KDGETMODE,&vcMode);
     if (ret == -1) {
@@ -92,7 +92,7 @@ int main(int argc,char **argv)
 	ret = errno;
 	goto CLOSE;
     }
-    printf("tty work cur mode: %s\n",vcModeStr[vcMode]);
+    printf("cur vcMode: %s\n",vcModeStr[vcMode]);
     
     if (vcModeRevert){
 	vcMode ^= 1;
