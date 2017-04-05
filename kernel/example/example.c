@@ -1,6 +1,7 @@
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
+#include <linux/vermagic.h>
 
 #include "hello.h"
 
@@ -16,18 +17,20 @@ core_param(whoCore,whoCore,charp,0644);
 
 static int __init  example_init(void)
 {
-	printk("in func :%s\n",__func__);
-	say_hello();	
-	
-	printk("module_param int count:%d\n",count);
-	printk("module_param char *who:%s\n",who);
+    printk("in func :%s\n",__func__);
+    say_hello();    
+
+    pr_info("kernel vermagic:%s\n",VERMAGIC_STRING);
+
+    printk("module_param int count:%d\n",count);
+    printk("module_param char *who:%s\n",who);
 
     return 0;
 }
 
 static void __exit example_exit(void)
 {
-	printk("exit in func :%s\n",__func__);
+    printk("exit in func :%s\n",__func__);
 }
 
 MODULE_LICENSE("GPL"); 
