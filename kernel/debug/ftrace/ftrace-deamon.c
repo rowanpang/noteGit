@@ -1,20 +1,20 @@
 #include <linux/module.h>
 
-static int oops_test_init(void)
+static int ftrace_daemon_init(void)
 {
-	int *p = 0;
-	*p = 1;
-	return 0;
+    pr_info("function:%s\n",__FUNCTION__);
+    return 0;
 }
 
-static void oops_test_exit(void)
+static void ftrace_daemon_exit(void)
 {
-	return ;
+    pr_info("function:%s\n",__FUNCTION__);
+    return ;
 }
 
-module_init(oops_test_init);
-module_exit(oops_test_exit);
+module_init(ftrace_daemon_init);
+module_exit(ftrace_daemon_exit);
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("pangwz");
-MODULE_DESCRIPTION("for oops test");
+MODULE_DESCRIPTION("for ftrace test");
 

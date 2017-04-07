@@ -1,5 +1,5 @@
 1,about file name
-    a,不用使用ftrace.c,在生成_mcount_loc section时会跳过这个命名的文件.
+    a,不要使用ftrace.c,在生成_mcount_loc section时会跳过这个命名的文件.
     b,ref ./scripts/recordmcount.c
 	const char ftrace[] = "/ftrace.o";
 	int ftrace_size = sizeof(ftrace) - 1;
