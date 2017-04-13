@@ -86,6 +86,22 @@ int main(int argc,char **argv)
     }
     printf("cur active vt: %d\n",vtState.v_active);
 
+    int kbdmode;
+    char *kbdModeStr[]={
+	"raw",
+	"xlate",
+	"mediumraw",
+	"unicode",
+	"off",
+    };
+    ret = ioctl(fd,KDGKBMODE,&kbdmode);
+    if (ret == -1) {
+	perror("error for KDGETMODE");
+	ret = errno;
+	goto CLOSE;
+    }
+    printf("cur kbdmod : %s\n",kbdModeStr[kbdmode%5]);
+
     ret = ioctl(fd,KDGETMODE,&vcMode);
     if (ret == -1) {
 	perror("error for KDGETMODE");

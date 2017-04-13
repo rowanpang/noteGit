@@ -1,0 +1,7 @@
+BEGIN:VCARD
+N:晖;刘
+TEL:+86 186********
+EMAIL:***@gmail.com
+URL:www.xieyidian.com
+PHOTO;TYPE=PNG;VALUE=URI:https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31
+END:VCARD

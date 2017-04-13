@@ -1,0 +1,1 @@
+MECARD:N:Anonymous Aardvark;ADR:The Highstreet Cityville Big State 55555555 United Kingdom;TEL:+1111111111;TEL:+3333333333;TEL:+2222222222;TEL:+4444444444;EMAIL:theqrplace@gmail.com;URL:theqrplace.wordpress.com;;
