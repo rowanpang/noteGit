@@ -80,96 +80,125 @@ void *recvskandprint(void *skp)
     pthread_exit(NULL);
 }
 
-//man 7 ip for more info
-int main(void)
+int setuplistener(char *ipStr,int port)
 {
-    int sk_listen;
     int ret;
-    struct sockaddr_in svr_addr={0};
-    unsigned port_listen = 8080;
+    int listener;
+    struct sockaddr_in addr;		//man 7 ip
 
-    signal(SIGINT,ctrl_c_handler);
+    addr.sin_family = AF_INET;
+    addr.sin_port = (port == 0) ? htons(8080) : htons(port);
+    if(!ipStr){
+	addr.sin_addr.s_addr = INADDR_ANY;
+    }else{
+	if((ret = inet_aton(ipStr,&addr.sin_addr)) == 0){
+	    dprintf(2,"addr %s fmt error!\n",ipStr);
+	    ret = -11;
+	    goto ERROR_1;
+	}    
+    }
 
-    sk_listen = socket(AF_INET,SOCK_STREAM,0);
-    svr_addr.sin_family = AF_INET;
-    svr_addr.sin_port = htons(port_listen);
-    svr_addr.sin_addr.s_addr = INADDR_ANY;
-    /*
-     *if(inet_aton("192.168.137.100",&svr_addr.sin_addr) == 0){
-     *    perror("when valued addr");
-     *    ret = -11;
-     *    goto out;
-     *}    
-     */
+    ret = socket(AF_INET,SOCK_STREAM,0);
+    if(ret == -1){
+        perror("socket error");
+	goto ERROR_1;
+    }
+    listener = ret;
 
-    if(bind(sk_listen,(struct sockaddr*)&svr_addr,sizeof(svr_addr))){
+    if(bind(listener,(struct sockaddr*)&addr,sizeof(addr))){
         perror("when bind");
         ret = -1;
-        goto out;
+        goto ERROR_2;
     }
     
     printf("before listen\n");    
-    if(listen(sk_listen,8)){
+    if(listen(listener,8)){
         perror("when listen");
         ret = -2;
-        goto out;
+        goto ERROR_2;
     }
 
-    struct pollfd svr_poll;
-    svr_poll.fd = sk_listen;
-    svr_poll.events = POLLIN;
-    svr_poll.revents = 0;
+    return listener;
+
+ERROR_2:
+    close(listener);
+ERROR_1:
+    return ret;
+}
+
+int waitClient(int listener)
+{
+    int ret;
+    int client;
+    struct pollfd pollIn;
+    struct sockaddr_in cli_addr;
+AGAIN:
+    pollIn.fd = listener;
+    pollIn.events = POLLIN;
+    pollIn.revents = 0;
+    do{
+        printf("--poll start--\n");    
+	ret = poll(&pollIn,1,100);
+    }while(ret <= 0);
+
+    socklen_t cli_addr_size = sizeof(cli_addr);
+    if(pollIn.events == POLLIN){
+	ret = accept(listener,(struct sockaddr*) &cli_addr,&cli_addr_size);
+	if(ret < 0){
+	    perror("accept error!");
+	    goto ERROR_1;
+	}
+	client = ret;
+	
+	printf("cli_addr:%s\n",inet_ntoa(cli_addr.sin_addr));
+	printf("cli_addr:%lx\n",(int)(cli_addr.sin_addr.s_addr));
+    }else{
+	goto AGAIN;
+    }
+
+    return client;
+
+ERROR_1:
+    return ret;
+}
     
-    while(1){
-        printf("before poll\n");    
-        int nr=0;
-        do{
-            nr = poll(&svr_poll,1,100);
-            if(ctrl_c){
-                printf("terminal by ctrl-c\n");
-                ret = 0;
-                goto out;
-            }
-        }while(nr <= 0);
+int main(void)
+{
+    int ret;
+    int listener;
+    int client;
+    pthread_t thr_send,thr_recv;
 
-        int sk;
-        struct sockaddr_in cli_addr;
-        socklen_t cli_addr_size = sizeof(cli_addr);
-        if(svr_poll.events == POLLIN){
-            sk = accept(sk_listen,(struct sockaddr*) &cli_addr,&cli_addr_size);
-            printf("cli_addr:%s\n",inet_ntoa(cli_addr.sin_addr));
-            printf("cli_addr:%lx\n",(int)(cli_addr.sin_addr.s_addr));
-        }    
-        char buf[BUFSIZE] = {0};
-        pthread_t thr_send,thr_recv;
-        pthread_create(&thr_send,NULL,readandsendtosk,&sk);
-        pthread_create(&thr_recv,NULL,recvskandprint,&sk);
-        while(1){
-            if(ctrl_c){
-                printf("terminal by ctrl-c\n");
-                threadrecvexit = 1;
-                threadreadexit = 1;
-                pthread_join(thr_send,NULL);
-                pthread_join(thr_recv,NULL);
-                close(sk);
-                ret = 0;
-                goto out;
-            }
-        }
-
-    next:
-        close(sk);
-        printf("\n");
-        if(!ret){
-            printf("client connection failed\n");
-            goto out;
-        }
-
+    signal(SIGINT,ctrl_c_handler);
+    ret = setuplistener(NULL,0);
+    if(ret < 0){
+	goto ERROR_1;
     }
-    ret = 0;
-out:
-    close(sk_listen);
+    listener = ret;
 
+    ret = waitClient(listener);
+    if(ret < 0){
+	goto ERROR_2;
+    }
+    client = ret;
+
+    pthread_create(&thr_send,NULL,readandsendtosk,&client);
+    pthread_create(&thr_recv,NULL,recvskandprint,&client);
+    while(1){
+	if(ctrl_c){
+	    printf("terminal by ctrl-c\n");
+	    threadrecvexit = 1;
+	    threadreadexit = 1;
+	    pthread_join(thr_send,NULL);
+	    pthread_join(thr_recv,NULL);
+	}
+    }
+
+    ret = 0;
+    close(client);
+ERROR_2:
+    close(listener);
+ERROR_1:
     return ret;
 }
 
