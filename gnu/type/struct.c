@@ -7,6 +7,14 @@
 //    after spread out there is a ',' so need one more arg,just dprintf("---\n") is error!!!.need dprintf("---\n",st);
 //#define dprintf(fmt,arg...) printf("pangwz "fmt,arg)
 //#define dprintf(fmt,...) printf("pangwz "fmt,__VA_ARGS__)
+
+typedef enum hostStatus {
+    linked=0,
+    agentRunning
+} hostStatus_t;
+
+#define stStr(st) #st
+
 int main(int argc,char** argv)
 {
     struct st{
@@ -87,6 +95,9 @@ int main(int argc,char** argv)
     _Bool testBool2=a;
     printf("sizeof(testBool):%d,value:%d\n",sizeof(testBool),testBool);
     printf("sizeof(testBool2):%d,value:%d\n",sizeof(testBool2),testBool2);
+
+    hostStatus_t hst=agentRunning;
+    printf("enum type status:%s,%d\n",stStr(agentRunning),agentRunning);
 
     return 0;
 }
