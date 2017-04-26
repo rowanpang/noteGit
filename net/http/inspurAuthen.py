@@ -1,6 +1,7 @@
 #!/usr/bin/env /usr/bin/python
 #coding: utf-8
 #Usage: 
+    # first chang the 'master' link for per host.
     # ./post-httplib.py     or 
     # ./post-httplib.py eth0 eth1
 
@@ -60,10 +61,13 @@ def repstr2dict(repbody,coding,part = True):
 	    jsonstr = repbody.replace(', "OSName','}$')
 	if jsonstr == repbody:
 	    jsonstr = repbody.replace(', "CheckResult','}$')
-
+    
+    # str like this is ok for json.loads(xx)
+        # {"length": 27,"DeviceID": "476719", "UserName": "pangweizhenbj", "IP": "10.200.40.11", "Mac": "6C:B0:CE:17:AD:72", "DepartID": "0"}
     jsonstr = jsonstr[jsonstr.find('{'):jsonstr.find('$')].decode('gbk').encode('utf8').\
-                replace(' ','"',1).replace(':','":',1).replace('\'','"').replace('(','-').\
+                replace('\'','"').replace('(','-').\
                 replace(')','-')
+    print jsonstr
     repdict = json.loads(jsonstr)
     return repdict
 
@@ -345,6 +349,7 @@ def ifnamesAuto(master):
 def main():
     svr = '10.6.6.9'
     master = 'eth0.2'
+    # master = 'bridge0'
     ifnamesDefault = ('eth0.2','vth1','vth2','vth3')
     #ifnamesDefault = ('wlan0','bridged')
     ifnamesDefault = ifnamesAuto(master)
