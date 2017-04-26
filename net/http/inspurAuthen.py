@@ -67,7 +67,7 @@ def repstr2dict(repbody,coding,part = True):
     jsonstr = jsonstr[jsonstr.find('{'):jsonstr.find('$')].decode('gbk').encode('utf8').\
                 replace('\'','"').replace('(','-').\
                 replace(')','-')
-    print jsonstr
+    # print jsonstr
     repdict = json.loads(jsonstr)
     return repdict
 
