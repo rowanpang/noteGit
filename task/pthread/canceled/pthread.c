@@ -7,6 +7,16 @@
 
 #define gettid() syscall(__NR_gettid)
 
+static inline void * ERR_PTR(long error)                                   
+{
+    return (void *) error;
+}
+
+static inline long PTR_ERR(const void* ptr)                                   
+{
+    return (long)ptr;
+}
+
 void* threadfn(void *arg)
 {
     int ret;
@@ -30,7 +40,8 @@ void* threadfn(void *arg)
 
     ret = 1;
 FINISH:
-    return (void *)ret;
+    /*return (void *)(long)ret;*/
+    return ERR_PTR(ret);
 }
 
 int main(int argc,char** argv)
@@ -59,7 +70,7 @@ int main(int argc,char** argv)
     if(status == PTHREAD_CANCELED){
 	printf("thread was canceled\n");
     }else{
-	printf("thread exit status %d\n",(int)status);
+	printf("thread exit status %d\n",PTR_ERR(status));
     }
 
     ret = 0;
