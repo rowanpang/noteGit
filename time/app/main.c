@@ -5,15 +5,20 @@
 int main(int argc,char** argv)
 {
     time_t now = time(NULL);
+    int length=25;
 
-    printf("utc now from 1970:%ld,%s\n",now,ctime(&now));
-    printf("utc:%s\n",asctime(gmtime(&now)));
+    printf("%*s: %ld\n",length,"utc second since 1970",now);
+    printf("%*s: %s",length,"gmtime/utc string",asctime(gmtime(&now)));
 
-    printf("zone name:%s-%s\n",tzname[0],tzname[1]);
-    printf("zone value in seconds(utc-local):%ld,hours:%ld\n",timezone,timezone/3600);
+    printf("%*s: %s-%s\n",length,"zone name",tzname[0],tzname[1]);
 
-    printf("local:%s\n",ctime(&now));
-    printf("local-2:%s\n",asctime(localtime(&now)));
+    printf("%*s: %ld\n",length,"zone value in seconds",timezone);
+    printf("%*s: %ld\n",length,"zone value in hour",timezone/(60*60));
+
+    printf("%*s: %ld\n",length,"local time(second)",(now - timezone));
+    printf("%*s: %ld\n",length,"local time(second)",mktime(localtime(&now)));
+    printf("%*s: %s",length,"local time(string)",ctime(&now));
+    printf("%*s: %s",length,"local time(string2)",asctime(localtime(&now)));
 
     return 0;
 }
