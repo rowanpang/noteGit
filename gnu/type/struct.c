@@ -15,6 +15,11 @@ typedef enum hostStatus {
 
 #define stStr(st) #st
 
+int hello(int ok){
+    int doit=ok;
+    printf("hello from the other side\n");
+}
+
 int main(int argc,char** argv)
 {
     struct st{
@@ -104,6 +109,7 @@ int main(int argc,char** argv)
     printf("enum type status:%s,%d\n",stStr(agentRunning),agentRunning);
 
 
+    hello(1);
     return 0;
 }
 
