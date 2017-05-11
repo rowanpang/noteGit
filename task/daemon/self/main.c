@@ -35,7 +35,7 @@ int main(int argc,char** argv)
 	    return ret;
     }
 
-    /*setsid();*/
+    setsid();
     /*signal(SIGCHLD, SIG_IGN);*/
     /*signal(SIGHUP, SIG_IGN);*/
 
