@@ -7,6 +7,8 @@
     b,fork 一个进程,
 	ptx-master  -->father
 	ptx-slave   -->child
+    d,father 进程
+	负责与nc 通讯,将结果输出到远端.
 
     c,child 进程中运行bash.
        layout 如下. 

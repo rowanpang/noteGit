@@ -105,6 +105,7 @@ WAIT_CHILD:
 
 	close(master);
 	ret = tcgetattr(slave,&oterm);
+	printf("fd:%d, c_lflag:%#x\n");
 	nterm = oterm;
 	cfmakeraw(&nterm);
 	tcsetattr(slave,TCSANOW,&nterm);

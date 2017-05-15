@@ -1,5 +1,10 @@
 .PHONY:all clean
-all:new.c
-	@gcc -g -pg $< -o new
+
+app = new simple
+	
+all:$(app)
+
+%:%.c
+	@gcc -g -pg $< -o $@
 clean:
-	@-rm -rf new
+	@-rm -rf $(app)
