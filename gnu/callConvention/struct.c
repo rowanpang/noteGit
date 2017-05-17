@@ -1,16 +1,19 @@
 #include<stdio.h>
 
-int hello(int ok){
+int hello(int ok,int arg2,int arg3){
     int doit;
-    int a;
+    int a,b;
     doit = ok;
-    a = 3;
+    a = arg2;
+    b = arg3;
     printf("hello from the other side\n");
+    return 2;
 }
 
 int main(int argc,char** argv)
 {
-    hello(1);
-    return 0;
+    int ret;
+    ret = hello(1,2,3);
+    return ret;
 }
 
