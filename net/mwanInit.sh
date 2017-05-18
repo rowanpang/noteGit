@@ -46,7 +46,7 @@ pkgCheckInstall(){
     fi
 }
 
-macTmp="zero d2:7b:1f:29:4c:90 ee:76:20:14:c9:7e de:c1:16:9d:a4:12 8a:46:a9:00:79:98 aa:78:a3:36:58:c0 
+macTmp="zero e0:05:c5:2f:84:29 d2:7b:1f:29:4c:90 ee:76:20:14:c9:7e de:c1:16:9d:a4:12 8a:46:a9:00:79:98 aa:78:a3:36:58:c0 
 	36:98:03:22:c8:ed 96:15:f6:06:89:7b 9e:9c:b3:d7:0e:44 be:a5:57:90:ef:b2 1e:e8:35:d1:e4:e4"
 
 linkCheckBuild(){
