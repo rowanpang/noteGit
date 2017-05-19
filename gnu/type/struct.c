@@ -1,12 +1,16 @@
 #include<stdio.h>
 
-//pangwz
-//    if arg... is none,'##'remove the pre ',',so dprintf("---\n") is ok!!! and '..,st' is also ok!!!
+/*
+ *pangwz
+ *    if arg... is none,'##'remove the pre ',',so dprintf("---\n") is ok!!! and '..,st' is also ok!!!
+ */
 #define dprintf(fmt,arg...) printf("pangwz"fmt,##arg)
-//pangwz,
-//    after spread out there is a ',' so need one more arg,just dprintf("---\n") is error!!!.need dprintf("---\n",st);
-//#define dprintf(fmt,arg...) printf("pangwz "fmt,arg)
-//#define dprintf(fmt,...) printf("pangwz "fmt,__VA_ARGS__)
+/*
+ *pangwz,
+ *    after spread out there is a ',' so need one more arg,just dprintf("---\n") is error!!!.need dprintf("---\n",st);
+ *#define dprintf(fmt,arg...) printf("pangwz "fmt,arg)
+ *#define dprintf(fmt,...) printf("pangwz "fmt,__VA_ARGS__)
+ */
 
 typedef enum hostStatus {
     linked=0,
@@ -110,6 +114,13 @@ int main(int argc,char** argv)
 
 
     hello(1);
+
+    int S123 = 3;
+    int $123 = 4;
+    printf("$123:%d,S123:%d\n",$123,S123);
+    int \u0024a = 5; 
+    printf("\u0024a:%d\n",\u0024a);
+    printf("It's a !\n");
     return 0;
 }
 

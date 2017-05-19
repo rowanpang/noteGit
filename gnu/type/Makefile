@@ -5,4 +5,4 @@ all:
 	@gcc -g -m32 -mregparm=3 struct.c -o i386.out.regArg
 
 clean:
-	@-rm i386.out x86_64.out
+	@-rm i386.out* x86_64.out
