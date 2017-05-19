@@ -7,3 +7,6 @@
 
 3,run
     java -classpath ./ hello.helloWorld
+
+4,with args
+    java hello.helloWorld argx argn
