@@ -2,11 +2,16 @@
     a,*.java 中生命了package hello; 
     b,所以,源文件就需要方到hello目录下.
 
-2,compile
-    javac hello/helloWorld.java
+    c,compile
+	javac hello/helloWorld.java
 
-3,run
-    java -classpath ./ hello.helloWorld
+    d,run
+	java -classpath ./ hello.helloWorld
 
-4,with args
-    java hello.helloWorld argx argn
+    e,with args
+	java hello.helloWorld argx argn
+
+2,simple
+    a,cd simple
+    b,run
+	java helloWrold ssss
