@@ -7,7 +7,7 @@ public class scanException {
 
     public static void main(String[] args) {
 	int inData = 0;
-	Scanner s;
+	Scanner s = null;
 
 	while (true) {
 	    System.out.print("input integer:");
