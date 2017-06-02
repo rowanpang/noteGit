@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
-public class SysPro {
+class SysPro { 					//non public is still OK
 
     public static void main(String[] args) {
 	String proName = null;
