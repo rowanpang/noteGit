@@ -1,0 +1,30 @@
+a,flow
+    1,make -> ./run.sh adss
+    2,cat /proc/19075/maps
+
+b,
+    先加载的库在内存高端地址.
+    [pangwz@rowanInspur preload]$ cat /proc/19075/maps
+	00400000-00401000 r-xp 00000000 08:09 16647289                           /home/pangwz/noteGit/gnu/preload/main
+	00600000-00601000 r--p 00000000 08:09 16647289                           /home/pangwz/noteGit/gnu/preload/main
+	00601000-00602000 rw-p 00001000 08:09 16647289                           /home/pangwz/noteGit/gnu/preload/main
+	01092000-010b3000 rw-p 00000000 00:00 0                                  [heap]
+	7f14036b4000-7f140386d000 r-xp 00000000 08:08 3154871                    /usr/lib64/libc-2.23.so
+	7f140386d000-7f1403a6d000 ---p 001b9000 08:08 3154871                    /usr/lib64/libc-2.23.so
+	7f1403a6d000-7f1403a71000 r--p 001b9000 08:08 3154871                    /usr/lib64/libc-2.23.so
+	7f1403a71000-7f1403a73000 rw-p 001bd000 08:08 3154871                    /usr/lib64/libc-2.23.so
+	7f1403a73000-7f1403a77000 rw-p 00000000 00:00 0
+	7f1403a77000-7f1403a78000 r-xp 00000000 08:09 16647203                   /home/pangwz/noteGit/gnu/preload/libmsg.so
+	7f1403a78000-7f1403c77000 ---p 00001000 08:09 16647203                   /home/pangwz/noteGit/gnu/preload/libmsg.so
+	7f1403c77000-7f1403c78000 r--p 00000000 08:09 16647203                   /home/pangwz/noteGit/gnu/preload/libmsg.so
+	7f1403c78000-7f1403c79000 rw-p 00001000 08:09 16647203                   /home/pangwz/noteGit/gnu/preload/libmsg.so
+	7f1403c79000-7f1403c9c000 r-xp 00000000 08:08 3154701                    /usr/lib64/ld-2.23.so
+	7f1403e72000-7f1403e75000 rw-p 00000000 00:00 0
+	7f1403e9b000-7f1403e9c000 rw-p 00000000 00:00 0
+	7f1403e9c000-7f1403e9d000 r--p 00023000 08:08 3154701                    /usr/lib64/ld-2.23.so
+	7f1403e9d000-7f1403e9e000 rw-p 00024000 08:08 3154701                    /usr/lib64/ld-2.23.so
+	7f1403e9e000-7f1403e9f000 rw-p 00000000 00:00 0
+	7fffacfff000-7fffad020000 rw-p 00000000 00:00 0                          [stack]
+	7fffad1e2000-7fffad1e5000 r--p 00000000 00:00 0                          [vvar]
+	7fffad1e5000-7fffad1e7000 r-xp 00000000 00:00 0                          [vdso]
+	ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
