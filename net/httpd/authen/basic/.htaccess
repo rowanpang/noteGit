@@ -1,0 +1,9 @@
+AuthType Basic
+AuthName "basicTest"
+AuthUserFile /var/www/html/test/authen/basic/fpwd
+#AuthGroupFile /path/to/groups.txt
+#require 特定的用户
+    #Require group testGroup
+    #Require user zhang3	    
+#require all valid user.
+Require valid-user	    

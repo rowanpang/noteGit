@@ -10,7 +10,7 @@
 # Normal rules
 #
 shell/log
-.*
+#.*
 a.out*
 *.out
 *.map
