@@ -1,0 +1,5 @@
+AuthType Digest
+AuthName "digestTest"
+AuthDigestProvider file
+AuthUserFile /var/www/html/test/authen/digest/fpwd
+Require valid-user
