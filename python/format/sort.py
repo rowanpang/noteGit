@@ -2,6 +2,7 @@
 
 def parserLine(line,idxMap,valLenMap):
     buf=[]
+    dicbuf={}
     if not line.strip():
         return
     else:
@@ -9,12 +10,13 @@ def parserLine(line,idxMap,valLenMap):
         for k in golKeys:
             if idxMap[k] != None:
                 buf.append(values[idxMap[k]])
+                dicbuf[k] = values[idxMap[k]]
                 if valLenMap[k] < len(values[idxMap[k]]):
                     valLenMap[k] = len(values[idxMap[k]])
 
         # print buf
-        # print strbuf
-    return buf
+        # print dicbuf
+    return buf,dicbuf
 
 def parserKey(line = None):
     keyIndexMap = {}.fromkeys(golKeys)
@@ -34,26 +36,37 @@ def parserKey(line = None):
 
     return keyIndexMap
 
-def formatOut(valbuf,valLenMap,idxMap):
+def formatOut(dicts,lists,valLenMap,idxMap):
     header=""
     valFmt = {}.fromkeys(golKeys)
     for k in golKeys:
-        valFmt[k] = '%%-%ds ' %(valLenMap[k])
-        header += k.center(valLenMap[k]) + " "
-    # print valFmt
+        valFmt[k] = '%%-%ds   ' %(valLenMap[k])
+        if idxMap[k] != None:
+            header += k.center(valLenMap[k]) + " "*3
     print header
 
-    for val in valbuf:
-        i = 0
+    func = lambda s:s['ESSID']
+    dicts.sort(key=func)
+    for val in dicts:
         strbuf=""
         for k in golKeys:
-            strbuf += valFmt[k] %(val[i])
-            i += 1
+            if idxMap[k] != None:
+                strbuf += valFmt[k] %(val[k])
         print strbuf
+
+    # for val in lists:
+        # i = 0
+        # strbuf=""
+        # for k in golKeys:
+            # strbuf += valFmt[k] %(val[i])
+            # i += 1
+        # print strbuf
+    return
 
 def main():
     f = open("./wep-phomt-01.csv")
-    valbuf=[]
+    listListbuf=[]
+    dicListbuf=[]
 
     lenMap = {}.fromkeys(golKeys,0)
     for k in golKeys:
@@ -73,9 +86,11 @@ def main():
         elif line.startswith("Station MAC,"):
             break
         else:
-            valbuf.append(parserLine(line,keyIdxMap,lenMap))
+            vallist,valdic = parserLine(line,keyIdxMap,lenMap)
+            listListbuf.append(vallist)
+            dicListbuf.append(valdic)
 
-    formatOut(valbuf,lenMap,keyIdxMap)
+    formatOut(dicListbuf,listListbuf,lenMap,keyIdxMap)
     f.close()
 
 golKeys = [
@@ -83,6 +98,7 @@ golKeys = [
             "channel",
             "Speed",
             "Privacy",
+            "ignoreKey",            #will ignore it for did not exist
             "Cipher",
             "Authentication",
             "Power",
