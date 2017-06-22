@@ -45,7 +45,7 @@ def formatOut(dicts,lists,valLenMap,idxMap):
             header += k.center(valLenMap[k]) + " "*3
     print header
 
-    func = lambda s:s['ESSID']
+    func = lambda s:s[sortBy]
     dicts.sort(key=func)
     for val in dicts:
         strbuf=""
@@ -93,6 +93,7 @@ def main():
     formatOut(dicListbuf,listListbuf,lenMap,keyIdxMap)
     f.close()
 
+sortBy='channel'
 golKeys = [
             "BSSID",
             "channel",
