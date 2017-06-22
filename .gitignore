@@ -14,6 +14,9 @@ shell/log
 a.out*
 *.out
 *.map
+.*.cmd
+.tmp_versions
+*.swp
 *.o
 *.d
 *.o.*
