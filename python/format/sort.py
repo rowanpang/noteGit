@@ -1,50 +1,65 @@
 #!/usr/bin/python
 
-def parserLine(line,keymap):
+def parserLine(line,idxMap,valLenMap):
     buf=[]
+    if not line.strip():
+        return
+    else:
+        values = line.split(",")
+        for k in golKeys:
+            if idxMap[k] != None:
+                buf.append(values[idxMap[k]])
+                if valLenMap[k] < len(values[idxMap[k]]):
+                    valLenMap[k] = len(values[idxMap[k]])
+
+        # print buf
+        # print strbuf
+    return buf
+
+def parserKey(line = None):
+    keyIndexMap = {}.fromkeys(golKeys)
     strbuf=""
     if not line.strip():
         return
     else:
-        # print line,
-        values = line.split(",")
-        # print values
-        for k in golKeys:
-            if keymap[k] != None:
-                # print k
-                # print keymap[k]
-                # print values[keymap[k]]
-                buf.append(values[keymap[k]])
-                strbuf += golKeyValFmt[k] %(values[keymap[k]])
-
-        # print buf
-        print strbuf
-
-def parserKey(line = None):
-    keyIndexMap = {}.fromkeys(golKeys)
-
-    if not line.strip():
-        return
-    else:
-        print line,
         keys = line.split(",")
         index = 0;
         for k in keys:
-            # print "------------"
-            # print "key from line: %s" %(k)
             for ktmp in keyIndexMap.keys():
-                # print ktmp
                 if k.strip() == ktmp.strip():
                     # print "match!!! %s %d" %(ktmp,index)
                     keyIndexMap[ktmp] = index;
                     break;
             index += 1
 
-    print keyIndexMap
     return keyIndexMap
+
+def formatOut(valbuf,valLenMap,idxMap):
+    header=""
+    valFmt = {}.fromkeys(golKeys)
+    for k in golKeys:
+        valFmt[k] = '%%-%ds ' %(valLenMap[k])
+        header += k.center(valLenMap[k]) + " "
+    # print valFmt
+    print header
+
+    for val in valbuf:
+        i = 0
+        strbuf=""
+        for k in golKeys:
+            strbuf += valFmt[k] %(val[i])
+            i += 1
+        print strbuf
 
 def main():
     f = open("./wep-phomt-01.csv")
+    valbuf=[]
+
+    lenMap = {}.fromkeys(golKeys,0)
+    for k in golKeys:
+        lenMap[k] = len(k)
+    # print lenMap
+
     while True:
         line = f.readline()
         if not line:
@@ -58,10 +73,10 @@ def main():
         elif line.startswith("Station MAC,"):
             break
         else:
-            parserLine(line,keyIdxMap)
+            valbuf.append(parserLine(line,keyIdxMap,lenMap))
 
+    formatOut(valbuf,lenMap,keyIdxMap)
     f.close()
-
 
 golKeys = [
             "BSSID",
@@ -72,15 +87,5 @@ golKeys = [
             "Authentication",
             "Power",
             "ESSID"]
-
-golKeyValFmt = {
-        "BSSID":'%-18s\t',
-        "channel":'%-3s\t',
-        "Speed":'%-3s\t',
-        "Privacy":"%-10s\t",
-        "Cipher":'%-10s\t',
-        "Authentication":'-%4s\t',
-        "Power":'%-4s\t',
-        "ESSID":'%-s\t' }
 
 main()
