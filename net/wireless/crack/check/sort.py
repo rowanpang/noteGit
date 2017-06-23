@@ -93,7 +93,7 @@ def main():
     formatOut(dicListbuf,listListbuf,lenMap,keyIdxMap)
     f.close()
 
-sortBy='ESSID'
+sortBy='Power'
 golKeys = [
             "BSSID",
             "channel",
