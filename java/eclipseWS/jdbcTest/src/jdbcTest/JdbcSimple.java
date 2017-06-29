@@ -47,7 +47,6 @@ public class JdbcSimple {
 	prepStmt.addBatch();
 	
 	prepStmt.executeBatch();
-	
 
 	ResultSet rs = stmt.executeQuery("select *from people;");
 	while(rs.next()){
@@ -56,7 +55,16 @@ public class JdbcSimple {
 		    		"addr = " + rs.getString("addr"));
 	}
 
-	stmt.executeUpdate("select * from people");
+	boolean hasResultSet = stmt.execute("select * from people");
+	System.out.println("hasResultSet:" + hasResultSet );
+	if(hasResultSet){
+	    rs = stmt.getResultSet();
+            while(rs.next()){
+                System.out.println("name = " + rs.getString("name") + "," +
+		    		"age = " + rs.getInt("age") + "," +
+		    		"addr = " + rs.getString("addr"));
+            }
+	}
 
 	conn.close();
     }
