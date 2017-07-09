@@ -2,6 +2,7 @@
 import hashlib
 import hmac
 import unittest
+import aes
 import os
 import binascii
 
@@ -165,11 +166,10 @@ def test():
     # dae02deea4aa98f18d487762fd7224a6
     nonceExplicithexStr = '0000000000000000'
     nonceCounter = '00000002'
-    nonceCounter = ''
     nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr) + bytes.fromhex(nonceCounter)
     print('nce: ' + nonce.hex())
 
-    seq_num = '04'
+    seq_num = '00'
     tlsCompressedType = '16'
     tlsCompressedVersion = '0303'
     tlsCompressedLength = '0028'
