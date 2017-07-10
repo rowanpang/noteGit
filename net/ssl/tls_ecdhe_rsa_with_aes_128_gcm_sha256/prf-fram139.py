@@ -2,9 +2,9 @@
 import hashlib
 import hmac
 import unittest
-import aes
 import os
 import binascii
+import sys
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import (
@@ -166,10 +166,11 @@ def test():
     # dae02deea4aa98f18d487762fd7224a6
     nonceExplicithexStr = '0000000000000000'
     nonceCounter = '00000002'
+    nonceCounter = ''
     nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr) + bytes.fromhex(nonceCounter)
     print('nce: ' + nonce.hex())
 
-    seq_num = '00'
+    seq_num = '0000000000000004'
     tlsCompressedType = '16'
     tlsCompressedVersion = '0303'
     tlsCompressedLength = '0028'
@@ -177,10 +178,17 @@ def test():
                     tlsCompressedType +         \
                     tlsCompressedVersion +      \
                     tlsCompressedLength
+    # additionalStr = "0000000000000000"
     additionalData = binascii.unhexlify(additionalStr)
 
     plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
     plaintext = binascii.unhexlify(plainhexStr)
+
+    open('./plaintxt',"bw+").write(plaintext)
+    open("./swk","bw+").write(server_write_key)
+    open("./swi","bw+").write(server_write_iv)
+    open("./additional","bw+").write(additionalData)
+    open("./nonce","bw+").write(nonce)
 
     iv, ciphertext, tag = encrypt(
                             server_write_key,
