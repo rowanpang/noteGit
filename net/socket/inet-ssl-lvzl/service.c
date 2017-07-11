@@ -61,6 +61,11 @@ int main(int argc, char **argv)
         exit(1);
     }
 
+    if (!SSL_CTX_set_cipher_list(ctx,"ECDH-RSA-AES128-GCM-SHA256:AES128-GCM-SHA256")) {
+	ERR_print_errors_fp(stdout);
+	exit(1);
+    }
+
     /* 开启一个 socket 监听 */
     if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
         perror("socket");
