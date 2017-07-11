@@ -160,29 +160,31 @@ def test():
     server_write_iv = bytes(key_block[start:end])
     print(' swi: '+server_write_iv.hex())
 
+    plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
+    plaintext = binascii.unhexlify(plainhexStr)
+
     # 1603030028
     # 0000000000000000
     # 2b830d985ec2816ebd6de892bfd3b408
     # dae02deea4aa98f18d487762fd7224a6
     nonceExplicithexStr = '0000000000000000'
-    nonceCounter = '00000002'
     nonceCounter = ''
     nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr) + bytes.fromhex(nonceCounter)
     print('nce: ' + nonce.hex())
 
-    seq_num = '0000000000000004'
+    #ADDlen = 8seq + 1type + 2ver + 2len,
+    seq_num = '0000000000000000'                    #need be lsb.?
     tlsCompressedType = '16'
     tlsCompressedVersion = '0303'
-    tlsCompressedLength = '0028'
+    tlsCompressedLength = '0018'                    #plaintext length
     additionalStr = seq_num +                   \
                     tlsCompressedType +         \
                     tlsCompressedVersion +      \
                     tlsCompressedLength
-    # additionalStr = "0000000000000000"
-    additionalData = binascii.unhexlify(additionalStr)
 
-    plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
-    plaintext = binascii.unhexlify(plainhexStr)
+    additionalData = binascii.unhexlify(additionalStr)
+    print('ADD: ' + additionalData.hex())
+
 
     open('./plaintxt',"bw+").write(plaintext)
     open("./swk","bw+").write(server_write_key)
