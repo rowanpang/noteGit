@@ -5,6 +5,7 @@ import dpkt
 import time
 import signal
 import collections 
+import sys
 try:
     from http_parser.parser import HttpParser
 except ImportError:
@@ -69,7 +70,10 @@ def parserHttp(pkgHTTP,isRequest):
 sniffer=pcap.pcap()
 sniffer.setfilter('tcp port 80 or port 21')
 
-# frameTime,frame = sniffer.next()
+frameTime,frame = sniffer.next()
+print type(frameTime)
+sys.exit()
+
 for frameTime,frame in sniffer:
     parserframe(frame)
     pkgETH = dpkt.ethernet.Ethernet(frame)
