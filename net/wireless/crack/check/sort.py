@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import sys
+import getopt
 
 def parserLine(line,idxMap,valLenMap):
     buf=[]
@@ -63,7 +65,21 @@ def formatOut(dicts,lists,valLenMap,idxMap):
         # print strbuf
     return
 
+def argsParser():
+    global pickOut,tarSSID
+    opts, args = getopt.getopt(sys.argv[1:], "he:")
+    for op, value in opts:
+	if op == "-e":
+            pickOut = True 
+	    tarSSID = value
+	elif op == "-h":
+            usage()
+            sys.exit()
+
 def main():
+
+    argsParser()
+
     f = open("./radioCheck-01.csv")
     listListbuf=[]
     dicListbuf=[]
@@ -87,10 +103,14 @@ def main():
             break
         else:
             vallist,valdic = parserLine(line,keyIdxMap,lenMap)
-            listListbuf.append(vallist)
-            dicListbuf.append(valdic)
+            listListbuf.append(vallist)                             #list in list buf
+            dicListbuf.append(valdic)                               #dict in list buf
+            if pickOut and valdic["ESSID"].strip() == tarSSID:
+                print valdic["channel"] + ' ' + valdic["BSSID"]
+                f.close()
+                return
 
-    formatOut(dicListbuf,listListbuf,lenMap,keyIdxMap)
+    # formatOut(dicListbuf,listListbuf,lenMap,keyIdxMap)
     f.close()
 
 sortBy='Power'
@@ -104,5 +124,8 @@ golKeys = [
             "Authentication",
             "Power",
             "ESSID"]
+
+tarSSID = ""
+pickOut = False
 
 main()
