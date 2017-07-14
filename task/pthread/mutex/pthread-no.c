@@ -15,9 +15,7 @@ void* threadfn(void *arg)
     int i;
     sleep(1);
     for (i = 0; i< 100000; i++){
-	pthread_mutex_lock(&i_mutex);
 	global++;
-	pthread_mutex_unlock(&i_mutex);
     }
     printf("in thread:%d,val:%d\n",gettid(),global);
     sleep(1);
