@@ -164,6 +164,8 @@ def startMonitor(q):
     sniffer.setfilter('tcp port 80 or port 21')
     fparser = frameParser(True)
     for frameTime,frame in sniffer:
+        if frame == None:
+            continue
         fparser.doParser(frameTime,frame)
         proc = fparser.getProtocol()
         if proc == None:
