@@ -3,10 +3,6 @@
 
 int main(int argc,char** argv)
 {
-    while(1) {
-	printf("----sigTest---\n");
-	sleep(1);
-    }
-    
+    sleep(100); 
     return 0;
 }

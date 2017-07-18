@@ -1,5 +1,5 @@
 .PHONY:all clean
 all:
-	@gcc -g main.c -o fork
+	@gcc -g main.c -o apiDeamon
 clean:
-	@-rm -rf fork
+	@-rm -rf apiDeamon
