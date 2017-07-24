@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 
-#define  CHK 4
+#define  CHK 3
 
 #if CHK == 1
     #define COMPILE_OK  1
@@ -85,6 +85,7 @@ int myPoll(int readfd0,int readfd1,int writefd,int inNum)
 	pfd[num].revents = 0;
 	num++;
     }
+    num += 4; /*force error*/
     ret = poll(pfd, num, 0);
 
 #elif defined RUNTIME_CHECK_ABLE_NG 
