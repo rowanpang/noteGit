@@ -40,6 +40,10 @@ int myPoll2(struct pollfd ufds[], unsigned int nfds, int timeout_ms)
 
     return 0;
 }
+
+/*extern int __poll_chk (struct pollfd *__fds, nfds_t __nfds, int __timeout, __SIZE_TYPE__ __fdslen);*/
+/*__poll_chk(pfd,num,2,__bos(pfd));*/		    //direct call
+
 int myPoll(int readfd0,int readfd1,int writefd,int inNum)
 {
     struct pollfd pfd[3];
