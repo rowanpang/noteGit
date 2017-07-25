@@ -8,6 +8,10 @@ import collections
 import Queue
 import time
 import threading
+import sys
+import os
+
+
 try:
     from http_parser.parser import HttpParser
 except ImportError:
@@ -174,19 +178,22 @@ def startMonitor(q):
     sniffer=pcap.pcap()
     sniffer.setfilter('tcp port 80 or port 21')
     fparser = frameParser(True)
-    for frameTime,frame in sniffer:
-        fparser.doParser(frameTime,frame)
-        proc = fparser.getProtocol()
-        if proc == None:
-            continue
-        rec['time'] = fparser.getFrameTime()
-        rec['pro'] = fparser.getProtocol()
-        rec['ipsrc'] = fparser.getIPSrc()
-        rec['ipdst'] = fparser.getIPDst()
-        rec['method'] = fparser.getMethod()
-        rec['url'] = fparser.getFullUrl()
-        # print rec
-        q.put(rec)
+    try:
+        for frameTime,frame in sniffer:
+            fparser.doParser(frameTime,frame)
+            proc = fparser.getProtocol()
+            if proc == None:
+                continue
+            rec['time'] = fparser.getFrameTime()
+            rec['pro'] = fparser.getProtocol()
+            rec['ipsrc'] = fparser.getIPSrc()
+            rec['ipdst'] = fparser.getIPDst()
+            rec['method'] = fparser.getMethod()
+            rec['url'] = fparser.getFullUrl()
+            # print rec
+            q.put(rec)
+    except KeyboardInterrupt,x:
+        os.kill(os.getpid(), signal.SIGTERM)
 
 def Test(q):
     # return True
@@ -200,14 +207,14 @@ def Test(q):
 
 if __name__ == "__main__":
     q = Queue.Queue()
-    poller = threading.Thread(target=Test,name = 'poller netinfo',args=(q,))
-    poller.setDaemon(True)
+    # poller = threading.Thread(target=Test,name = 'poller netinfo',args=(q,))
+    # poller.setDaemon(True)
     
-    # monitor = threading.Thread(target=startMonitor,name = 'sniffer net',args=(q,))
-    # monitor.setDaemon(True)
+    monitor = threading.Thread(target=startMonitor,name = 'sniffer net',args=(q,))
+    monitor.setDaemon(True)
 
-    poller.start()
-    # monitor.start()
+    # poller.start()
+    monitor.start()
 
     # poller.join()
     # monitor.join()
