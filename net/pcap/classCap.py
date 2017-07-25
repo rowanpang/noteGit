@@ -189,6 +189,7 @@ def startMonitor(q):
         q.put(rec)
 
 def Test(q):
+    # return True
     while True:
         while True:
             rec = q.get()
@@ -199,14 +200,17 @@ def Test(q):
 
 if __name__ == "__main__":
     q = Queue.Queue()
-    poller = threading.Thread(target=Test,args=(q,))
+    poller = threading.Thread(target=Test,name = 'poller netinfo',args=(q,))
     poller.setDaemon(True)
     
-    monitor = threading.Thread(target=startMonitor,args=(q,))
-    monitor.setDaemon(True)
+    # monitor = threading.Thread(target=startMonitor,name = 'sniffer net',args=(q,))
+    # monitor.setDaemon(True)
 
     poller.start()
-    monitor.start()
+    # monitor.start()
 
-    monitor.join()
-    poller.join()
+    # poller.join()
+    # monitor.join()
+    while True:
+        time.sleep(50)
+
