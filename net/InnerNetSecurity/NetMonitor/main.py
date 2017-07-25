@@ -3,6 +3,7 @@
 from flask import Flask, jsonify
 from flask import Blueprint, abort
 import os
+import signal
 import threading
 import time
 import re
@@ -11,6 +12,7 @@ import collections
 import dpkt
 import Queue
 import json
+import sys
 
 try:                                                                                    
     from http_parser.parser import HttpParser
@@ -163,21 +165,24 @@ def startMonitor(q):
     sniffer=pcap.pcap()
     sniffer.setfilter('tcp port 80 or port 21')
     fparser = frameParser(True)
-    for frameTime,frame in sniffer:
-        if frame == None:
-            continue
-        fparser.doParser(frameTime,frame)
-        proc = fparser.getProtocol()
-        if proc == None:
-            continue
-        rec['time'] = fparser.getFrameTime()
-        rec['pro'] = fparser.getProtocol()
-        rec['ipsrc'] = fparser.getIPSrc()
-        rec['ipdst'] = fparser.getIPDst()
-        rec['method'] = fparser.getMethod()
-        rec['url'] = fparser.getFullUrl()
-        # print rec
-        q.put(rec)
+    try:
+        for frameTime,frame in sniffer:
+            if frame == None:
+                continue
+            fparser.doParser(frameTime,frame)
+            proc = fparser.getProtocol()
+            if proc == None:
+                continue
+            rec['time'] = fparser.getFrameTime()
+            rec['pro'] = fparser.getProtocol()
+            rec['ipsrc'] = fparser.getIPSrc()
+            rec['ipdst'] = fparser.getIPDst()
+            rec['method'] = fparser.getMethod()
+            rec['url'] = fparser.getFullUrl()
+            # print rec
+            q.put(rec)
+    except(KeyboardInterrupt),x:
+        os.kill(os.getpid(), signal.SIGTERM)
 
 NetMonitorRoute= Blueprint('NetMonitor', __name__)
 
@@ -204,4 +209,4 @@ if __name__ == "__main__":
     monitor.setDaemon(True)
     monitor.start()
     print 'new thread with pid %i' %(monitor.ident)
-    app.run(host = '0.0.0.0', port=8080,debug = True)
+    app.run(host = '0.0.0.0', port=8080,debug = False)
