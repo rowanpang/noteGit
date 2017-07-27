@@ -1,4 +1,4 @@
-/*dd if=/dev/sda2 of=./ebr-sda2.bin bs=512 count=1*/
+/*dd if=/dev/sda2 of=./ebr-sda2-sda5.bin bs=512 count=1*/
 00000000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 00000010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 00000020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
@@ -41,7 +41,7 @@
       *   fe ff ff: CHS end
       *00 00 03 c1: LBA start of next logic partition
       *		    is a offset value real=(0x03c1 + 209728575) = 209729536
-      *01 d4 c0 00: LBA sectors number a real value			  = 30720000
+      *01 d4 c0 00: LBA sectors number a real value		= 30720000
       */
 
 000001ce: 00 fe ff ff 05 fe ff ff c1 c3 d4 01 00 a8 0f 00 
