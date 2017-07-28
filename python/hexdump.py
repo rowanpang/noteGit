@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import binascii
+import re
+import sys
+import string
 
 def strHexdump(strTmp):
     strlen = len(strTmp)
@@ -22,7 +25,7 @@ def strHexdump(strTmp):
     print(' ' * (idxMaxbit + gapSize)),
     for i in range(perLine):
         print ('%2x') %(i),
-    print('%2x') %(perLine - 1)
+    print ''
 
     for idx in range(0,strlen,perLine):
         print idxFormat %(idx >> perLinebits),
@@ -31,14 +34,22 @@ def strHexdump(strTmp):
             if (j+idx) >= strlen:
                 break
             outlen += 1
-            print '%s' %(binascii.hexlify(strTmp[idx+j])),
+            print '%02x' %ord(strTmp[idx+j]),
+            # print '%s' %(binascii.hexlify(strTmp[idx+j])),
 
         if outlen != perLine:
             for j in range(outlen,perLine):
                 print ' '*2,                    #补全后面的空格.   
 
         print(' ' * gapSize),                   #gap between  hexdump and char.
-        print '%s' %(strTmp[idx:idx+outlen])    #org char and new line
+        for j in range(outlen):
+            c = strTmp[idx+j]
+            if c in string.printable and c not in string.whitespace or c == ' ':
+                sys.stdout.write(c)
+            else:
+                sys.stdout.write('.')
+
+        print('')
 
 if __name__ == '__main__':
-    strHexdump('3' * ((1<<5)+5))
+    strHexdump('\x00' * ((1<<7)+5))
