@@ -25,7 +25,7 @@
 00000042: 29		/*0x29: extended boot signature*/
 00000043: cc 8f 75 34	/* volumeId ,uuid 3475-8fcc same as blkid /dev/sda5*/
 00000047: 4e 4f 20 4e 41 4d 45 20 20 20 20  /*fat12/16 volume label*/   NO NAME      
-00000053: 46 41 54 33 32 20 20 20	    /*File system type*/	FAT32   
+00000052: 46 41 54 33 32 20 20 20	    /*File system type*/	FAT32   
 0000005a: 33 c9 8e d1 bc f4    3.....
 00000060: 7b 8e c1 8e d9 bd 00 7c 88 4e 02 8a 56 40 b4 41  {......|.N..V@.A
 00000070: bb aa 55 cd 13 72 10 81 fb 55 aa 75 0a f6 c1 01  ..U..r...U.u....

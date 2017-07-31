@@ -3,8 +3,9 @@
 
 import binascii
 import hexdump
+import fatMeta
 
-diskblock='/dev/sdb'
+diskblock='/dev/sdb1'
+fvbr = fatMeta.fatVBR(diskblock)
 
-vbr = open(diskblock,'r').read(512)
-# hexdump.strHexdump(vbr)
+print fvbr.print_fields()
