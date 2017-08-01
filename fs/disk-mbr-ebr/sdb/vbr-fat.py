@@ -6,6 +6,11 @@ import hexdump
 import fatMeta
 
 diskblock='/dev/sdb1'
+diskblock='/dev/sdc1'
+# diskblock='./vbr-fat16.bin'
 fvbr = fatMeta.fatVBR(diskblock)
 
-print fvbr.print_fields()
+fvbr.parser_fields()
+
+# hexdump.strHexdump(fvbr.get_FAT())
+hexdump.strHexdump(fvbr.get_rootdir_content())

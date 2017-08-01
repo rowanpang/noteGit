@@ -4,6 +4,7 @@
 
 import struct
 import binascii
+import hashlib
 
 # formats of various parts of a FAT boot sector:
 
@@ -11,16 +12,25 @@ class FatTypeError(Exception):
     def __init__(self,x='not a fat filesystem'):
         Exception.__init__(self,x)
 
+class FileAssociateTableError(Exception):
+    def __init__(self,x='File associate table check error'):
+        Exception.__init__(self,x)
+
 class fatVBR:
     VBR_SIZE_IN_BYTE = 512
+
+    FAT_CLUS_BYTES_12 = 3/2 
+    FAT_CLUS_BYTES_16 = 2
+    FAT_CLUS_BYTES_32 = 4
+
+    FAT_ENT_SIZE = 32               #long short entry both are 32 bytes.
+
     FAT_TYPE_12_IDFY_STR='FAT12'
     FAT_TYPE_16_IDFY_STR='FAT16'
     FAT_TYPE_32_IDFY_STR='FAT32'
-
     FAT_TYPE_12=0
     FAT_TYPE_16=1
     FAT_TYPE_32=2
-
     FAT_TYPE_NONE=0xFF
 
     KEY_BPB_BASE_JmpBoot            = 'JmpBoot'
@@ -154,6 +164,7 @@ class fatVBR:
         self.fsType = None
         self.fields = None
         self.fmt = None
+        self.FAT = None
 
         f = open(self.filename)
         self.vbr = f.read(self.VBR_SIZE_IN_BYTE)
@@ -178,6 +189,20 @@ class fatVBR:
         '''Identify the FAT type based on volume boot record'''
         return self.fsType
 
+    def isFAT12or16(self):
+        fsType = self.get_type()
+        if fsType == self.FAT_TYPE_12 or fsType == self.FAT_TYPE_16:
+            return True
+        else:
+            return False
+
+    def isFAT32(self):
+        fsType = self.get_type()
+        if fsType == self.FAT_TYPE_32:
+            return True
+        else:
+            return False
+
     def get_vbr_bytes(self):
         '''Open a file, read the boot sector;
             return the boot-sector bytes.
@@ -188,50 +213,124 @@ class fatVBR:
         '''Open a file, read the boot sector, parse it;
             return the boot-sector fields interpreted as FATxx
         '''
-        fsType = self.get_type()
 
         if self.fields == None:
-            if fsType == self.FAT_TYPE_12 or fsType == self.FAT_TYPE_16:
+            if self.isFAT12or16():
                 self.fields = struct.unpack(self.FAT16vbr_format, self.vbr)
-            elif fsType == self.FAT_TYPE_32:
+            elif self.isFAT32():
                 self.fields = struct.unpack(self.FAT32vbr_format, self.vbr)
             return self.fields
         else:
             return self.fields
     
+    def read_bytes(self,size,seek=0):
+        with open(self.filename) as f:
+            f.seek(seek)
+            return f.read(size)
+
+    def read_bypte_secAlign(self,size,seekSec=0):
+        bytsPerSec = self.get_vbr_fields()[self.bpb_format[self.KEY_BPB_BASE_BytsPerSec][self.BPB_FMT_VAL_STIDX]]
+        start = seekSec * bytsPerSec
+        return self.read_bytes(size,start)
+
+    def read_sector(self,sizeSec,seekSec=0):
+        bytsPerSec = self.get_vbr_fields()[self.bpb_format[self.KEY_BPB_BASE_BytsPerSec][self.BPB_FMT_VAL_STIDX]]
+
+        size = sizeSec * bytsPerSec
+        seek = seekSec * bytsPerSec
+        return self.read_bytes(size,seek)
+        
     def get_FAT_secStart(self):
         st = self.get_vbr_fields();
         return st[self.bpb_format[self.KEY_BPB_BASE_RsvdSecs][self.BPB_FMT_VAL_STIDX]]
 
-    def get_rootdir_secStart(self):
+    def get_FAT(self):
+        if self.FAT == None:
+            st = self.get_vbr_fields();
+            secRsvd = st[self.bpb_format[self.KEY_BPB_BASE_RsvdSecs][self.BPB_FMT_VAL_STIDX]]
+            numFAT = st[self.bpb_format[self.KEY_BPB_BASE_NumFATs][self.BPB_FMT_VAL_STIDX]]
+
+            if self.isFAT12or16():
+                secPerFAT = st[self.bpb_format[self.KEY_BPB_BASE_SecPerFAT16][self.BPB_FMT_VAL_STIDX]]
+            elif self.isFAT32():
+                secPerFAT = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_SecPerFAT32][self.BPB_FMT_VAL_STIDX]]
+
+            fat1 = self.read_sector(secPerFAT,secRsvd)
+            if numFAT > 1:
+                fat2 = self.read_sector(secPerFAT,secRsvd+secPerFAT)
+
+                hasher1 = hashlib.sha1()
+                hasher1.update(fat1)
+
+                hasher2 = hashlib.sha1()
+                hasher2.update(fat2)
+
+                if hasher1.digest() == hasher2.digest():
+                    self.FAT = fat1
+                else:
+                    raise FileAssociateTableError
+            else:
+                self.FAT = fat1
+
+            return self.FAT
+        else:
+            return self.FAT
+
+    def get_dataStartSec(self):
         st = self.get_vbr_fields();
         secRsvd = st[self.bpb_format[self.KEY_BPB_BASE_RsvdSecs][self.BPB_FMT_VAL_STIDX]]
 
-        fsType = self.get_type()
-        if fsType == self.FAT_TYPE_12 or fsType == self.FAT_TYPE_16:
+        if self.isFAT12or16():
             secPerFAT = st[self.bpb_format[self.KEY_BPB_BASE_SecPerFAT16][self.BPB_FMT_VAL_STIDX]]
-        elif fsType == self.FAT_TYPE_32:
+        elif self.isFAT32():
             secPerFAT = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_SecPerFAT32][self.BPB_FMT_VAL_STIDX]]
 
         numFAT = st[self.bpb_format[self.KEY_BPB_BASE_NumFATs][self.BPB_FMT_VAL_STIDX]]
 
         return secRsvd + numFAT * secPerFAT
     
-    def get_rootdir_content(self,size=512):
-        bytsPerSec = self.get_vbr_fields()[self.bpb_format[self.KEY_BPB_BASE_BytsPerSec][self.BPB_FMT_VAL_STIDX]]
-        start = self.get_rootdir_secStart()*bytsPerSec
+    def read_cluster(self,clusidx):
+        st = self.get_vbr_fields();
 
-        f = open(self.filename)
-        f.seek(start)
-        return f.read(size)
+        if self.isFAT12or16():
+            clusStart = 2
+        elif self.isFAT32():
+            clusStart = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
+
+        secPerClus = st[self.bpb_format[self.KEY_BPB_BASE_SecPerClus][self.BPB_FMT_VAL_STIDX]]
+        secOff = (clusidx - clusStart) * secPerClus 
+        secStart = self.get_dataStartSec() + secOff         #rootdir same as data start.
+
+        return self.read_sector(secPerClus,secStart)
+
+    def get_cluster_status(self,clusidx):
+        fat = self.get_FAT()
+        if self.isFAT12or16():
+            clusStart = 2
+        elif self.isFAT32():
+            clusStart = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
+
+        clusoff = clusidx - clusStart
+        
+    def get_rootdir_content(self):
+        st = self.get_vbr_fields();
+        if self.isFAT12or16():
+            numEnt = st[self.bpb_format[self.KEY_BPB_BASE_RootEntCnt][self.BPB_FMT_VAL_STIDX]] 
+            return self.read_bypte_secAlign(numEnt*self.FAT_ENT_SIZE,self.get_dataStartSec())
+        elif self.isFAT32():
+            curClus = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
+            return self.read_cluster(curClus)
+
+    def list_root(self):
+        rb = self.get_rootdir_content()
+        
 
     def get_fmt(self):
         if self.fmt == None:
             fmt1 = self.bpb_format
-            fstype = self.get_type()
-            if fstype == self.FAT_TYPE_12 or fstype == self.FAT_TYPE_16:
+            if self.isFAT12or16():
                 fmt2 = self.FAT16ebpb_format
-            elif fstype == self.FAT_TYPE_32:
+            elif self.isFAT32():
                 fmt2 = self.FAT32ebpb_format
 
             self.fmt = fmt1.copy()
@@ -240,7 +339,7 @@ class fatVBR:
         else:
             return self.fmt
 
-    def print_fields(self):
+    def parser_fields(self):
         st = self.get_vbr_fields();
         fmt = self.get_fmt()
         klen = 0
@@ -255,7 +354,7 @@ if __name__ == '__main__':
     fp = fatVBR('/dev/sdb1')
     # fp = fatVBR('./vbr-fat16.bin')
     print fp.get_FAT_secStart()
-    print fp.get_rootdir_secStart()
-    fp.print_fields()
+    print fp.get_dataStartSec()
+    fp.parser_fields()
 
     print binascii.hexlify(fp.get_rootdir_content())
