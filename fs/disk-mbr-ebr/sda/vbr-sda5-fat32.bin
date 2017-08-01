@@ -5,10 +5,10 @@
 0000000d: 10	    /*0x10: logical sectors per cluster, 0x10*0x0200=8k bytes*/
 0000000e: ee 0a	    /*0x0aee: reserved logic sectors,2798 后面跟着FAT.*/
 00000010: 02	    /*0x02: nums of FAT,即这个分区中fat表的份数.一个备份.*/
-00000011: 00 00	    /*0x00: 根目录中的目录项数,对于fat32必须为0,对fat12,16有效.*/
+00000011: 00 00	    /*0x00: max entry num in rootdir,对于fat32必须为0,对fat12,16有效.*/
 00000013: 00 00     /*0x00: 总扇区数,fat32必须为0*/
 00000015: f8	    /*0xf8: media info ,固定介质为0xf8, 可移动的0xf0,并不重要.*/
-00000016: 00 00	    /*0x16: 一个fat表所占的扇区数，fat32必须为0,fat12/16有效.*/
+00000016: 00 00	    /*0x16: 一个fat16表所占的扇区数，fat32必须为0,fat12/16有效.*/
 00000018: 3f 00	    /*0x003f: sectors per track 63,bios int 13 返回这个值.*/
 0000001a: ff 00	    /*0x00ff: 磁头数 8G以上的磁盘此处都写0xff.*/
 0000001c: c1 03 00 00	/*0x03c1: 分区之前,hidden sector,equal to the LBA start in ebr*/
