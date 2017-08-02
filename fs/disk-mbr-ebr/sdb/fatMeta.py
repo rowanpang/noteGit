@@ -5,6 +5,7 @@
 import struct
 import binascii
 import hashlib
+import sys
 
 # formats of various parts of a FAT boot sector:
 
@@ -22,8 +23,108 @@ class fatVBR:
     FAT_CLUS_BYTES_12 = 3/2 
     FAT_CLUS_BYTES_16 = 2
     FAT_CLUS_BYTES_32 = 4
+    
+    FAT_CLUS_ST_FREE        = 0x01
+    FAT_CLUS_ST_RESERVED    = 0x02
+    FAT_CLUS_ST_DEFECTIVE   = 0x04
+    FAT_CLUS_ST_INVALID_MASK= 0x07
+
+    FAT_CLUS_ST_ALLOCATED   = 0x08
+    FAT_CLUS_ST_FINAL       = 0x10
+
+    FAT_CLUS_ST_IDFY_12_FREE            = 0x000
+    FAT_CLUS_ST_IDFY_12_ALLOCATED_LOW   = 0x002
+    FAT_CLUS_ST_IDFY_12_ALLOCATED_HIGH  = 0xFEF
+    FAT_CLUS_ST_IDFY_12_DEFECTIVE       = 0xFF7
+    FAT_CLUS_ST_IDFY_12_FINAL_START     = 0xFF8
+
+    FAT_CLUS_ST_IDFY_16_FREE            = 0x0001
+    FAT_CLUS_ST_IDFY_16_ALLOCATED_LOW   = 0x0002
+    FAT_CLUS_ST_IDFY_16_ALLOCATED_HIGH  = 0xFFEF
+    FAT_CLUS_ST_IDFY_16_DEFECTIVE       = 0xFFF7
+    FAT_CLUS_ST_IDFY_16_FINAL_START     = 0xFFF8
+
+    FAT_CLUS_ST_IDFY_32_FREE            = 0x00000000
+    FAT_CLUS_ST_IDFY_32_ALLOCATED_LOW   = 0x00000002
+    FAT_CLUS_ST_IDFY_32_ALLOCATED_HIGH  = 0x0FFFFFEF
+    FAT_CLUS_ST_IDFY_32_DEFECTIVE       = 0x0FFFFFF7
+    FAT_CLUS_ST_IDFY_32_FINAL_START     = 0x0FFFFFF8
 
     FAT_ENT_SIZE = 32               #long short entry both are 32 bytes.
+    FAT_ENT_ATTR_OFF = 11
+
+    FAT_ENT_ATTR_READ_ONLY  = 0x01
+    FAT_ENT_ATTR_HIDDEN     = 0x02
+    FAT_ENT_ATTR_SYSTEM     = 0x04
+    FAT_ENT_ATTR_VOLUME_ID  = 0x08
+
+    FAT_ENT_ATTR_DIRECOTRY  = 0x10
+    FAT_ENT_ATTR_ARCHIVE    = 0x20
+
+    FAT_ENT_ATTR_LONGNAME   = FAT_ENT_ATTR_READ_ONLY |  \
+                              FAT_ENT_ATTR_HIDDEN    |  \
+                              FAT_ENT_ATTR_SYSTEM    |  \
+                              FAT_ENT_ATTR_VOLUME_ID
+
+
+    FAT_ENT_KEY_short_name          = 'name'
+    FAT_ENT_KEY_short_ext           = 'ext'
+    FAT_ENT_KEY_short_attr          = 'attr'
+    FAT_ENT_KEY_short_NTRes         = 'NTRes'
+    FAT_ENT_KEY_short_crtTimeMS     = 'crtTimeMS'
+    FAT_ENT_KEY_short_crtTime       = 'crtTime'
+    FAT_ENT_KEY_short_crtDate       = 'crtDate'
+    FAT_ENT_KEY_short_lastAccData   = 'lastAccData'
+    FAT_ENT_KEY_short_FstClusHI     = 'FstClusHI'
+    FAT_ENT_KEY_short_wrtTime       = 'wrtTime'
+    FAT_ENT_KEY_short_wrtDate       = 'wrtDate'
+    FAT_ENT_KEY_short_FstClusLO     = 'FstClusLO'
+    FAT_ENT_KEY_short_FileSize      = 'FileSize'
+
+    FAT_ENT_KEY_long_ord        = 'ord'
+    FAT_ENT_KEY_long_name1      = 'name1'
+    FAT_ENT_KEY_long_attr       = 'attr'
+    FAT_ENT_KEY_long_Type       = 'Type'
+    FAT_ENT_KEY_long_chksum     = 'chksum'
+    FAT_ENT_KEY_long_name2      = 'name2'
+    FAT_ENT_KEY_long_FstClusLO  = 'FstClusLO'
+    FAT_ENT_KEY_long_name3      = 'name3'
+
+    FAT_ENT_FMT_VAL_OFFSET  = 0
+    FAT_ENT_FMT_VAL_LEN     = 1
+    FAT_ENT_FMT_VAL_STIDX   = 2
+
+    FAT_ENT_LONG_LAST       = 0x40
+    FAT_ENT_LONG_NUM_MASK   = 0x1f
+
+    shortEnt_format = {
+        'name'        : (0x00, 8,0) ,
+        'ext'         : (0x08, 3,1) ,
+        'attr'        : (0x0b, 1,2) , 
+        'NTRes'       : (0x0c, 1,3) , 
+        'crtTimeMS'   : (0x0d, 1,4) , 
+        'crtTime'     : (0x0e, 2,5) ,
+        'crtDate'     : (0x10, 2,6) ,
+        'lastAccData' : (0x12, 2,7) ,
+        'FstClusHI'   : (0x14, 2,8) ,
+        'wrtTime'     : (0x16, 2,9) ,         #secPerFAT16
+        'wrtDate'     : (0x18, 2,10) ,         #secPerFAT16
+        'FstClusLO'   : (0x1a, 2,11) ,
+        'FileSize'    : (0x1c, 4,12) ,
+    }
+    shortEnt_fields = '=8s3sBBBHHHHHHHI'      #jmp asm code + oemID + bpb	
+
+    longEnt_format = {
+        'ord'       : (0x00, 1,0) ,
+        'name1'     : (0x01, 10,1) ,
+        'attr'      : (0x0b, 1,2) , 
+        'Type'      : (0x0c, 1,3) , 
+        'chksum'    : (0x0d, 1,4) , 
+        'name2'     : (0x0e, 12,5) ,
+        'FstClusLO' : (0x1a, 2,6) ,
+        'name3'     : (0x1c, 4,7) ,
+    }
+    longEnt_fields = '=B10sBBB12sH4s'      #jmp asm code + oemID + bpb	
 
     FAT_TYPE_12_IDFY_STR='FAT12'
     FAT_TYPE_16_IDFY_STR='FAT16'
@@ -288,9 +389,91 @@ class fatVBR:
         numFAT = st[self.bpb_format[self.KEY_BPB_BASE_NumFATs][self.BPB_FMT_VAL_STIDX]]
 
         return secRsvd + numFAT * secPerFAT
+
+    def get_clusteridx_max(self):
+        st = self.get_vbr_fields();
+        totSec = st[self.bpb_format[self.KEY_BPB_BASE_TotSec32][self.BPB_FMT_VAL_STIDX]]
+        secPerClus = st[self.bpb_format[self.KEY_BPB_BASE_SecPerClus][self.BPB_FMT_VAL_STIDX]]
+
+        numMax = (totSec - self.get_dataStartSec()) / secPerClus
+        fsType = self.get_type()
+        if fsType == self.FAT_TYPE_12:
+            if numMax > self.FAT_CLUS_ST_IDFY_12_ALLOCATED_HIGH:
+                numMax = self.FAT_CLUS_ST_IDFY_12_ALLOCATED_HIGH
+        elif fsType == self.FAT_TYPE_16:
+            if numMax > self.FAT_CLUS_ST_IDFY_16_ALLOCATED_HIGH:
+                numMax = self.FAT_CLUS_ST_IDFY_16_ALLOCATED_HIGH
+        elif fsType == self.FAT_TYPE_32:
+            if numMax > self.FAT_CLUS_ST_IDFY_32_ALLOCATED_HIGH:
+                numMax = self.FAT_CLUS_ST_IDFY_32_ALLOCATED_HIGH
+
+    def get_cluster_status(self,clusVal):
+        fsType = self.get_type()
+        if fsType == self.FAT_TYPE_12:
+            if clusVal == self.FAT_CLUS_ST_IDFY_12_FREE:
+                return self.FAT_CLUS_ST_FREE
+            elif (clusVal >= self.FAT_CLUS_ST_IDFY_12_ALLOCATED_LOW) and (clusVal <= self.get_clusteridx_max()):
+                return self.FAT_CLUS_ST_ALLOCATED
+            elif clusVal == self.FAT_CLUS_ST_IDFY_12_DEFECTIVE:
+                return self.FAT_CLUS_ST_DEFECTIVE
+            elif clusVal >= self.FAT_CLUS_ST_IDFY_12_FINAL_START:
+                return self.FAT_CLUS_ST_FINAL
+
+        elif fsType == self.FAT_TYPE_16:
+            if clusVal == self.FAT_CLUS_ST_IDFY_16_FREE:
+                return self.FAT_CLUS_ST_FREE
+            elif (clusVal >= self.FAT_CLUS_ST_IDFY_16_ALLOCATED_LOW) and (clusVal <= self.get_clusteridx_max()):
+                return self.FAT_CLUS_ST_ALLOCATED
+            elif clusVal == self.FAT_CLUS_ST_IDFY_16_DEFECTIVE:
+                return self.FAT_CLUS_ST_DEFECTIVE
+            elif clusVal >= self.FAT_CLUS_ST_IDFY_16_FINAL_START:
+                return self.FAT_CLUS_ST_FINAL
+
+        elif fsType == self.FAT_TYPE_32:
+            if clusVal == self.FAT_CLUS_ST_IDFY_32_FREE:
+                return self.FAT_CLUS_ST_FREE
+            elif (clusVal >= self.FAT_CLUS_ST_IDFY_32_ALLOCATED_LOW) and (clusVal <= self.get_clusteridx_max()):
+                return self.FAT_CLUS_ST_ALLOCATED
+            elif clusVal == self.FAT_CLUS_ST_IDFY_32_DEFECTIVE:
+                return self.FAT_CLUS_ST_DEFECTIVE
+            elif clusVal >= self.FAT_CLUS_ST_IDFY_32_FINAL_START:
+                return self.FAT_CLUS_ST_FINAL
+
+        return self.FAT_CLUS_ST_RESERVED
+
+    def get_cluster_next(self,clusidx):        #both are little endian  
+        fat = self.get_FAT()
+        fsType = self.get_type()
+        if fsType == self.FAT_TYPE_12:
+            bytsoff = (clusidx * 3) >> 1
+            blen = 2
+            bformat='<H'
+            clusVal = struct.unpack(bformat,fat[bytsoff:bytsoff+blen])
+            if bytsoff & 1 == 0:
+                clusVal &= 0xfff
+            else:
+                clusVal >= 4
+            
+        elif fsType == self.FAT_TYPE_16:
+            bytsoff = clusidx * self.FAT_CLUS_BYTES_16
+            blen = 2
+            bformat='<H'
+            clusVal = struct.unpack(bformat,fat[bytsoff:bytsoff+blen])
+
+        elif fsType == self.FAT_TYPE_32:
+            bytsoff = clusidx * self.FAT_CLUS_BYTES_32
+            blen = 4
+            bformat='<I'
+            clusVal = struct.unpack(bformat,fat[bytsoff:bytsoff+blen])
+
+        return clusVal[0]
     
     def read_cluster(self,clusidx):
         st = self.get_vbr_fields();
+        clusSt = self.get_cluster_status(clusidx)
+        # print('clusidx:%#x,clusSt:%#x' %(clusidx,clusSt))
+        if not (clusSt & self.FAT_CLUS_ST_ALLOCATED):           
+            return None
 
         if self.isFAT12or16():
             clusStart = 2
@@ -298,20 +481,40 @@ class fatVBR:
             clusStart = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
 
         secPerClus = st[self.bpb_format[self.KEY_BPB_BASE_SecPerClus][self.BPB_FMT_VAL_STIDX]]
-        secOff = (clusidx - clusStart) * secPerClus 
-        secStart = self.get_dataStartSec() + secOff         #rootdir same as data start.
 
+        secOff = (clusidx-clusStart) * secPerClus 
+        secStart = self.get_dataStartSec() + secOff         #rootdir same as data start.
         return self.read_sector(secPerClus,secStart)
 
-    def get_cluster_status(self,clusidx):
-        fat = self.get_FAT()
-        if self.isFAT12or16():
-            clusStart = 2
-        elif self.isFAT32():
-            clusStart = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
+    def read_cluster_chain(self,clusStart,num=0):
+        '''if num == 0,read the whole cluster chain '''
+        if num == 0:
+            num = sys.maxint
 
-        clusoff = clusidx - clusStart
-        
+        i = 0
+        b = self.read_cluster(clusStart)
+        if not b:
+            return None,i
+        i += 1
+        if i == num:
+            return b,i
+
+        while True:
+            clusStart = self.get_cluster_next(clusStart)
+            clusSt = self.get_cluster_status(clusStart)
+            if clusSt & self.FAT_CLUS_ST_ALLOCATED:
+                tmpbuf = self.read_cluster(clusStart)
+                b += tmpbuf
+                i += 1
+                if i == num:
+                    return b,i
+            else:
+                if clusSt & self.FAT_CLUS_ST_FINAL:
+                    i = 0
+                break;
+
+        return b,i
+
     def get_rootdir_content(self):
         st = self.get_vbr_fields();
         if self.isFAT12or16():
@@ -319,12 +522,48 @@ class fatVBR:
             return self.read_bypte_secAlign(numEnt*self.FAT_ENT_SIZE,self.get_dataStartSec())
         elif self.isFAT32():
             curClus = st[self.FAT32ebpb_format[self.KEY_BPB_EXT32_RootClus][self.BPB_FMT_VAL_STIDX]]
-            return self.read_cluster(curClus)
+            return self.read_cluster_chain(curClus)[0]
+
+    def entry_read(self,dirbuf,idx,nums):
+        return dirbuf[idx*self.FAT_ENT_SIZE:(idx+nums)*self.FAT_ENT_SIZE]
+   
+    def entry_parser_short(self,ent):
+        etfield = struct.unpack(self.shortEnt_fields,ent)
+
+        entry = {}
+        for k in self.shortEnt_format.keys():
+            entry[k] = etfield[self.shortEnt_format[k][self.FAT_ENT_FMT_VAL_STIDX]]
+
+        return entry
+
+    def entry_parser_longShort(self,entrys):
+        nums = len(entrys)/self.FAT_ENT_SIZE
+
 
     def list_root(self):
         rb = self.get_rootdir_content()
-        
+        for idx in range(0,len(rb)/self.FAT_ENT_SIZE):
+            ent = self.entry_read(rb,idx,1)
+            if ent[0] == '\x00' or ent[0] == '\xe5':
+                print '-----entry---end-----'
+                break
+            elif ent[0] == '\x05':
+                ent.replace('\x05','\xe5',1)
 
+            attr = ord(ent[self.FAT_ENT_ATTR_OFF:self.FAT_ENT_ATTR_OFF+1])
+            print('%x' %(attr))
+            if attr & self.FAT_ENT_ATTR_LONGNAME:
+                totEnt = ord(ent[self.longEnt_format[self.FAT_ENT_KEY_long_ord][self.FAT_ENT_FMT_VAL_STIDX]])
+                if totEnt & self.FAT_ENT_LONG_LAST:
+                    totEnt &= self.FAT_ENT_LONG_NUM_MASK
+                    entslong = ent + self.entry_read(rb,idx+1,totEnt)
+                    idx += totEnt
+
+                else:
+                    TypeError
+            else:
+                print self.entry_parser_short(ent)
+        
     def get_fmt(self):
         if self.fmt == None:
             fmt1 = self.bpb_format
