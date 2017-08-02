@@ -28,7 +28,7 @@ def strHexdump(strTmp):
     print ''
 
     for idx in range(0,strlen,perLine):
-        print idxFormat %(idx >> perLinebits),
+        print idxFormat %(idx),
         outlen=0
         for j in range(perLine):
             if (j+idx) >= strlen:
