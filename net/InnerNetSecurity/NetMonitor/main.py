@@ -1,18 +1,21 @@
 #!/usr/bin/python
 #coding:utf-8
+import sys
+import os
+sys.path.insert(0,os.path.dirname(__file__) + '/site-packages')
+
 from flask import Flask, jsonify
 from flask import Blueprint, abort
-import os
 import signal
-import threading
 import time
 import re
-import pcap
 import collections
-import dpkt
 import Queue
 import json
-import sys
+import threading
+
+import pcap
+import dpkt
 
 try:                                                                                    
     from http_parser.parser import HttpParser
