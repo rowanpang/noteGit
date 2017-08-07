@@ -7,3 +7,5 @@
 2,测试方法:
     make
     执行 run.sh
+
+3,运行种改变LD_LIBRARY_PATH 环境变量,对so的加载路径无效.
