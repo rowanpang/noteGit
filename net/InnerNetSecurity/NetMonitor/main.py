@@ -3,6 +3,8 @@
 import sys
 import os
 sys.path.insert(0,os.path.dirname(__file__) + '/site-packages')
+import ctypes
+ctypes.cdll.LoadLibrary(os.path.dirname(__file__) + '/site-packages/libpcap/libpcap.so')
 
 from flask import Flask, jsonify
 from flask import Blueprint, abort
@@ -203,13 +205,17 @@ def netRecords():
 
     return json.dumps(ret)
 
-if __name__ == "__main__":
-    q = Queue.Queue()
-    app = Flask(__name__)
-    app.register_blueprint(NetMonitorRoute, url_prefix='')
-    print 'thread with pid %i' %(threading.currentThread().ident)
+def init():
+    # print 'thread with pid %i' %(threading.currentThread().ident)
     monitor = threading.Thread(target=startMonitor,name="netMonitoring",args=(q,))
+    # print 'new thread with pid %i' %(monitor.ident)
     monitor.setDaemon(True)
     monitor.start()
-    print 'new thread with pid %i' %(monitor.ident)
+
+q = Queue.Queue()
+init()
+
+if __name__ == "__main__":
+    app = Flask(__name__)
+    app.register_blueprint(NetMonitorRoute, url_prefix='')
     app.run(host = '0.0.0.0', port=8080,debug = False)
