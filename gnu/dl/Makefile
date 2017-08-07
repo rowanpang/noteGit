@@ -1,4 +1,4 @@
-AP_ELF=main 
+AP_ELF=main main-env
 SO_ELF=msg.so
 
 .PHONY:all
