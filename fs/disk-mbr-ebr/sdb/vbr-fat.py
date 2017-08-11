@@ -18,6 +18,6 @@ fvbr.parser_fields()
 # b,i = fvbr.read_cluster_chain(2,0)
 # hexdump.strHexdump(b)
 
-# hexdump.strHexdump(fvbr.get_rootdir_content())
+hexdump.strHexdump(fvbr.get_rootdir_content())
 fvbr.list_root()
 

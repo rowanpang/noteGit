@@ -96,8 +96,8 @@ class fatVBR:
 
     FAT_ENT_LONG_LAST       = 0x40
     FAT_ENT_LONG_NUM_MASK   = 0x1f
-
-    shortEnt_format = {
+    
+    Entry_format_short = {
         'name'        : (0x00, 8,0) ,
         'ext'         : (0x08, 3,1) ,
         'attr'        : (0x0b, 1,2) , 
@@ -112,9 +112,9 @@ class fatVBR:
         'FstClusLO'   : (0x1a, 2,11) ,
         'FileSize'    : (0x1c, 4,12) ,
     }
-    shortEnt_fields = '=8s3sBBBHHHHHHHI'      #jmp asm code + oemID + bpb	
+    Entry_fields_short = '=8s3sBBBHHHHHHHI'      #jmp asm code + oemID + bpb	
 
-    longEnt_format = {
+    Entry_format_long = {
         'ord'       : (0x00, 1,0) ,
         'name1'     : (0x01, 10,1) ,
         'attr'      : (0x0b, 1,2) , 
@@ -124,7 +124,7 @@ class fatVBR:
         'FstClusLO' : (0x1a, 2,6) ,
         'name3'     : (0x1c, 4,7) ,
     }
-    longEnt_fields = '=B10sBBB12sH4s'      #jmp asm code + oemID + bpb	
+    Entry_fields_long = '=B10sBBB12sH4s'      #jmp asm code + oemID + bpb	
 
     FAT_TYPE_12_IDFY_STR='FAT12'
     FAT_TYPE_16_IDFY_STR='FAT16'
@@ -528,17 +528,40 @@ class fatVBR:
         return dirbuf[idx*self.FAT_ENT_SIZE:(idx+nums)*self.FAT_ENT_SIZE]
    
     def entry_parser_short(self,ent):
-        etfield = struct.unpack(self.shortEnt_fields,ent)
+        etfield = struct.unpack(self.Entry_fields_short,ent)
 
         entry = {}
-        for k in self.shortEnt_format.keys():
-            entry[k] = etfield[self.shortEnt_format[k][self.FAT_ENT_FMT_VAL_STIDX]]
+        for k in self.Entry_format_short.keys():
+            entry[k] = etfield[self.Entry_format_short[k][self.FAT_ENT_FMT_VAL_STIDX]]
+
+        entry['nameLong'] = ''
 
         return entry
 
-    def entry_parser_longShort(self,entrys):
-        nums = len(entrys)/self.FAT_ENT_SIZE
+    def entry_parser_longShort(self,ents):
+        num = len(ents)/self.FAT_ENT_SIZE
+        i = 1
+        start = (num - i ) * self.FAT_ENT_SIZE
+        end = start + self.FAT_ENT_SIZE
+        entry = self.entry_parser_short(ents[start:end])
 
+        nameLong = ''
+        while True :
+            i += 1
+            if i > num:
+                break
+            start = (num - i ) * self.FAT_ENT_SIZE
+            end = start + self.FAT_ENT_SIZE
+            etfl = struct.unpack(self.Entry_fields_long,ents[start:end])
+            nameLong +=  etfl[self.Entry_format_long[self.FAT_ENT_KEY_long_name1][self.FAT_ENT_FMT_VAL_STIDX]]   \
+                       + etfl[self.Entry_format_long[self.FAT_ENT_KEY_long_name2][self.FAT_ENT_FMT_VAL_STIDX]]   \
+                       + etfl[self.Entry_format_long[self.FAT_ENT_KEY_long_name3][self.FAT_ENT_FMT_VAL_STIDX]]   
+
+        nameLong = nameLong.decode('utf16').encode('utf8').rsplit('\x00')[0]
+
+        entry['nameLong'] = nameLong
+        return entry
+        
 
     def list_root(self):
         rb = self.get_rootdir_content()
@@ -551,13 +574,14 @@ class fatVBR:
                 ent.replace('\x05','\xe5',1)
 
             attr = ord(ent[self.FAT_ENT_ATTR_OFF:self.FAT_ENT_ATTR_OFF+1])
-            print('%x' %(attr))
-            if attr & self.FAT_ENT_ATTR_LONGNAME:
-                totEnt = ord(ent[self.longEnt_format[self.FAT_ENT_KEY_long_ord][self.FAT_ENT_FMT_VAL_STIDX]])
+            if not (attr ^ self.FAT_ENT_ATTR_LONGNAME):
+                totEnt = ord(ent[self.Entry_format_long[self.FAT_ENT_KEY_long_ord][self.FAT_ENT_FMT_VAL_STIDX]])
                 if totEnt & self.FAT_ENT_LONG_LAST:
                     totEnt &= self.FAT_ENT_LONG_NUM_MASK
                     entslong = ent + self.entry_read(rb,idx+1,totEnt)
                     idx += totEnt
+                    
+                    print self.entry_parser_longShort(entslong)
 
                 else:
                     TypeError
