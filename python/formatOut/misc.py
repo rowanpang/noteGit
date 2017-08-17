@@ -29,14 +29,14 @@ def findChineses(u8str):
 #htl,xxx
 #fpad,xxx
 def myAlign(un_align_str, htl=0, ftl=0, hpad=' ', fpad='　'):
-    assert isinstance(htl, int)                # 输入长度是否为整数，否则报错
-    assert isinstance(ftl, int)                # 输入长度是否为整数
-    if (htl+ftl*2) <= len(un_align_str):      # 小于输入长度返回原字符
+    assert isinstance(htl, int)                 # 输入长度是否为整数，否则报错
+    assert isinstance(ftl, int)                 # 输入长度是否为整数
+    if (htl+ftl*2) <= len(un_align_str):        # 小于输入长度返回原字符
         return un_align_str
     strlen = len(un_align_str)
     chn = findChineses(un_align_str)
     numchn = len(chn)
-    numsph = strlen - numchn * 3
+    numsph = strlen - numchn * 3                #按照utf8处理时len('庞'.utf8)==3,所以为3
     # print (htl-numsph)
     # print (ftl-numchn)
     str = hpad*(htl-numsph) + fpad*(ftl-numchn)
@@ -52,5 +52,22 @@ def myAlign(un_align_str, htl=0, ftl=0, hpad=' ', fpad='　'):
     # print '总字符数 = ', strlen
     return str
 
+def myAlign2(un_align_str, length=0, addin=' '):
+    assert isinstance(length, int)        # 输入长度是否为整数
+    if length <= len(un_align_str):       # 小于输入长度返回原字符
+        return un_align_str
+    strlen = len(un_align_str)
+    chn = findChineses(un_align_str)
+    numchn = len(chn)
+    numsp = length - strlen + numchn      # 填充半角字符的的个数
+        #+numchn,是补齐一个utf8 中文字符比起len()少占了一个.
+    str = addin * numsp                   # 生成填充字符串
+
+    return str                            # 返回填充的字符串
+
 for f in os.listdir(rootdir):
-    print '%s is dir: %s' %((f+myAlign(f,22,10)), True if os.path.isdir('%s/%s' %(rootdir,f)) else False)
+    # print '%s is dir: %s' %((f+myAlign(f,22,10)), True if os.path.isdir('%s/%s' %(rootdir,f)) else False)
+    print '%s is dir: %s' %((f+myAlign2(f,24)), os.path.isdir('%s/%s' %(rootdir,f)))
+    #这里的’23‘在输出时按照pad = 23 - len(str) 计算,
+    #因为utf8下len('庞')==3,但是输出只占2,所以出现对齐问题.
+    # print '%-23s is dir: %s' %((f), os.path.isdir('%s/%s' %(rootdir,f)))
