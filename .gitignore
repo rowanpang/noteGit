@@ -17,6 +17,7 @@ a.out*
 .*.cmd
 .tmp_versions
 *.swp
+*.swo
 *.o
 *.d
 *.o.*
