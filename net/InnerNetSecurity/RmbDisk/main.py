@@ -1,12 +1,16 @@
 #!/usr/bin/python
 #coding:utf-8
-from flask import Flask,jsonify
-from flask import Blueprint,abort
 
 import os
 import re
+
+from flask import Flask,jsonify
+from flask import Blueprint,abort
 from subprocess import Popen,PIPE
 
+rootdir =  '/sys/class/block'
+lcdromid = os.path.join(os.path.dirname(__file__),'cdrom_id')
+print lcdromid
 RmbDiskRoute = Blueprint('RmbDisk', __name__) 
 
 @RmbDiskRoute.route('/rmbDisk')
@@ -38,45 +42,48 @@ def isMounted(devnode):
 
 def show_info():
     ret={}
-    ret['a'] = 'aaaaaaaaaaa'
-    ret['b'] = 'bbbbbbbbbbb'
     for f in os.listdir(rootdir):
-        dd = rootdir + '/' + f + '/'
+        dd = os.path.join(rootdir,f)
         if not re.match('^sd[a-z]+$|sr[0-9]+$',f):
             continue
-        if open(dd + 'removable').read(1) == '0':
+        if open(os.path.join(dd,'removable')).read(1) == '0':
             continue
-        ret['size'] = sizeShred(float(open(dd + 'size').read().strip()) * 512)
+        ret['size'] = sizeShred(float(open(os.path.join(dd,'size')).read().strip()) * 512)
 
         if f.startswith('sd'):
             devnode= '/dev/%s[0-9]+' %(f)
             dtype = 'disk'
-            if not os.path.islink(dd[:-1]):
+            if not os.path.islink(dd):
                 pass
-            if re.findall('usb[0-9]+\/',os.readlink(dd[:-1])):
+            if re.findall('usb[0-9]+\/',os.readlink(dd)):
                 dtype = 'udisk'
             dst = 'inserted'
             if isMounted(devnode):
                 dst = 'using'
 
-        elif f.starstwith('sr'):
+        elif f.startswith('sr'):
             devnode= '/dev/%s' %(f)
             dtype = 'cdrom'
             dst = 'noMedia'
-            args = ['lcdromid','devnode']
-            Popen(args,stdout=PIPE)
-            Popen.wait()
-            ret = Popen.communicate()
-            print ret
+            args = [lcdromid,devnode]
+            p = Popen(args,stdout=PIPE)
+            p.wait()
+            retdic = dict(s.split('=') for s in p.communicate()[0].splitlines())
+            if 'ID_CDROM_MEDIA' in retdic.keys() and retdic['ID_CDROM_MEDIA']:
+                dst = 'inserted'
+            if isMounted(devnode):
+                dst = 'using'
 
-        print dtype
-        print dst
+        ret['type'] = dtype
+        ret['dst'] = dst
+
+    print ret
+    return
     return jsonify(ret)
 
-rootdir =  '/sys/class/block'
-lcdromid = os.path.join(__file__,'cdrom_id')
 
 if __name__ == '__main__':
-    app = Flask(__name__)
-    app.register_blueprint(RmbDiskRoute, url_prefix='')
-    app.run(host = '0.0.0.0', port=8080,debug = True)
+    print show_info()
+    # app = Flask(__name__)
+    # app.register_blueprint(RmbDiskRoute, url_prefix='')
+    # app.run(host = '0.0.0.0', port=8080,debug = True)
