@@ -4,6 +4,7 @@ import binascii
 import datetime
 import os
 import sys
+import subprocess
 
 def usage():
     print 'Usage: %s /dev/sdX' %(os.path.basename(sys.argv[0]))
@@ -27,3 +28,5 @@ open(bkfile,'w').write(mbrOrg)
 mbrNew = '\00' * ovrSize + mbrOrg[ovrSize:]
 # print binascii.hexlify(mbrNew)
 open(dev,'w').write(mbrNew)
+
+subprocess.call(["sync"])
