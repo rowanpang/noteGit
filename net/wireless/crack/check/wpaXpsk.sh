@@ -86,7 +86,7 @@ function main(){
 BSSID="EC:88:8F:43:97:58"
 SSID="Inspur-M"
 channel="6"
-cli="54:27:1E:A8:12:07"
+cli="60:D9:C7:00:22:CA"		    #rowan iPhone5s
 
 #BSSID="70:F9:6D:34:FB:91"
 #SSID="Inspur"
