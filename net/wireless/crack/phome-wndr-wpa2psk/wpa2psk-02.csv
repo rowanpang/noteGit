@@ -1,0 +1,7 @@
+
+BSSID, First time seen, Last time seen, channel, Speed, Privacy, Cipher, Authentication, Power, # beacons, # IV, LAN IP, ID-length, ESSID, Key
+6C:B0:CE:17:AD:71, 2017-08-21 11:04:37, 2017-08-21 11:05:01,  3,  54, WPA2, CCMP,PSK, -24,      136,      130,   0.  0.  0.  0,  10, phome-wndr, 
+
+Station MAC, First time seen, Last time seen, Power, # packets, BSSID, Probed ESSIDs
+60:D9:C7:00:22:CA, 2017-08-21 11:04:38, 2017-08-21 11:05:00, -35,      392, 6C:B0:CE:17:AD:71,
+
