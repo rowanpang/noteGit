@@ -44,3 +44,7 @@ for s in a:
     l.append(s.split('='))
     print dict(l)
 
+da = {"a":"aaaaaa",'b':'bbbbbbbb'}
+print da
+for d in da.keys():
+    print d,da[d]
