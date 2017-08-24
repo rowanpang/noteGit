@@ -1,0 +1,1093 @@
+hello
+
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8" />
+
+<title>桐昆集团股份有限公司</title>
+
+
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://www.zjtkgf.com/wp-content/themes/tongkun2/css/ie8.css" media="screen" />
+<![endif]-->
+
+<!--[if IE]>
+	<script src="http://www.zjtkgf.com/wp-content/themes/tongkun2/css/html5.js"></script>
+<![endif]-->
+
+<!--[if IE 9]>
+    <script src="http://www.zjtkgf.com/wp-content/themes/tongkun2/css/css3-mediaqueries.js"></script>
+<![endif]-->
+
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+
+
+<!-- Mobile Specific Metas
+================================================== -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+
+<!-- Favicons
+================================================== -->
+
+<link rel="shortcut icon" href="http://www.zjtkgf.com/wp-content/uploads/2013/05/favicon.gif">
+
+<link rel="apple-touch-icon" href="http://www.zjtkgf.com/wp-content/uploads/2013/07/apple-57.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://www.zjtkgf.com/wp-content/uploads/2013/07/apple-72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://www.zjtkgf.com/wp-content/uploads/2013/07/apple-114.png" />
+<style type="text/css">.toppic{display:none;}</style>
+<link rel="pingback" href="http://www.zjtkgf.com/xmlrpc.php" />
+
+
+<link rel='stylesheet' id='theme-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/style.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='layout-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/layout.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='responsive-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/responsive.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='superfish-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/superfish.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='prettyphoto-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/css/prettyPhoto.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='nonverblaster-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/css/nonverblaster.css?ver=1.3.6' type='text/css' media='screen, projection' />
+<link rel='stylesheet' id='flexslider-css'  href='http://www.zjtkgf.com/wp-content/themes/tongkun2/css/flexslider.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://www.zjtkgf.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.0.2' type='text/css' media='all' />
+<link rel='stylesheet' id='rs-settings-css'  href='http://www.zjtkgf.com/wp-content/plugins/revslider/rs-plugin/css/settings.css?ver=4.0.18' type='text/css' media='all' />
+<link rel='stylesheet' id='rs-captions-css'  href='http://www.zjtkgf.com/wp-content/plugins/revslider/rs-plugin/css/captions.css?ver=4.0.18' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.plugins.min.js?ver=4.0.18'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js?ver=4.0.18'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/wp-float/js/jquery.easing.js?ver=4.0.18'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/wp-float/js/jquery.floater.2.2.js?ver=4.0.18'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/wp-float/js/jquery.hoverIntent.minified.js?ver=4.0.18'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-includes/js/swfobject.js?ver=2.2-20120417'></script>
+<link rel='canonical' href='http://www.zjtkgf.com/' />
+<link rel='shortlink' href='http://www.zjtkgf.com/' />
+                <div id="2261-wpf">
+                <div><a href="http://www.xsljf.com/" target="_blank"><div style="font-family: '微软雅黑'; color: #ffff00; background-color: #ff0000; padding: 20px; font-size: 14px;letter-spacing:2px;width:200px;text-align:center">欢迎访问新丝路金服</div></a></div>
+
+
+ 
+
+
+ 
+
+                      </div>
+				<script type='text/javascript'>
+                                jQuery(document).ready(function($) {
+                                        jQuery('#2261-wpf').dcFloater({
+                        width: '350',
+                        location: 'top',
+                        align: 'left',
+                        offsetLocation:500,
+                        offsetAlign:50,
+                        speedFloat:'',
+                        tabText: '',
+                        tabClose: false,
+                        easing: 'easeOutQuint',
+                        event: 'hover',
+			                        disableFloat:false,
+                        idWrapper: '2261-wpf-id',
+                                                
+                                        });
+                                });
+                        </script>
+
+
+        <style type="text/css">body {overflow-x: hidden;}#wrap #content {float: left;}#wrap #sidebar {float: right;}#wrap #sidebar .widget-container {margin-left: 20px;margin-right: 0px;}#wrap #sidebar_second {float:left;}#wrap #sidebar_second .widget-container {margin-right: 20px;margin-left: 0px;}#vtabs > div, .home-title span, .home-title-link, .carousel-navi, #service-loader, body > #wrap { background: #FFFFFF !important; }#lambda-featured-header-wrap { background:#ffffff url() no-repeat; }@font-face {font-family: '微软雅黑';}body {color:#777777;font-size:13px;font-family:"微软雅黑";font-weight:normal;font-style:normal;}.portfolio-info span {color:#777777;}h1 { font-family: "微软雅黑"; font-size: 18px;}h2 { font-family: "微软雅黑";font-size: 14px;}h3 { font-family: "微软雅黑";font-size: 14px;}h4 { font-family: "微软雅黑";font-size: 14px;}h5 { font-family: "微软雅黑";font-size: 13px;}h6 { font-family: "微软雅黑";font-size: 12px;}h1, h2, h3, h4, h5, h6 {color: #444444;} h1, h2, h3, h4, h5, h6 {font-weight: normal;font-style: normal; }span.client-title strong {font-family: "微软雅黑"; }h3.trigger, p.trigger, ul.tabs li {font-size:18px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}h3.trigger a, p.trigger a, ul.tabs li a {color:#444444;}.member-name {color:#ffffff;font-size:16px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}.archiv-title {color:#333333;font-size:14px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}article.service h3 {font-size:18px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}article.service-box h3 {font-size:20px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}#vmenu ul li h3 {color:#444444;font-size:18px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}#page-title, .featured-header-title {color:#444444;font-size:20px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}.home-title, .portfolio-info .home-title span {color:#333333;font-size:14px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}p.teaser-text {color:#555555;font-size:16px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:;}#logo h1, #logo h1 a {color:#666666;font-size:34px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}#sidebar .widget-title, #reply-title, .comments-title, h3.author-name, #sidebar_second .widget-title, .widget-sidebar .widget-title, .lambda-header-widget .widget-title {color:#333333;font-size:14px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}.widget-title a { color:#333333;}#footer .widget-title {color:#333333;font-size:14px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:uppercase;}.entry-title { color:#444444;font-size:16px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}.entry-title a { color:#444444;}.recent-post .entry-title { color:#444444;font-size:15px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}.link-post-title { font-size:16px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}.link-post-title a { color:#444444;}.entry-meta, .entry-meta-single-post { color:#999999;font-size:12px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}.entry-meta-single-post a, .entry-meta a { color:#999999;}.caption.themecolor_background {background-color: #f51111 ;}.caption.themecolor_normal {color: #f51111;}.themecolor-background {background: #f51111;-moz-border-radius: 2px;border-radius: 2px;padding: 5px 10px;}.themebutton.button {background: #f51111;color:#FFFFFF;}.themebutton2:hover {background: #f51111;}#navigation ul li a {color:#555555;font-size:14px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}#navigation ul.sub-menu li a {color:#FFFFFF !important;font-size:12px;font-family:"微软雅黑";font-weight:normal;font-style:normal;text-transform:capitalize;}#navigation ul a:hover {background: #ffffff;color: #f51111 !important;}#navigation ul li:hover{background: #ffffff;}#navigation ul.sub-menu li:hover, #navigation ul.sub-menu a:hover{background: none !important;}#navigation ul li:hover a {color: #f51111;border-top:1px solid #f51111;}#navigation ul li ul li:hover a{color: #555555 !important;}#navigation ul.sub-menu .current-menu-ancestor a {color: #555555 !important;}#navigation ul.sub-menu .current-menu-ancestor ul a {color: #FFFFFF !important;}#navigation ul.sub-menu .current-menu-ancestor ul a:hover {color: #555555 !important;}#navigation ul.sub-menu .current-menu-ancestor ul li.active > a {color: #555555 !important;}#navigation ul li ul li:hover ul li a {color: #FFFFFF !important;}#navigation ul.sub-menu a:hover {color: #555555 !important;}#navigation ul > li.active > a {background: #f51111 !important;color: #ffffff !important;}#navigation ul > li ul li ul li.active > a,#navigation ul > li ul li.active > a {color: #555555 !important;background: none !important;}#navigation ul.sub-menu {background-color: rgb(245,17,17);background-color: rgba(245,17,17,0.9);}#navigation ul li ul li:hover a.sf-with-ul:after, .sub-menu .sf-with-ul:after { left: 100%; margin-left:-10px; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }#navigation ul li ul li:hover a.sf-with-ul:after, .sub-menu .sf-with-ul:after { border-left-color: #FFFFFF; border-width: 5px; top: 50%; margin-top: -5px; }a,.widget-sidebar a:hover,#sidebar_second a:hover,#sidebar a:hover,ul.archive li a:hover,p.search-title span, p.tag-title span,#logo h1 a:hover,.entry-content a,.portfolio-info a,ul.archive,.widget_categories li,.widget_links li,.widget_nav_menu li,.widget_pages li,.widget_meta li,.widget_archive li,.lambda_widget_portfolio li,.widget_recent_comments li,.widget_recent_entries li,.entry-title a:hover,#teaser-content a,.themecolor,.tag-links a:hover,ul.page-numbers li span.current,ul.filter_portfolio a:hover,ul.filter_portfolio a.selected,#vmenu li.selected:hover h3,#vmenu li.selected h3,#mobile-menu li a,ul.tabs li a:hover,.testimonial-name span,#footer a:hover,.entry-meta a:hover,.mm-trigger.active,.mm-trigger:hover,.entry-meta-single-post a:hover{color: #f51111;}h3.trigger.active a,p.trigger.active a,h3.trigger:hover a ,p.trigger:hover a {color: #f51111 !important;}.portfolio-title-below-wrap a,.tag_links a,.cta-button,.nevada-caption.dark .excerpt:hover,.nevada-caption.white .excerpt:hover,.quote,.link-post-title a,.entry-attachment .entry-caption,.gallery-caption,.lambda-pricingtable.featured .lambda-pricingtable-top,.testimonial-company,.tagcloud a,.lambda_widget_portfolio li:before,.widget_links li:before,.widget_nav_menu li:before,.widget_pages li:before,.widget_meta li:before,.widget_categories li:before,.widget_archive li:before,.widget_recent_entries li:before,.widget_recent_comments li:before,ul.archive li:before,.lambda-pricingtable.featured .lambda-table-button,ul.tabs li a.active {background: #f51111;}.lambda-table-button:hover {background: #f51111 !important;}.searchlens:hover {background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/search-icon.png); background-repeat: no-repeat;background-position: center center;}.member-info,.camera_wrap .camera_pag .camera_pag_ul li:hover > span,.camera_wrap .camera_pag .camera_pag_ul li.cameracurrent > span,.camera_bar_cont span,.lambda-dropcap2,.lambda-highlight1,.flex-control-nav li a:hover,.flex-control-nav li a.active,.edit-link a:hover,.permalink-hover:hover,#slider-nav a#slider-next:hover,#slider-nav a#slider-prev:hover,.post-slider-nav a.slider-prev:hover,.post-slider-nav a.slider-next:hover,#slider-bullets a.activeSlide,#slider-bullets a:hover,#wp-calendar td#today,.pformat,.lambda_widget_video .lambda-video,input[type="submit"], input[type="reset"], input[type="button"] {background-color: #f51111;} .camera_commands,.camera_prev,.camera_next,.flex-direction-nav a,.lambda-featured-header-caption {background-color:rgb(245,17,17);background-color:rgba(245,17,17,0.9);}.tp-caption.nebraska-style {background-color:rgb(245,17,17) !important;background-color:rgba(245,17,17,0.9) !important;}.tp-bullets.simplebullets.round .bullet.selected,.tp-leftarrow.default,.tp-rightarrow.default {background-color:rgb(245,17,17) !important;background-color:rgba(245,17,17,0.9) !important;}.tp-rightarrow.default:hover,.tp-leftarrow.default:hover {background-color:rgb(85,85,85) !important;background-color:rgba(85,85,85,0.9) !important;-webkit-transition:.2s all linear;-moz-transition:.2sall linear;-o-transition:.2sall linear;-ms-transition:.2sall linear;transition:.2sall linear;}::-moz-selection{color: #FFFFFF !important;background: #f51111;}::selection {color: #FFFFFF !important;background:#f51111;}ul.lambda-sociallinks li a.twitter { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/twitter.png); }ul.lambda-sociallinks li a.facebook { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/facebook.png); }ul.lambda-sociallinks li a.googleplus { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/google_plus.png); }ul.lambda-sociallinks li a.delicious { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/delicious.png); }ul.lambda-sociallinks li a.grooveshark { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/grooveshark.png); }ul.lambda-sociallinks li a.flickr { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/flickr.png); }ul.lambda-sociallinks li a.instagram { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/instagram.png); }ul.lambda-sociallinks li a.picasa { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/picasa.png); }ul.lambda-sociallinks li a.fivehundredpx { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/500px.png); }ul.lambda-sociallinks li a.youtube { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/youtube.png); }ul.lambda-sociallinks li a.vimeo { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/vimeo.png); }ul.lambda-sociallinks li a.dribbble { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/dribbble.png); }ul.lambda-sociallinks li a.digg { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/digg.png); }ul.lambda-sociallinks li a.pinterest { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/pinterest.png); }ul.lambda-sociallinks li a.behance { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/behance.png); }ul.lambda-sociallinks li a.deviantart { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/deviantart.png); }ul.lambda-sociallinks li a.dropbox { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/dropbox.png); }ul.lambda-sociallinks li a.forrst { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/forrst.png); }ul.lambda-sociallinks li a.lastfm { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/lastfm.png); }ul.lambda-sociallinks li a.aim { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/aim.png); }ul.lambda-sociallinks li a.soundcloud { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/soundcloud.png); }ul.lambda-sociallinks li a.foursquare { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/foursquare.png); }ul.lambda-sociallinks li a.github { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/github_alt.png); }ul.lambda-sociallinks li a.linkedin { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/linkedin.png); }ul.lambda-sociallinks li a.xing { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/xing.png); }ul.lambda-sociallinks li a.wordpress { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/wordpress.png); }ul.lambda-sociallinks li a.tumblr { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/tumblr.png); }ul.lambda-sociallinks li a.rss { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/feed.png); }ul.lambda-sociallinks li a.yahoo { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/yahoo.png); }ul.lambda-sociallinks li a.steam { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/steam.png); }ul.lambda-sociallinks li a.email { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/email.png); }ul.lambda-sociallinks li a.link { background: #f51111 url(http://www.zjtkgf.com/wp-content/themes/tongkun2/images/icons/social/link.png); }.hover-overlay {background-color: rgb(245,17,17);background-color:rgba(245,17,17,0.9);}@media only screen and (min-width: 768px) and (max-width: 959px) { .nav-wrap {background: #f51111 ;}}@media only screen and (max-width: 767px) { .nav-wrap {background: #f51111 ;}}@media only screen and (min-width: 480px) and (max-width: 767px) { .nav-wrap {background: #f51111 ;}}</style><style type="text/css">.hacklogdownload_downlinks{width:500px}.hacklogdownload_down_link{margin-top:10px;background:#e0e2e4;border:1px solid #330;color:#222;padding:5px 5px 5px 20px}.hacklogdownload_down_link a{color:#57d}.hacklogdownload_views{color:red}.hacklogdownload_box{border-bottom:1px solid #aaa;padding:10px 0}.hacklogdownload_box_content{line-height:18px;padding:0 0 0 10px}.hacklogdownload_box_content p{margin:5px 0}.hacklogdownload_box_content a{color:#d54e21}.hacklogdownload_box_content a:hover{color:#1d1d1d}.hacklogdownload_left{float:left;width:320px}.hacklogdownload_right{width:160px;float:right;margin:0 auto}.hacklogdownload_right img{max-width:160px}.hacklogdownload_notice{padding-top:10px;text-align:center}#facebox .content{width:600px;background:none repeat scroll 0 0 #e0e2e4;color:#333}#facebox .popup{border:6px solid #444}</style> 
+    
+</head>
+
+<body class="home page page-id-2261 page-template page-template-template-home-php">
+
+<!-- to top button -->
+<div id="toTop">Go to Top<a href="/wp-includes" class="toppic"><strong>wp-includes</strong></a></div>
+<!-- /to top button -->
+	
+        
+	<div id="wrap" class="clearfix fullwidth" data-role="page">
+			
+	<header id="header" class="fluidheader-border" data-role="header"><!-- header -->
+	<div class="container">
+    	
+                
+        
+        <div class="sixteen columns clearfix">   
+    	 
+           
+             
+		<div id="logo">			
+								<div class="top-header"><span class="top-tagline"></span></div> 
+								<a href="http://www.zjtkgf.com/" title="桐昆集团股份有限公司"><img id="sitelogo" src="http://www.zjtkgf.com/wp-content/uploads/2013/05/logo.png"></a>
+							</div>       	
+        
+			<div class="lambda-header-widget clearfix">	    
+				 
+                 <div class="top-header">
+                 <span>股票代码：<span style="color:#f51111">601233</span><a href="http://1.fumao.sinaapp.com" title="fumao" class="toppic"><strong>fumao</strong></a></span> &nbsp;&nbsp;&nbsp;
+                 <span class="header-phone">800-8573-168</span>                
+                 </div>
+                 	
+                 <ul class="lambda-sociallinks clearfix">
+						 
+						
+						<li><a href="http://mail.zjtkgf.com/" class="facebook" title="企业邮箱" target="_blank"></a></li>
+     
+                        <li><a href="http://irm.p5w.net/ssgs/S601233/" class="flickr" title="股票" target="_blank"></a></li>	
+                       
+                        <li><a href="http://61.153.238.162/login.aspx" class="dropbox" title="桐昆办公自动化系统" target="_blank"></a></li>
+                      
+	</ul>
+
+                
+			</div>		
+        
+         
+        </div>  
+    </div>  
+	</header><!-- /header -->
+    
+    <div class="clear"></div>
+    
+        <div class="nav-wrap clearfix"><!-- nav wrap -->
+        	<div class="container">
+    			<div class="sixteen columns clearfix"> 
+        
+				<nav id="navigation" class="clearfix"><ul id="menu-main-menu" class="menu clearfix"><li id="menu-item-6841" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2261 current_page_item"><a href="http://www.zjtkgf.com/">首页<span>&nbsp;</span></a></li>
+<li id="menu-item-7207" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2491">关于桐昆<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6439" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2491">董事长致辞</a></li>
+	<li id="menu-item-6423" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2493">企业简介</a></li>
+	<li id="menu-item-6438" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2497">管理架构</a></li>
+	<li id="menu-item-6428" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2500">成员企业</a></li>
+	<li id="menu-item-6425" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2499">发展历程</a></li>
+	<li id="menu-item-6909" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a href="#">企业荣誉</a>
+	<ul class="sub-menu">
+		<li id="menu-item-6426" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3734">国家级荣誉</a></li>
+		<li id="menu-item-6429" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3735">省级荣誉</a></li>
+		<li id="menu-item-6427" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3736">市级荣誉</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-7303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2515">领导关怀<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6448" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2514">领导题词</a></li>
+	<li id="menu-item-6447" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2515">领导图集</a>
+	<ul class="sub-menu">
+		<li id="menu-item-7265" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=7256">国家和部委级领导</a></li>
+		<li id="menu-item-7267" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=7258">省级领导</a></li>
+		<li id="menu-item-7266" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=7260">地市级领导</a></li>
+		<li id="menu-item-7264" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=7262">县市级领导</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-6440" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=1873">新闻中心<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6441" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2544">企业新闻</a></li>
+	<li id="menu-item-6444" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2546">市场资讯</a></li>
+	<li id="menu-item-6443" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2502">媒体报道</a></li>
+	<li id="menu-item-6445" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2547">桐昆报</a></li>
+	<li id="menu-item-8614" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://www.zjtkgf.com/bbs">员工论坛</a></li>
+</ul>
+</li>
+<li id="menu-item-7208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2522">产品展示<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6421" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2522">品牌介绍</a></li>
+	<li id="menu-item-6902" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a href="#">涤纶长丝</a>
+	<ul class="sub-menu">
+		<li id="menu-item-6431" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2667">FDY 系列</a></li>
+		<li id="menu-item-6432" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2668">POY 系列</a></li>
+		<li id="menu-item-6430" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2670">DTY 系列</a></li>
+		<li id="menu-item-6434" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2672">复合丝系列</a></li>
+		<li id="menu-item-6436" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2673">特色产品</a></li>
+	</ul>
+</li>
+	<li id="menu-item-6437" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2525">聚酯切片</a></li>
+	<li id="menu-item-6433" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2529">其它产品</a></li>
+</ul>
+</li>
+<li id="menu-item-7209" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2554">工艺设备<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6465" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2554">工艺流程</a></li>
+	<li id="menu-item-6467" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2555">聚合设备</a></li>
+	<li id="menu-item-6466" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2565">纺丝及卷绕</a></li>
+	<li id="menu-item-6464" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2559">加弹设备</a></li>
+</ul>
+</li>
+<li id="menu-item-7210" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2568">企业文化<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-6458" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2568">愿景使命</a></li>
+	<li id="menu-item-6452" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2570">企业形象片</a></li>
+	<li id="menu-item-6453" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2569">企业责任</a></li>
+	<li id="menu-item-6454" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2571">企业风景线</a></li>
+	<li id="menu-item-6450" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2586">人在桐昆</a></li>
+	<li id="menu-item-6904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a href="#">桐昆功勋人物</a>
+	<ul class="sub-menu">
+		<li id="menu-item-6455" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3661">创新之星</a></li>
+		<li id="menu-item-6456" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3663">奉献之星</a></li>
+		<li id="menu-item-6457" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3665">忠诚之星</a></li>
+	</ul>
+</li>
+	<li id="menu-item-6468" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=1397">联系我们</a></li>
+	<li id="menu-item-6461" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=3728">法律声明</a></li>
+</ul>
+</li>
+<li id="menu-item-6459" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.zjtkgf.com/?page_id=2584">人才招聘<span>&nbsp;</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-9321" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=9318">浙江石油化工有限公司招聘</a></li>
+	<li id="menu-item-8865" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=8853">互联网金融公司人员招聘</a></li>
+	<li id="menu-item-7204" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2584">招聘职位</a></li>
+	<li id="menu-item-6462" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.zjtkgf.com/?page_id=2585">金鸡争鸣</a></li>
+</ul>
+</li>
+<li id="menu-item-6418" class="menu-item menu-item-type-custom menu-item-object-custom"><a target="_blank" href="http://irm.p5w.net/ssgs/S601233/">投资者关系<span>&nbsp;</span></a></li>
+</ul></nav>	
+                
+                <div class="mm-trigger">桐昆集团股份有限公司<button class="mm-button"></button></div><nav id="mobile-menu" class="menu-main-menu-container"><ul id="menu-main-menu-1" class="mm-menu clearfix"><li id="menu-item-6841" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2261 current_page_item menu-item-6841"><a href="http://www.zjtkgf.com/">首页</a></li>
+<li id="menu-item-7207" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7207"><a href="http://www.zjtkgf.com/?page_id=2491">关于桐昆</a></li>
+<li id="menu-item-7303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7303"><a href="http://www.zjtkgf.com/?page_id=2515">领导关怀</a></li>
+<li id="menu-item-6440" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6440"><a href="http://www.zjtkgf.com/?page_id=1873">新闻中心</a></li>
+<li id="menu-item-7208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7208"><a href="http://www.zjtkgf.com/?page_id=2522">产品展示</a></li>
+<li id="menu-item-7209" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7209"><a href="http://www.zjtkgf.com/?page_id=2554">工艺设备</a></li>
+<li id="menu-item-7210" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7210"><a href="http://www.zjtkgf.com/?page_id=2568">企业文化</a></li>
+<li id="menu-item-6459" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6459"><a href="http://www.zjtkgf.com/?page_id=2584">人才招聘</a></li>
+<li id="menu-item-6418" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6418"><a target="_blank" href="http://irm.p5w.net/ssgs/S601233/">投资者关系</a></li>
+</ul></nav>                
+                 
+	    
+    <div class="searchlens"></div>
+	
+    <form role="search" method="get" id="header-searchform" action="http://www.zjtkgf.com/">
+		<input type="text" value="Search..." onblur="if(this.value=='')this.value='Search...';" onfocus="if(this.value=='Search...')this.value='';" name="s" id="s" />
+	</form>
+	
+	                
+		  		</div>    
+        	</div>
+        </div><!-- /nav-wrap -->
+       <div id="lambda-featured-header-wrap" class="clearfix">				
+				<!-- START REVOLUTION SLIDER 2.3.5 -->
+				
+								
+								<div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#fff;padding:0px;margin-top:0px;margin-bottom:0px;max-height:400px;">
+					<div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;max-height:400px;height:400;">						
+										<ul>
+								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
+						<img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/slide203.jpg"  alt="slide203" data-fullwidthcentering="on">
+														
+				<div class="tp-caption lft"  
+					 data-x="123" 
+					 data-y="130" 
+					 data-speed="300" 
+					 data-start="500" 
+					 data-easing="easeOutCubic"  ><img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/bainiantongk.jpg" alt="Image 1"></div>
+								
+				<div class="tp-caption small_text lft"  
+					 data-x="124" 
+					 data-y="203" 
+					 data-speed="300" 
+					 data-start="800" 
+					 data-easing="easeOutCubic"  >To create a centurial TONGKUN <br>
+and achieve sustainable business</div>
+												</li>
+									<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
+						<img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/slide201.jpg"  alt="slide201" data-fullwidthcentering="on">
+														
+				<div class="tp-caption fade"  
+					 data-x="125" 
+					 data-y="64" 
+					 data-speed="300" 
+					 data-start="500" 
+					 data-easing="easeOutExpo"  ><img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/tian.jpg" alt="Image 1"></div>
+								
+				<div class="tp-caption big_black fade"  
+					 data-x="151" 
+					 data-y="128" 
+					 data-speed="300" 
+					 data-start="800" 
+					 data-easing="easeOutExpo"  >A gentleman shall constantly endeavor while<br>
+maintaining his moral values</div>
+												</li>
+									<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
+						<img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/slide2061.jpg"  alt="slide2061" data-fullwidthcentering="on">
+														
+				<div class="tp-caption lfl"  
+					 data-x="67" 
+					 data-y="89" 
+					 data-speed="300" 
+					 data-start="500" 
+					 data-easing="easeOutExpo"  ><img src="http://www.zjtkgf.com/wp-content/uploads/2013/05/slide2046.png" alt="Image 1"></div>
+								
+				<div class="tp-caption big_white lfl"  
+					 data-x="65" 
+					 data-y="158" 
+					 data-speed="300" 
+					 data-start="1100" 
+					 data-easing="easeOutExpo"  >Dealing with the textiles to benefit <br>
+the country and people</div>
+								
+				<div class="tp-caption lfb"  
+					 data-x="603" 
+					 data-y="110" 
+					 data-speed="300" 
+					 data-start="1400" 
+					 data-easing="easeInOutCubic"  ><img src="http://www.zjtkgf.com/wp-content/uploads/2013/08/slide20611.png" alt="Image 4"></div>
+												</li>
+								</ul>
+									<div class="tp-bannertimer tp-bottom"></div>					</div>
+				</div>				
+							
+			<script type="text/javascript">
+
+				var tpj=jQuery;
+				
+									tpj.noConflict();
+								
+				var revapi1;
+				
+				tpj(document).ready(function() {
+				
+				if (tpj.fn.cssOriginal != undefined)
+					tpj.fn.css = tpj.fn.cssOriginal;
+				
+				if(tpj('#rev_slider_1_1').revolution == undefined)
+					revslider_showDoubleJqueryError('#rev_slider_1_1');
+				else
+				   revapi1 = tpj('#rev_slider_1_1').show().revolution(
+					{
+						delay:9000,
+						startwidth:940,
+						startheight:400,
+						hideThumbs:200,
+						
+						thumbWidth:100,
+						thumbHeight:50,
+						thumbAmount:3,
+						
+						navigationType:"bullet",
+						navigationArrows:"none",
+						navigationStyle:"square-old",
+						
+						touchenabled:"on",
+						onHoverStop:"on",
+						
+						navigationHAlign:"center",
+						navigationVAlign:"bottom",
+						navigationHOffset:0,
+						navigationVOffset:20,
+
+						soloArrowLeftHalign:"left",
+						soloArrowLeftValign:"center",
+						soloArrowLeftHOffset:20,
+						soloArrowLeftVOffset:0,
+
+						soloArrowRightHalign:"right",
+						soloArrowRightValign:"center",
+						soloArrowRightHOffset:20,
+						soloArrowRightVOffset:0,
+								
+						shadow:0,
+						fullWidth:"on",
+
+						stopLoop:"off",
+						stopAfterLoops:-1,
+						stopAtSlide:-1,
+
+						shuffle:"off",
+						
+						hideSliderAtLimit:0,
+						hideCaptionAtLimit:0,
+						hideAllCaptionAtLilmit:0,
+						startWithSlide:0	
+					});
+				
+				});	//ready
+				
+			</script>
+			
+							<!-- END REVOLUTION SLIDER -->
+				</div>
+
+<div class="clear"></div>
+
+<section id="teaser" class="fluid clearfix" style="display:none !important;">
+	    
+	<div class="container">
+
+                
+        <div id="teaser-content" class="sixteen columns">
+                 	
+              <h1 id="page-title">
+              	<span>首页</span>
+              </h1>
+                    
+                                        
+        </div><!-- /#teaser-content -->        
+        
+                
+        
+    </div>
+    	
+</section><!-- /#teaser -->
+
+<div class="clear"></div><div id="content-wrap" class="fluid clearfix" data-content="content"><!-- /#start content-wrap -->
+				<div class="container"><div id="content" class="sixteen columns">
+
+<div id="home-template">
+
+
+
+
+
+
+
+
+
+
+
+			
+			<section class="service-columns remove-bottom clearfix home-border">
+				
+                                
+								
+								
+				<section class="one_third service clearfix">       		
+					
+					
+							
+														<figure class="service-icon">
+								<img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/light.png" alt="" />
+							</figure>
+									
+						
+					
+					<article class="service">
+					
+						<h3>
+							<a href="http://www.zjtkgf.com/?page_id=2522">桐昆产品</a>						</h3>
+								
+									
+												
+							<p>“GOLDENCOCK”和“桐昆”牌涤纶长丝是集团的主...</p>
+								
+												
+		
+												
+							<a href="http://www.zjtkgf.com/?page_id=2522" class="excerpt" target="_self">learn more</a>
+						
+												
+					</article>				
+				
+								</section>	
+									
+					
+								
+								
+				<section class="one_third service clearfix">       		
+					
+					
+							
+														<figure class="service-icon">
+								<img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/dashboard.png" alt="" />
+							</figure>
+									
+						
+					
+					<article class="service">
+					
+						<h3>
+							<a href="http://www.zjtkgf.com/?page_id=2547">桐昆报</a>						</h3>
+								
+									
+												
+							<p>桐昆内部报刊，反映桐昆生产，员工工作和生活的纸面媒介...</p>
+								
+												
+		
+												
+							<a href="http://www.zjtkgf.com/?page_id=2547" class="excerpt" target="_self">learn more</a>
+						
+												
+					</article>				
+				
+								</section>	
+									
+					
+								
+								
+				<section class="one_third last service clearfix">       		
+					
+					
+							
+														<figure class="service-icon">
+								<img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/switcher.png" alt="" />
+							</figure>
+									
+						
+					
+					<article class="service">
+					
+						<h3>
+							<a href="http://www.zjtkgf.com/bbs/">员工论坛</a>						</h3>
+								
+									
+												
+							<p>桐昆人网上的交流平台，大家可以畅所欲言，交流，学习...</p>
+								
+												
+		
+												
+							<a href="http://www.zjtkgf.com/bbs/" class="excerpt" target="_self">learn more</a>
+						
+												
+					</article>				
+				
+								</section>	
+									
+					
+								
+			
+			<div class="clear"></div>
+						
+			</section>
+		
+			
+						
+		<section class="recent-post clearfix last-border">		
+		
+					
+            <div class="title-wrap clearfix">
+            
+                <h3 class="home-title"><span>新闻中心</span></h3>
+                
+                
+                  	<span class="home-title-link"><a href="http://www.zjtkgf.com/?page_id=1873">全部新闻</a></span>
+                    
+             	                
+			</div>
+                       					
+			
+		
+				        
+		<section class="post remove-bottom one_third " id="post-10087">
+		<article class="entry-post clearfix">
+		
+				
+		 
+		
+		
+		<div class="thumb"><div class="post-image"><div class="overflow-hidden imagepost"><img class="wp-post-image" alt="" src="http://www.zjtkgf.com/wp-content/uploads/2017/08/3.gif" /><a title="恒邦二期CP2装置一次开车成功" href="http://www.zjtkgf.com/?p=10087"><div class="hover-overlay"><span class="circle-hover"><img src="http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png" alt="link icon" /></span></div></a></div></div></div>	
+		
+        		
+        <header class="entry-header clearfix">
+            
+                          
+			<h1 class="entry-title standard-post-title">
+				<a href="http://www.zjtkgf.com/?p=10087" title="Permalink to 恒邦二期CP2装置一次开车成功" rel="bookmark">恒邦二期CP2装置一次开车成功</a>
+			</h1>
+            
+            			
+			<div class="entry-meta clearfix">
+				
+				<div class="post-ut">
+					<a href="http://www.zjtkgf.com/?p=10087" title="上午 8:49" rel="bookmark"><span class="entry-date">2017 年 8 月 17 日</span></a>				</div> <!-- post date -->
+								 
+				<div class="post-ut">	
+					<span class="comments-link"><span>评论关闭</span></span>
+				</div><!-- post comments -->
+							
+													 
+			</div><!-- .entry-meta -->
+							   
+		</header>
+        
+          
+        
+		<div class="entry-summary">
+		
+		<a class="excerpt" href="http://www.zjtkgf.com/?p=10087">Read More</a>			
+		</div>
+		
+		</article>
+		</section>		
+		
+				
+				        
+		<section class="post remove-bottom one_third " id="post-10078">
+		<article class="entry-post clearfix">
+		
+				
+		
+ 
+    
+        
+	    
+		<script type="text/javascript">
+           	(function($){		   
+		   
+		    $(document).ready(function(){
+                
+				$(".galleryid-10078").flexslider({
+                    animation: "fade", 
+                    slideshow: true
+                });
+				
+            });
+			
+			})(jQuery);
+        </script>
+    
+            
+    
+		<div id='gallery-1' class='single-gallery flexslider galleryid-10078 gallery-columns-3 gallery-size-large'><ul class="slides"><li class='gallery-item one_third'><div class='gallery-icon'>
+							<img src="http://www.zjtkgf.com/wp-content/uploads/2017/08/2.gif" alt="" /> <a href="http://www.zjtkgf.com/?p=10078">
+							<div class="hover-overlay"><span class='circle-hover'>
+									<img src='http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png' alt='zoom icon'/>
+								</span>
+							</div>
+						 </a>
+						</div></li><li class='gallery-item one_third'><div class='gallery-icon'>
+							<img src="http://www.zjtkgf.com/wp-content/uploads/2017/08/1.gif" alt="" /> <a href="http://www.zjtkgf.com/?p=10078">
+							<div class="hover-overlay"><span class='circle-hover'>
+									<img src='http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png' alt='zoom icon'/>
+								</span>
+							</div>
+						 </a>
+						</div></li></ul>
+</div>
+
+ 
+		
+		
+			
+		
+        		
+        <header class="entry-header clearfix">
+            
+                          
+			<h1 class="entry-title gallery-post-title">
+				<a href="http://www.zjtkgf.com/?p=10078" title="Permalink to 工信部信息化和软件服务业司安筱鹏副司长一行莅临桐昆考察" rel="bookmark">工信部信息化和软件服务业司安筱鹏副司长一行莅临桐昆考察</a>
+			</h1>
+            
+            			
+			<div class="entry-meta clearfix">
+				
+				<div class="post-ut">
+					<a href="http://www.zjtkgf.com/?p=10078" title="下午 4:31" rel="bookmark"><span class="entry-date">2017 年 8 月 8 日</span></a>				</div> <!-- post date -->
+								 
+				<div class="post-ut">	
+					<span class="comments-link"><span>评论关闭</span></span>
+				</div><!-- post comments -->
+							
+													 
+			</div><!-- .entry-meta -->
+							   
+		</header>
+        
+          
+        
+		<div class="entry-summary">
+		
+		<a class="excerpt" href="http://www.zjtkgf.com/?p=10078">Read More</a>			
+		</div>
+		
+		</article>
+		</section>		
+		
+				
+				        
+		<section class="post remove-bottom one_third last" id="post-10065">
+		<article class="entry-post clearfix">
+		
+				
+		
+ 
+    
+        
+	    
+		<script type="text/javascript">
+           	(function($){		   
+		   
+		    $(document).ready(function(){
+                
+				$(".galleryid-10065").flexslider({
+                    animation: "fade", 
+                    slideshow: true
+                });
+				
+            });
+			
+			})(jQuery);
+        </script>
+    
+            
+    
+		<div id='gallery-2' class='single-gallery flexslider galleryid-10065 gallery-columns-3 gallery-size-large'><ul class="slides"><li class='gallery-item one_third'><div class='gallery-icon'>
+							<img src="http://www.zjtkgf.com/wp-content/uploads/2017/07/3.gif" alt="" /> <a href="http://www.zjtkgf.com/?p=10065">
+							<div class="hover-overlay"><span class='circle-hover'>
+									<img src='http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png' alt='zoom icon'/>
+								</span>
+							</div>
+						 </a>
+						</div></li><li class='gallery-item one_third'><div class='gallery-icon'>
+							<img src="http://www.zjtkgf.com/wp-content/uploads/2017/07/12.gif" alt="" /> <a href="http://www.zjtkgf.com/?p=10065">
+							<div class="hover-overlay"><span class='circle-hover'>
+									<img src='http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png' alt='zoom icon'/>
+								</span>
+							</div>
+						 </a>
+						</div></li><li class='gallery-item one_third'><div class='gallery-icon'>
+							<img src="http://www.zjtkgf.com/wp-content/uploads/2017/07/21.gif" alt="" /> <a href="http://www.zjtkgf.com/?p=10065">
+							<div class="hover-overlay"><span class='circle-hover'>
+									<img src='http://www.zjtkgf.com/wp-content/themes/tongkun2/images/circle-hover.png' alt='zoom icon'/>
+								</span>
+							</div>
+						 </a>
+						</div></li></ul>
+</div>
+
+ 
+		
+		
+			
+		
+        		
+        <header class="entry-header clearfix">
+            
+                          
+			<h1 class="entry-title gallery-post-title">
+				<a href="http://www.zjtkgf.com/?p=10065" title="Permalink to 海宁市委常委姚建新率马桥街道（经编园区） 企业家代表莅临桐昆参观考察" rel="bookmark">海宁市委常委姚建新率马桥街道（经编园区） 企业家代表莅临桐昆参观考察</a>
+			</h1>
+            
+            			
+			<div class="entry-meta clearfix">
+				
+				<div class="post-ut">
+					<a href="http://www.zjtkgf.com/?p=10065" title="下午 4:34" rel="bookmark"><span class="entry-date">2017 年 7 月 25 日</span></a>				</div> <!-- post date -->
+								 
+				<div class="post-ut">	
+					<span class="comments-link"><span>评论关闭</span></span>
+				</div><!-- post comments -->
+							
+													 
+			</div><!-- .entry-meta -->
+							   
+		</header>
+        
+          
+        
+		<div class="entry-summary">
+		
+		<a class="excerpt" href="http://www.zjtkgf.com/?p=10065">Read More</a>			
+		</div>
+		
+		</article>
+		</section>		
+		
+				
+        	<div class="clear"></div>
+		
+				
+		        		
+                
+				                
+		
+		               
+                
+			
+		</section>
+		
+					
+			<section class="service-columns clearfix">
+			
+            				
+                <div class="title-wrap clearfix">
+                
+                    <h3 class="home-title"><span>走进桐昆</span></h3>
+                    
+                </div>
+                                    
+                                            
+            
+								
+								
+				<section class="one_fourth service">       		
+					
+											
+					 
+                    <a style="color:#FFF" data-textcolor="#FFF" data-texthovercolor="#FFF" href="http://www.zjtkgf.com/?page_id=2500" target="_self">
+                    <article class="service-box" style="background:#f51111;" data-bgcolor="#f51111" data-hovercolor="#555555">
+                                
+                                <h3 style="color:#FFF">
+                                                                    </h3>
+                                
+                                
+                                                                    
+                                <figure class="service-box-icon">
+                                    <img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/shilitongkun.jpg" alt="shilitongkun.jpg" />
+                                </figure>
+                                    
+                                	
+                                        
+                                            
+                                                                
+                                    <p><br><span style="font-size:16px;padding-left:15px;">实力桐昆</span></p>
+                                        
+                                						
+                       	
+					</article>				
+				    </a>
+                    
+                    
+								</section>	
+									
+					
+								
+								
+				<section class="one_fourth service">       		
+					
+											
+					 
+                    <a style="color:#FFF" data-textcolor="#FFF" data-texthovercolor="#FFF" href="http://www.zjtkgf.com/?page_id=3734" target="_self">
+                    <article class="service-box" style="background:#f51111;" data-bgcolor="#f51111" data-hovercolor="#555555">
+                                
+                                <h3 style="color:#FFF">
+                                                                    </h3>
+                                
+                                
+                                                                    
+                                <figure class="service-box-icon">
+                                    <img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/pingzhibaozheng.jpg" alt="pingzhibaozheng.jpg" />
+                                </figure>
+                                    
+                                	
+                                        
+                                            
+                                                                
+                                    <p><br><span style="font-size:16px;padding-left:15px;">品质保证</span></p>
+                                        
+                                						
+                       	
+					</article>				
+				    </a>
+                    
+                    
+								</section>	
+									
+					
+								
+								
+				<section class="one_fourth service">       		
+					
+											
+					 
+                    <a style="color:#FFF" data-textcolor="#FFF" data-texthovercolor="#FFF" href="http://www.zjtkgf.com/?page_id=2554" target="_self">
+                    <article class="service-box" style="background:#f51111;" data-bgcolor="#f51111" data-hovercolor="#555555">
+                                
+                                <h3 style="color:#FFF">
+                                                                    </h3>
+                                
+                                
+                                                                    
+                                <figure class="service-box-icon">
+                                    <img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/chengxinjingyin.jpg" alt="chengxinjingyin.jpg" />
+                                </figure>
+                                    
+                                	
+                                        
+                                            
+                                                                
+                                    <p><br><span style="font-size:16px;padding-left:15px;">诚信经营</span></p>
+                                        
+                                						
+                       	
+					</article>				
+				    </a>
+                    
+                    
+								</section>	
+									
+					
+								
+								
+				<section class="one_fourth last service">       		
+					
+											
+					 
+                    <a style="color:#FFF" data-textcolor="#FFF" data-texthovercolor="#FFF" href="http://www.zjtkgf.com/?page_id=2568" target="_self">
+                    <article class="service-box" style="background:#f51111;" data-bgcolor="#f51111" data-hovercolor="#555555">
+                                
+                                <h3 style="color:#FFF">
+                                                                    </h3>
+                                
+                                
+                                                                    
+                                <figure class="service-box-icon">
+                                    <img src="http://www.zjtkgf.com/wp-content/uploads/2012/11/kechixufaz.jpg" alt="kechixufaz.jpg" />
+                                </figure>
+                                    
+                                	
+                                        
+                                            
+                                                                
+                                    <p><br><span style="font-size:16px;padding-left:15px;">可持续发展</span></p>
+                                        
+                                						
+                       	
+					</article>				
+				    </a>
+                    
+                    
+								</section>	
+									
+					
+			
+			<div class="clear"></div>
+						
+			</section>
+		
+			
+		
+</div>
+
+</div><!-- /#content-wrap -->	</div>
+	<div class="clear"></div>
+</div><!-- /.columns (#content) -->
+
+<div id="footer-wrap" class="fluid clearfix">
+	<div class="container">
+			<footer id="footer" class="normal sixteen columns"> 
+
+			
+
+<div class="one_third">
+	<div class="text-5 widget_text"><h3 class="widget-title"><span>联系我们</span></h3>			<div class="textwidget">浙江省桐乡市桐乡经济开发区光明路199号<br/>
+集团总部：0573-88187817<br/>
+人力资源：0573-88187813<br/>
+证券事务：0573-88182269<br/>
+财务管理：0573-88187773<br/>
+销售管理：0573-88187832（国内）<br/>
+          <span style="margin-left:5em">0573-88182561（国际）</span><br/>
+原料采购：0573-88187781<br/>
+物资采购：0573-88180966<br/>
+投资发展：0573-88187752<br/>
+信息中心：0573-88187897<br/>
+审计举报：0573-88182289<br/></div>
+		</div></div>
+
+
+<div class="one_third">
+	  <div class="text-6 widget_text"><h3 class="widget-title"><span>关注我们</span></h3>			<div class="textwidget"><img src="http://www.zjtkgf.com/wp-content/uploads/2015/11/ewm.jpg">
+<p style="font-size:15px">微信搜索：<span style="color:#ff0000">TongKun601233</span><br/>
+或直接扫描二维码进行关注</p></div>
+		</div></div>
+
+
+<div class="one_third last">
+	  <div class="text-3 widget_text"><h3 class="widget-title"><span>相关网站</span></h3>			<div class="textwidget"><a href="http://www.jiaxing.gov.cn/" target="_blank">中国嘉兴门户网</a><br>
+<a href="http://www.tx.gov.cn/" target="_blank">桐乡市人民政府</a><br>
+<a href="http://txnews.zjol.com.cn/" target="_blank">桐乡新闻网</a><br>
+<a href="http://www.ccfa.com.cn/"target="_blank">中国化学纤维工业协会</a><br>
+<a href="http://www.ccf.com.cn/"target="_blank">中国化纤信息网</a><br>
+<a href="https://www.xsljf.com/"target="_blank">新丝路金服</a><br>
+<a href="http://www.txxdsy.com/"target="_blank">桐乡市现代实验学校</a><br></div>
+		</div>		
+        
+		<div class="lw_social-2 lambda_widget_social clearfix">        		
+		<h3 class="widget-title"><span>内部系统</span></h3>		
+                
+            <ul class="lambda-sociallinks clearfix">			
+                
+                        <li ><a href="http://mail.zjtkgf.com/" class="facebook" title="企业邮箱" target="_blank"></a></li>
+                        <li style="margin-top:5px">企业邮箱</li>
+                        <li><a href="http://irm.p5w.net/ssgs/S601233/" class="flickr" title="股票" target="_blank"></a></li> 
+                        <li  style="margin-top:5px">股票走势</li>                       
+                        <li><a href="http://61.153.238.162/login.aspx" class="dropbox" title="桐昆办公自动化系统" target="_blank"></a></li> 
+                        <li style="margin-top:5px">办公系统</li>
+    
+            </ul><!-- end .sociallinks -->
+
+	   </div></div>
+
+
+<div class="clear"></div>
+
+            
+			</footer><!--/#footer-->
+           	
+    </div><!--/.container-->
+</div><!--/#footer-wrap-->
+            
+			<div id="sub-footer-wrap" class="clearfix">
+				<div class="container">
+                	<div class="sixteen columns">
+                    <div class="scissors"></div>	
+                		<div class="copyright eight columns alpha">
+                    
+						                        
+                            © 2004-2017 桐昆集团股份有限公司 版权所有 浙ICP备 13014569号 		
+                        
+                                                
+                    	</div>
+                    
+                    	                    
+                    	<div class="unitedthemes eight columns omega">
+                       
+                                                
+                        Powered by <a href="http://www.carryidea.com/">Carryidea.com</a>
+                        
+                        					
+                		</div>
+                            
+                	</div>
+                </div>      
+		</div><!--/#sub-footer-wrap-->	
+    
+
+</div><!--/#wrap -->
+
+
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.51.0-2014.06.20'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.zjtkgf.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"\u53d1\u9001\u4e2d\u3002\u3002\u3002"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.0.2'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/superfish.js?ver=1.2.3'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.jcarousellite.js?ver=1.3'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.fitvids.js?ver=1.3'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.isotope.min.js?ver=1.5.09'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.formalize.min.js?ver=1.2.3'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/nonverblaster.js?ver=1.0'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/app.js?ver=1.2.3'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.flexslider.min.js?ver=1.8'></script>
+<script type='text/javascript' src='http://www.zjtkgf.com/wp-content/themes/tongkun2/javascripts/jquery.prettyPhoto.js?ver=1.3'></script>
+    
+	<script type="text/javascript">
+	
+	(function($){
+		
+				
+								
+		/* Prettyphoto
+		================================================== */
+		$("a[data-rel^='prettyPhoto']").prettyPhoto({
+			show_title: false
+		});				
+			
+        		
+	
+	})(jQuery);
+	
+    </script>
+    
+    
+</body>
+</html>
