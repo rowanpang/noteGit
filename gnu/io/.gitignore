@@ -1,10 +1,1 @@
-std
-file
-read
-scanf
-scanf_2
-fd0
-fd1
-fd2
-fd3
-fd4
+redirBuffer/main
