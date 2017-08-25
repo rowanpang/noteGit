@@ -6,6 +6,15 @@
     b,针对 全缓冲,行缓冲,无缓冲 解释.
 	1),这是fopen(xx),等libc api提供的机制.
 	2),对于unistd的write() .. 等posix系统调用不适用(这些没有缓存机制.)
+    
+    c,结论: default 
+	stdin is always buffered
+	stderr is always unbuffered
+	stdout 
+	    if is a terminal then 
+		buffering is automatically set to line buffered, 
+	    else 
+		it is set to buffered
 
 2,./main
     a,结果:
