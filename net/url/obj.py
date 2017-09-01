@@ -7,9 +7,12 @@ import urlobject
 for l in open('./url.txt').readlines():
     uobj = urlobject.URLObject(l.strip())
     print uobj
-    print 'scheme',uobj.scheme
-    print 'hostname',uobj.hostname
-    print 'port',uobj.port
-    print 'defport',uobj.default_port
-    print 'path',uobj.path
-    print 
+    print 'scheme:',uobj.scheme
+    print 'hostname:',uobj.hostname
+    print 'port:',uobj.port
+    print 'defport:',uobj.default_port
+    print 'path:',uobj.path
+    print 'query:',uobj.query
+    print 'query_dict:',uobj.query_dict
+    print
+
