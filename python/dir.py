@@ -71,8 +71,3 @@ for f in os.listdir(rootdir):
 
     print dtype
     print dst
-
-    
-
-
-
