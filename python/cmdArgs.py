@@ -9,8 +9,15 @@ output_file=""
 for op, value in opts:
     if op == "-i":
         input_file = value
+        print '-i'
     elif op == "-o":
         output_file = value
+        print '-o'
     elif op == "-h":
-        usage()
-	sys.exit()
+        print 'help---'
+        # usage()
+        sys.exit()
+
+if args:
+    print args
+
