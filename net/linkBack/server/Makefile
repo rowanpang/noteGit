@@ -1,9 +1,10 @@
 .PHONY:all
-all:client listener
+P=base pty thread
 
+all: ${P}
 %:%.c
-	@gcc -g $< -o $@ -lpthread
+	gcc -g $< -o $@ -lpthread
 
 clean:
-	@rm client listener 
+	@rm ${P}
 
