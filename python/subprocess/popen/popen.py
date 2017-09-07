@@ -1,8 +1,12 @@
 #!/usr/bin/python
 import os
 import subprocess
+import time
 if __name__ == '__main__':
-	p=subprocess.Popen("./a.out",stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-	p.stdin.write('3\n')
-	p.stdin.write('3\n')
-	print p.stdout.read()
+    p=subprocess.Popen("./app",stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    print p.stdout.readline()
+    p.stdin.write('hello\n')
+    # time.sleep(2)
+    p.stdin.write('world\n')
+    time.sleep(5)
+    print p.stdout.read()
