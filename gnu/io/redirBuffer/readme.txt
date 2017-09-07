@@ -7,14 +7,17 @@
 	1),这是fopen(xx),等libc api提供的机制.
 	2),对于unistd的write() .. 等posix系统调用不适用(这些没有缓存机制.)
     
-    c,结论: default 
-	stdin is always buffered
-	stderr is always unbuffered
-	stdout 
-	    if is a terminal then 
-		buffering is automatically set to line buffered, 
-	    else 
-		it is set to buffered
+    c,结论: 
+	对于glibc default 
+	    stdin is always buffered
+	    stderr is always unbuffered
+	    stdout 
+		if is a terminal then 
+		    buffering is automatically set to line buffered, 
+		else 
+		    it is set to buffered
+	对于直接使用write 等系统调用
+	    直接输出,无缓冲设置.
 
 2,./main
     a,结果:
