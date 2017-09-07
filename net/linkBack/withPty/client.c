@@ -41,7 +41,7 @@ int connectServer()
 
     svr_addr.sin_family = AF_INET;
     svr_addr.sin_port = htons(8080);
-    inet_aton("192.168.1.100",&svr_addr.sin_addr);
+    inet_aton("127.0.0.1",&svr_addr.sin_addr);
     printf("before connect\n");    
     if(connect(sk,(struct sockaddr*) &svr_addr,sizeof(svr_addr))){
         printf("connect error: %s,return\n",strerror(errno));    
@@ -67,7 +67,7 @@ int openPtmx()
     int ret;
     char *slavePath;
 
-    ret = open("/dev/ptmx",O_RDWR|O_NOCTTY);    //equal to getpt()
+    ret = open("/dev/ptmx",O_RDWR|O_NOCTTY);    //equal to getpt() man openpty
     if(ret == -1){
         perror("ptmx open error");
 	return -1;

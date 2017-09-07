@@ -139,6 +139,9 @@ AGAIN:
     do{
         printf("--poll start--\n");    
 	ret = poll(&pollIn,1,100);
+	if(ctrl_c){
+	    exit(0);
+	}
     }while(ret <= 0);
 
     socklen_t cli_addr_size = sizeof(cli_addr);
