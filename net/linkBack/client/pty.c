@@ -21,7 +21,7 @@
 static int master;
 static int slave;
 static int childPid;
-
+int port = 1066;
 
 int connectServer()
 {
@@ -31,16 +31,18 @@ int connectServer()
     struct sockaddr_in svr_addr={0};
 
     sk = socket(AF_INET,SOCK_STREAM,0);
-    cli_addr.sin_family = AF_INET;
-    cli_addr.sin_port = htons(4040);
-    if(bind(sk,(struct sockaddr*)&cli_addr,sizeof(cli_addr))){
-        perror("when bind");
-        ret = -1;
-        goto OUT;
-    }
+    /*
+     *cli_addr.sin_family = AF_INET;
+     *cli_addr.sin_port = htons(4040);
+     *if(bind(sk,(struct sockaddr*)&cli_addr,sizeof(cli_addr))){
+     *    perror("when bind");
+     *    ret = -1;
+     *    goto OUT;
+     *}
+     */
 
     svr_addr.sin_family = AF_INET;
-    svr_addr.sin_port = htons(8080);
+    svr_addr.sin_port = htons(port);
     inet_aton("127.0.0.1",&svr_addr.sin_addr);
     printf("before connect\n");    
     if(connect(sk,(struct sockaddr*) &svr_addr,sizeof(svr_addr))){
@@ -128,8 +130,8 @@ void confirmReady()
 
 void childExec()
 {
+    /*child 将pty的slave做为stdin/out/err.*/
     char * argv[] = {"/bin/bash","-i",NULL};
-
     printf("in child\n");
     close(0);
     close(1);
@@ -149,6 +151,9 @@ void childExec()
 
 int fatherDataTunnel(int cpid)
 {
+    /*
+     *father 进程负责实现sk及pty master的数据通讯 从一个读写入到另一个.
+     */
     childPid = cpid;
     char buf[256];
     fd_set fd_in;
@@ -230,4 +235,3 @@ ERROR_PTMX:
 ERROR_SK:
     return ret;
 }
-
