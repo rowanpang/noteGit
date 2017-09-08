@@ -1,70 +1,53 @@
 #define _GNU_SOURCE
 #include <stdio.h>
-#include <sys/un.h>
 #include <stdlib.h>
-#include <sys/poll.h>
 #include <errno.h>
 #include <string.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <pty.h>
+
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <arpa/inet.h>
-#include <unistd.h>
-#include <pthread.h>
+
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 #include <sys/wait.h>
 #include <sys/ioctl.h>
+#include <sys/poll.h>
+#include <sys/un.h>
 
 #define BUFSIZE 1024
-static int master;
-static int slave;
-static int childPid;
 int port = 1066;
 
 int connectServer()
 {
     int sk;
     int ret;
-    struct sockaddr_in cli_addr={0};
-    struct sockaddr_in svr_addr={0};
+    struct sockaddr_in svrAddr={0};
 
     sk = socket(AF_INET,SOCK_STREAM,0);
-    /*
-     *cli_addr.sin_family = AF_INET;
-     *cli_addr.sin_port = htons(4040);
-     *if(bind(sk,(struct sockaddr*)&cli_addr,sizeof(cli_addr))){
-     *    perror("when bind");
-     *    ret = -1;
-     *    goto OUT;
-     *}
-     */
 
-    svr_addr.sin_family = AF_INET;
-    svr_addr.sin_port = htons(port);
-    inet_aton("127.0.0.1",&svr_addr.sin_addr);
+    svrAddr.sin_family = AF_INET;
+    svrAddr.sin_port = htons(port);
+    inet_aton("127.0.0.1",&svrAddr.sin_addr);
+
     printf("before connect\n");    
-    if(connect(sk,(struct sockaddr*) &svr_addr,sizeof(svr_addr))){
+    if(connect(sk,(struct sockaddr*) &svrAddr,sizeof(svrAddr))){
         printf("connect error: %s,return\n",strerror(errno));    
-        ret = -2;
+        ret = errno;
         goto OUT;
     }
 
-    close(0);
-    close(1);
-    close(2);
-    dup(sk);
-    dup(sk);
-    dup(sk);
-
     ret = sk;
 OUT:
-    close(sk);
     return ret;
 }
 
-int openPtmx()
+int openPtmx(int* master,int *slave)
 {
     int ret;
     char *slavePath;
@@ -74,31 +57,31 @@ int openPtmx()
         perror("ptmx open error");
 	return -1;
     }
-    master = ret;
+    *master = ret;
 
-    ret = grantpt(master);
+    ret = grantpt(*master);
     if(ret != 0){
         perror("grantpt error!");
         goto CLOSE_MASTER;
     }
-    ret = unlockpt(master);
+    ret = unlockpt(*master);
     if(ret != 0){
         perror("unlockpt error!");
         goto CLOSE_MASTER;
     }
 
-    slavePath = ptsname(master);    
-    printf("new ptmx paire: %d,%s\n",master,slavePath);
+    slavePath = ptsname(*master);    
+    printf("new ptmx paire: %d,%s\n",*master,slavePath);
     ret = open(slavePath,O_RDWR);
     if(ret == -1){
         perror("slave open error");
         goto CLOSE_MASTER;
     }
-    slave = ret;
+    *slave = ret;
     return ret;
 
 CLOSE_MASTER:
-    close(master);
+    close(*master);
     return ret;
 }
 
@@ -128,80 +111,86 @@ void confirmReady()
     } while(1);
 }
 
-void childExec()
+void childExec(int ptm,int pts)
 {
     /*child 将pty的slave做为stdin/out/err.*/
     char * argv[] = {"/bin/bash","-i",NULL};
-    printf("in child\n");
-    close(0);
-    close(1);
-    close(2);
-    close(master);
+    printf("child shell\n");
 
-    dup2(slave,STDIN_FILENO);
-    dup2(slave,STDOUT_FILENO);
-    dup2(slave,STDERR_FILENO);
-    close(slave);
+    dup2(pts,STDIN_FILENO);
+    dup2(pts,STDOUT_FILENO);
+    dup2(pts,STDERR_FILENO);
+
+    int maxfd=sysconf(_SC_OPEN_MAX);
+    for(int fd=3; fd<maxfd; fd++){
+	close(fd);
+    }
+
     setsid();                                                                       
     ioctl(0,TIOCSCTTY,1);
-
 
     execv(argv[0],argv);
 }
 
-int fatherDataTunnel(int cpid)
+#define MAX(a,b) (a)>(b)?(a):(b)
+int bidirection(int li,int lo,int ri,int ro)
 {
-    /*
-     *father 进程负责实现sk及pty master的数据通讯 从一个读写入到另一个.
-     */
-    childPid = cpid;
-    char buf[256];
-    fd_set fd_in;
-    int infd;
-    int outfd;
+    int buf[4096];
     int ret;
+    int fdIn,fdOut;
+    int maxfd = MAX(MAX(li,lo),MAX(ri,ro));
+    fd_set fdsr;
 
-    close(slave);
-    while(1){
-    AGAIN:
-	FD_ZERO(&fd_in);
-	FD_SET(STDIN_FILENO,&fd_in);        //0
-	FD_SET(master,&fd_in);
+    /*printf("li:%d,lo:%d,ri:%d,ro:%d\n",li,lo,ri,ro);*/
 
-	/*printf("select fd\n");*/
-	ret = select(master+1,&fd_in,NULL,NULL,NULL);
-	if(ret == -1){
-	    perror("select error");
-	    goto ERROR_1;
-	}
-	if(FD_ISSET(STDIN_FILENO,&fd_in)){
-	    infd = STDIN_FILENO;
-	    outfd = master;
-	    /*dprintf(2,"read from stdin\n");*/
-	}else if(FD_ISSET(master,&fd_in)){
-	    infd = master;
-	    outfd = STDOUT_FILENO;
-	    /*dprintf(2,"read from ptx-master\n");*/
-	}
+    FD_ZERO(&fdsr);
+    FD_SET(li,&fdsr);        //0
+    FD_SET(ri,&fdsr);
 
-	bzero(buf,sizeof(buf));
-	ret = read(infd,buf,sizeof(buf));
-	/*dprintf(2,"read in:%s\n",buf);*/
-	if(ret < 0){
-	    perror("read stdin error");
-	    goto AGAIN;
-	}else if(ret == 0){
-	    break;
-	}
-	ret = write(outfd,buf,ret);     //send stdin to master.
-	if(ret == 0){
-	    perror("write out error");
-	}
+    /*printf("maxfd:%d\n",maxfd);*/
+    ret = select(maxfd+1,&fdsr,NULL,NULL,NULL);
+    if(ret == -1){
+        perror("select error");
+        goto ERROR;
     }
 
-    ret = 0;
-ERROR_1:
-    close(master);
+    fdIn = STDIN_FILENO;
+    fdOut = STDOUT_FILENO;
+    if(FD_ISSET(li,&fdsr)){
+        fdIn = li;
+        fdOut = ro;
+    }else if(FD_ISSET(ri,&fdsr)){
+        fdIn = ri;
+        fdOut = lo;
+    }else {
+        printf("none match\n");
+        goto UNMATCH;
+    }
+
+    bzero(buf,sizeof(buf));
+    ret = read(fdIn,buf,sizeof(buf));
+    if(ret < 0){
+        perror("read stdin error");
+        goto READERR;
+    }else if(ret == 0){
+        printf("read size 0\n");
+        goto IEOF;
+    }
+
+    ret = write(fdOut,buf,ret);     //send stdin to master.
+    if(ret == 0){
+        perror("write out error");
+    }
+
+OK:
+    return ret;
+
+ERROR:
+READERR:
+UNMATCH:
+IEOF:
+    ret = -1;
+
     return ret;
 }
 
@@ -209,28 +198,41 @@ int main(int argc,char **argv)
 {
     int ret;
     int sk;
+    int ptm;
+    int pts;
+    int cpid;
 
     ret = connectServer();
     if(ret < 0){
 	goto ERROR_SK;
     }
     sk = ret;
-    ret = openPtmx();
+    /*ret = openPtmx();*/
+    ret = openpty(&ptm,&pts,NULL,NULL,NULL);
     if(ret < 0){
 	goto ERROR_PTMX;
     }
 
     ret = fork();
     if(ret == 0){
-	childExec();
+	childExec(ptm,pts);
     }else if(ret < 0){
 	goto ERROR_PTMX;
-    }else{
-	fatherDataTunnel(ret);
-	waitpid(childPid,&ret,0);
     }
 
+    close(pts);
+    while(1){
+	ret = bidirection(ptm,ptm,sk,sk);
+	if (ret < 0){
+	    goto BIDERROR;
+	}
+    }
+
+    cpid = ret;
+    waitpid(cpid,&ret,0);
+
     ret = 0;
+BIDERROR:
 ERROR_PTMX:
 ERROR_SK:
     return ret;
