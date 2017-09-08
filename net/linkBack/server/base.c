@@ -21,7 +21,7 @@ int main(void)
     int sk_listen;
     int ret;
     struct sockaddr_in svr_addr={0};
-    unsigned port_listen = 8080;
+    unsigned port_listen = 1066;
 
     signal(SIGINT,ctrl_c_handler);
 
