@@ -28,9 +28,10 @@ int main(void)
         goto out;
     }
 
+    int port = 1066;
     svr_addr.sin_family = AF_INET;
-    svr_addr.sin_port = htons(8080);
-    inet_aton("192.168.137.100",&svr_addr.sin_addr);
+    svr_addr.sin_port = htons(port);
+    inet_aton("127.0.0.1",&svr_addr.sin_addr);
     printf("before connect\n");    
     if(connect(sk,(struct sockaddr*) &svr_addr,sizeof(svr_addr))){
         printf("connect error: %s,return\n",strerror(errno));    
