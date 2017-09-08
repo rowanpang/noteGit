@@ -138,6 +138,7 @@ int bidirection(int li,int lo,int ri,int ro)
 	goto UNMATCH;
     }
 
+    /*printf("fdin:%d,fdout:%d\n",fdIn,fdOut);*/
     bzero(buf,sizeof(buf));
     ret = read(fdIn,buf,sizeof(buf));
     if(ret < 0){
@@ -189,7 +190,10 @@ int termiosRaw(int fd,char restore)
     }                                                                               
 
     new = org;
-    cfmakeraw(&new);
+    cfmakeraw(&new);	    //case some suit,must be raw.
+    /*new.c_iflag |= ICRNL;*/
+    /*new.c_oflag |= ONLCR;*/
+    /*new.c_lflag |= ICANON | ECHO;*/
     if(ret = tcsetattr(fd,TCSAFLUSH,&new)){
 	perror("when attr set to raw");
 	goto ERROR;	
