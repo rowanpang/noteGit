@@ -19,7 +19,7 @@ import threading
 import pcap
 import dpkt
 
-try:                                                                                    
+try:
     from http_parser.parser import HttpParser
 except ImportError:
     from http_parser.pyparser import HttpParser
@@ -107,7 +107,7 @@ class frameParser:
             return True
         else:
             return False
-        
+
     def parserHttp(self,pkgHTTP,isRequest):
         if self.verbose:
             print '------ http %s-----' %('request' if isRequest else 'response')
@@ -118,7 +118,7 @@ class frameParser:
         nparsed = parser.execute(pkgHTTP,recvLen)
         assert nparsed == recvLen
 
-        headers = collections.OrderedDict() 
+        headers = collections.OrderedDict()
         if parser.is_headers_complete():
             headers = parser.get_headers()
             self.url = parser.get_url()
@@ -130,7 +130,7 @@ class frameParser:
                 print self.url
                 print self.method
                 print self.proVer
-    
+
         if isRequest:
             self.host = headers['Host']
             if self.verbose:
@@ -154,7 +154,7 @@ class frameParser:
                     if pkgTCP.sport == 80:
                         if self.isHttpResponse(payload):
                             self.parserHttp(payload,False)
-                        
+
                     if pkgTCP.dport == 80:
                         if self.isHttpRequest(payload):
                             self.parserHttp(payload,True)
@@ -166,12 +166,12 @@ class frameParser:
                         print '--------tcp no payload-------'
 
 def startMonitor(q):
-    rec = {}
     sniffer=pcap.pcap()
     sniffer.setfilter('tcp port 80 or port 21')
     fparser = frameParser(True)
     try:
         for frameTime,frame in sniffer:
+            rec = {}
             if frame == None:
                 continue
             fparser.doParser(frameTime,frame)
