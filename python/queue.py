@@ -6,22 +6,19 @@ import threading
 import time
 
 def consumer(q):
+    time.sleep(1)
     while True:
-        while True:
-            i = q.get()
-            if q.empty():
-                break;
+        i = q.get()
         print 'consumer get %s' %i
-        time.sleep(3)
+        time.sleep(1)
 
 def producter(q):
+    i = 0
     while True:
-        i = 0
-        while True:
-            q.put(i)
-            if i > 1000:
-                break;
-            i += 1
+        q.put(i)
+        if i > 1000:
+            break;
+        i += 1
         time.sleep(1)
 
 if __name__ == "__main__":
@@ -35,4 +32,4 @@ if __name__ == "__main__":
     g.start()
     p.start()
 
-    time.sleep(100)
+    time.sleep(10000)
