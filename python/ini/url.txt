@@ -1,0 +1,6 @@
+[jd]
+    entry = https://jd.com
+    entry2 = https://jd.com
+
+[taobao]
+    entry = https://taobao.com,https://www.tmall.com
