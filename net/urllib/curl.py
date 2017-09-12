@@ -5,8 +5,8 @@ import urllib2
 import time
 
 print 'hello'
-req = urllib2.Request('http://www.zjtkgf.com')
+url = 'https://baidu.com'
+req = urllib2.Request(url)
 rep = urllib2.urlopen(req)
-time.sleep(2)
 
 print rep.read()
