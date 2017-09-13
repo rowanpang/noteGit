@@ -11,16 +11,25 @@ def holdSectionVal(section,key):
 f = './url.txt'
 cfg = configobj.ConfigObj(f)
 
+print cfg.keys()
 print cfg.sections
 print cfg.dict()
 print cfg.items()
-print cfg.keys()
-for k in cfg.iterkeys():
+for k in cfg.sections:
     print k
     print type(cfg[k])
     print cfg[k]
-    print cfg[k].as_list('entry')
     print cfg.as_list(k)
+
+    if 'entry' in cfg[k].keys():
+        print cfg[k].as_list('entry')
+    else:
+        print '----inValid key-----'
+
+    if 'entryxxxx' in cfg[k].keys():
+        print cfg[k].as_list('entryxxxx')
+    else:
+        print '----inValid key-----'
 
 print cfg.values()
 

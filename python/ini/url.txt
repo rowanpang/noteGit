@@ -1,6 +1,17 @@
+#comment
+root1 = ,			#is a key not a section  key for root section.
+root2 = valRoot			#
+
 [jd]
-    entry = https://jd.com
-    entry2 = https://jd.com
+    entry = https://jd.com	#inline comment
+    entry2 = https://jd.com	#str value
+    empty2=			#empty value
+
+    list = https://jd.com,	#list value
+    empty = ,			#empty list
 
 [taobao]
-    entry = https://taobao.com,https://www.tmall.com
+    entry = https://taobao.com,https://www.tmall.com,https://dddd.com
+    entry2 = '''multi,line,
+		values		#not,a comment value alson contain '\n\t'
+	     '''
