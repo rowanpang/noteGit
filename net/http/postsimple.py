@@ -37,8 +37,9 @@ def svrPostGotRep(conn,urlreq,djson):
 
 def main():
     svr = '127.0.0.1'
-    port = 8080
+    port = 8000
     urlreq = '/policyexec'
+    urlreq = '/HostManager/SetMonitorGroup'
     dataGetInfo= {
                     'services':
                         [
@@ -52,6 +53,7 @@ def main():
                             {'id': 2,'name':'port','enable':11},
                         ]
                     }
+    dataGetInfo = {"monitor_group_ips":['100.2.52.35']}
     dj = json.dumps(dataGetInfo)
 
     conn = svrConnection(svr,port)
