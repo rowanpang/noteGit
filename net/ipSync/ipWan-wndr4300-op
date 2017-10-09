@@ -1,6 +1,29 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=gb2312">
-<title> 您的IP地址 </title>
-</head>
-<body style="margin:0px"><center>您的IP是：[60.208.111.198] 来自：山东省济南市 联通</center></body></html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML><HEAD><TITLE>该页无法显示</TITLE>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=GB2312">
+<STYLE type="text/css">
+  BODY { font: 9pt/12pt 宋体 }
+  H1 { font: 12pt/15pt 宋体 }
+  H2 { font: 9pt/12pt 宋体 }
+  A:link { color: red }
+  A:visited { color: maroon }
+</STYLE>
+</HEAD><BODY><TABLE width=500 border=0 cellspacing=10><TR><TD>
+
+<h1>该页无法显示</h1>
+此时无法处理请求。通讯量超出网站的配置能力。
+<hr>
+<p>请尝试以下操作：</p>
+<ul>
+<li>单击<a href="javascript:location.reload()">刷新</a>按钮，或稍后再试。</li>
+<li>如果仍旧有错误，请与网站管理员联系以通知他们此 URL 地址仍存在该错误。</li>
+</ul>
+<h2>HTTP 错误 500.13 - 服务器错误：Web 服务器太忙。<br>Internet 信息服务 (IIS)</h2>
+<hr>
+<p>技术信息（为技术支持人员提供）</p>
+<ul>
+<li>转到 <a href="http://go.microsoft.com/fwlink/?linkid=8180">Microsoft 产品支持服务</a>并搜索包括&ldquo;HTTP&rdquo;和&ldquo;500&rdquo;的标题。</li>
+<li>打开&ldquo;IIS 帮助&rdquo;（可在 IIS 管理器 (inetmgr) 中访问），然后搜索标题为&ldquo;监视和调整 Web 应用程序性能&rdquo;、&ldquo;性能监视和可伸缩性工具&rdquo;和&ldquo;关于自定义错误消息&rdquo;的主题。</li>
+</ul>
+
+</TD></TR></TABLE></BODY></HTML>
