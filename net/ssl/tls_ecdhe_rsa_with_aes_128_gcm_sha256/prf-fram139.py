@@ -54,13 +54,13 @@ def decrypt(key, associated_data, iv, ciphertext, tag):
 def TLSv1_0_PRF(outlen, secret, label, seed):
     ls = len(secret)
     ls1 = ls2 = (ls + 1) // 2
-    
+
     def xor(xx, yy):
         o = []
         for i in range(len(xx)):
             o.append(xx[i] ^ yy[i])
         return bytes(o)
-    
+
     md5 = TLSv1_2_PRF(outlen, secret[:ls1], label, seed, hashlib.md5)
     sha1 = TLSv1_2_PRF(outlen, secret[-ls2:], label, seed, hashlib.sha1)
 
@@ -90,7 +90,8 @@ def test():
     pre_master_secret = bytes.fromhex(pre_master_secret_hexStr)
 
     length = 48
-    if len(pre_master_secret) == length:                #长度是48就认为是master key. firefox sslkeylog 文件中的就是master key
+    if len(pre_master_secret) == length:
+        #长度是48就认为是master key. firefox sslkeylog 文件中的就是master key
         master_secret = pre_master_secret
     else:
         seedhexStr = rdClihexStr + rdSvrhexStr
