@@ -46,7 +46,7 @@ sslRecord = binascii.unhexlify(sslRecordStr)
 start = 0;
 tmplen = 1
 end = start + tmplen
-conType = sslRecord[start:end]
+conType = sslRecord[start:end]      #content type
 
 start = end
 tmplen = 2
@@ -63,7 +63,7 @@ nonceOffset = conOffset
 nonceExplicithexLen = 8
 nonceEnd = nonceOffset + nonceExplicithexLen
 nonceExplicithex = sslRecord[conOffset:nonceEnd]
-ctrStr = '00000002'                                     
+ctrStr = '00000002'
     #why use 2, ref wireshark-2.1.1/epan/dissectors/packet-ssl-utils.c :3534
     # /* NIST SP 800-38D, sect. 7.2 says that the 32-bit counter part starts
     # * at 1, and gets incremented before passing to the block cipher. */
@@ -71,7 +71,7 @@ nonce = server_write_iv[:4] + nonceExplicithex + binascii.unhexlify(ctrStr)
 print('nce: ' + binascii.hexlify(nonce))
 
 cipherOffset = nonceEnd
-ciphertext = sslRecord[cipherOffset:] 
+ciphertext = sslRecord[cipherOffset:]
 print('str: ' + binascii.hexlify(ciphertext))
 
 print('-----decrypt-----')

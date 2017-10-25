@@ -49,7 +49,6 @@ def decrypt(key, associated_data, iv, ciphertext, tag):
 key='t' * 16
 swkhexStr = '386bb729928e9471a590e87490c29c36'
 swihexStr = '6a12a0193df575107859644dda80478c'
-
 server_write_key = binascii.unhexlify(swkhexStr)
 server_write_iv = binascii.unhexlify(swihexStr)
 
@@ -68,8 +67,9 @@ tlsCompressedLength = '0028'
 additionalStr = seq_num +                   \
                 tlsCompressedType +         \
                 tlsCompressedVersion +      \
-                tlsCompressedLength         
+                tlsCompressedLength
 additionalData = binascii.unhexlify(additionalStr)
+
 plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
 plaintext = binascii.unhexlify(plainhexStr)
 
