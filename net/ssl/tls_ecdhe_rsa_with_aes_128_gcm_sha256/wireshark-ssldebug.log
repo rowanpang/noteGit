@@ -1,4 +1,4 @@
-Wireshark SSL debug log 
+Wireshark SSL debug log   search: 'rowanPang'
 
 Wireshark version: 2.1.1 (Git Rev Unknown from unknown)
 GnuTLS version:    3.4.12
@@ -15,7 +15,7 @@ decrypt_ssl3_record: app_data len 320, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #106 (first time)
@@ -29,7 +29,7 @@ decrypt_ssl3_record: app_data len 53, ssl state 0x11
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 49 bytes, remaining 58 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 49 bytes, remaining 58
 ssl_try_set_version found version 0x0301 -> state 0x11
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x13
 ssl_dissect_hnd_srv_hello found CIPHER 0x0035 TLS_RSA_WITH_AES_256_CBC_SHA -> state 0x17
@@ -40,7 +40,7 @@ decrypt_ssl3_record: app_data len 649, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 63 length 645 bytes, remaining 712 
+dissect_ssl3_handshake iteration 1 type 11 offset 63 length 645 bytes, remaining 712
 lookup(KeyID)[20]:
 | 00 65 12 ed 18 9b cc 8e b8 5a f3 f5 48 cc 5a 92 |.e.......Z..H.Z.|
 | a3 8f 57 e6                                     |..W.            |
@@ -52,7 +52,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 717 length 0 bytes, remaining 721 
+dissect_ssl3_handshake iteration 1 type 14 offset 717 length 0 bytes, remaining 721
 
 dissect_ssl enter frame #108 (first time)
 packet_from_server: is from server - FALSE
@@ -100,7 +100,7 @@ packet_from_server: is from server - TRUE
 dissect_ssl3_record: content_type 20 Change Cipher Spec						#rowanPang: change cipher
 ssl_dissect_change_cipher_spec Session resumption using Session Ticket
 trying to use SSL keylog in /home/pangwz/Downloads/firefox/sslkey.log
-  checking keylog line: 
+  checking keylog line:
     unrecognized line
   checking keylog line: CLIENT_RANDOM 1d4fc58f40cde7ecbcd15010227c3847430ef8ba9946d21d289e7530fe7f41f3 5dc8717e8a72e2e47006ad0d79b40e9da828fcaadc2f1b9d82c4a82c9a53ed36dfc8d87778f4cc9afd6518bdf466b24c
     matched client_random
@@ -234,13 +234,13 @@ packet_from_server: is from server - TRUE
 ssl_change_cipher SERVER								#rowanPang: client 收到了来自server的change cipher 包.
 
 dissect_ssl enter frame #139 (first time)
-packet_from_server: is from server - TRUE
+packet_from_server: is from server - TRUE						#来自server的pkg
   conversation = 0x55636d0827e0, ssl_session = 0x55636d083880
   record: offset = 0, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
 decrypt_ssl3_record: app_data len 40, ssl state 0xBF
 packet_from_server: is from server - TRUE
-decrypt_ssl3_record: using server decoder							#rowanPang: after change cipher decoder ok vs up.(search 'decoderNULL')
+decrypt_ssl3_record: using server decoder						#rowanPang: after change cipher decoder ok vs up.(search 'decoderNULL')
 ssl_decrypt_record ciphertext len 40
 Ciphertext[40]:
 | 00 00 00 00 00 00 00 00 2b 83 0d 98 5e c2 81 6e |........+...^..n|
@@ -250,7 +250,7 @@ ssl_decrypt_record: allocating 72 bytes for decrypt data (old len 32)
 Plaintext[32]:
 | 14 00 00 0c 4b b5 c7 8b 0c 01 d6 95 18 0f 5e a4 |....K.........^.|
 | a5 f0 cf 18 da 34 6b 5c f9 4b 0e 6b a2 15 f1 6e |.....4k\.K.k...n|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #141 (first time)
 packet_from_server: is from server - FALSE
@@ -275,7 +275,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c 88 44 6e ae 3c 37 5a db b4 63 67 fb |.....Dn.<7Z..cg.|
 | d9 b9 65 db e6 1c 0f 48 d1 7a 42 3c 87 c3 c6 a6 |..e....H.zB<....|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #142 (first time)
 packet_from_server: is from server - TRUE
@@ -293,7 +293,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c 4b b5 c7 8b 0c 01 d6 95 18 0f 5e a4 |....K.........^.|
 | a5 f0 cf 18 da 34 6b 5c f9 4b 0e 6b a2 15 f1 6e |.....4k\.K.k...n|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #156 (first time)
 packet_from_server: is from server - FALSE
@@ -305,7 +305,7 @@ decrypt_ssl3_record: app_data len 320, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #157 (first time)
@@ -6701,16 +6701,16 @@ decrypt_ssl3_record: app_data len 2376, ssl state 0x11
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 77 bytes, remaining 2381 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 77 bytes, remaining 2381
 ssl_try_set_version found version 0x0301 -> state 0x11
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x13
 ssl_dissect_hnd_srv_hello found CIPHER 0x0035 TLS_RSA_WITH_AES_256_CBC_SHA -> state 0x17
-dissect_ssl3_handshake iteration 0 type 11 offset 86 length 2287 bytes, remaining 2381 
+dissect_ssl3_handshake iteration 0 type 11 offset 86 length 2287 bytes, remaining 2381
 lookup(KeyID)[20]:
 | 00 bf ca e3 69 8b d7 4e 23 ef 5f a3 c7 61 67 ad |....i..N#._..ag.|
 | 86 d7 9e 0a                                     |....            |
 ssl_find_private_key_by_pubkey: lookup result: (nil)
-dissect_ssl3_handshake iteration 0 type 14 offset 2377 length 0 bytes, remaining 2381 
+dissect_ssl3_handshake iteration 0 type 14 offset 2377 length 0 bytes, remaining 2381
 
 dissect_ssl enter frame #230 (first time)
 packet_from_server: is from server - FALSE
@@ -6732,7 +6732,7 @@ decrypt_ssl3_record: app_data len 512, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #239 (first time)
@@ -6745,7 +6745,7 @@ decrypt_ssl3_record: app_data len 512, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #240 (first time)
@@ -6758,7 +6758,7 @@ decrypt_ssl3_record: app_data len 512, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 508 bytes, remaining 517
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #245 (first time)
@@ -6772,7 +6772,7 @@ decrypt_ssl3_record: app_data len 80, ssl state 0x91
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85
 ssl_try_set_version found version 0x0303 -> state 0x91
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x93
 ssl_dissect_hnd_srv_hello found CIPHER 0xC02F TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 -> state 0x97
@@ -6783,7 +6783,7 @@ decrypt_ssl3_record: app_data len 2894, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984 
+dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984
 lookup(KeyID)[20]:
 | a7 5e 9c 65 81 b5 51 d2 bc 86 74 7c 2a c1 a5 d5 |.^.e..Q...t|*...|
 | e2 d3 48 47                                     |..HG            |
@@ -6795,7 +6795,7 @@ decrypt_ssl3_record: app_data len 333, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322 
+dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322
   record: offset = 3322, reported_length_remaining = 9
 dissect_ssl3_record: content_type 22 Handshake
 Calculating hash with offset 3327 4
@@ -6803,7 +6803,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331 
+dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331
 
 dissect_ssl enter frame #248 (first time)
 packet_from_server: is from server - TRUE
@@ -6816,7 +6816,7 @@ decrypt_ssl3_record: app_data len 80, ssl state 0x91
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85
 ssl_try_set_version found version 0x0303 -> state 0x91
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x93
 ssl_dissect_hnd_srv_hello found CIPHER 0xC02F TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 -> state 0x97
@@ -6827,7 +6827,7 @@ decrypt_ssl3_record: app_data len 2894, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984 
+dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984
 lookup(KeyID)[20]:
 | a7 5e 9c 65 81 b5 51 d2 bc 86 74 7c 2a c1 a5 d5 |.^.e..Q...t|*...|
 | e2 d3 48 47                                     |..HG            |
@@ -6839,7 +6839,7 @@ decrypt_ssl3_record: app_data len 333, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322 
+dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322
   record: offset = 3322, reported_length_remaining = 9
 dissect_ssl3_record: content_type 22 Handshake
 Calculating hash with offset 3327 4
@@ -6847,7 +6847,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331 
+dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331
 
 dissect_ssl enter frame #250 (first time)
 packet_from_server: is from server - TRUE
@@ -6860,7 +6860,7 @@ decrypt_ssl3_record: app_data len 80, ssl state 0x91
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 76 bytes, remaining 85
 ssl_try_set_version found version 0x0303 -> state 0x91
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x93
 ssl_dissect_hnd_srv_hello found CIPHER 0xC02F TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 -> state 0x97
@@ -6871,7 +6871,7 @@ decrypt_ssl3_record: app_data len 2894, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984 
+dissect_ssl3_handshake iteration 1 type 11 offset 90 length 2890 bytes, remaining 2984
 lookup(KeyID)[20]:
 | a7 5e 9c 65 81 b5 51 d2 bc 86 74 7c 2a c1 a5 d5 |.^.e..Q...t|*...|
 | e2 d3 48 47                                     |..HG            |
@@ -6883,7 +6883,7 @@ decrypt_ssl3_record: app_data len 333, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322 
+dissect_ssl3_handshake iteration 1 type 12 offset 2989 length 329 bytes, remaining 3322
   record: offset = 3322, reported_length_remaining = 9
 dissect_ssl3_record: content_type 22 Handshake
 Calculating hash with offset 3327 4
@@ -6891,7 +6891,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x97
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331 
+dissect_ssl3_handshake iteration 1 type 14 offset 3327 length 0 bytes, remaining 3331
 
 dissect_ssl enter frame #252 (first time)
 packet_from_server: is from server - FALSE
@@ -6903,7 +6903,7 @@ decrypt_ssl3_record: app_data len 70, ssl state 0x297
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75 
+dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75
 trying to use SSL keylog in /home/pangwz/Downloads/firefox/sslkey.log
 ssl_generate_pre_master_secret: found SSL_HND_CLIENT_KEY_EXCHG, state 297
 ssl_restore_master_key can't find pre-master secret by Unencrypted pre-master secret
@@ -6997,7 +6997,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c f7 75 a6 fb c7 15 32 26 7f 30 63 45 |.....u....2&.0cE|
 | ef da 3f 26 1c df 81 b7 06 3f 47 17 ce 3a e2 bc |..?&.....?G..:..|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #253 (first time)
 packet_from_server: is from server - FALSE
@@ -7009,7 +7009,7 @@ decrypt_ssl3_record: app_data len 70, ssl state 0x297
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75 
+dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75
 trying to use SSL keylog in /home/pangwz/Downloads/firefox/sslkey.log
 ssl_generate_pre_master_secret: found SSL_HND_CLIENT_KEY_EXCHG, state 297
 ssl_restore_master_key can't find pre-master secret by Unencrypted pre-master secret
@@ -7103,7 +7103,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c db fd 15 81 07 97 79 c2 0f 70 b9 cd |..........y..p..|
 | 92 96 49 ef 12 6a c3 51 52 ba af b4 85 a8 5a 2e |..I..j.QR.....Z.|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #254 (first time)
 packet_from_server: is from server - FALSE
@@ -7115,7 +7115,7 @@ decrypt_ssl3_record: app_data len 70, ssl state 0x297
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75 
+dissect_ssl3_handshake iteration 1 type 16 offset 5 length 66 bytes, remaining 75
 trying to use SSL keylog in /home/pangwz/Downloads/firefox/sslkey.log
 ssl_generate_pre_master_secret: found SSL_HND_CLIENT_KEY_EXCHG, state 297
 ssl_restore_master_key can't find pre-master secret by Unencrypted pre-master secret
@@ -7209,7 +7209,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c cf c9 d6 8d 3c e4 c9 5d b2 72 be 32 |........<..].r.2|
 | bd e2 e5 2e 7d 30 0f 50 f3 66 e8 ac f7 6e 85 6d |....}0.P.f...n.m|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #256 (first time)
 packet_from_server: is from server - TRUE
@@ -7220,7 +7220,7 @@ decrypt_ssl3_record: app_data len 186, ssl state 0x2BF
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191 
+dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191
 ssl_save_master_key inserted (pre-)master secret for Session Ticket
 stored key[176]:
 | 78 12 c5 f9 bb 4b 25 87 9f 94 1e 44 11 52 48 0d |x....K%....D.RH.|
@@ -7259,7 +7259,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c e3 d8 b9 d7 c2 28 5a c0 ac 70 75 91 |.........(Z..pu.|
 | e0 ec 5d fb c4 83 4d 9c 95 83 e6 29 f7 60 d4 9e |..]...M....).`..|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #258 (first time)
 packet_from_server: is from server - TRUE
@@ -7270,7 +7270,7 @@ decrypt_ssl3_record: app_data len 186, ssl state 0x2BF
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191 
+dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191
 ssl_save_master_key inserted (pre-)master secret for Session Ticket
 stored key[176]:
 | 78 12 c5 f9 bb 4b 25 87 9f 94 1e 44 11 52 48 0d |x....K%....D.RH.|
@@ -7309,7 +7309,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c 11 d0 a8 c9 4d 4b fa b5 cb 6c ad 0e |........MK...l..|
 | 0a 65 b4 04 b8 95 7f e4 1d 53 1f df b9 3c 0a cd |.e.......S...<..|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #262 (first time)
 packet_from_server: is from server - FALSE
@@ -7321,7 +7321,7 @@ decrypt_ssl3_record: app_data len 320, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #263 (first time)
@@ -7333,7 +7333,7 @@ decrypt_ssl3_record: app_data len 186, ssl state 0x2BF
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191 
+dissect_ssl3_handshake iteration 1 type 4 offset 5 length 182 bytes, remaining 191
 ssl_save_master_key inserted (pre-)master secret for Session Ticket
 stored key[176]:
 | 78 12 c5 f9 bb 4b 25 87 9f 94 1e 44 11 52 48 0d |x....K%....D.RH.|
@@ -7372,7 +7372,7 @@ Ciphertext[40]:
 Plaintext[32]:
 | 14 00 00 0c 27 53 6d 84 be ab b8 4e ff 43 07 ad |....'Sm....N.C..|
 | fe 2d 26 bb 69 12 35 9b f7 ae 32 48 80 3a 7a db |.-&.i.5...2H.:z.|
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #272 (first time)
 packet_from_server: is from server - FALSE
@@ -23951,7 +23951,7 @@ decrypt_ssl3_record: app_data len 320, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #363 (first time)
@@ -23965,7 +23965,7 @@ decrypt_ssl3_record: app_data len 58, ssl state 0x11
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 54 bytes, remaining 63 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 54 bytes, remaining 63
 ssl_try_set_version found version 0x0303 -> state 0x11
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x13
 ssl_dissect_hnd_srv_hello found CIPHER 0x003C TLS_RSA_WITH_AES_128_CBC_SHA256 -> state 0x17
@@ -23976,7 +23976,7 @@ decrypt_ssl3_record: app_data len 2442, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 68 length 2438 bytes, remaining 2510 
+dissect_ssl3_handshake iteration 1 type 11 offset 68 length 2438 bytes, remaining 2510
 lookup(KeyID)[20]:
 | d4 de 18 10 1f fb 7c 9a 82 b4 8c 73 5d 9d aa f7 |......|....s]...|
 | 53 84 37 87                                     |S.7.            |
@@ -23988,7 +23988,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 2515 length 0 bytes, remaining 2519 
+dissect_ssl3_handshake iteration 1 type 14 offset 2515 length 0 bytes, remaining 2519
 
 dissect_ssl enter frame #365 (first time)
 packet_from_server: is from server - FALSE
@@ -24010,7 +24010,7 @@ decrypt_ssl3_record: app_data len 320, ssl state 0x00
 packet_from_server: is from server - FALSE
 decrypt_ssl3_record: using client decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 316 bytes, remaining 325
 ssl_dissect_hnd_hello_common found CLIENT RANDOM -> state 0x01
 
 dissect_ssl enter frame #384 (first time)
@@ -24024,7 +24024,7 @@ decrypt_ssl3_record: app_data len 56, ssl state 0x11
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 52 bytes, remaining 61 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 52 bytes, remaining 61
 ssl_try_set_version found version 0x0303 -> state 0x11
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x13
 ssl_dissect_hnd_srv_hello found CIPHER 0xC02C TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 -> state 0x17
@@ -24035,7 +24035,7 @@ decrypt_ssl3_record: app_data len 2361, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 66 length 2357 bytes, remaining 2427 
+dissect_ssl3_handshake iteration 1 type 11 offset 66 length 2357 bytes, remaining 2427
 lookup(KeyID)[20]:
 | d8 bf b3 2d b6 90 aa 28 29 b3 b2 e7 60 b4 d4 dc |...-...()...`...|
 | f4 97 09 78                                     |...x            |
@@ -24047,7 +24047,7 @@ decrypt_ssl3_record: app_data len 148, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 12 offset 2432 length 144 bytes, remaining 2580 
+dissect_ssl3_handshake iteration 1 type 12 offset 2432 length 144 bytes, remaining 2580
   record: offset = 2580, reported_length_remaining = 9
 dissect_ssl3_record: content_type 22 Handshake
 Calculating hash with offset 2585 4
@@ -24055,7 +24055,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 2585 length 0 bytes, remaining 2589 
+dissect_ssl3_handshake iteration 1 type 14 offset 2585 length 0 bytes, remaining 2589
 
 dissect_ssl enter frame #386 (first time)
 packet_from_server: is from server - FALSE
@@ -24078,7 +24078,7 @@ decrypt_ssl3_record: app_data len 53, ssl state 0x11
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 49 bytes, remaining 58 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 49 bytes, remaining 58
 ssl_try_set_version found version 0x0301 -> state 0x11
 ssl_dissect_hnd_hello_common found SERVER RANDOM -> state 0x13
 ssl_dissect_hnd_srv_hello found CIPHER 0x0039 TLS_DHE_RSA_WITH_AES_256_CBC_SHA -> state 0x17
@@ -24089,7 +24089,7 @@ decrypt_ssl3_record: app_data len 521, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 11 offset 63 length 517 bytes, remaining 584 
+dissect_ssl3_handshake iteration 1 type 11 offset 63 length 517 bytes, remaining 584
 lookup(KeyID)[20]:
 | 03 93 75 93 3a 43 13 27 13 6b 39 60 2e aa a9 d2 |..u.:C.'.k9`....|
 | b2 a6 e2 74                                     |...t            |
@@ -24101,7 +24101,7 @@ decrypt_ssl3_record: app_data len 397, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 12 offset 589 length 393 bytes, remaining 986 
+dissect_ssl3_handshake iteration 1 type 12 offset 589 length 393 bytes, remaining 986
   record: offset = 986, reported_length_remaining = 9
 dissect_ssl3_record: content_type 22 Handshake
 Calculating hash with offset 991 4
@@ -24109,7 +24109,7 @@ decrypt_ssl3_record: app_data len 4, ssl state 0x17
 packet_from_server: is from server - TRUE
 decrypt_ssl3_record: using server decoder
 decrypt_ssl3_record: no decoder available
-dissect_ssl3_handshake iteration 1 type 14 offset 991 length 0 bytes, remaining 995 
+dissect_ssl3_handshake iteration 1 type 14 offset 991 length 0 bytes, remaining 995
 
 dissect_ssl enter frame #396 (first time)
 packet_from_server: is from server - FALSE
@@ -24378,14 +24378,14 @@ packet_from_server: is from server - FALSE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 519
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 1 offset 5 length 510 bytes, remaining 519 
+dissect_ssl3_handshake iteration 1 type 1 offset 5 length 510 bytes, remaining 519
 
 dissect_ssl enter frame #135 (already visited)
 packet_from_server: is from server - TRUE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 96
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 2 offset 5 length 87 bytes, remaining 96 
+dissect_ssl3_handshake iteration 1 type 2 offset 5 length 87 bytes, remaining 96
 
 dissect_ssl enter frame #137 (already visited)
 packet_from_server: is from server - TRUE
@@ -24398,7 +24398,7 @@ packet_from_server: is from server - TRUE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #141 (already visited)
 packet_from_server: is from server - FALSE
@@ -24407,14 +24407,14 @@ packet_from_server: is from server - FALSE
 dissect_ssl3_record: content_type 20 Change Cipher Spec
   record: offset = 6, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #142 (already visited)
 packet_from_server: is from server - TRUE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #157 (already visited)
 packet_from_server: is from server - FALSE
@@ -26561,7 +26561,7 @@ packet_from_server: is from server - TRUE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16
 
 dissect_ssl enter frame #418 (already visited)
 packet_from_server: is from server - FALSE
@@ -26659,4 +26659,4 @@ packet_from_server: is from server - TRUE
   conversation = 0x55636d0827e0, ssl_session = (nil)
   record: offset = 0, reported_length_remaining = 45
 dissect_ssl3_record: content_type 22 Handshake
-dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16 
+dissect_ssl3_handshake iteration 1 type 20 offset 0 length 12 bytes, remaining 16

@@ -85,9 +85,12 @@ def TLSv1_2_PRF(outlen, secret, label, seed, h):
 
 def test():
     rdClihexStr = 'f77182ed908b500c8b1ad6ad8754329d63ad8704ae8901149727d7257bcf8878'
+        #frame 132
     rdSvrhexStr = '59604cc213be22157934682d82a9dbf4cba3f53cc10f6a89d4270bb87a4ebb8c'
+        #frame 135
     pre_master_secret_hexStr = '50891929d1f6b3507dfef2416057abb452116d5210c91a2d1c6b2ac4e9df23eeba718ac6b9bd5506479dd99b7585c983'
     pre_master_secret = bytes.fromhex(pre_master_secret_hexStr)
+        #from ./firefox-sslkey.log
 
     length = 48
     if len(pre_master_secret) == length:
@@ -113,6 +116,8 @@ def test():
     keylen = 16
     ivlen = 4
     length = (maclen + keylen + ivlen)*2
+
+    """gen key block"""
     secret = key_block_secret
     label = "key expansion"
     seed = bytes.fromhex(seedhexStr)
@@ -163,40 +168,43 @@ def test():
 
     plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
     plaintext = binascii.unhexlify(plainhexStr)
+        #from wireshark after import ./.firefox-sslkey.log
 
-    # 1603030028
-    # 0000000000000000
-    # 2b830d985ec2816ebd6de892bfd3b408
-    # dae02deea4aa98f18d487762fd7224a6
-    nonceExplicithexStr = '0000000000000000'
+    # 1603030028                                #record head
+    # 0000000000000000                          #explicit nonce
+    # 2b830d985ec2816ebd6de892bfd3b408          #cip
+    # dae02deea4aa98f18d487762fd7224a6          #tag
+        #from fram139
+    nonceExplicithexStr = '0000000000000000'    #8bytes
     nonceCounter = ''
     nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr) + bytes.fromhex(nonceCounter)
-    print('nce: ' + nonce.hex())
+    print('non: ' + nonce.hex())
 
     #ADDlen = 8seq + 1type + 2ver + 2len,
-    seq_num = '0000000000000000'                    #need be lsb.?
+    seq_num = '0000000000000000'            #need be lsb.finished record 为0.
+        #8byts,一次tls会话中,key exchange等完成之后，finished record 的seqnum 为0.
     tlsCompressedType = '16'
     tlsCompressedVersion = '0303'
-    tlsCompressedLength = '0018'                    #plaintext length
-    additionalStr = seq_num +                   \
+    tlsCompressedLength = '0010'            #没有加密之前的compress length
+    associateStr = seq_num +                   \
                     tlsCompressedType +         \
                     tlsCompressedVersion +      \
                     tlsCompressedLength
 
-    additionalData = binascii.unhexlify(additionalStr)
-    print('ADD: ' + additionalData.hex())
+    associateData = binascii.unhexlify(associateStr)
+    print('aso: ' + associateData.hex())
 
 
     open('./plaintxt',"bw+").write(plaintext)
     open("./swk","bw+").write(server_write_key)
     open("./swi","bw+").write(server_write_iv)
-    open("./additional","bw+").write(additionalData)
+    open("./associate","bw+").write(associateData)
     open("./nonce","bw+").write(nonce)
 
     iv, ciphertext, tag = encrypt(
                             server_write_key,
                             plaintext,
-                            additionalData,
+                            associateData,
                             nonce
                         )
 
@@ -207,12 +215,12 @@ def test():
     print('-----decrypt-----')
     plaintext = decrypt(
                 server_write_key,
-                additionalData,
+                associateData,
                 iv,
                 ciphertext,
                 tag
             )
-    print(b'after: ' + binascii.hexlify(plaintext))
+    print(b'plain: ' + binascii.hexlify(plaintext))
 
 
 class KnownAnswerTests(unittest.TestCase):
