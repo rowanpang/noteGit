@@ -37,23 +37,25 @@ def svrPostGotRep(conn,urlreq,djson):
 
 def main():
     svr = '127.0.0.1'
-    port = 8000
-    urlreq = '/policyexec'
+    port = 19005
+
     urlreq = '/HostManager/SetMonitorGroup'
+    dataGetInfo = {"monitor_group_ips":['100.2.52.35']}
+
+    urlreq = '/DirectAccessControl/policyexec'
     dataGetInfo= {
                     'services':
                         [
-                            {'id': 1,'name':'http','enable':1},
-                            {'id': 2,'name':'http2','enable':11},
+                            {'autoflag': 1,'name':'smb'},
                         ]
                         ,
-                    'ports':
-                        [
-                            {'id': 1,'name':'port','enable':1},
-                            {'id': 2,'name':'port','enable':11},
-                        ]
+                    # 'ports':
+                        # [
+                            # {'id': 1,'name':'port','enable':1},
+                            # {'id': 2,'name':'port','enable':11},
+                        # ]
                     }
-    dataGetInfo = {"monitor_group_ips":['100.2.52.35']}
+
     dj = json.dumps(dataGetInfo)
 
     conn = svrConnection(svr,port)
