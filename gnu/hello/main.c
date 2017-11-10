@@ -7,6 +7,11 @@ void show(char* msg)
     printf("%s\n",msg);
 }
 
+int argTest(int a[3]){
+    a[1] = 1;
+    return 1;
+}
+
 char *msg="pagnwz";
 int main(int argc,char **argv)
 {
@@ -17,6 +22,13 @@ int main(int argc,char **argv)
     int sec=0;
     printf("hello world\n");
     show("msg");
+
+    int test=4;
+    int aa[3] = {1,test,5};
+    argTest(aa);
+    printf("before:%d,after:%d",test,aa[1]);
+
+
     if (argc > 1){
         sec = atoi(argv[1]);
         printf("sleep %ds\n",sec);
