@@ -1,5 +1,5 @@
 .PHONY:all
-all:normal memleak strdupleak strdupexec
+all:normal memleak strdupleak strdupexec unInit
 
 %:%.c
 	@gcc -g -Wall $< -o $@
