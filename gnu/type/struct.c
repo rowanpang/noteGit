@@ -24,6 +24,7 @@ int hello(int ok){
     printf("hello from the other side\n");
 }
 
+#define UPRINT(n) printf("%10s: %p, %#x\n",#n,&n,n)
 int main(int argc,char** argv)
 {
     struct st{
@@ -35,7 +36,7 @@ int main(int argc,char** argv)
         "rowan",
         "inspur"
         };
-    
+
     struct st_2{
         char str1[10];
         char str2[10];
@@ -62,7 +63,7 @@ int main(int argc,char** argv)
     st = st;
 
     union u_1{
-        unsigned int union_32;
+        unsigned int sp_32;
 
         struct u_s_1{
             unsigned char a;
@@ -71,38 +72,38 @@ int main(int argc,char** argv)
             unsigned char d;
             unsigned char e;
             unsigned char f;
-        }union_sp_8;
+        }sp_8;
 
         struct u_s_2{
             unsigned short int a;
             unsigned short int b;
             unsigned short int c;
-        }union_sp_16;
+        }sp_16;
     }u;
 
-    u.union_32 = 0x12345678;
-    u.union_sp_16.c = 0x9abc;
+    u.sp_32 = 0x12345678;
+    u.sp_16.c = 0x9abc;
     printf("sizeof(union u):%d\n",sizeof(u));
-    printf("sizeof(union u.union_sp_8):%d\n",sizeof(u.union_sp_8));
-    printf("sizeof(union u.union_sp_16):%d\n",sizeof(u.union_sp_16));
-    printf("u.union_sp_8:%p\n",&u.union_sp_8);
-    printf("u.union_sp_16:%p\n",&u.union_sp_16);
+    printf("sizeof(union u.sp_8):%d\n",sizeof(u.sp_8));
+    printf("sizeof(union u.sp_16):%d\n",sizeof(u.sp_16));
+    printf("u.sp_8:%p\n",&u.sp_8);
+    printf("u.sp_16:%p\n",&u.sp_16);
 
-    printf("u.union_32:%p,%#x\n",&u.union_32,u.union_32);
-    printf("u.union_sp_8.a:%p,%#x\n",&u.union_sp_8.a,u.union_sp_8.a);
-    printf("u.union_sp_8.b:%p,%#x\n",&u.union_sp_8.b,u.union_sp_8.b);
-    printf("u.union_sp_8.c:%p,%#x\n",&u.union_sp_8.c,u.union_sp_8.c);
-    printf("u.union_sp_8.d:%p,%#x\n",&u.union_sp_8.d,u.union_sp_8.d);
-    printf("u.union_sp_8.e:%p,%#x\n",&u.union_sp_8.e,u.union_sp_8.e);
-    printf("u.union_sp_8.f:%p,%#x\n",&u.union_sp_8.f,u.union_sp_8.f);
-    printf("u.union_sp_16.a:%p,%#x\n",&u.union_sp_16.a,u.union_sp_16.a);
-    printf("u.union_sp_16.b:%p,%#x\n",&u.union_sp_16.b,u.union_sp_16.b);
-    printf("u.union_sp_16.c:%p,%#x\n",&u.union_sp_16.c,u.union_sp_16.c);
-
+    printf("byteOrder:%s\n",u.sp_8.a == 0x78?"little endin":"big endin");
+    UPRINT(u.sp_32);
+    UPRINT(u.sp_8.a);
+    UPRINT(u.sp_8.b);
+    UPRINT(u.sp_8.c);
+    UPRINT(u.sp_8.d);
+    UPRINT(u.sp_8.e);
+    UPRINT(u.sp_8.f);
+    UPRINT(u.sp_16.a);
+    UPRINT(u.sp_16.b);
+    UPRINT(u.sp_16.c);
 
     char* pArray[]={ "a","b"};
     printf("sizeof(pArray):%d\n",sizeof(pArray)/sizeof(char*));
-    
+
     int a = 2;
     _Bool testBool=3;
     _Bool testBool2=a;
@@ -118,7 +119,7 @@ int main(int argc,char** argv)
     int S123 = 3;
     int $123 = 4;
     printf("$123:%d,S123:%d\n",$123,S123);
-    int \u0024a = 5; 
+    int \u0024a = 5;
     printf("\u0024a:%d\n",\u0024a);
     printf("It's a !\n");
     return 0;
