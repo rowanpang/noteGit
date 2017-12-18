@@ -1,0 +1,79 @@
+/*=============================================================================
+#     FileName: flow.gv
+#         Desc: Gnu auto build flow
+#       Author: Rowan Pang
+#        Email: pangweizhen.2008@hotmail.com
+#     HomePage:
+#      Version: 0.0.1
+#   LastChange: 2017-12-18 16:46:45
+#      History:
+=============================================================================*/
+//
+// flow.gv
+//
+// Created on 18-12-2017 by root
+//
+digraph flow {
+
+    //manual edit
+    splines = "line"
+    node[
+	colorscheme = "X11"
+	shape = "box"
+	color = "red"
+        style = "filled"
+    ]
+
+    autoconfigIN[label = "autoconfig.ac/.in"]
+    autoMakeIN[label = "Makefile.am"]
+
+    node [
+	colorscheme = "X11"
+	shape = "box"
+	style = "solid"
+	color = ""
+    ]
+
+    aclocalGen[label = "aclocal.m4"]
+    autoMakeGen[label = "Makefile.in"]
+    autoconfigGen[label = "configure"]
+
+    Makefile[color = "green",style = "filled"]
+
+    configGuess[label = "config.guess"]
+    autoheaderIN[label = "config.h.in"]
+    autoheaderGen[label = "config.h"]
+
+    node [
+	colorscheme = "X11"
+	shape = "ellipse"
+	style = "filled"
+	color = "coral"
+    ]
+    cmdAutoMake[label = "automake"]
+    cmdAutoConf[label = "autoconf"]
+    cmdAclocal[label = "aclocal"]
+    cmdConfigure[label = "./configure 'opts'"]
+    cmdAutoHead[label = "autoheader"]
+
+    {rank = "same";
+	autoconfigIN
+	cmdAclocal
+	aclocalGen
+    }
+
+    autoconfigIN -> cmdAclocal -> aclocalGen
+    aclocalGen -> cmdAutoConf
+    autoconfigIN -> cmdAutoConf -> autoconfigGen
+    autoconfigIN -> cmdAutoMake
+    autoMakeIN -> cmdAutoMake -> autoMakeGen
+    cmdAutoMake -> configGuess [label = "-add-missing"]
+    configGuess -> cmdConfigure
+
+    autoconfigIN -> cmdAutoHead -> autoheaderIN
+    autoheaderIN -> cmdConfigure -> autoheaderGen
+
+    autoconfigGen -> cmdConfigure
+    autoMakeGen -> cmdConfigure -> Makefile
+
+}
