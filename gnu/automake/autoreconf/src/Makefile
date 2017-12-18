@@ -70,10 +70,10 @@ am__make_running_with_option = \
   test $$has_opt = yes
 am__make_dryrun = (target_option=n; $(am__make_running_with_option))
 am__make_keepgoing = (target_option=k; $(am__make_running_with_option))
-pkgdatadir = $(datadir)/amhello
-pkgincludedir = $(includedir)/amhello
-pkglibdir = $(libdir)/amhello
-pkglibexecdir = $(libexecdir)/amhello
+pkgdatadir = $(datadir)/hello
+pkgincludedir = $(includedir)/hello
+pkglibdir = $(libdir)/hello
+pkglibexecdir = $(libexecdir)/hello
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -189,11 +189,11 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /root/noteGit/gnu/automake/autoreconf/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
-PACKAGE = amhello
+PACKAGE = hello
 PACKAGE_BUGREPORT = bug-automake@gnu.org
-PACKAGE_NAME = amhello
-PACKAGE_STRING = amhello 2.0
-PACKAGE_TARNAME = amhello
+PACKAGE_NAME = hello
+PACKAGE_STRING = hello 2.0
+PACKAGE_TARNAME = hello
 PACKAGE_URL = 
 PACKAGE_VERSION = 2.0
 PATH_SEPARATOR = :
