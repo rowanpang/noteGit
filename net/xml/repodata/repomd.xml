@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repomd xmlns="http://linux.duke.edu/metadata/repo" xmlns:rpm="http://linux.duke.edu/metadata/rpm">
+ <revision>1424360892</revision>
+<data type="group">
+  <checksum type="sha256">cce874b3d6b0e560c514f2a900bafb012bbcb4a1577eedcb4bb02eaaf349032f</checksum>
+  <location href="repodata/cce874b3d6b0e560c514f2a900bafb012bbcb4a1577eedcb4bb02eaaf349032f-comps-Server.ppc64le.xml"/>
+  <timestamp>1424360877</timestamp>
+  <size>619295</size>
+</data>
+<data type="filelists">
+  <checksum type="sha256">fb07f36f751121b40267f4839035908c65019d36e84f0b8519672a0810213562</checksum>
+  <open-checksum type="sha256">14b2bb83e6dc07549a4cc1a1656b479903e4e20f1063bc4309a9bf1518b83077</open-checksum>
+  <location href="repodata/fb07f36f751121b40267f4839035908c65019d36e84f0b8519672a0810213562-filelists.xml.gz"/>
+  <timestamp>1424360886</timestamp>
+  <size>2619001</size>
+  <open-size>30766274</open-size>
+</data>
+<data type="group_gz">
+  <checksum type="sha256">7b7daed13105b6a27dd437ffc38a2c2bb408eecd3aa37024a46a360b491649b5</checksum>
+  <open-checksum type="sha256">cce874b3d6b0e560c514f2a900bafb012bbcb4a1577eedcb4bb02eaaf349032f</open-checksum>
+  <location href="repodata/7b7daed13105b6a27dd437ffc38a2c2bb408eecd3aa37024a46a360b491649b5-comps-Server.ppc64le.xml.gz"/>
+  <timestamp>1424360887</timestamp>
+  <size>135129</size>
+  <open-size>619295</open-size>
+</data>
+<data type="primary">
+  <checksum type="sha256">f956e85c9e3e5f0395a659c3e227822399cd5613762bac23ba51ca5afd896527</checksum>
+  <open-checksum type="sha256">65f737cf8185f113d818026bc05f83a8fc0ac7ea1d3e15dbf005d6858db2d8bf</open-checksum>
+  <location href="repodata/f956e85c9e3e5f0395a659c3e227822399cd5613762bac23ba51ca5afd896527-primary.xml.gz"/>
+  <timestamp>1424360886</timestamp>
+  <size>1449063</size>
+  <open-size>11339826</open-size>
+</data>
+<data type="other">
+  <checksum type="sha256">3d0c287a25d8b508c21de1b1ddc0e8df52db5261ba6b2837b67877b51ea6d0a9</checksum>
+  <open-checksum type="sha256">faf2897030232e7ce70b5a4c2c1b6480b27d39c5da7fe05dc40d2c8851931516</open-checksum>
+  <location href="repodata/3d0c287a25d8b508c21de1b1ddc0e8df52db5261ba6b2837b67877b51ea6d0a9-other.xml.gz"/>
+  <timestamp>1424360886</timestamp>
+  <size>791039</size>
+  <open-size>6331300</open-size>
+</data>
+<data type="filelists_db">
+  <checksum type="sha256">a14ace7e2a3cd57c90d6fdebfb22a71a6333322833c2f097a37858624190a0f8</checksum>
+  <open-checksum type="sha256">8678cc7a73d5a197561955cccde83d811368264a2dc47ca02bd1e9f8aa8082a7</open-checksum>
+  <location href="repodata/a14ace7e2a3cd57c90d6fdebfb22a71a6333322833c2f097a37858624190a0f8-filelists.sqlite.bz2"/>
+  <timestamp>1424360894</timestamp>
+  <database_version>10</database_version>
+  <size>2624600</size>
+  <open-size>14501888</open-size>
+</data>
+<data type="primary_db">
+  <checksum type="sha256">3513df3027c10534219a5b26dc7615a7471f7c9c7af57c1420be1d57cf7f4fbc</checksum>
+  <open-checksum type="sha256">47862142059894d4ee8739ec4af3b873d08be5da07f9d30bbf071b7d8405c99f</open-checksum>
+  <location href="repodata/3513df3027c10534219a5b26dc7615a7471f7c9c7af57c1420be1d57cf7f4fbc-primary.sqlite.bz2"/>
+  <timestamp>1424360894</timestamp>
+  <database_version>10</database_version>
+  <size>2898798</size>
+  <open-size>13274112</open-size>
+</data>
+<data type="other_db">
+  <checksum type="sha256">9f1dc60d8928d41dcbd0da525205f65fe0b0e0e8407d84c730e9f429d5c20138</checksum>
+  <open-checksum type="sha256">23cb40ac83874758cf26ba08ade85b19ba5bc585afd9f61cf23c6bdec0dac70e</open-checksum>
+  <location href="repodata/9f1dc60d8928d41dcbd0da525205f65fe0b0e0e8407d84c730e9f429d5c20138-other.sqlite.bz2"/>
+  <timestamp>1424360894</timestamp>
+  <database_version>10</database_version>
+  <size>1080411</size>
+  <open-size>5752832</open-size>
+</data>
+<data type="productid">
+  <checksum type="sha256">fa15470f047f0bea53616ed720867feaa1c72697ca7963294d89a6e4846f6c7f</checksum>
+  <open-checksum type="sha256">6e9ba4dc012ca9eda6567924e3b567530f75ded64ef88190351348614d7df2c5</open-checksum>
+  <location href="repodata/fa15470f047f0bea53616ed720867feaa1c72697ca7963294d89a6e4846f6c7f-productid.gz"/>
+  <timestamp>1424360896</timestamp>
+  <size>1633</size>
+</data>
+</repomd>
