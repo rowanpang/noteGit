@@ -16,6 +16,12 @@ filter_test_3_num := $(words pangwz pangwz1 apangwz pangwz pangwz ppangwzz pangw
 
 .PHONY: prepare0,prepare1,prepare2
 
+ifeq (X$(PWDD), Xx)
+    dirTmp = a
+else
+    dirTmp = b
+endif
+
 prepare0:
 	@echo prepare0;
 
@@ -26,7 +32,9 @@ prepare2:
 	@echo prepare2;
 
 all:built-in.o prepare0 prepare1 prepare2
-	@ echo target_v: $@ 
+	@ echo "condition dir: $(dirTmp)"
+	@ echo "curdir :$(PWD)"
+	@ echo target_v: $@
 #	@ echo CURPATH:	$(CURDIR)
 	@ echo dir CURPATH:	$(dir $(CURDIR))
 #	@ echo kbuild-dir: $(kbuild-dir)
