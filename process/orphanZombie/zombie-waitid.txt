@@ -1,0 +1,27 @@
+1,basic
+    a,16823
+	-->16824
+
+3,$ ./zombie-waitid
+    Im parent,cpid:16824
+    Im child
+    pid 16824,exit
+    after reap,child info pid:16824
+    pid 16823,exit
+
+2,note
+    a,child 16824 zombie 之后等待reap.
+	$ ps -elfH | grep zombie
+	    0 S root     16823 14734  0  80   0 -  1101 hrtime 15:34 pts/0    00:00:00       ./zombie
+	    1 Z root     16824 16823  0  80   0 -     0 -      15:34 pts/0    00:00:00         [zombie] <defunct>
+	    0 S root     16840 15999  0  80   0 - 29865 pipe_w 15:34 pts/3    00:00:00       grep --color zombie
+
+    b,zombie-waitid 自身waitid之后,child 16824 release.
+	$ ps -elfH | grep zombie
+	    0 S root     16823 14734  0  80   0 -  1101 hrtime 15:34 pts/0    00:00:00       ./zombie
+	    0 S root     16871 15999  0  80   0 - 29865 pipe_w 15:34 pts/3    00:00:00       grep --color zombie
+
+    c,parent 16823 exit
+	$ ps -elfH | grep zombie
+	    0 S root     16938 15999  0  80   0 - 29865 pipe_w 15:35 pts/3    00:00:00       grep --color zombie
+
