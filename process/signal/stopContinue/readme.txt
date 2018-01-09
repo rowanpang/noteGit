@@ -5,6 +5,7 @@
 	kill -CONT `pidof sigtstp`	#send continue signal
 
     b,result
+	仅仅是后台执行.
 	sigtstp will run in background.
 	but the stdio is not change. so still see mesg.
 
