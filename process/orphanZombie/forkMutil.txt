@@ -1,0 +1,36 @@
+3,forkMulti
+    a,father
+	-->son
+	    -->grandson
+    b,son exit, 看grandson的parent变成谁.
+    c,默认:
+	son zombie之后,grandson的parent变为了init process ,pid 1;
+	5718
+	    ->5719
+		->5720
+
+	$ ./forkMutil                                                              (master|✚1…)
+	    aeon:5718
+	    Im parent for cpid:5719
+	    Im parent for ccpid:5720
+	    Im cchild
+	    Im cchild
+	    Im cchild
+	    pid:5719,exit
+	    Im cchild
+	    Im cchild
+	    pid:5720,exit
+	    pid:5718,exit
+
+	$ ps -elfH | grep Mutil
+	    0 S root      5718 27506  0  80   0 -  1101 hrtime 14:14 pts/0    00:00:00       ./forkMutil
+	    1 S root      5719  5718  0  80   0 -  1101 hrtime 14:14 pts/0    00:00:00         ./forkMutil
+	    1 S root      5720  5719  0  80   0 -  1101 hrtime 14:14 pts/0    00:00:00           ./forkMutil
+	    0 S root      5771  5096  0  80   0 - 29865 pipe_w 14:14 pts/2    00:00:00       grep --color Mutil
+	$ ps -elfH | grep Mutil
+	    0 S root      5718 27506  0  80   0 -  1101 hrtime 14:14 pts/0    00:00:00       ./forkMutil
+	    1 Z root      5719  5718  0  80   0 -     0 -      14:14 pts/0    00:00:00         [forkMutil] <defunct>
+	    0 S root      5810  5096  0  80   0 - 29865 pipe_w 14:14 pts/2    00:00:00       grep --color Mutil
+	    1 S root      5720     1  0  80   0 -  1101 hrtime 14:14 pts/0    00:00:00   ./forkMutil
+	$ ps -elfH | grep Mutil
+	    0 S root      5952  5096  0  80   0 - 29865 pipe_w 14:15 pts/2    00:00:00       grep --color Mutil

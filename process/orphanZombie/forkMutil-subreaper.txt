@@ -1,0 +1,46 @@
+3,forkMulti-subreaper
+    a,father
+	-->son
+	    -->grandson
+    b,father 设置subreaper属性
+	prctl(PR_SET_CHILD_SUBREAPER,1);
+	son exit, 看grandson的parent变成谁.
+    c,默认:
+	设置subreaper后,son zombie之后,grandson的parent变为了aeon process 8179;
+	8179
+	    ->8181
+		->8182
+
+	$ ./forkMutil-subreaper
+	    aeon:8179
+	    Im parent for cpid:8181
+	    Im parent for ccpid:8182
+	    Im cchild
+	    Im cchild
+	    Im cchild
+	    pid:8181,exit
+	    Im cchild
+	    Im cchild
+	    pid:8182,exit
+	    pid:8179,exit
+
+	$ ps -elfH | grep Mutil
+	    0 S root      8179 27506  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00       ./forkMutil-subreaper
+	    1 S root      8181  8179  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00         ./forkMutil-subreaper
+	    1 S root      8182  8181  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00           ./forkMutil-subreaper
+	    0 S root      8207  5096  0  80   0 - 29865 pipe_w 14:35 pts/2    00:00:00       grep --color Mutil
+
+	$ ps -elfH | grep Mutil
+	    0 S root      8179 27506  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00       ./forkMutil-subreaper
+	    1 Z root      8181  8179  0  80   0 -     0 -      14:35 pts/0    00:00:00         [forkMutil-subre] <defunct>
+	    1 S root      8182  8179  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00         ./forkMutil-subreaper
+	    0 S root      8239  5096  0  80   0 - 29865 pipe_w 14:35 pts/2    00:00:00       grep --color Mutil
+
+	$ ps -elfH | grep Mutil
+	    0 S root      8179 27506  0  80   0 -  1101 hrtime 14:35 pts/0    00:00:00       ./forkMutil-subreaper
+	    1 Z root      8181  8179  0  80   0 -     0 -      14:35 pts/0    00:00:00         [forkMutil-subre] <defunct>
+	    1 Z root      8182  8179  0  80   0 -     0 -      14:35 pts/0    00:00:00         [forkMutil-subre] <defunct>
+	    0 S root      8271  5096  0  80   0 - 29865 pipe_w 14:35 pts/2    00:00:00       grep --color Mutil
+
+	$ ps -elfH | grep Mutil
+	    0 S root      8399  5096  0  80   0 - 29865 -      14:36 pts/2    00:00:00       grep --color Mutil
