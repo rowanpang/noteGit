@@ -21,6 +21,17 @@ int main(int argc,char **argv)
     int d = 3- (-1);
     int sec=0;
     printf("hello world\n");
+    printf("庞伟振\n");
+    /*庞:e5 ba 9e*/
+    printf("ch:%s\n","庞");
+    printf("ch:%d\n","庞");
+    printf("ch:%#x\n","庞");
+
+    printf("ascii:%c\n",'a');
+    printf("ascii:%d\n",'a');
+    printf("ascii:%#x\n",'a');
+    printf("ascii:%d\n","a");
+    printf("ascii:%#x\n","a");
     show("msg");
 
     int test=4;
