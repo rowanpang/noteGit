@@ -1,6 +1,9 @@
 .PHONY:all clean
 
-TARGET=zombie orphan zombie-SIGCHLD forkMutil forkMutil-subreaper
+TARGET = zombie orphan zombie-SIGCHLD forkMutil forkMutil-subreaper 	\
+	 zombie-waitid zombie-asyncWait
+
+
 
 all:$(TARGET)
 
