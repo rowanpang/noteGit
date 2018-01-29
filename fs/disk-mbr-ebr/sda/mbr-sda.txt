@@ -26,7 +26,7 @@
 00000180: 47 65 6f 6d 00 48 61 72 64 20 44 69 73 6b 00 52  Geom.Hard Disk.R
 00000190: 65 61 64 00 20 45 72 72 6f 72 0d 0a 00 bb 01 00  ead. Error......
 000001a0: b4 0e cd 10 ac 3c 00 75 f4 c3 00 00 00 00 00 00  .....<.u........
-000001b0: 00 00 00 00 00 00 00 00 93 62 3a d8 00 00 
+000001b0: 00 00 00 00 00 00 00 00 93 62 3a d8 00 00
 
 /*------primary partitions-----------*/
     /*
@@ -52,23 +52,23 @@
     *         80: bootable
     *   01 01 00: CHS address, head cylinder sector,第1磁头,第0柱面,第1扇区(第0扇区是MBR)
     *         07: partition type ntfs.
-    *   fe ff ff: CHS address for last secotr in partition, 
-    *00 00 00 3f: LBA of first absolute sector	(63)
+    *   fe ff ff: CHS address for last secotr in partition,
+    *00 00 00 3f: LBA of first absolute sector	(第63扇区开始)
     *0c 80 34 00: LBA number of secotrs		(209728512)
     */
-	    
+
 000001ce: 00 fe ff ff 0f fe ff ff 3f 34 80 0c 02 18 b8 2d		/*/dev/sda2*/
    /*
     *         00: non bootable
-    *   fe ff ff: CHS start 
+    *   fe ff ff: CHS start
     *         0f: W95 Ext'd (LBA)
     *   fe ff ff: CHS end
     *0c 80 34 3f: LBA start		    (209728575)
     *2d b8 18 02: LBA sectors numbers	    (767039490)
     */
 
-000001de: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-000001ee: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+000001de: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+000001ee: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
 /*---------------MBR signature----------*/
 000001fe: 55 aa  ..............U.
