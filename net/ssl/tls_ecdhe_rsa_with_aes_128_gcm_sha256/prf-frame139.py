@@ -90,7 +90,7 @@ def test():
         #frame 135
     pre_master_secret_hexStr = '50891929d1f6b3507dfef2416057abb452116d5210c91a2d1c6b2ac4e9df23eeba718ac6b9bd5506479dd99b7585c983'
     pre_master_secret = bytes.fromhex(pre_master_secret_hexStr)
-        #from ./firefox-sslkey.log
+        #from ./firefox-sslkey.log is master_secret
 
     length = 48
     if len(pre_master_secret) == length:
@@ -170,11 +170,21 @@ def test():
     plaintext = binascii.unhexlify(plainhexStr)
         #from wireshark after import ./.firefox-sslkey.log
 
+    # frame139
+    # Ciphertext[40]:
+    # | 00 00 00 00 00 00 00 00 2b 83 0d 98 5e c2 81 6e |........+...^..n|
+    # | bd 6d e8 92 bf d3 b4 08 da e0 2d ee a4 aa 98 f1 |.m........-.....|
+    # | 8d 48 77 62 fd 72 24 a6                         |.Hwb.r$.        |
+    # ssl_decrypt_record: allocating 72 bytes for decrypt data (old len 32)
+    # Plaintext[32]:
+    # | 14 00 00 0c 4b b5 c7 8b 0c 01 d6 95 18 0f 5e a4 |....K.........^.|
+    # | a5 f0 cf 18 da 34 6b 5c f9 4b 0e 6b a2 15 f1 6e |.....4k\.K.k...n|
+
     # 1603030028                                #record head
     # 0000000000000000                          #explicit nonce
     # 2b830d985ec2816ebd6de892bfd3b408          #cip
     # dae02deea4aa98f18d487762fd7224a6          #tag
-        #from fram139
+
     nonceExplicithexStr = '0000000000000000'    #8bytes
     nonceCounter = ''
     nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr) + bytes.fromhex(nonceCounter)

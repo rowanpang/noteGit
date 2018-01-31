@@ -46,29 +46,67 @@ def decrypt(key, associated_data, iv, ciphertext, tag):
     # If the tag does not match an InvalidTag exception will be raised.
     return decryptor.update(ciphertext) + decryptor.finalize()
 
-key='t' * 16
-swkhexStr = '386bb729928e9471a590e87490c29c36'
-swihexStr = '6a12a0193df575107859644dda80478c'
+#from frame139
+# 1603030028                                #record head
+# 0000000000000000                          #explicit nonce
+# 2b830d985ec2816ebd6de892bfd3b408          #cip
+# dae02deea4aa98f18d487762fd7224a6          #tag
+
+#1 swk/swi
+swkhexStr = '5e51e695f1dfd68e362c1db2400342e0'
+swihexStr = 'e2c3e5c0'
 server_write_key = binascii.unhexlify(swkhexStr)
 server_write_iv = binascii.unhexlify(swihexStr)
 
-# 1603030028
-# 00000000000000002b830d985ec2816ebd
-# 6de892bfd3b408dae0
-# 2deea4aa98f18d487762fd7224a6
-nonceExplicithexStr = '6de892bfd3b408dae0'
-nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr)
-print('nce: ' + binascii.hexlify(nonce))
+cipherHexStr = '2b830d985ec2816ebd6de892bfd3b408'
+cipherHex = binascii.unhexlify(cipherHexStr)
 
-seq_num = 'f7360d5c'
+#2 associated data
+seq_num = '0000000000000000'
 tlsCompressedType = '16'
 tlsCompressedVersion = '0303'
-tlsCompressedLength = '0028'
+tlsCompressedLength = '%04x' %(len(cipherHex))
 additionalStr = seq_num +                   \
                 tlsCompressedType +         \
                 tlsCompressedVersion +      \
                 tlsCompressedLength
 additionalData = binascii.unhexlify(additionalStr)
+
+#3 iv,nonce
+nonceExplicithexStr = '6de892bfd3b408dae0'
+nonceExplicithexStr = '0000000000000000'
+nonce = server_write_iv[:4] + binascii.unhexlify(nonceExplicithexStr)
+iv = nonce
+
+#4 ciphertext
+ciphertext = cipherHex
+
+#5 tag
+taghexStr = 'dae02deea4aa98f18d487762fd7224a6'
+tag = binascii.unhexlify(taghexStr)
+
+print '------------ssl frame139 record info---------------------'
+print 'nceLen:',len(nonce)
+print 'iv/nce: ' + binascii.hexlify(nonce)
+print '   add:' ,additionalStr
+print '   cip:' ,cipherHexStr
+print '   tag:' ,taghexStr
+
+
+print
+print('------------decrypt---------------------')
+plaintext = decrypt(
+            server_write_key,
+            additionalData,
+            iv,
+            ciphertext,
+            tag
+        )
+print 'plain:',binascii.hexlify(plaintext)
+print 'ptLen:',len(plaintext)
+
+print
+print('------------encrypt---------------------')
 
 plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
 plaintext = binascii.unhexlify(plainhexStr)
@@ -79,17 +117,6 @@ iv, ciphertext, tag = encrypt(
                         additionalData,
                         nonce
                     )
-
-print('tag: ' + binascii.hexlify(tag))
 print(' iv: ' + binascii.hexlify(iv))
 print('cip: ' + binascii.hexlify(ciphertext))
-
-print('-----decrypt-----')
-plaintext = decrypt(
-            server_write_key,
-            additionalData,
-            iv,
-            ciphertext,
-            tag
-        )
-print binascii.hexlify(plaintext)
+print('tag: ' + binascii.hexlify(tag))
