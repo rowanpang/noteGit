@@ -7,4 +7,5 @@ AC_CONFIG_FILES([
     Makefile
     src/Makefile
 ])
+AX_CHECK_OPENSSL([AC_DEFINE(HAVE_OPENSSL,1,'if exit')])
 AC_OUTPUT
