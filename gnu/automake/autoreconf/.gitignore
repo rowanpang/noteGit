@@ -1,0 +1,8 @@
+Makefile*
+!Makefile.am
+autom4te.cache
+aclocal.m4
+build-aux
+config.*
+configure
+stamp-h1
