@@ -3,39 +3,67 @@
 #include<openssl/evp.h>
 #include<openssl/hmac.h>
 
+int prf(unsigned char* key,unsigned char *seed,char seedlen,
+	unsigned char *out,char outlen)
+{
+    int ret = 0;
+
+    int outTmpLen = 0;
+    unsigned char *outTmp;
+
+    unsigned char seedTmp[EVP_MAX_MD_SIZE];
+    char seedTmpLen;
+    unsigned int hlen;
+    unsigned char *hret;
+
+    outTmp = malloc(outlen+EVP_MAX_MD_SIZE);
+    memset(outTmp,0,outlen);
+
+    seedTmpLen = (seedlen < EVP_MAX_MD_SIZE) ? seedlen : EVP_MAX_MD_SIZE;
+    memcpy(seedTmp,seed,seedTmpLen);
+
+    while(1){
+	hret = HMAC(EVP_sha256(),key,strlen((char*)key),seedTmp,seedTmpLen,NULL,&hlen);
+	memcpy(outTmp+outTmpLen,hret,hlen);
+	outTmpLen += hlen;
+	if( outTmpLen >= outlen){
+	    break;
+	}
+
+	memcpy(seedTmp,hret,hlen);
+    }
+
+    printf("len need:%d,gen:%d\n",outlen,outTmpLen);
+
+    memcpy(out,outTmp,outlen);
+    free(outTmp);
+
+    return ret;
+}
+
 int main(int argc,char** argv)
 {
     int ret;
     char *key = "keyforhmac";
     char *msg = "msg-for-hmac-sha256";
-    unsigned char hmac[EVP_MAX_MD_SIZE];
-    unsigned int hmacLen;
-    unsigned char *hret;
 
-    unsigned kd[128];
-    int kdTmpLen=0;
+    int kdLen = 70;
+    unsigned char *kd;
 
-    EVP_MD const *hash = EVP_sha256();
-
+    kd = malloc(kdLen);
     printf("max hash size in byt:%d\n",EVP_MAX_MD_SIZE);
-    printf("as \"echo -n '%s' | sha256hmac -K '%s' -\"\n",msg,key);
 
-    hret = HMAC(hash,key,strlen(key),(unsigned char*)msg,strlen(msg),hmac,&hmacLen);
-    hret = hret;
-	/*hret also point to the hmac value,a static arrary*/
+    ret = prf((unsigned char*)key,(unsigned char*)msg,strlen(msg),kd,kdLen);
 
-    printf("hmacLen:%d,val in hex:\n",hmacLen);
-    for(int i=0; i<hmacLen; i++){
-	/*printf("%02x,%02x ",hmac[i],hret[i]);*/
-	printf("%02x ",hmac[i]);
-	if (i && (i+1)%16 == 0){
-	    putchar('\n');
+    printf("key derivatioin:\n");
+    for(int i=0; i<kdLen; i++){
+	printf("%02x ",kd[i]);
+	if (i && ((i+1)&0xf) == 0){
+	    printf("\n");
 	}
     }
 
-    memcpy(kd+kdTmpLen,hmac,hmacLen);
-    kdTmpLen += hmacLen;
-
+    free(kd);
     ret = 0;
     return ret;
 }
