@@ -86,7 +86,7 @@ def TLSv1_2_PRF(outlen, secret, label, seed, h):
     return p_hash(h, outlen, secret, label + seed)
 
 def prfTest():
-    out = TLSv1_2_PRF(65,
+    out = TLSv1_2_PRF(70,
                 bytes('keyforhmac','ASCII'),
                 'msg-for-hmac-sha256',
                 bytes('','ASCII'),hashlib.sha256)
