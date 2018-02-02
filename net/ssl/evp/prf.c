@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 #include<openssl/evp.h>
 #include<openssl/hmac.h>
@@ -73,6 +74,10 @@ int main(int argc,char** argv)
 
     int kdLen = 61;
     unsigned char *kd;
+
+    if (argc > 1){
+	kdLen = atoi(argv[1]);
+    }
 
     kd = malloc(kdLen);
     printf("max hash size in byt:%d\n",EVP_MAX_MD_SIZE);
