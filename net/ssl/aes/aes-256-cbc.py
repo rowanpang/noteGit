@@ -51,6 +51,8 @@ def aes256cfb(pwd):
 
 def aes256cbc(pwd):
     key,iv = EVP_BytesToKey(pwd,32,16)
+    print 'keyorg:',pwd
+    print 'key256:',binascii.hexlify(key)
     algorithm = algorithms.AES(key)
     mode = modes.CBC(iv)
 
