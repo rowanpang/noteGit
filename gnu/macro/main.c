@@ -3,6 +3,7 @@
 #include<string.h>
 #include<limits.h>
 #include<unistd.h>
+#include<arpa/inet.h>
 
 //pangwz
 //	if arg... is none,'##'remove the pre ',',so dprintf("---\n") is ok!!! and '..,st' is also ok!!!
@@ -45,6 +46,11 @@ int main(int argc,char** argv)
     char *p=NULL;
     p = realpath(argv[1],&realPath_l[0]);
     printf("p:%p, path:%s , realPath:%s\n",p,argv[1],realPath_l);
+
+
+    unsigned int a = 0x12345678;
+    /*for network is MSB if host is LSB just do swap */
+    printf("a:%#x,ntohl(a):%#x,htonl(a):%#x\n",a,ntohl(a),htonl(a));
 
     return 0;
 }
