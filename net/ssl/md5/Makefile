@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=pf hmac digest
+TARGETS=md5
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
