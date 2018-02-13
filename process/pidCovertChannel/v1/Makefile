@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=main
+TARGETS=send recive
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
