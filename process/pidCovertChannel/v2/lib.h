@@ -296,7 +296,7 @@ void synchronize(int sender)
 	    break;
 	}
 
-        msleep(300);
+        sleep(1);
         start = time(NULL);
     }
 

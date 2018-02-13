@@ -16,11 +16,18 @@
 int main(int argc, char *argv[])
 {
     int ret;
+    int cnt = 0;
 
     about();
     synchronize(1);
     while(1){
-	send(1);
+	if(cnt & 0x01){
+	    send(1);
+	}else{
+	    send(0);
+	}
+
+	cnt++;
     }
 
     ret = 0;
