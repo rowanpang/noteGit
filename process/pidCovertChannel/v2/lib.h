@@ -12,39 +12,41 @@
 #include <sys/wait.h>
 
 /*
- *                             lowRebase 50%
- *                bits  3s    |
- *             +-----------+  |  +-----------+
- *             |stable ^ af|  V  |           |
- *sync end|----+       |   +-----+           +-----
- *                     |    low 2s
- *                   sample
+ *            TIME_TO_SAMPLE
+ *                 |
+ *                 |   TIME_TO_REBASE
+ *                 V       |
+ *               -----     |    ------
+ *              /    ^\    V   /      \
+ *sync end|----/     | \------/        \----
+ *             ^     |
+ *             |  TIME_CHILD_EXIT
+ *             |
+ *        TIME_TO_FORK
  */
+
 //in ms
-#define CYCLE 1000
-#define CYCLE_REBASE_RATE 40
-#define CYCLE_REBASE	(CYCLE*CYCLE_REBASE_RATE/100)
+#define TIME_TO_LOW	0
+#define TIME_TO_FORK	20
+#define TIME_TO_SAMPLE	60
+#define TIME_CHILD_EXIT	70
+#define TIME_TO_REBASE	90
+
 
 #define SAMP_STABLE_RATE 60	//60%
 #define	REBASE_WAIT_RATE 50
 
-#define CYCLE_BITS	(CYCLE - CYCLE_REBASE)
-#define CYCLE_BITS_FORK (CYCLE_BITS - differtime)
-#define SAMP_STABLE	((CYCLE_BITS+1)*SAMP_STABLE_RATE/100)
-#define SAMP_AFTER	(CYCLE_BITS - SAMP_STABLE)
-
-#define REBASE_WAIT ((CYCLE_REBASE+1)*SAMP_STABLE_RATE/100)
-#define REBASE_AFTER (CYCLE_REBASE - REBASE_WAIT)
-
+#define CYCLE_BITS	(TIME_CHILD_EXIT - TIME_TO_FORK)
+int differtime;
+/* fork ctx time
+ *100 5~8ms
+ *272 13~15ms
+ */
+#define CYCLE_BITS_FORK (CYCLE_BITS)
 
 int pcntBase;
-int differtime;
 #define TOFORK_RATE	100	//100%
 #define TOFORK	(pcntBase?(pcntBase*TOFORK_RATE/100):100)
-    /* fork ctx time
-     *100 5~8ms
-     *272 13~15ms
-     */
 #define DELTA_RATE 10	//20%
 #define DELTA	((TOFORK+1)*DELTA_RATE/100)
 
@@ -106,13 +108,34 @@ fail:
     return ret;
 }
 
+int waitfor(int point)
+{
+    struct timespec tp;
+    int now;
+    int delta = 3;
+    int ret;
+
+    clockid_t clkid = CLOCK_REALTIME;
+    ret = clock_gettime(clkid,&tp);
+    now = (tp.tv_nsec/1000000)%100;
+    while(1){
+	if(point <= now && now < point + delta){
+	    break;
+	}
+	msleep(1);
+	ret = clock_gettime(clkid,&tp);
+	now = (tp.tv_nsec/1000000)%100;
+    }
+
+    return ret;
+}
+
 int lowRebase()
 {
-    int cnt;
-    msleep(REBASE_WAIT);
-    cnt = psCnt();
-    msleep(REBASE_AFTER);
-    return cnt;
+    int ret;
+    waitfor(TIME_TO_REBASE);
+    ret = psCnt();
+    return ret;
 }
 
 
@@ -120,6 +143,8 @@ int bitSend(char bit,int cldSleep){
     int ret;
     int i=0;
     pid_t cpid;
+
+    waitfor(TIME_TO_FORK);
 
     if(bit){
 	for (i = 0; i < TOFORK; ++i) {
@@ -140,7 +165,6 @@ int bitSend(char bit,int cldSleep){
 	wait(NULL);
 	i--;
     }
-    /*msleep(CYCLE_BITS);*/
 
     ret = 0;
 FAIL:
@@ -161,11 +185,33 @@ int timebase()
     struct timespec tp1,tp2;
     clockid_t clkid = CLOCK_REALTIME;
     int differ;
+    int bit = 1;
+    int i;
+    pid_t cpid;
 
     pcntBase = lowRebase();
 
     ret = clock_gettime(clkid,&tp1);
-    bitSend(1,CYCLE_BITS);
+    if(bit){
+	for (i = 0; i < TOFORK; ++i) {
+	    cpid = fork();
+	    if(cpid < 0){
+		fprintf(stderr,"regcomp error: %s\n",strerror(errno));
+		ret = -1;
+		goto FAIL;
+	    }else if(cpid ==0){ /*child*/
+		msleep(CYCLE_BITS);
+		exit(0);
+	    }
+	}
+    }else{
+	msleep(CYCLE_BITS);
+    }
+    while(i && bit){
+	wait(NULL);
+	i--;
+    }
+
     ret = clock_gettime(clkid,&tp2);
 
 
@@ -178,25 +224,47 @@ int timebase()
     printf("differ:%d\n",differ-CYCLE_BITS);
 
     ret = differ-CYCLE_BITS;
+
+FAIL:
     return ret;
 }
 
 void about()
 {
 
-    printf("CYCLE,%d\n",CYCLE);
-    printf("CYCLE_BITS,%d\n",CYCLE_BITS);
-    printf("REBASE_WAIT,%d\n",REBASE_WAIT);
-    printf("REBASE_AFTER,%d\n",REBASE_AFTER);
-    printf("SAMP_STABLE,%d\n",SAMP_STABLE);
 }
 
 int bitDetect()
 {
     int cntSmp,cntBase=pcntBase;
-    msleep(SAMP_STABLE);
+    int ret;
+
+    struct timespec tp;
+    int now;
+    clockid_t clkid = CLOCK_REALTIME;
+    ret = clock_gettime(clkid,&tp);
+    now = (tp.tv_nsec/1000000)%100;
+    while(1){
+	if(TIME_TO_SAMPLE <= now && now < TIME_TO_SAMPLE + 3){
+	    break;
+	}
+	msleep(1);
+	ret = clock_gettime(clkid,&tp);
+	now = (tp.tv_nsec/1000000)%100;
+    }
+
     cntSmp = psCnt();
-    msleep(SAMP_AFTER);
+
+    ret = clock_gettime(clkid,&tp);
+    now = (tp.tv_nsec/1000000)%100;
+    while(1){
+	if(TIME_CHILD_EXIT<= now && now < TIME_CHILD_EXIT+ 3){
+	    break;
+	}
+	msleep(1);
+	ret = clock_gettime(clkid,&tp);
+	now = (tp.tv_nsec/1000000)%100;
+    }
 
     printf("base:%d,sample:%d,delta:%d,tofork:%d\n",cntBase,cntSmp,DELTA,TOFORK);
 
@@ -205,6 +273,7 @@ int bitDetect()
     }
 
     return 0;
+    return ret;
 }
 
 int recive(){
@@ -231,6 +300,6 @@ void synchronize(int sender)
         start = time(NULL);
     }
 
-    differtime =  timebase();
+    differtime = timebase();
     printf("--------------Synchronizing ok, %ld ...\n",start);
 }
