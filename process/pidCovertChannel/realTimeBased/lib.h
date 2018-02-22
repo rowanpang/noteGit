@@ -114,6 +114,7 @@ int waitfor(int point)
     int now;
     int deltal = 3,deltar = 3;
     int ret;
+    clockid_t clkid = CLOCK_REALTIME;
 
     switch(point){
 	case TIME_TO_SAMPLE:
@@ -123,7 +124,6 @@ int waitfor(int point)
 	    break;
     }
 
-    clockid_t clkid = CLOCK_REALTIME;
     ret = clock_gettime(clkid,&tp);
     now = (tp.tv_nsec/1000000)%100;
     while(1){
@@ -281,10 +281,10 @@ void synchronize(int sender)
 	    break;
 	}
 
-        sleep(1);
+        msleep(1);
         start = time(NULL);
     }
 
-    differtime = timebase();
+    //differtime = timebase();
     printf("--------------Synchronizing ok, %ld ...\n",start);
 }
