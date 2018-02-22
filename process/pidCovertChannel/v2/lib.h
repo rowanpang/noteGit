@@ -47,8 +47,8 @@ int differtime;
 int pcntBase;
 #define TOFORK_RATE	100	//100%
 #define TOFORK	(pcntBase?(pcntBase*TOFORK_RATE/100):100)
-#define DELTA_RATE 10	//20%
-#define DELTA	((TOFORK+1)*DELTA_RATE/100)
+#define TOFORK_DELTA_RATE 10	//20%
+#define TOFORK_DELTA	((TOFORK+1)*TOFORK_DELTA_RATE/100)
 
 int msleep(int ms)
 {
@@ -112,14 +112,22 @@ int waitfor(int point)
 {
     struct timespec tp;
     int now;
-    int delta = 3;
+    int deltal = 3,deltar = 3;
     int ret;
+
+    switch(point){
+	case TIME_TO_SAMPLE:
+	    deltal = 0;
+	    break;
+	default:
+	    break;
+    }
 
     clockid_t clkid = CLOCK_REALTIME;
     ret = clock_gettime(clkid,&tp);
     now = (tp.tv_nsec/1000000)%100;
     while(1){
-	if(point <= now && now < point + delta){
+	if(point - deltal < now && now < point + deltar){
 	    break;
 	}
 	msleep(1);
@@ -161,7 +169,7 @@ int bitSend(char bit,int cldSleep){
     }else{
 	msleep(CYCLE_BITS);
     }
-    while(i && bit){
+    while(bit && i){
 	wait(NULL);
 	i--;
     }
@@ -239,36 +247,13 @@ int bitDetect()
     int cntSmp,cntBase=pcntBase;
     int ret;
 
-    struct timespec tp;
-    int now;
-    clockid_t clkid = CLOCK_REALTIME;
-    ret = clock_gettime(clkid,&tp);
-    now = (tp.tv_nsec/1000000)%100;
-    while(1){
-	if(TIME_TO_SAMPLE <= now && now < TIME_TO_SAMPLE + 3){
-	    break;
-	}
-	msleep(1);
-	ret = clock_gettime(clkid,&tp);
-	now = (tp.tv_nsec/1000000)%100;
-    }
-
+    waitfor(TIME_TO_SAMPLE);
     cntSmp = psCnt();
+    waitfor(TIME_CHILD_EXIT);
 
-    ret = clock_gettime(clkid,&tp);
-    now = (tp.tv_nsec/1000000)%100;
-    while(1){
-	if(TIME_CHILD_EXIT<= now && now < TIME_CHILD_EXIT+ 3){
-	    break;
-	}
-	msleep(1);
-	ret = clock_gettime(clkid,&tp);
-	now = (tp.tv_nsec/1000000)%100;
-    }
+    printf("base:%d,sample:%d,delta:%d,tofork:%d\n",cntBase,cntSmp,TOFORK_DELTA,TOFORK);
 
-    printf("base:%d,sample:%d,delta:%d,tofork:%d\n",cntBase,cntSmp,DELTA,TOFORK);
-
-    if(abs(cntSmp-cntBase)+DELTA > TOFORK){
+    if(abs(cntSmp-cntBase)+TOFORK_DELTA > TOFORK){
 	return 1;
     }
 
