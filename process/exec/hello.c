@@ -9,9 +9,13 @@ void show(char* msg)
 char *msg="pagnwz";
 int main(int argc,char **argv)
 {
-    printf("hello world\n");
-    show("msg");
-    fflush(stdout);
-    sleep(10);
+    /*change to linebuf mode,so no need fource flush*/
+    setlinebuf(stdout);
+    printf("hello world,sleep 3\n");
+    /*fflush(stdout);*/
+    sleep(3);
+    show("sleep 2 seconds");
+    /*fflush(stdout);*/
+    sleep(2);
     return 0;
 }
