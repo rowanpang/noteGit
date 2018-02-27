@@ -11,8 +11,13 @@ function fun(){
 
 function _fun(){
     fun zz bb
+
     for char in {1..4};do
 	echo $char
+    done
+
+    for (( i = 0; i < 10; i++ )); do
+	echo $i
     done
 }
 
