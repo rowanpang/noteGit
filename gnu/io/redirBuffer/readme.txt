@@ -3,20 +3,23 @@
 	./main			#stdio 为终端 文件. 'linux 一切皆文件'.
 	./main | tee /dev/null	#stdio 为pipe 文件.
 
+	./main linbuf | tee /dev/null		    #argc=2
+	./main linbuf nonbuf | tee /dev/null	    #argc=3
+
     b,针对 全缓冲,行缓冲,无缓冲 解释.
 	1),这是fopen(xx),等libc api提供的机制.
 	2),对于unistd的write() .. 等posix系统调用不适用(这些没有缓存机制.)
-    
-    c,结论: 
-	对于glibc default 
+
+    c,结论:
+	对于glibc default
 	    stdin is always buffered
 	    stderr is always unbuffered
-	    stdout 
-		if is a terminal then 
-		    buffering is automatically set to line buffered, 
-		else 
+	    stdout
+		if is a terminal then
+		    buffering is automatically set to line buffered,
+		else
 		    it is set to buffered
-	对于直接使用write 等系统调用
+	对于直接使用write 等系统调用,不管是否有重定向
 	    直接输出,无缓冲设置.
 
 2,./main
@@ -26,7 +29,7 @@
 	--------fwrite stdout \n------
 	--------fwrite stderr 1----------------------fwrite stderr \n------
 	;4
-	    ******************rowan 注释, 等待结束输出*************
+	    ******************rowan 注释, 等待程序退出*************
 	-------p-------print ------------fwrite stdout 1--------------fw
 
     b,分析:
@@ -46,11 +49,11 @@
 	--------fwrite stderr 1----------------------fwrite stderr \n------
 	;4------write with \n---
 	------------write 1--------------wr------write 2---------------p
-	    ******************rowan 注释, 等待结束输出*************
+	    ******************rowan 注释, 等待程序退出*************
 	-------print \n----
 	--------fwrite stdout \n------
 	-------p-------print ------------fwrite stdout 1--------------fw
 
     b,分析:
 	1),立即输出的只有write(x, x\n) fwrite(stderr x, x\n)
-	2),对于非终端stdout 都会缓冲输出,全缓冲.
+	2),对于非终端stdout,glibc相关调用都会缓冲输出,全缓冲.
