@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=server
+TARGETS=server client
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)

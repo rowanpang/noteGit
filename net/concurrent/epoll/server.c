@@ -20,6 +20,7 @@
 #define EVENTPERPOLL	10
 #define LISTENPORT	8080
 #define LINELEN		128
+int totalCl=0;
 
 int handleClient(struct epoll_event ev)
 {
@@ -27,7 +28,7 @@ int handleClient(struct epoll_event ev)
     int ret;
     char line[LINELEN];
 
-    printf("handleClient:%d,fd:%d\n",ev.events,ev.data.fd );
+    printf("handleClient:evt:%d,fd:%d\n",ev.events,ev.data.fd );
 
     bzero(line,sizeof(line));
     if(ev.events & EPOLLIN){
@@ -36,13 +37,15 @@ int handleClient(struct epoll_event ev)
 	ret = read(sockfd,line,LINELEN);
 	if(ret < 0){
 	    if(errno == ECONNRESET){
+		totalCl--;
 		close(sockfd);
 	    }
 	}else if(ret == 0){
 	    /*child exit or finished*/
+	    totalCl--;
 	    close(sockfd);
 	}else{
-	    printf("received data:%d, %s\n",ret, line);
+	    printf("    received data len:%d,%s\n",ret, line);
 	}
 
 	bzero(line,sizeof(line));
@@ -52,6 +55,7 @@ int handleClient(struct epoll_event ev)
 
     return 0;
 }
+
 int main(int argc, char *argv[])
 {
     int ret;
@@ -61,7 +65,6 @@ int main(int argc, char *argv[])
     int i;
     socklen_t addrlen;
 
-    int totalCl=0;
 
     struct epoll_event evtmp,evpoll[EVENTPERPOLL];
 
@@ -114,6 +117,7 @@ int main(int argc, char *argv[])
 	    ret = -5;
 	    goto epollError;
 	}
+	printf("epoll nfds:%d\n",nfds);
 
 	for (i = 0; i < nfds; ++i) {
 	    if(evpoll[i].data.fd == lsenfd){
@@ -140,8 +144,9 @@ int main(int argc, char *argv[])
 	    }else {
 		handleClient(evpoll[i]);
 	    }
-
 	}
+
+	printf("\n");
     }
 
 
