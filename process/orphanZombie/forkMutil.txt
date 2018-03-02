@@ -3,13 +3,13 @@
 	-->son
 	    -->grandson
     b,son exit, 看grandson的parent变成谁.
-    c,默认:
+    c,结果:
 	son zombie之后,grandson的parent变为了init process ,pid 1;
 	5718
 	    ->5719
 		->5720
 
-	$ ./forkMutil                                                              (master|✚1…)
+	$ ./forkMutil
 	    aeon:5718
 	    Im parent for cpid:5719
 	    Im parent for ccpid:5720
