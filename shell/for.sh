@@ -19,6 +19,10 @@ function _fun(){
     for (( i = 0; i < 10; i++ )); do
 	echo $i
     done
+
+    for i in `seq 1 1024`; do
+	echo > /proc/self/mem &
+    done
 }
 
 _fun
