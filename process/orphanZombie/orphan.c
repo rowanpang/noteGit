@@ -11,6 +11,9 @@ int doChild()
 	sleep(1);
     }
     i = read(0,buf,10);
+    /*
+     *will case EIO error,for bg process read terminal
+     */
     if(i == -1){
 	perror("read error");
     }else{
