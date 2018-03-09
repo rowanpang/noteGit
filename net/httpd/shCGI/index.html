@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <meta charset="utf8">
+    <head>
+	<title> shell cgi test </title>
+    </head>
+
+    <body>
+	<h1> SHELL CGI TEST </h1>
+	<a href="helloLocal.sh"> cgi sh</a>
+	</p>
+	<a href="helloNormal.sh">willError</a>
+
+	<form action="/cgi-bin/hello.sh">
+	HostName:<input name="host">
+	<input type=submit value="submit">
+	</form>
+
+	</p>
+	<form action="helloLocal.sh">
+	HostName2:<input name="host">
+	<input type=submit value="submit">
+	</form>
+    </body>
+
+
+</html>
