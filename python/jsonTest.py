@@ -13,7 +13,7 @@ print repDict['DeviceID']
 ret0={}
 ret1={}
 ret2={}
-l = []                                                                              
+l = []
 ret0["a"] = "Aaaaaaaa"
 ret0['b'] = 'Abbbbbbb'
 ret0['c'] =  13333333
@@ -22,7 +22,7 @@ l.append(ret0)
 ret1["a"] = "Baaaaaaa"
 ret1['b'] = 'Bbbbbbbb'
 ret1['c'] =  23333333
-l.append(ret0)
+l.append(ret1)
 
 print l
 

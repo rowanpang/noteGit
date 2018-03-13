@@ -5,16 +5,17 @@ import os
 import os.path
 import re
 
-rootdir =  '/home/pangwz/Downloads'                                 
+rootdir =  '/home/pangwz/Downloads'
+rootdir =  '/root/Downloads'
 
-# for parent,dirnames,filenames in os.walk(rootdir):  
-    # for dirname in  dirnames:                      
+# for parent,dirnames,filenames in os.walk(rootdir):
+    # for dirname in  dirnames:
         # print "parent is:" + parent
         # print  "dirname is" + dirname
-    # for filename in filenames:                    
+    # for filename in filenames:
         # print "parent is:" + parent
         # print "filename is:" + filename
-        # print "the full name of the file is:" + os.path.join(parent,filename) 
+        # print "the full name of the file is:" + os.path.join(parent,filename)
 
 #len('我') = 3,utf8中文为3个字节编码.
 def findChineses(u8str):
@@ -61,13 +62,14 @@ def myAlign2(un_align_str, length=0, addin=' '):
     numchn = len(chn)
     numsp = length - strlen + numchn      # 填充半角字符的的个数
         #+numchn,是补齐一个utf8 中文字符比起len()少占了一个.
+        #len('庞'.utf8)==3,但是输出只占2位.
     str = addin * numsp                   # 生成填充字符串
 
     return str                            # 返回填充的字符串
 
 for f in os.listdir(rootdir):
     # print '%s is dir: %s' %((f+myAlign(f,22,10)), True if os.path.isdir('%s/%s' %(rootdir,f)) else False)
-    print '%s is dir: %s' %((f+myAlign2(f,24)), os.path.isdir('%s/%s' %(rootdir,f)))
+    print '%s is dir: %s' %((myAlign2(f,24)), os.path.isdir('%s/%s' %(rootdir,f)))
     #这里的’23‘在输出时按照pad = 23 - len(str) 计算,
     #因为utf8下len('庞')==3,但是输出只占2,所以出现对齐问题.
     # print '%-23s is dir: %s' %((f), os.path.isdir('%s/%s' %(rootdir,f)))
