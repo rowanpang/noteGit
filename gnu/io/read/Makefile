@@ -1,10 +1,10 @@
 .PHONY:all
-all:read
+all:read readMore
 
 %:%.c
 	@gcc -g $< -o $@
 
 .PHONY:clean
 clean:
-	@rm read
+	@rm read readMore
 
