@@ -5,6 +5,7 @@
 
 2,justSleep.c
     a,wakeup it and process SIGINT
+    b,kill -INT `pid`
 
 3,pthread.c
     a,ctrl + c,唤醒并退出所有的thread.
