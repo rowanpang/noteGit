@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static int showHello(void)
+{
+    printf("hello\n");
+}
+
 void show(char* msg)
 {
     printf("%s\n",msg);
@@ -10,6 +15,7 @@ void show(char* msg)
 int argTest(int a[3]){
     a[1] = 2;
     return 1;
+    showHello();
 }
 
 char *msg="pagnwz";
