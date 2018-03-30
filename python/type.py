@@ -4,6 +4,7 @@
 print '--------list----------'
 l = []
 l.append(['a','b'])
+l.append(('a','b'))
 l.append('cd')
 l.append(['e'])
 l.append('f')
@@ -40,7 +41,7 @@ a = [ 'abc=lalalla', 'appa=kdkdkdkd', 'kkakaka=oeoeoeo']
 print [s.split('=') for s in a]
 for s in a:
     l=[]
-    # print s.split('=') 
+    # print s.split('=')
     l.append(s.split('='))
     print dict(l)
 

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 # sort 比较的是obj.inter()得到的list.
 # 所以，对collections sorted 的返回结果为key ref ./collections.py
 L = [('b',4),('a',3),('c',1),('d',2)]
