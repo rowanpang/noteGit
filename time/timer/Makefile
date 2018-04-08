@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=tick
+TARGETS=tick procFind
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
