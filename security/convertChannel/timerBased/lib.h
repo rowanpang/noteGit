@@ -274,13 +274,17 @@ int bitDetect()
 			//printf("%ld,%ld\n",soft,expire);
 			if((soft/NSEC_PER_SEC)/100 >= TIMER_INDENTIFY/100){
 			    /*
-			     *此处忽略了timer设置时的soft上＋的'now'值, soft人为设置为'1<<30'
+			     *此处忽略了timer设置时的soft上＋的'now'值,
+			     *    soft人为设置为'1<<30'
 			     *    大概为34年,忽略了系统连续运行的一小段时间.
-			     *如果要精确,则应将hrtimer模式更换为ABS,同时设置一个未来的绝对时间
+			     *如果要精确,则应
+			     *    将hrtimer模式更换为ABS,同时
+			     *    设置一个未来的绝对时间
 			     */
 
 			    /*
-			     *comme here got timer delay for TIMER_INDENTIFY,belong to cpuid->clkid.
+			     *comme here got timer delay for TIMER_INDENTIFY,
+			     *belong to cpuid->clkid.
 			     */
 			    //printf("got break\n");
 			    ret += 1;

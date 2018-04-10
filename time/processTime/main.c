@@ -11,6 +11,7 @@ int main(int argc,char** argv)
     struct tms inbuf,outbuf;
     struct timespec tp;
     clockid_t clkid = CLOCK_REALTIME;
+    /*clkid = CLOCK_MONOTONIC;*/
 
     ret = clock_getres(clkid,&tp);
     printf("res sec:nsec,%ld:%ld\n",tp.tv_sec,tp.tv_nsec);
