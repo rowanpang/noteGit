@@ -6,23 +6,26 @@ int sortUp(int *ary,int n)
 
     for (j = 1; j < n; j++) {
 	tmp = ary[j];
-	i = j;
-
-	while(i--){
-	    if(ary[i] < tmp){
-		break;
-	    }
-	    ary[i+1] = ary[i];
-	}
-	ary[i+1] = tmp;
 
 	/*
-	 *while(ary[i-1] > tmp && i){
-	 *    ary[i] = ary[i-1];
-	 *    i--;
+	 *i = j;
+	 *Not stability for order changed!!! ref
+	 *    https://www.geeksforgeeks.org/stability-in-sorting-algorithms/
+	 *while(i--){
+	 *    if(ary[i] < tmp){
+	 *        break;
+	 *    }
+	 *    ary[i+1] = ary[i];
 	 *}
-	 *ary[i] = tmp;
+	 *ary[i+1] = tmp;
 	 */
+
+	i = j-1;
+	while(i>=0 && ary[i] > tmp){
+	    ary[i+1] = ary[i];
+	    i--;
+	}
+	ary[i+1] = tmp;
     }
 
     return 0;
