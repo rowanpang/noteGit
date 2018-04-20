@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=insert
+TARGETS=insert merge
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
