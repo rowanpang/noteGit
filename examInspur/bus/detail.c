@@ -3,12 +3,10 @@
 #include <strings.h>
 #include <string.h>
 
-typedef unsigned int UINT;
-
 struct PointPeople{
-    UINT n;
-    UINT m;
-    UINT nuPeople;
+    int n;
+    int m;
+    int nuPeople;
 };
 struct PointPeople *PP = NULL;
 
@@ -23,14 +21,14 @@ struct roution{
 #define true 1
 #endif
 
-UINT xMax=4,yMax=5;
-UINT nuPointsPeople=0;
-UINT maxPeople = 0;
+int xMax=4,yMax=5;
+int nuPointsPeople=0;
+int maxPeople = 0;
 int totalRoution=0;
 
-UINT pointPeopleNum(UINT n,UINT m)
+int pointPeopleNum(int n,int m)
 {
-    UINT k;
+    int k;
     for(k=0;k<nuPointsPeople;k++) {
         if((PP[k].n == n) && (PP[k].m == m)){
             return PP[k].nuPeople;
@@ -39,7 +37,7 @@ UINT pointPeopleNum(UINT n,UINT m)
     return 0;
 }
 
-UINT testMove(UINT n,UINT m,UINT people,struct roution **rinfo)
+int testMove(int n,int m,int people,struct roution **rinfo)
 {
     int i,x,y;
     /*printf("n:%d,m:%d\n",n,m);*/
@@ -76,22 +74,25 @@ UINT testMove(UINT n,UINT m,UINT people,struct roution **rinfo)
 
     (*rinfo)--;
     /*printf("move out\n");*/
+    return 0;
 }
 
-UINT main(UINT argc,char** argv)
+int main(int argc,char** argv)
 {
-    UINT ntmp=1,mtmp=1;
-    UINT k=0;
+    int ntmp=1,mtmp=1;
+    int k=0;
     struct roution *rinfo,*rtmp;
+
+    freopen("in.txt","r",stdin);
+    scanf("%d %d %d",&xMax,&yMax,&nuPointsPeople);
 
     PP = malloc(sizeof(struct PointPeople)*nuPointsPeople);
     memset(PP,0,sizeof(struct PointPeople)*nuPointsPeople);
+
     rinfo = malloc(sizeof(struct roution)*(xMax+yMax-1));
     memset(rinfo,0,sizeof(struct roution) * (xMax+yMax-1));
     rtmp = rinfo;
 
-    freopen("bus.in","r",stdin);
-    scanf("%d %d %d",&xMax,&yMax,&nuPointsPeople);
     for(k=0;k<nuPointsPeople;k++) {
         scanf("%d %d %d",&PP[k].n,&PP[k].m,&PP[k].nuPeople);
 	printf("k:%d %d,%d:%d\n",k,PP[k].n,PP[k].m,PP[k].nuPeople);
@@ -100,7 +101,7 @@ UINT main(UINT argc,char** argv)
 
     printf("maxPeople:%d\n",maxPeople);
     printf("totalRoution:%d\n",totalRoution);
-    freopen("bus.out","w",stdout);
+    freopen("out.txt","w",stdout);
     printf("%d\n",maxPeople);
 
     return 0;
