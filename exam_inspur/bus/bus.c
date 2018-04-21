@@ -1,73 +1,107 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
+#include <string.h>
 
 typedef unsigned int UINT;
 
 struct PointPeople{
-	UINT n;
-	UINT m;
-	UINT nuPeople;
+    UINT n;
+    UINT m;
+    UINT nuPeople;
+};
+struct PointPeople *PP = NULL;
+
+struct roution{
+    int x;
+    int y;
 };
 
-struct PointPeople *PP = NULL;
 
 #ifndef false
 #define false 0
 #define true 1
 #endif
 
-UINT nTotal=4,mTotal=5;
+UINT xMax=4,yMax=5;
 UINT nuPointsPeople=0;
+UINT maxPeople = 0;
+int totalRoution=0;
 
 UINT pointPeopleNum(UINT n,UINT m)
 {
-	UINT k;
-	for(k=0;k<nuPointsPeople;k++)
-	{
-		if((PP[k].n == n) && (PP[k].m == m))
-			return PP[k].nuPeople;
+    UINT k;
+    for(k=0;k<nuPointsPeople;k++) {
+        if((PP[k].n == n) && (PP[k].m == m)){
+            return PP[k].nuPeople;
 	}
-	return 0;
+    }
+    return 0;
 }
-UINT maxPeople = 0;
-UINT testMove(UINT n,UINT m,UINT people)
+
+UINT testMove(UINT n,UINT m,UINT people,struct roution **rinfo)
 {
-	printf("n:%d,m:%d\n",n,m);
-	people+=pointPeopleNum(n,m);
-	if(people > maxPeople)
-		maxPeople = people;	
+    int i,x,y;
+    /*printf("n:%d,m:%d\n",n,m);*/
+    (*rinfo)->x = n;
+    (*rinfo)->y = m;
+    (*rinfo)++;
 
-	if(n<nTotal)
-	{
-		printf("move right\n");
-		testMove(n+1,m,people);
-	}
-	if(m<mTotal)
-	{
-		printf("move up\n");
-		testMove(n,m+1,people);	
-	}
+    people+=pointPeopleNum(n,m);
+    if(people > maxPeople){
+        maxPeople = people;
+    }
 
-	printf("move out\n");
+    if(n == xMax && m== yMax){
+	i = 0;
+	while(i < (n+m-1)){
+	    x = ((*rinfo)-xMax-yMax+1+i)->x;
+	    y = ((*rinfo)-xMax-yMax+1+i)->y;
+	    printf("%d,%d:%d ",x,y,pointPeopleNum(x,y));
+	    i++;
+	}
+	printf(" p:%d\n",people);
+
+	totalRoution++;
+    }
+
+    if(n<xMax) {
+        /*printf("move right\n");*/
+        testMove(n+1,m,people,rinfo);
+    }
+    if(m<yMax) {
+        /*printf("move up\n");*/
+        testMove(n,m+1,people,rinfo);
+    }
+
+    (*rinfo)--;
+    /*printf("move out\n");*/
 }
 
 UINT main(UINT argc,char** argv)
 {
-	UINT ntmp=1,mtmp=1;
-	freopen("bus.in","r",stdin);
-	scanf("%d %d %d",&nTotal,&mTotal,&nuPointsPeople);
-	PP = malloc(sizeof(struct PointPeople)*nuPointsPeople);
-	UINT k=0;
-	for(k=0;k<nuPointsPeople;k++)
-	{
-		scanf("%d %d %d",&PP[k].n,&PP[k].m,&PP[k].nuPeople);
-		//printf("k:%d,n:%d,m:%d,people:%d\n",k,PP[k].n,PP[k].m,PP[k].nuPeople);
-	}
-	testMove(ntmp,mtmp,0);
+    UINT ntmp=1,mtmp=1;
+    UINT k=0;
+    struct roution *rinfo,*rtmp;
 
-	printf("maxPeople:%d\n",maxPeople);
-	freopen("bus.out","w",stdout);
-	printf("%d\n",maxPeople);
+    PP = malloc(sizeof(struct PointPeople)*nuPointsPeople);
+    memset(PP,0,sizeof(struct PointPeople)*nuPointsPeople);
+    rinfo = malloc(sizeof(struct roution)*(xMax+yMax-1));
+    memset(rinfo,0,sizeof(struct roution) * (xMax+yMax-1));
+    rtmp = rinfo;
 
-	return 0;
+    freopen("bus.in","r",stdin);
+    scanf("%d %d %d",&xMax,&yMax,&nuPointsPeople);
+    for(k=0;k<nuPointsPeople;k++) {
+        scanf("%d %d %d",&PP[k].n,&PP[k].m,&PP[k].nuPeople);
+	printf("k:%d %d,%d:%d\n",k,PP[k].n,PP[k].m,PP[k].nuPeople);
+    }
+    testMove(ntmp,mtmp,0,&rtmp);
+
+    printf("maxPeople:%d\n",maxPeople);
+    printf("totalRoution:%d\n",totalRoution);
+    freopen("bus.out","w",stdout);
+    printf("%d\n",maxPeople);
+
+    return 0;
 }
