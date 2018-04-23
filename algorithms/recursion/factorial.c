@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int fac(i)
+int fac(int i)
 {
     int ret;
     if(i==1)

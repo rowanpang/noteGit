@@ -2,7 +2,6 @@
 
 int fib(int i)
 {
-    int tmp;
     if(i == 0){
         return 0;
     }
