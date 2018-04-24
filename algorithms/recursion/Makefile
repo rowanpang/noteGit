@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=fib fib1 fib2 peach  pow factorial
+TARGETS=fib peach  pow factorial
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
