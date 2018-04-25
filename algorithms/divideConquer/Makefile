@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=fib peach  pow factorial
+TARGETS=fib peach  pow factorial maxSubQueue
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
