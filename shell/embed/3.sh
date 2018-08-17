@@ -1,2 +1,3 @@
 #!/bin/bash
- ./4.sh
+echo "${BASH_SOURCE[0]}"
+ . ./4.sh
