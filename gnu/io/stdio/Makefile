@@ -1,5 +1,5 @@
 .PHONY:all
-TARGETS=inClose
+TARGETS=inClose escape
 all:$(TARGETS)
 
 LD_OPTS += $(shell pkg-config --libs openssl)
