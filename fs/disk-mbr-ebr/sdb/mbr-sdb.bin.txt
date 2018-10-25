@@ -33,7 +33,7 @@
    *   00 21 20:
    *         0c: type fat32
    *   eb 7f fe:
-   *00 00 08 00: LBA start of partition
+   *00 00 08 00: LBA start of partition	    #小端
    *00 78 a0 00: sector numbers;
    */
 
