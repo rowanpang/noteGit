@@ -43,7 +43,7 @@ int main(int argc,char **argv)
     int test=4;
     int aa[3] = {1,test,5};
     argTest(aa);
-    printf("before:%d,after:%d",test,aa[1]);
+    printf("before:%d,after:%d\n",test,aa[1]);
 
 
     if (argc > 1){
@@ -53,3 +53,26 @@ int main(int argc,char **argv)
     }
     return 0;
 }
+
+void before()
+{
+    printf("----before main() function\n");
+}
+
+
+void after()
+{
+    printf("----after main() function\n");
+}
+
+
+#define my_init(initfn)  \
+void initfn() __attribute__((constructor));
+
+
+#define my_exit(exitfn)  \
+void exitfn() __attribute__((destructor));
+
+
+my_init(before)
+my_exit(after)
