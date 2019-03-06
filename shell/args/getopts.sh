@@ -5,11 +5,13 @@ function usage () {
         -d          dryRun
         -c          doClean
 	-vp	    multChar test
+	-a  n	    test [$n]
     "
 }
 
 function main(){
-    while getopts "hdcvp" opt;do
+    n=3
+    while getopts "hdca:vp" opt;do
         case $opt in
             h)
                 usage
@@ -25,6 +27,9 @@ function main(){
 		multChar="True"
 		echo "multChar args"
 		;;
+	    a)
+		n="$OPTARG";
+		;;
 	    \?)
 		echo "Invalid option: -$OPTARG"
 		usage
@@ -32,7 +37,7 @@ function main(){
 	esac
     done
 
-    echo "$dryRun,$cleanRun,$multChar"
+    echo "$dryRun,$cleanRun,$multChar,$n"
 }
 
 main $@
