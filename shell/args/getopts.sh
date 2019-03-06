@@ -7,15 +7,16 @@ function usage () {
 	-vp	    multChar test
 	-a  n	    test [$n]
     "
+    exit 0
 }
 
 function main(){
     n=3
+    #while getopts ":hdca:vp" opt;do	    #first colon silent error mode
     while getopts "hdca:vp" opt;do
         case $opt in
             h)
                 usage
-                exit 0
                 ;;
             d)
                 dryRun="True"
@@ -34,6 +35,11 @@ function main(){
 		echo "Invalid option: -$OPTARG"
 		usage
 		;;
+	    :)
+                echo "--Need arguement -$OPTARG"
+                usage
+		;;
+
 	esac
     done
 
