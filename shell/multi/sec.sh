@@ -1,12 +1,11 @@
 #!/bin/sh
 
 #./fir.sh while loop damage
-echo "print from $0"
+echo "print from sec.sh arg0 is: $0"
 
 function sec_print()
 {
 	echo "sec_print"
-	echo "hello world form $0"
 	sleep 10
 	echo "sec_print wakeup"
 }
