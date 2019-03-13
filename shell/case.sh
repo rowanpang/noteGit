@@ -3,13 +3,14 @@ while [ "aa" ];do
     echo -n "please input:"
     read aNum
     case $aNum in
-	    1)  
+	    1)
 		echo 'You select 1'
 		;;
 	    [2-4])
 		echo "match [2-4],$aNum"
 		;;
-	    5|6)  
+		#echo "after 2,befor 5"	    #error
+	    5|6)
 		echo 'You select 5 or 6'
 		;;
 	    [:digit:])				#ng
@@ -18,7 +19,7 @@ while [ "aa" ];do
 	    [8-12])				#ng
 		echo "match [8-12],$aNum"
 		;;
-	    [7-9][7-9])				
+	    [7-9][7-9])
 		echo "match [7-9][7-9],$aNum"
 		;;
 	    ?[7-9])				#ng
@@ -31,7 +32,7 @@ while [ "aa" ];do
 		echo "match [abcd]*,$aNum"
 		;;
 
-	    *)  
+	    *)
 		echo 'no match'
 		;;
     esac
