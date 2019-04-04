@@ -24,18 +24,24 @@ echo
 dir="adf";f2
 echo $dir
 
-function test_func()
-{
+function test_func() {
     echo "Current $FUNCNAME, \$FUNCNAME => (${FUNCNAME[@]})"
     another_func
     echo "Current $FUNCNAME, \$FUNCNAME => (${FUNCNAME[@]})"
 }
 
-function another_func()
-{
+function another_func() {
     echo "Current $FUNCNAME, \$FUNCNAME => (${FUNCNAME[@]})"
 }
 
 echo "Out of function, \$FUNCNAME => (${FUNCNAME[@]})"
 test_func
 echo "Out of function, \$FUNCNAME => (${FUNCNAME[@]})"
+
+function funReturn() {
+    echo "hello"
+}
+
+str=`funReturn`
+echo "return var:$?"
+
