@@ -122,6 +122,10 @@ int main(int argc,char** argv)
     int \u0024a = 5;
     printf("\u0024a:%d\n",\u0024a);
     printf("It's a !\n");
+
+    char ca=200;
+    printf("char-as-d:%d\n",ca);
+
     return 0;
 }
 
