@@ -1,10 +1,14 @@
 .PHONY: all clean
-all:simple simple.ng
+all:simple simple.m64 rowan rowan.m64
 
 simple:
-	@g++ -m64 -g test.cpp -o $@ -lpthread
-simple.ng:
 	@g++ -g test.cpp -o $@ -lpthread
+simple.m64:
+	@g++ -m64 -g test.cpp -o $@ -lpthread
 
+rowan:
+	@g++ -g test.rowan.cpp -o $@ -lpthread
+rowan.m64:
+	@g++ -m64 -g test.rowan.cpp -o $@ -lpthread
 clean:
-	@-rm simple simple.ng
+	@-rm simple* rowan*
