@@ -1,6 +1,6 @@
 .PHONY:all
 
-OUT=main 2 3
+OUT=main 2 3 4
 
 all:$(OUT)
 
