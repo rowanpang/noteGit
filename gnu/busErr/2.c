@@ -3,6 +3,11 @@
 #include <unistd.h> /* ftruncate */
 #include <sys/mman.h> /* mmap */
 
+/*
+ *ref same as this
+ *    https://blog.csdn.net/wangjingyu00711/article/details/41774889
+ */
+
 int main()
 {
     int fd;
