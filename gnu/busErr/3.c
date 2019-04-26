@@ -9,7 +9,7 @@ int main()
     short a;
 
     scanf("%d",&a);
-    printf("\n a= %d",a);
+    printf("a= %d\n",a);
 
     return 0;
 }
