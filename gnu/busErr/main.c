@@ -1,9 +1,20 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
     int *iptr;
     char *cptr;
+    int a;
+
+    /*case 1-----------------*/
+    iptr=&a;
+    *iptr=3;
+    cptr=(char*)iptr;
+    iptr=(int*) ++cptr;
+
+    printf("now:%l\n",*iptr);
+    /*case 1 end ------------*/
 
 #if defined(__GNUC__)
 # if defined(__i386__)
