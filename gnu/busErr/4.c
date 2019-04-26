@@ -24,12 +24,13 @@ static uint64_t hash(const uint8_t* Data, const size_t Len)
    uint64_t Ret = 0;
    int blockSize=sizeof(uint64_t);
    const size_t NBlocks = Len/blockSize;
-   for (size_t I = 0; I < NBlocks; ++I) {
+   size_t I;
+   for (I = 0; I < NBlocks; ++I) {
 	const uint64_t V = load64_le(&Data[I*blockSize]);
 	Ret = (Ret ^ V)*CST;
    }
    uint64_t LastV = 0;
-   for (size_t I = 0; I < (Len-NBlocks*blockSize); ++I) {
+   for (I = 0; I < (Len-NBlocks*blockSize); ++I) {
 	//*8 meaning: sizeof(uint8_t)=8
 	LastV |= ((uint64_t)Data[NBlocks*blockSize+I]) << (I*8);
    }
