@@ -1,8 +1,11 @@
 .PHONY: all clean
-all:simple simple.m64 rowan rowan.m64 case case.++ case.libc
+all:simple simple.m64 rowan rowan.m64 case case.++ case.libc case.a
 
 case:
 	@gcc -g case.c -o $@ -lpthread
+
+case.a:
+	@gcc -static -g case.c -o $@ -lpthread
 
 case.++:
 	@g++ -g case.c -o $@ -lpthread
@@ -20,4 +23,4 @@ rowan:
 rowan.m64:
 	@g++ -m64 -g test.rowan.cpp -o $@ -lpthread
 clean:
-	@-rm simple* rowan* case.++ case case.libc
+	@-rm simple* rowan* case.++ case case.libc case.a
