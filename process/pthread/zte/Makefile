@@ -8,7 +8,7 @@ case.++:
 	@g++ -g case.c -o $@ -lpthread
 
 case.libc:
-	@gcc -g case.c -o $@ 
+	@gcc -g case.c -o $@
 
 simple:
 	@g++ -g test.cpp -o $@ -lpthread
@@ -20,4 +20,4 @@ rowan:
 rowan.m64:
 	@g++ -m64 -g test.rowan.cpp -o $@ -lpthread
 clean:
-	@-rm simple* rowan* case.++ case
+	@-rm simple* rowan* case.++ case case.libc
