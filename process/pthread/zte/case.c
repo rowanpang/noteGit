@@ -1,4 +1,4 @@
-//#pragma pack(1)
+#pragma pack(1)
 
 #include<stdio.h>
 #include<stdlib.h>
