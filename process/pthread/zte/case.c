@@ -15,6 +15,17 @@ struct thread_data_t{
 int main()
 {
 
+#if defined(__GNUC__)
+# if defined(__i386__)
+    /* Enable Alignment Checking on x86 */
+    __asm__("pushf\norl $0x40000,(%esp)\npopf");
+# elif defined(__x86_64__)
+    /* Enable Alignment Checking on x86_64 */
+    __asm__("pushf\norl $0x40000,(%rsp)\npopf");
+# endif
+#endif
+
+
     struct thread_data_t *p = (struct thread_data_t *) malloc(2* sizeof(struct thread_data_t));
     pthread_mutex_init(&p[1].mutex,NULL);
 

@@ -1,26 +1,30 @@
 .PHONY: all clean
-all:simple simple.m64 rowan rowan.m64 case case.++ case.libc case.a
+targets=simple simple.m64 rowan rowan.m64 case case.++ case.libc case.a align
+all:$(targets)
 
-case:
-	@gcc -g case.c -o $@ -lpthread
+align:align.c
+	@gcc -g $< -o $@
+case:case.c
+	@gcc -g $< -o $@ -lpthread
 
-case.a:
-	@gcc -static -g case.c -o $@ -lpthread
+case.a:case.c
+	@gcc -static -g $< -o $@ -lpthread
 
-case.++:
-	@g++ -g case.c -o $@ -lpthread
+case.++:case.c
+	@g++ -g $< -o $@ -lpthread
 
-case.libc:
-	@gcc -g case.c -o $@
+case.libc:case.c
+	@gcc -g $< -o $@
 
-simple:
-	@g++ -g test.cpp -o $@ -lpthread
-simple.m64:
-	@g++ -m64 -g test.cpp -o $@ -lpthread
+simple:test.cpp
+	@g++ -g $< -o $@ -lpthread
+simple.m64:test.cpp
+	@g++ -m64 -g $< -o $@ -lpthread
 
-rowan:
-	@g++ -g test.rowan.cpp -o $@ -lpthread
-rowan.m64:
-	@g++ -m64 -g test.rowan.cpp -o $@ -lpthread
+rowan:test.rowan.cpp
+	@g++ -g $< -o $@ -lpthread
+
+rowan.m64:test.rowan.cpp
+	@g++ -m64 -g $< -o $@ -lpthread
 clean:
-	@-rm simple* rowan* case.++ case case.libc case.a
+	@-rm $(targets)
