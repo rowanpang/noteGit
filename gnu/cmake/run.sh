@@ -11,6 +11,8 @@ echo '---------------'
 ./demo
 cd -
 
+echo
+echo
 echo '###############'
 mkdir my-build-2
 cd my-build-2
