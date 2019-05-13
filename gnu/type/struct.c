@@ -25,6 +25,26 @@ int hello(int ok){
 }
 
 #define UPRINT(n) printf("%10s: %p, %#x\n",#n,&n,n)
+
+/*
+ *ref
+ *    https://gcc.gnu.org/onlinedocs/gcc-9.1.0/gcc/Structure-Layout-Pragmas.html#Structure-Layout-Pragmas
+ */
+#pragma pack(4)		    //修改编译器对struct默认对齐规则.
+#pragma pack(1)		    //same as -fpack-struct[=n]
+struct alignTest{
+    int a;
+    char b;
+    int c;
+};
+
+#pragma pack()		    //改回最早定义的pack(4)
+struct alignTest2{
+    int a;
+    char b;
+    int c;
+};
+
 int main(int argc,char** argv)
 {
     struct st{
@@ -47,6 +67,8 @@ int main(int argc,char** argv)
         "inspur"
         };
 
+    printf("sizeof(st_2):%d\n",sizeof(st_2));
+
     dprintf("---\n");
     dprintf("---\n",st);
     dprintf("---%s\n","macro test");
@@ -59,7 +81,6 @@ int main(int argc,char** argv)
     printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
     printf("sizeof(void*):%d\n",sizeof(void*));
 
-    st_2 = st_2;
     st = st;
 
     union u_1{
@@ -125,6 +146,21 @@ int main(int argc,char** argv)
 
     char ca=200;
     printf("char-as-d:%d\n",ca);
+
+
+    printf("-pack(4)-pack(1)---align Test---------\n");
+    struct alignTest algin;
+    printf("sizeof(alignTest):%d\n",sizeof(struct alignTest));
+    UPRINT(algin.a);
+    UPRINT(algin.b);
+    UPRINT(algin.c);
+
+    printf("-pack(4)-pack(1)-pack()-align Test---------\n");
+    struct alignTest2 algin2;
+    printf("sizeof(alignTest2):%d\n",sizeof(struct alignTest2));
+    UPRINT(algin2.a);
+    UPRINT(algin2.b);
+    UPRINT(algin2.c);
 
     return 0;
 }
