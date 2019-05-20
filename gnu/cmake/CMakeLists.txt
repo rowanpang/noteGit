@@ -11,6 +11,7 @@ INCLUDE (CheckIncludeFiles)
 INCLUDE (CheckIncludeFileCXX)
 
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(FOO_ENABLE "Enable Foo" ON)
 
 IF(FOO_ENABLE)
