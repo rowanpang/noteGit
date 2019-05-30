@@ -1,0 +1,6 @@
+*.cer
+*.csr
+*.pfx
+*.priv
+
+cadir
