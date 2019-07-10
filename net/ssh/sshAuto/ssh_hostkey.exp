@@ -17,7 +17,5 @@ expect {
 	"yes/no" {send "yes\r";exp_continue}
 	"*]#" {send "uname -a\r"}
 	"\n" {}
-	""  {}
+	eof  {}
 }
-
-expect eof
