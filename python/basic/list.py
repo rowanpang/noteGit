@@ -8,9 +8,10 @@ l.append(('a','b'))
 l.append('cd')
 l.append(['e'])
 l.append('f')
+print l
+
 str = 'a=aaaaaaa'
 l.append(str.split('='))
-
 l.extend(['g','h'])             #x.extend(xx)
 print l
 
@@ -31,21 +32,3 @@ print lists
 lists[0].append(3)
 lists[2].append(7)
 print lists
-
-print '--------dict----------'
-a = ('abc', 'lalalla')
-print dict([a])
-print dict([['aaa','aaaaaaaa']])
-
-a = [ 'abc=lalalla', 'appa=kdkdkdkd', 'kkakaka=oeoeoeo']
-print [s.split('=') for s in a]
-for s in a:
-    l=[]
-    # print s.split('=')
-    l.append(s.split('='))
-    print dict(l)
-
-da = {"a":"aaaaaa",'b':'bbbbbbbb'}
-print da
-for d in da.keys():
-    print d,da[d]
