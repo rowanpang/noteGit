@@ -73,13 +73,14 @@ int main(int argc,char** argv)
     dprintf("---\n",st);
     dprintf("---%s\n","macro test");
 
+    printf("sizeof(int):%d\n",sizeof(int));
     printf("sizeof(long):%d\n",sizeof(long));
+    printf("sizeof(void*):%d\n",sizeof(void*));
     printf("sizeof(long long):%d\n",sizeof(long long));
+    printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
     printf("sizeof(unsigned long):%d\n",sizeof(unsigned long));
     printf("sizeof(unsigned long int):%d\n",sizeof(unsigned long int));
     printf("sizeof(unsigned short int):%d\n",sizeof(unsigned short int));
-    printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
-    printf("sizeof(void*):%d\n",sizeof(void*));
 
     st = st;
 
