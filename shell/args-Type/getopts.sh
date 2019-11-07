@@ -32,11 +32,11 @@ function main(){
 		n="$OPTARG";
 		;;
 	    \?)
-		echo "Invalid option: -$OPTARG"
+		echo "Invalid option: $OPTARG"
 		usage
 		;;
 	    :)
-                echo "--Need arguement -$OPTARG"
+                echo "--Need arguement $OPTARG"
                 usage
 		;;
 

@@ -22,3 +22,5 @@ echo $stdErrDev >> log
 read a
 echo $a >> log
 
+
+jobs -p
