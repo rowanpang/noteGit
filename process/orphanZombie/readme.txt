@@ -13,6 +13,7 @@
 	    21584 21583  4203   ./orphan
 
 	pid,pgid,sid 不改变.
+
 2,zombie
     执行 ./zombie
 	Im parent,cpid:4821
