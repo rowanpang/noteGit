@@ -3,10 +3,14 @@
 
 int main(int argc,char **argv)
 {
-	int a[4096 * 2];
+	char a[4096 * 2];
+	char b[9*1024*1024];
 
+	b[0]=3;
+	b[9*1024*1024-1]=5;
 	printf("sizeof(a[x]) is %d\n",sizeof(a));
-	sleep(30);
+	printf("sizeof(b[x]) is %d\n",sizeof(b));
+	sleep(1);
 
 	return 0;
 }
