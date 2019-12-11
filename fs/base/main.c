@@ -1,13 +1,16 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<errno.h>
-#include<fcntl.h>
-#include<unistd.h>
-#include<sys/ioctl.h>
-#include<sys/types.h>
-#include<sys/stat.h>
-#include<linux/kd.h>
-#include<linux/vt.h>
+#define _GNU_SOURCE
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <sys/ioctl.h>
+#include <linux/kd.h>
+#include <linux/vt.h>
 
 typedef _Bool bool;
 
@@ -17,17 +20,19 @@ int main(int argc,char **argv)
     int fd;
     char buf[32];
     /*ret = open("./test.txt",O_RDONLY|O_CREAT,S_IRWXU | S_IRWXG | S_IRWXO);*/
-    printf("pid:%d\n",getpid());
-    ret = open("/tmp/rowan.txt",O_RDWR |O_CREAT,S_IRUSR | S_IWUSR);
+    printf("pid:%d,tmpfile:/tmp/rowan.txt\n",getpid());
+
+    printf("flags O_DIRECT:%#x,O_RDONLY:%#x\n",O_DIRECT,O_RDONLY);
+    ret = open("/tmp/rowan.txt",O_RDWR |O_CREAT ,S_IRUSR | S_IWUSR);
     if (ret == -1) {
 	perror("open target dev error");
 	ret = errno;
 	goto OUT;
     }
-    fd = ret; 
-    
+    fd = ret;
+
     lseek(fd,0,SEEK_SET);
-    
+
     ret = write(fd,"aaaaaaaadddddddddddaaaaaa",10);
     if (ret == -1) {
 	perror("when write");
@@ -47,7 +52,7 @@ int main(int argc,char **argv)
 	printf("read bytes:%d\n",ret);
     }
 
-CLOSE: 
+CLOSE:
     close(fd);
 OUT:
     return ret;
