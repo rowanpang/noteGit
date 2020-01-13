@@ -2,6 +2,30 @@
 #include<unistd.h>
 #include<time.h>
 
+void nowtime_ns()
+{
+    printf("---------------------------struct timespec---------------------------------------\n");
+    printf("[time(NULL)]     :     %ld\n", time(NULL));
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    printf("clock_gettime : tv_sec=%ld, tv_nsec=%ld\n", ts.tv_sec, ts.tv_nsec);
+
+    struct tm t;
+    char date_time[64];
+    strftime(date_time, sizeof(date_time), "%Y-%m-%d %H:%M:%S", localtime_r(&ts.tv_sec, &t));
+    printf("clock_gettime : date_time=%s, tv_nsec=%ld\n", date_time, ts.tv_nsec);
+}
+
+void monictime_ns()
+{
+    printf("---------------------------struct timespec----CLOCK_MONOTONIC------------------------------\n");
+    printf("[time(NULL)]     :     %ld\n", time(NULL));
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    printf("clock_gettime : tv_sec=%ld, tv_nsec=%ld\n", ts.tv_sec, ts.tv_nsec);
+
+}
+
 int main(int argc,char** argv)
 {
     time_t now = time(NULL);
@@ -19,6 +43,10 @@ int main(int argc,char** argv)
     printf("%*s: %ld\n",length,"local time(second)",mktime(localtime(&now)));
     printf("%*s: %s",length,"local time(string)",ctime(&now));
     printf("%*s: %s",length,"local time(string2)",asctime(localtime(&now)));
+
+
+    nowtime_ns();
+    monictime_ns();
 
     return 0;
 }
