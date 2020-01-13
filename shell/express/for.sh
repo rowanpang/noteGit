@@ -21,7 +21,7 @@ function _fun(){
     done
 
     for i in `seq 1 1024`; do
-	echo > /proc/self/mem &
+	echo "echo $i > /tmp/$i &" | bash;
     done
 }
 
