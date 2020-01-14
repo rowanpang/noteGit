@@ -1,0 +1,23 @@
+0,basic
+    https://www.cnblogs.com/fly-narrow/p/4629253.html
+
+
+$ ./extsymwithweakdef                                                                 (master|✚3…)
+    weak_var_test:6666
+    strong symbol in extern.c:weak_func_test() in
+    #因为连接时发现了强符号,即便main.c模块中存在弱符号也不会用.
+
+$ ./extsym                                                                            (master|✚3…)
+    weak_var_test:6666
+    strong symbol in extern.c:weak_func_test() in
+    #直接用外部的强符号
+
+$ ./weakdef                                                                           (master|✚3…)
+    weak_var_test:0
+    weak symbol in main.c:weak_func_test.c in
+    #只有弱符号可用
+
+$ ./weakundef                                                                         (master|✚3…)
+    weak_var_test:0
+    [1]    20958 segmentation fault (core dumped)  ./weakundef
+    #弱符号,链接时不存在也不会报错,address 为0,产生coredump

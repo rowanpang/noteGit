@@ -1,0 +1,4 @@
+extsym
+extsymwithweakdef
+weakdef
+weakundef
