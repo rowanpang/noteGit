@@ -1,3 +1,6 @@
+0,basic
+    a,默认链接so.
+
 $ ldd dynamiclib
     linux-vdso.so.1 (0x00007ffff7ffd000)
     libhello.so => /root/noteGit/gnu/link/static/libhello.so (0x00007ffff7df7000)
