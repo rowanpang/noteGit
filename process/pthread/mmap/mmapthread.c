@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/time.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -18,6 +19,7 @@ typedef struct thread_args {
     int myid;
     int iterations;
     char *fpath;
+    unsigned long uelapsed;
 } thread_args_t;
 
 #define MAX_ERRNO    4095
@@ -53,10 +55,15 @@ void* threadfn(void *tharg)
     char *maddr;
     int i;
     int rc;
+    struct timeval ts, te;
+    unsigned long elapsed;
+
     printf("thread: %d, iters: %d\n",id,iters);
+
 
     pthread_barrier_wait(&barrier);
 
+    gettimeofday(&ts,NULL);
     for (i = 0; i < iters; i++){
 	fd = open(fpath,O_RDWR|O_CREAT,S_IRWXU|S_IRWXG|S_IRWXO);
 	if (fd < 0) {
@@ -78,6 +85,10 @@ void* threadfn(void *tharg)
 	}
 	close(fd);
     }
+    gettimeofday(&te,NULL);
+
+    elapsed = (te.tv_sec - ts.tv_sec)*1.0e6 + (te.tv_usec-ts.tv_usec);
+    arg->uelapsed = elapsed;
     rc = 0;
     return ERR_PTR(rc);
 
@@ -136,7 +147,7 @@ int main(int argc,char** argv)
 	if (IS_ERR(thret)){
 	    printf(" errno:%ld, str:%s\n",PTR_ERR(thret),strerror(-PTR_ERR(thret)));
 	}else{
-	    printf("\n");
+	    printf(",elapsed usec :%ld\n",thargs[i].uelapsed);
 	}
     }
 
