@@ -7,6 +7,7 @@
 
 #include <rowan/errptr.h>
 
+#include <errno.h>
 #define gettid() syscall(__NR_gettid)
 
 static int threadExit=0;
@@ -16,14 +17,14 @@ void* threadfn(void *arg)
     int ret;
     printf("in thread:%d\n",gettid());
     while(1){
-	sleep(2);
-	
+	sleep(1);
+
 	if(threadExit){
 	    break;
 	}
     }
 
-    ret=0;
+    ret=-EACCES;
 
     return ERR_PTR(ret);
 }
@@ -40,7 +41,7 @@ int main(int argc,char** argv)
 	perror("error when pthread create");
 	goto ERROR_1;
     }
-    sleep(5);
+    sleep(3);
     threadExit=1;
 
     pthread_join(th,&status);
