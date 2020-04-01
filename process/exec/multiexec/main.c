@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
@@ -10,7 +11,7 @@ int pipefd[2];
 int cpids[1024];
 
 int forknum = 5;
-int dbg = 2;
+int dbg = 0;
 
 #define dbg(fmt,arg...)\
     if (dbg){\
@@ -43,6 +44,11 @@ int childrun()
 	while ((tmp = strchr(tmp,' ')) != NULL){
 	    *tmp = '\0';
 	    tmp++;
+	    dbg("tmp1:%d,%#x\n",*tmp,*tmp);
+	    while (isspace((int)*tmp)){
+		tmp++;
+		dbg("tmp:%d,%#x\n",*tmp,*tmp);
+	    }
 	    cargs[uargcnt] = tmp;
 	    uargcnt++;
 	}
