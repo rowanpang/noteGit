@@ -1,4 +1,5 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*
  *pangwz
@@ -45,6 +46,12 @@ struct alignTest2{
     int c;
 };
 
+struct zeroa{
+    int a;
+    int b;
+    int data[];
+};
+
 int main(int argc,char** argv)
 {
     struct st{
@@ -73,7 +80,10 @@ int main(int argc,char** argv)
     dprintf("---\n",st);
     dprintf("---%s\n","macro test");
 
+    int *pint;
     printf("sizeof(int):%d\n",sizeof(int));
+    printf("sizeof(pint):%d\n",sizeof(pint));
+    printf("sizeof(*pint):%d\n",sizeof(*pint));
     printf("sizeof(long):%d\n",sizeof(long));
     printf("sizeof(void*):%d\n",sizeof(void*));
     printf("sizeof(long long):%d\n",sizeof(long long));
@@ -162,6 +172,26 @@ int main(int argc,char** argv)
     UPRINT(algin2.a);
     UPRINT(algin2.b);
     UPRINT(algin2.c);
+
+    printf("sizeof(zeroa):%d\n",sizeof(struct zeroa));
+    struct zeroa zeroa_a;
+    printf("sizeof(zeroa_a):%d\n",sizeof(zeroa_a));
+
+    struct zeroa *pzeroa;
+    printf("sizeof(pzeroa):%d\n",sizeof(pzeroa));
+    printf("sizeof(*pzeroa):%d\n",sizeof(*pzeroa));
+    pzeroa = malloc(sizeof(*pzeroa)+8*sizeof(int));
+    printf("sizeof(pzeroa).2:%d\n",sizeof(pzeroa));
+	/*
+	 *pzero 无法精确反映size,需要自己记录
+	 */
+    pzeroa->data[2] = 5;
+    printf("pzeroa:%p\n",pzeroa);
+    printf("pzeroa->data[2]:%d\n",pzeroa->data[2]);
+    printf("&pzeroa->data[2]:%p\n",&pzeroa->data[2]);
+	/*
+	 *&pzeroa->data[2] = pzeroa+4(int a)+4(intb)+4(int data[0])+4(int data[1])
+	 */
 
     return 0;
 }
