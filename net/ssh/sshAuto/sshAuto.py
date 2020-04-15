@@ -40,9 +40,13 @@ def readcfg(userlst):
 			user.setUser("root")
 			userlst.append(user)
 
-def make():
+def makeNew():
 	mknewcmd = "expect ssh_mknew.exp"
 	os.system(mknewcmd)
+
+def make():
+    if not os.path.exists("/root/.ssh/id_rsa.pub"):
+        makeNew
 
 def reset(deep):
 	if deep == "deep":

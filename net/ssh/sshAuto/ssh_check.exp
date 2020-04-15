@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+
+if {$argc < 3} {
+    puts "Usage:cmd <rhost> <remoteusername> <remotepassword>"
+    exit 1
+}
+
+set timeout -1
+set rhost [lindex $argv 0]
+set rusername [lindex $argv 1]
+set rpassword [lindex $argv 2]
+
+spawn ssh $rusername@$rhost "echo keyAuthen ok"
+expect {
+	"keyAuthen ok" {}
+	"*assword"  { close;send_user "\nssh $rhost keyAuthen error!\n";exit 255 }
+	"yes/no"    { close;send_user "\nssh $rhost keyAuthen error!\n";exit 255 }
+	"\n" {}
+	eof  {}
+}
