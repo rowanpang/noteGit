@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <list>
 using namespace std;
 
 class obj
@@ -7,6 +8,15 @@ class obj
     public :
 	obj() { cout << ">> create obj " << endl; }
 	obj(const obj& other) { cout << ">> copy create obj " << endl; }
+};
+
+
+class bigobj
+{
+    public :
+	bigobj() { cout << ">> create bobj " << endl; }
+	bigobj(const bigobj& other) { cout << ">> copy create bobj " << endl; }
+	bigobj(bigobj&& other) { cout << ">> move create bobj " << endl; }
 };
 
 template <class T>
@@ -34,15 +44,15 @@ class container
 	//const container& operator = (container& other) lvalue not const error
 	const container& operator = (container&& other)
 	{
-	    /*
-	     *T* tmp = value;
-	     *value = other.value;
-	     *other.value = tmp;
-	     */
+	    T* tmp = value;
+	    value = other.value;
+	    other.value = tmp;
+	    return *this;
+	}
 
+	container (container && other){
 	    value = other.value;
 	    other.value = NULL;
-	    return *this;
 	}
 
 	void push_back(const T& item)
@@ -63,6 +73,14 @@ container<obj> foo()
 
 int main()
 {
+    int i = 0;
     container<obj> k ;
     k = foo();
+
+    list<bigobj> list;
+    for (i = 0; i < 3; i++){
+	bigobj bobj;
+	list.push_back(bobj);
+    }
+
 }
