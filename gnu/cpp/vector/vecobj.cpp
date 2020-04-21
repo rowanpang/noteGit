@@ -12,17 +12,24 @@ class obj
 vector<obj> foo()
 {
     vector<obj> c;
-    cout << "----1, capacity: " << c.capacity() << "---" << endl;
+    cout << "---- 1, capacity: " << c.capacity() << "---" << endl;
     c.push_back(obj());
 
-    cout << "----1, capacity: " << c.capacity() << "---" << endl;
+    cout << "---- 2, capacity: " << c.capacity() << "---" << endl;
     c.push_back(obj());
 
-    cout << "----1, capacity: " << c.capacity() << "---" << endl;
+    cout << "---- 3, capacity: " << c.capacity() << "---" << endl;
     c.push_back(obj());
 
-    cout << "----1, capacity: " << c.capacity() << "---" << endl;
+    cout << "---- 4, capacity: " << c.capacity() << "---" << endl;
     c.push_back(obj());
+
+    cout << "---- 5, capacity: " << c.capacity() << "---" << endl;
+    c.push_back(obj());
+
+    cout << "---- 6, capacity: " << c.capacity() << "---" << endl;
+    c.push_back(obj());
+
 
     cout << "---- exit foo ----" << endl;
     return c;

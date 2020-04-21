@@ -1,0 +1,30 @@
+vec capacity 按照1,2,4,8增长.
+new alloc 然后copy仅内容到新的内存.
+
+$ ./vecobj                                                                            (master|✚2…)
+---- 1, capacity: 0---
+>> create obj
+>> copy create obj
+---- 2, capacity: 1---
+>> create obj
+>> copy create obj
+>> copy create obj	#copy 1 to new mem
+---- 3, capacity: 2---
+>> create obj
+>> copy create obj
+>> copy create obj	#copy 1/2 to new mem
+>> copy create obj
+---- 4, capacity: 4---
+>> create obj
+>> copy create obj	#还有一个空位,不需要new alloc,所以不会call copy create.
+---- 5, capacity: 4---
+>> create obj
+>> copy create obj
+>> copy create obj	#copy old values
+>> copy create obj
+>> copy create obj
+>> copy create obj
+---- 6, capacity: 8---
+>> create obj
+>> copy create obj	#放第6个时有空位,不需要申请.
+---- exit foo ----
