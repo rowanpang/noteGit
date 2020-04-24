@@ -29,24 +29,30 @@ template <> struct factorial<0> : std::integral_constant<int,1> {};
 
 template <class T> struct myjudge : std::integral_constant<bool,1> {};
 
-//enable_if
-//ref https://blog.csdn.net/catwan/article/details/93482648
+/*
+ *enable_if
+ *ref https://blog.csdn.net/catwan/article/details/93482648
+ */
 
-// 1. the return type (bool) is only valid if T is an integral type:
-// 需要显示使用typename 指明::type是类型. ref
-// https://blog.csdn.net/andyjim/article/details/21019109
+ /*
+  *1. the return type (bool) is only valid if T is an integral type:
+  *需要显示使用typename 指明::type是类型. ref
+  *https://blog.csdn.net/andyjim/article/details/21019109
+  */
 template <class T>
 typename std::enable_if<std::is_integral<T>::value,bool>::type is_odd (T i) {
     return bool(i%2);
 }
 
-// 2. the second template argument is only valid if T is an integral type:
-//template < class T, class = typename std::enable_if<std::is_integral<T>::value>::type>
-//template < typename T, typename T2 = typename std::enable_if<std::is_integral<T>::value>::type >
-//template < typename T, typename std::enable_if<std::is_integral<T>::value,int>::type T2 = 0 >
-//enable_if 应用了SFINAE(Substitution Failure Is Not An Error)机制,如果最终找不到最佳匹配则报错.
-//即无法实例此偏特化
-//same as
+/*
+ * 2. the second template argument is only valid if T is an integral type:
+ *template < class T, class = typename std::enable_if<std::is_integral<T>::value>::type>
+ *template < typename T, typename T2 = typename std::enable_if<std::is_integral<T>::value>::type >
+ *template < typename T, typename std::enable_if<std::is_integral<T>::value,int>::type T2 = 0 >
+ *enable_if 应用了SFINAE(Substitution Failure Is Not An Error)机制,如果最终找不到最佳匹配则报错.
+ *即无法实例此偏特化
+ *same as
+ */
 template < typename T, typename std::enable_if<std::is_integral<T>::value,int>::type = 0 >
 bool is_even (T i) {
     return !bool(i%2);
