@@ -1,6 +1,41 @@
 #include <iostream>
 #include <vector>
 
+
+std::vector<int> myintv(){
+    return std::vector<int>({5,5});
+}
+
+std::vector<int> myintv2(){
+    std::vector<int> a;
+    return a;
+}
+
+const std::vector<int> tmp = myintv();
+const std::vector<int> tmp2 = myintv2();
+
+int globalval;
+
+int myintdef(int a,int b = 3)
+{
+    return a + b;
+}
+
+int myint(int a,int b)
+{
+    if (globalval) {
+	if (a < b) {
+	    return a*b;
+	} else if (a == b){
+	    return a+b;
+	}
+    }
+
+    return a-b;
+}
+const int itmp = myint(1,2);
+const int itmpd = myintdef(2);
+
 int main ()
 {
     std::vector<int>::size_type sz;

@@ -52,6 +52,14 @@ struct zeroa{
     int data[];
 };
 
+/*
+ *int myint(int a,int b)
+ *{
+ *    return a*b;
+ *}
+ *const int itmp = myint(1,2);	//error| initializer element is not constant
+ */
+
 int main(int argc,char** argv)
 {
     struct st{
