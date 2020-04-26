@@ -4,8 +4,12 @@ import os,sys
 fobj=open("/tmp/test","w+")
 fobj.write("asdfjkj")
 fobj.close()
-
 print type(fobj)
+
+fd = os.open("/tmp/ftest",os.O_RDONLY)
+print type(fd)
+fdobj = os.fdopen(fd)
+print type(fdobj)
 
 
 fpath="/tmp/file2"
