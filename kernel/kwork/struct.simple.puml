@@ -1,0 +1,9 @@
+@startuml "dot"
+digraph topview {
+    node [
+        shape=box
+    ]
+    wq -> system_wq -> "pool_workqueue(normal,percpu)" -> "worker_pool(normal)" -> "worker(normal)"
+    wq -> system_highpri_wq -> "pool_workqueue(high,percpu)" -> "worker_pool(high)" -> "worker(high)"
+}
+@enduml

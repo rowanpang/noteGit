@@ -1,0 +1,293 @@
+@startuml "example"
+digraph vt {
+    rankdir=LR;
+    splines="line";
+    nodesep=1.5;
+    colorscheme="paired12";
+    forcelabels="true";
+    node[
+        colorscheme="paired12",
+        shape="plaintext"
+	    style="solid"
+    ]
+    edge[
+        colorscheme="paired12",
+        fontcolor="6"
+    ]
+	wql[ 
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>workqueues</b></font>
+			    <BR/><font color="6">(struct list_head)</font></td></tr>
+		    </table>>
+	]
+
+	wq[ 
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>workqueue_struct</b></font>
+			    <BR/><font color="6">(wq1)</font></td></tr>
+		    <tr><td align="left" port="pwqs">
+			    <font>struct list_head                      pwqs;</font></td></tr>
+		    <tr><td align="left" port="list">
+			    <font>struct list_head                      list;</font></td></tr>
+		    <tr><td align="left" port="mutex">
+			    <font>struct mutex                          mutex;</font></td></tr>
+		    <tr><td align="left" port="name">
+			    <font>char                     name[WQ_NAME_LEN];</font></td></tr>
+		    <tr><td align="left" port="cpu_pwqs">
+			    <font>struct pool_workqueue __percpu    *cpu_pwqs; </font></td></tr>
+		    <tr><td align="left" port="flags">
+			    <font>unsigned int  flags; </font></td></tr>
+		    </table>>
+	]
+
+	wq2[ 
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>workqueue_struct</b></font>
+			    <BR/><font color="6">(wq2)</font></td></tr>
+		    <tr><td align="left" port="pwqs">
+			    <font>struct list_head                      pwqs;</font></td></tr>
+		    <tr><td align="left" port="list">
+			    <font>struct list_head                      list;</font></td></tr>
+		    <tr><td align="left" port="mutex">
+			    <font>struct mutex                          mutex;</font></td></tr>
+		    <tr><td align="left" port="name">
+			    <font>char                     name[WQ_NAME_LEN];</font></td></tr>
+		    <tr><td align="left" port="cpu_pwqs">
+			    <font>struct pool_workqueue __percpu    *cpu_pwqs; </font></td></tr>
+		    </table>>
+	]
+
+	wqN[ 
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>workqueue_struct</b></font>
+			    <BR/><font color="6">(wqN)</font></td></tr>
+		    <tr><td align="left" port="pwqs">
+			    <font>struct list_head                      pwqs;</font></td></tr>
+		    <tr><td align="left" port="list">
+			    <font>struct list_head                      list;</font></td></tr>
+		    <tr><td align="left" port="mutex">
+			    <font>struct mutex                          mutex;</font></td></tr>
+		    <tr><td align="left" port="name">
+			    <font>char                     name[WQ_NAME_LEN];</font></td></tr>
+		    <tr><td align="left" port="cpu_pwqs">
+			    <font>struct pool_workqueue __percpu    *cpu_pwqs; </font></td></tr>
+		    </table>>
+	]
+
+    pwq1[
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>pool_workqueue</b></font>
+                <BR/><font color="6">(pwq1,cpu1)</font>
+                </td></tr>
+		    <tr><td align="left" port="pool">
+			    <font>struct worker_pool            *pool;</font></td></tr>
+		    <tr><td align="left" port="wq">
+			    <font>struct workqueue_struct       *wq;    </font></td></tr>
+		    <tr><td align="left" port="nr_active">
+			    <font>int           nr_active;</font></td></tr>
+
+		    <tr><td align="left" port="delayed_works">
+			    <font>struct list_head      delayed_works;</font></td></tr>
+            
+		    <tr><td align="left" port="pwqs_node">
+			    <font>struct list_head      pwqs_node;</font></td></tr>
+
+		    <tr><td align="left" port="mayday_node">
+			    <font>struct list_head      mayday_node;</font></td></tr>
+            </table>>
+    ]
+    pwq2[
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>pool_workqueue</b></font>
+                <BR/><font color="6">(pwq2,cpu2)</font>
+                </td></tr>
+		    <tr><td align="left" port="pool">
+			    <font>struct worker_pool            *pool;</font></td></tr>
+		    <tr><td align="left" port="wq">
+			    <font>struct workqueue_struct       *wq;    </font></td></tr>
+		    <tr><td align="left" port="nr_active">
+			    <font>int           nr_active;</font></td></tr>
+
+		    <tr><td align="left" port="delayed_works">
+			    <font>struct list_head      delayed_works;</font></td></tr>
+            
+		    <tr><td align="left" port="pwqs_node">
+			    <font>struct list_head      pwqs_node;</font></td></tr>
+
+		    <tr><td align="left" port="mayday_node">
+			    <font>struct list_head      mayday_node;</font></td></tr>
+            </table>>
+    ]
+
+    pwqN[
+	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+		    <tr><td bgcolor="1" align="center" width="150">
+			    <font><b>pool_workqueue</b></font>
+                <BR/><font color="6">(pwqN,cpuN)</font>
+                </td></tr>
+		    <tr><td align="left" port="pool">
+			    <font>struct worker_pool            *pool;</font></td></tr>
+		    <tr><td align="left" port="wq">
+			    <font>struct workqueue_struct       *wq;    </font></td></tr>
+		    <tr><td align="left" port="nr_active">
+			    <font>int           nr_active;</font></td></tr>
+
+		    <tr><td align="left" port="delayed_works">
+			    <font>struct list_head      delayed_works;</font></td></tr>
+            
+		    <tr><td align="left" port="pwqs_node">
+			    <font>struct list_head      pwqs_node;</font></td></tr>
+
+		    <tr><td align="left" port="mayday_node">
+			    <font>struct list_head      mayday_node;</font></td></tr>
+            </table>>
+    ]
+
+    subgraph wkr_wkrp {
+        wkr1[
+            label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+                <tr><td bgcolor="1" align="center" width="150">
+                    <font><b>worker</b></font>
+                    <BR/><font color="6">(wkr1)</font>
+                    </td></tr>
+                <tr><td align="left" port="entry">
+                    <font>struct list_head      entry;</font></td></tr>
+                <tr><td align="left" port="scheduled">
+                    <font>struct list_head      scheduled;</font></td></tr>
+
+                <tr><td align="left" port="currnet_work">
+                    <font>struct work_struct    currnet_work;   </font></td></tr>
+
+                <tr><td align="left" port="task">
+                    <font>struct task_struct *task;</font></td></tr>
+                <tr><td align="left" port="pool">
+                    <font>struct worker_pool    *pool;</font></td></tr>
+                <tr><td align="left" port="node">
+                    <font>struct list_head  node;</font></td></tr>
+
+                <tr><td align="left" port="id">
+                    <font>int       *id;</font></td></tr>
+
+                </table>>
+        ]
+        wkr2[
+            label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+                <tr><td bgcolor="1" align="center" width="150">
+                    <font><b>worker</b></font>
+                    <BR/><font color="6">(wkr2)</font>
+                    </td></tr>
+                <tr><td align="left" port="entry">
+                    <font>struct list_head      entry;</font></td></tr>
+                <tr><td align="left" port="scheduled">
+                    <font>struct list_head      scheduled;</font></td></tr>
+
+                <tr><td align="left" port="currnet_work">
+                    <font>struct work_struct    currnet_work;   </font></td></tr>
+
+                <tr><td align="left" port="task">
+                    <font>struct task_struct *task;</font></td></tr>
+                <tr><td align="left" port="pool">
+                    <font>struct worker_pool    *pool;</font></td></tr>
+                <tr><td align="left" port="node">
+                    <font>struct list_head  node;</font></td></tr>
+
+                <tr><td align="left" port="id">
+                    <font>int       *id;</font></td></tr>
+
+                </table>>
+        ]
+        wkrN[
+            label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+                <tr><td bgcolor="1" align="center" width="150">
+                    <font><b>worker</b></font>
+                    <BR/><font color="6">(wkrN)</font>
+                    </td></tr>
+                <tr><td align="left" port="entry">
+                    <font>struct list_head      entry;</font></td></tr>
+                <tr><td align="left" port="scheduled">
+                    <font>struct list_head      scheduled;</font></td></tr>
+
+                <tr><td align="left" port="currnet_work">
+                    <font>struct work_struct    currnet_work;   </font></td></tr>
+
+                <tr><td align="left" port="task">
+                    <font>struct task_struct *task;</font></td></tr>
+                <tr><td align="left" port="pool">
+                    <font>struct worker_pool    *pool;</font></td></tr>
+                <tr><td align="left" port="node">
+                    <font>struct list_head  node;</font></td></tr>
+
+                <tr><td align="left" port="id">
+                    <font>int       *id;</font></td></tr>
+
+                </table>>
+        ]
+
+
+        wkrp[
+            label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
+                <tr><td bgcolor="1" align="center" width="150">
+                    <font><b>worker_pool</b></font>
+                    <BR/><font color = "6">(percpu,每个cpu2个:high normal)  </font>
+                    </td></tr>
+                <tr><td align="left" port="cpu">
+                    <font>int           cpu;</font></td></tr>
+                <tr><td align="left" port="id">
+                    <font>int           id;</font></td></tr>
+                <tr><td align="left" port="flags">
+                    <font>int           flags;</font></td></tr>
+
+                <tr><td align="left" port="worklist">
+                    <font>struct list_head      worklist;</font></td></tr>
+                <tr><td align="left" port="nr_workers">
+                    <font>int           nr_workers;</font></td></tr>
+                <tr><td align="left" port="workers">
+                    <font>list_head     workers;</font></td></tr>
+                
+                <tr><td align="left" port="mayday_timer">
+                    <font>struct timer_list     mayday_timer;</font></td></tr>
+
+                <tr><td align="left" port="worker_ida">
+                    <font>struct ida        worker_ida;</font></td></tr>
+
+                <tr><td align="left" port="attrs">
+                    <font>struct workqueue_attrs    attrs;</font></td></tr>
+
+                <tr><td align="left" port="refcnt">
+                    <font>int           refcnt;</font></td></tr>
+                <tr><td align="left" port="attach_mutex">
+                    <font>mutext        attach_mutex;</font></td></tr>
+                </table>>
+        ]
+
+        wkr1:task -> "kthread_create_on_node"
+        wkr1:task -> "kthread_bind_mask(worker->task, pool->attrs->cpumask)"
+        wkr1:task -> "set_user_nice(worker->task, pool->attrs->nice);"
+
+        wkrp -> wkr1:pool [label = "worker->pool = pool"]
+        wkrp:workers -> wkr1:"node" -> wkr2:"node" -> wkrxxx -> wkrN:"node" [dir="both"]
+        wkrp:worker_ida-> wkr1:id [label = "id = ida_simple_get(&pool->worker_ida"]
+
+
+    }
+
+    wql -> wq:list -> wq2:list -> wqxxx -> wqN:list
+    wq:pwqs -> pwqN:pwqs_node [ label = " list_add_rcu(&pwq->pwqs_node, &wq->pwqs) "]
+    pwqN:pwqs_node -> pwqxxx -> pwq2:pwqs_node -> pwq1:pwqs_node [dir = "both"]
+    wq:cpu_pwqs -> pwqN[ label = "alloc_and_list_add_rcu(&pwq->pwqs_node, &wq->pwqs)link_pwqs(wq) =alloc_percpu()"]
+
+    pwqN:wq -> wq
+    pwqN:pool -> wkrp
+
+    wq:flags -> "from __alloc_workqueue_key"
+    wq:name -> "from __alloc_workqueue_key"
+
+
+}
+@enduml
