@@ -1,4 +1,4 @@
-@startuml "example"
+@startuml "struct.png"
 digraph vt {
     rankdir=LR;
     splines="line";
@@ -14,7 +14,7 @@ digraph vt {
         colorscheme="paired12",
         fontcolor="6"
     ]
-	wql[ 
+	wql[
 	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
 		    <tr><td bgcolor="1" align="center" width="150">
 			    <font><b>workqueues</b></font>
@@ -22,7 +22,7 @@ digraph vt {
 		    </table>>
 	]
 
-	wq[ 
+	wq[
 	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
 		    <tr><td bgcolor="1" align="center" width="150">
 			    <font><b>workqueue_struct</b></font>
@@ -42,7 +42,7 @@ digraph vt {
 		    </table>>
 	]
 
-	wq2[ 
+	wq2[
 	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
 		    <tr><td bgcolor="1" align="center" width="150">
 			    <font><b>workqueue_struct</b></font>
@@ -60,7 +60,7 @@ digraph vt {
 		    </table>>
 	]
 
-	wqN[ 
+	wqN[
 	    label=<<table border="0" cellborder="1" cellspacing="0" fixedsize="false">
 		    <tr><td bgcolor="1" align="center" width="150">
 			    <font><b>workqueue_struct</b></font>
@@ -93,7 +93,7 @@ digraph vt {
 
 		    <tr><td align="left" port="delayed_works">
 			    <font>struct list_head      delayed_works;</font></td></tr>
-            
+
 		    <tr><td align="left" port="pwqs_node">
 			    <font>struct list_head      pwqs_node;</font></td></tr>
 
@@ -116,7 +116,7 @@ digraph vt {
 
 		    <tr><td align="left" port="delayed_works">
 			    <font>struct list_head      delayed_works;</font></td></tr>
-            
+
 		    <tr><td align="left" port="pwqs_node">
 			    <font>struct list_head      pwqs_node;</font></td></tr>
 
@@ -140,7 +140,7 @@ digraph vt {
 
 		    <tr><td align="left" port="delayed_works">
 			    <font>struct list_head      delayed_works;</font></td></tr>
-            
+
 		    <tr><td align="left" port="pwqs_node">
 			    <font>struct list_head      pwqs_node;</font></td></tr>
 
@@ -249,7 +249,7 @@ digraph vt {
                     <font>int           nr_workers;</font></td></tr>
                 <tr><td align="left" port="workers">
                     <font>list_head     workers;</font></td></tr>
-                
+
                 <tr><td align="left" port="mayday_timer">
                     <font>struct timer_list     mayday_timer;</font></td></tr>
 

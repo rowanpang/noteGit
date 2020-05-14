@@ -36,6 +36,7 @@ modules:
 clean:
 	$(MAKE) -C $(KSRC) M=$(shell pwd)  clean
 	@rm -rf $(obj_i)
+	@rm -rf struct*.png
 #rm -rf *.mod.c *.mod *.o .*.cmd *.ko
 
 .PHONY:preProcess
@@ -66,6 +67,9 @@ install:$(TEST_MOD_NAME).ko
 
 uninstall:
 	@sudo rmmod $(TEST_MOD_NAME).ko
+.PHONY: png
+png:struct.puml struct.simple.puml
+	plantuml struct.puml struct.simple.puml
 
 .PHONY: help
 help:

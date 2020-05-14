@@ -1,4 +1,4 @@
-@startuml "dot"
+@startuml "struct.simple.png"
 digraph topview {
     node [
         shape=box
