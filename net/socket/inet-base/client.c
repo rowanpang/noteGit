@@ -31,14 +31,14 @@ int main(void)
 
     svr_addr.sin_family = AF_INET;
     svr_addr.sin_port = htons(8080);
-    inet_aton("192.168.137.100",&svr_addr.sin_addr);
-    printf("before connect\n");    
+    inet_aton("127.0.0.1",&svr_addr.sin_addr);
+    printf("before connect\n");
     if(connect(sk,(struct sockaddr*) &svr_addr,sizeof(svr_addr))){
-        printf("connect error: %s,return\n",strerror(errno));    
+        printf("connect error: %s,return\n",strerror(errno));
         ret = -2;
         goto out;
     }
-    
+
     char buf[100]={0};
     bzero(buf,100);
     strcpy(buf,"from client-->service");
@@ -78,7 +78,7 @@ int main(void)
         ret = -4;
         goto out;
     }else{
-        printf("cli recv %d bytes,%s\n",ret,buf); 
+        printf("cli recv %d bytes,%s\n",ret,buf);
     }
 
     ret = 0;

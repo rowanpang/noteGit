@@ -8,6 +8,7 @@
 #include<netinet/in.h>
 #include<netinet/ip.h>
 #include<arpa/inet.h>
+#include<unistd.h>
 
 int ctrl_c=0;
 void ctrl_c_handler(int signum){
@@ -39,8 +40,8 @@ int main(void)
         ret = -1;
         goto out;
     }
-    
-    printf("before listen\n");    
+
+    printf("before listen\n");
     if(listen(sk_listen,8)){
         perror("when listen");
         ret = -2;
@@ -51,9 +52,9 @@ int main(void)
     svr_poll.fd = sk_listen;
     svr_poll.events = POLLIN;
     svr_poll.revents = 0;
-    
+
     while(1){
-        printf("before poll\n");    
+        printf("before poll\n");
         int nr=0;
         do{
             nr = poll(&svr_poll,1,100);
@@ -71,10 +72,10 @@ int main(void)
             sk = accept(sk_listen,(struct sockaddr*) &cli_addr,&cli_addr_size);
             printf("cli_addr:%s\n",inet_ntoa(cli_addr.sin_addr));
             printf("cli_addr:%lx\n",(int)(cli_addr.sin_addr.s_addr));
-        }    
+        }
 
         char buf[100] = {0};
-        ret=recv(sk, &buf, sizeof(buf), 0);    
+        ret=recv(sk, &buf, sizeof(buf), 0);
         if(ret == -1){
             perror("when recv");
             ret = -3;
