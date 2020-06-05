@@ -1,13 +1,17 @@
+#include <errno.h>
+#include <string.h>
 #include <stdio.h>
-#include <sys/socket.h>
+
 #include <sys/types.h>
 #include <sys/un.h>
 #include <stdlib.h>
 #include <sys/poll.h>
-#include <errno.h>
-#include <string.h>
+
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <netinet/tcp.h>
+
 #include <arpa/inet.h>
 #include <unistd.h>
 
@@ -20,6 +24,9 @@ int main(void)
     struct sockaddr_in svr_addr={0};
 
     sk = socket(AF_INET,SOCK_STREAM,0);
+
+    int one = 1;
+    setsockopt(sk, SOL_SOCKET , TCP_NODELAY , (char *)&one, sizeof(one));
     /*
      *cli_addr.sin_family = AF_INET;
      *cli_addr.sin_port = htons(4040);
@@ -46,7 +53,7 @@ int main(void)
     }
 
     char tosend=' ';
-    do{
+    do {
 	tosend = random()%(127-33) + 33;
 	ret=send(sk,&tosend,sizeof(char),0);
 	if(ret == -1){
@@ -54,16 +61,17 @@ int main(void)
 	    ret = -3;
 	    goto out;
 	}else{
-	    printf("send:%d\n",tosend);
+	    printf("send:%c\n",tosend);
 	}
 
-	usleep(1000);
+	/*
+	 *usleep(10);
+	 */
     } while(1);
 
     ret = 0;
 out:
     close(sk);
-
     return ret;
 }
 
