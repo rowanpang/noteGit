@@ -1,0 +1,92 @@
+$ stap cxswitch.stp 70                                                                  (master|…)
+ time_off (     10481 ),prev:               rttest( 30412)(pri= 120)(state=0) -> next:          migration/0(    12)(pri=   0)(state=0)
+    #30412 pri 99 启动,bond cpu3,等待迁移.
+ time_off (     10511 ),prev:            swapper/3(     0)(pri= 120)(state=0) -> next:               rttest( 30412)(pri= 120)(state=0)
+    #30412 pri 99 迁移成功,执行. set sched fifo, priority 99
+ time_off (    111302 ),prev:               rttest( 30414)(pri= 120)(state=0) -> next:          migration/0(    12)(pri=   0)(state=0)
+ time_off (    212080 ),prev:               rttest( 30416)(pri= 120)(state=0) -> next:          migration/2(    25)(pri=   0)(state=0)
+ time_off (    312795 ),prev:               rttest( 30418)(pri= 120)(state=0) -> next:          migration/1(    17)(pri=   0)(state=0)
+ time_off (    413610 ),prev:               rttest( 30420)(pri= 120)(state=0) -> next:          migration/1(    17)(pri=   0)(state=0)
+ time_off (    514372 ),prev:               rttest( 30422)(pri= 120)(state=0) -> next:          migration/1(    17)(pri=   0)(state=0)
+ time_off (    615352 ),prev:               rttest( 30424)(pri= 120)(state=0) -> next:          migration/1(    17)(pri=   0)(state=0)
+    #30414/16.. 这几个进程在其它cpu上启动,设置bond cpu3,等待迁移
+    #因为cpu3上30412已经在执行且有最高优先级,所以会一直运行.
+    #sleep 前打执行约4s.
+
+ time_off (   4754687 ),prev:               rttest( 30412)(pri=   0)(state=1) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+    #30412 sleep, 空出cpu,给其它进程执行的机会.
+ time_off (   4754719 ),prev:         kworker/3:1H(   377)(pri= 100)(state=1) -> next:               rttest( 30414)(pri= 120)(state=0)
+    #30414 迁移成功,set fifo, priority, schedule.
+ time_off (   5806158 ),prev:               rttest( 30414)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+    #30414 抢到,priority 70, watchdog 优先级更高,30414被中断.
+ time_off (   5806163 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30414)(pri=  29)(state=0)
+    #30414 切回,继承执行.目前为止共约执行了1s.
+ time_off (   6754688 ),prev:               rttest( 30414)(pri=  29)(state=0) -> next:               rttest( 30412)(pri=   0)(state=0)
+    #30412 sleep2 被wakeup,因为优先级高抢占cpu3,30414被中断.
+ time_off (  11466360 ),task :rttest PID(30412) PRI(0) EXIT
+ time_off (  11466379 ),prev:               rttest( 30412)(pri=   0)(state=64) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  11466398 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30414)(pri=  29)(state=0)
+    #30414 切回,继续执行.
+ time_off (  13806157 ),prev:               rttest( 30414)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+    #30414 被watchdog 中断.
+ time_off (  13806171 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30414)(pri=  29)(state=0)
+    #30414 切回,继续执行.
+ time_off (  14193665 ),prev:               rttest( 30414)(pri=  29)(state=1) -> next:          kworker/3:0( 17218)(pri= 120)(state=0)
+    #state=1,30414 sleep(2);
+ time_off (  14193725 ),prev:         kworker/3:1H(   377)(pri= 100)(state=1) -> next:               rttest( 30416)(pri= 120)(state=0)
+    #30416 迁移成功. set fifo, priority.
+ time_off (  17806158 ),prev:               rttest( 30416)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+    #30416 执行3s被watchdog中断.
+ time_off (  17806171 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30416)(pri=  29)(state=0)
+    #30416 切回,继续执行. 这时30414已经sleep,结束. 因为同等优先级的进程还在执行,不能优先调度它.
+ time_off (  18913636 ),prev:               rttest( 30416)(pri=  29)(state=1) -> next:               rttest( 30414)(pri=  29)(state=0)
+    #30416 sleep2, 30414 sleep 完成后获得执行机会.
+ time_off (  21806159 ),prev:               rttest( 30414)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  21806163 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30414)(pri=  29)(state=0)
+ time_off (  23624631 ),task :rttest PID(30414) PRI(29) EXIT
+ time_off (  23624647 ),prev:               rttest( 30414)(pri=  29)(state=64) -> next:               rttest( 30416)(pri=  29)(state=0)
+    #30416 sleep2后获得机会执行.
+ time_off (  25806157 ),prev:               rttest( 30416)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  25806172 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30416)(pri=  29)(state=0)
+ time_off (  28344135 ),task :rttest PID(30416) PRI(29) EXIT
+ time_off (  28344151 ),prev:               rttest( 30416)(pri=  29)(state=64) -> next:         kworker/3:1H(   377)(pri= 100)(state=0)
+ time_off (  28344226 ),prev:          kworker/3:0( 17218)(pri= 120)(state=1) -> next:               rttest( 30418)(pri= 120)(state=0)
+ time_off (  29806157 ),prev:               rttest( 30418)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  29806171 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30418)(pri=  29)(state=0)
+ time_off (  33070180 ),prev:               rttest( 30418)(pri=  29)(state=1) -> next:          kworker/3:0( 17218)(pri= 120)(state=0)
+ time_off (  33070191 ),prev:          kworker/3:0( 17218)(pri= 120)(state=1) -> next:               rttest( 30420)(pri= 120)(state=0)
+ time_off (  33806157 ),prev:               rttest( 30420)(pri=  49)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  33806172 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30420)(pri=  49)(state=0)
+ time_off (  35070180 ),prev:               rttest( 30420)(pri=  49)(state=0) -> next:               rttest( 30418)(pri=  29)(state=0)
+ time_off (  37806159 ),prev:               rttest( 30418)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  37806174 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30418)(pri=  29)(state=0)
+ time_off (  39796848 ),task :rttest PID(30418) PRI(29) EXIT
+ time_off (  39796864 ),prev:               rttest( 30418)(pri=  29)(state=64) -> next:               rttest( 30420)(pri=  49)(state=0)
+ time_off (  41806157 ),prev:               rttest( 30420)(pri=  49)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  41806171 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30420)(pri=  49)(state=0)
+ time_off (  42517540 ),prev:               rttest( 30420)(pri=  49)(state=1) -> next:          kworker/3:0( 17218)(pri= 120)(state=0)
+ time_off (  42517594 ),prev:         kworker/3:1H(   377)(pri= 100)(state=1) -> next:               rttest( 30422)(pri= 120)(state=0)
+ time_off (  44517540 ),prev:               rttest( 30422)(pri=  69)(state=0) -> next:               rttest( 30420)(pri=  49)(state=0)
+ time_off (  45806157 ),prev:               rttest( 30420)(pri=  49)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  45806172 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30420)(pri=  49)(state=0)
+ time_off (  49225878 ),task :rttest PID(30420) PRI(49) EXIT
+ time_off (  49225895 ),prev:               rttest( 30420)(pri=  49)(state=64) -> next:               rttest( 30422)(pri=  69)(state=0)
+ time_off (  49806159 ),prev:               rttest( 30422)(pri=  69)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  49806163 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30422)(pri=  69)(state=0)
+ time_off (  51954373 ),prev:               rttest( 30422)(pri=  69)(state=1) -> next:         kworker/3:1H(   377)(pri= 100)(state=0)
+ time_off (  51954416 ),prev:          kworker/3:0( 17218)(pri= 120)(state=1) -> next:               rttest( 30424)(pri= 120)(state=0)
+ time_off (  53806157 ),prev:               rttest( 30424)(pri=  89)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  53806162 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30424)(pri=  89)(state=0)
+ time_off (  53954373 ),prev:               rttest( 30424)(pri=  89)(state=0) -> next:               rttest( 30422)(pri=  69)(state=0)
+ time_off (  57806157 ),prev:               rttest( 30422)(pri=  69)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  57806162 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30422)(pri=  69)(state=0)
+ time_off (  58667474 ),task :rttest PID(30422) PRI(69) EXIT
+ time_off (  58667500 ),prev:               rttest( 30422)(pri=  69)(state=64) -> next:               rttest( 30424)(pri=  89)(state=0)
+ time_off (  61405162 ),prev:               rttest( 30424)(pri=  89)(state=1) -> next:         kworker/3:1H(   377)(pri= 100)(state=0)
+ time_off (  63405195 ),prev:            swapper/3(     0)(pri= 120)(state=0) -> next:               rttest( 30424)(pri=  89)(state=0)
+ time_off (  65806158 ),prev:               rttest( 30424)(pri=  89)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
+ time_off (  65806173 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest( 30424)(pri=  89)(state=0)
+ time_off (  68140772 ),task :rttest PID(30424) PRI(89) EXIT
+ time_off (  68140789 ),prev:               rttest( 30424)(pri=  89)(state=64) -> next:          kworker/3:0( 17218)(pri= 120)(state=0)
+----------------stp exit--------------------------------------
+

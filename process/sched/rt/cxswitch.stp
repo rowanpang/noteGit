@@ -1,0 +1,26 @@
+
+global time_offset
+probe begin { time_offset = gettimeofday_us() }
+
+probe scheduler.ctxswitch {
+    if(next_task_name == "rttest" ||prev_task_name == "rttest") {
+         t = gettimeofday_us()
+         printf(" time_off (%10d ),prev: %20s(%6d)(pri=%4d)(state=%d) -> next: %20s(%6d)(pri=%4d)(state=%d)\n",
+                  t-time_offset,
+		  prev_task_name, prev_pid, prev_priority, (prevtsk_state),
+                  next_task_name, next_pid, next_priority, (nexttsk_state))
+    }
+}
+
+probe scheduler.process_exit
+{
+    if(execname() == "rttest"){
+        t = gettimeofday_us()
+	printf(" time_off (%10d ),task :%s PID(%d) PRI(%d) EXIT\n",t-time_offset,execname(),pid,priority);
+    }
+}
+
+probe timer.s($1) {
+    printf("----------------stp exit--------------------------------------\n")
+    exit();
+}

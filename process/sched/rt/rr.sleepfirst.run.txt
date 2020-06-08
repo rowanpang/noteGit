@@ -1,0 +1,46 @@
+$ ./comp.sh 2                                                                           (master|…)
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3584) is 2, priority (99),BEGIN time(s) is :1591585088
+going sleep PID(3584),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3586) is 2, priority (70),BEGIN time(s) is :1591585088
+going sleep PID(3586),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3588) is 2, priority (70),BEGIN time(s) is :1591585088
+going sleep PID(3588),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3590) is 2, priority (70),BEGIN time(s) is :1591585088
+going sleep PID(3590),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3592) is 2, priority (50),BEGIN time(s) is :1591585088
+going sleep PID(3592),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3594) is 2, priority (30),BEGIN time(s) is :1591585088
+going sleep PID(3594),time(s) is: 1591585088
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(3596) is 2, priority (10),BEGIN time(s) is :1591585088
+going sleep PID(3596),time(s) is: 1591585088
+
+root at rowanInspur in ~/noteGit/process/sched/rt 06-08 10:58:08  (master●)
+$  PID = 3584    priority: 99   END TIME(s) is 1591585095                               (master|…)
+ PID = 3586	 priority: 70	END TIME(s) is 1591585109
+ PID = 3588	 priority: 70	END TIME(s) is 1591585109
+ PID = 3590	 priority: 70	END TIME(s) is 1591585109
+ PID = 3592	 priority: 50	END TIME(s) is 1591585113
+ PID = 3594	 priority: 30	END TIME(s) is 1591585118
+ PID = 3596	 priority: 10	END TIME(s) is 1591585123
+

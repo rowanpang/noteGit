@@ -1,0 +1,45 @@
+$ ./comp.sh 1                                                                           (master|…)
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30412) is 1, priority (99),BEGIN time(s) is :1591580043
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+
+going sleep PID(30412),time(s) is: 1591580048                                         (master|…)
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30414) is 1, priority (70),BEGIN time(s) is :1591580048
+ PID = 30412	 priority: 99	END TIME(s) is 1591580055
+
+going sleep PID(30414),time(s) is: 1591580057
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30416) is 1, priority (70),BEGIN time(s) is :1591580057
+
+going sleep PID(30416),time(s) is: 1591580062
+ PID = 30414	 priority: 70	END TIME(s) is 1591580067
+ PID = 30416	 priority: 70	END TIME(s) is 1591580072
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30418) is 1, priority (70),BEGIN time(s) is :1591580072
+going sleep PID(30418),time(s) is: 1591580076
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30420) is 1, priority (50),BEGIN time(s) is :1591580076
+ PID = 30418	 priority: 70	END TIME(s) is 1591580083
+going sleep PID(30420),time(s) is: 1591580086
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30422) is 1, priority (30),BEGIN time(s) is :1591580086
+ PID = 30420	 priority: 50	END TIME(s) is 1591580093
+going sleep PID(30422),time(s) is: 1591580095
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(30424) is 1, priority (10),BEGIN time(s) is :1591580095
+ PID = 30422	 priority: 30	END TIME(s) is 1591580102
+

@@ -1,0 +1,217 @@
+
+  PID PRI CMD                             TIME PSR
+
+  PID PRI CMD                             TIME PSR
+
+  PID PRI CMD                             TIME PSR
+30412 139 ./rttest 1 99               00:00:01   3
+30414  19 ./rttest 1 70               00:00:00   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30412 139 ./rttest 1 99               00:00:03   3
+30414  19 ./rttest 1 70               00:00:00   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30412 139 ./rttest 1 99               00:00:04   3	#30412 sleep 之前一直在执行,其它进程没有调度.
+30414 110 ./rttest 1 70               00:00:00   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30412 139 ./rttest 1 99               00:00:05   3
+30414 110 ./rttest 1 70               00:00:01   3	#30412 sleep 中,30414获得了一些运行时间.
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30412 139 ./rttest 1 99               00:00:07   3	#30412 sleep后重新　运行,30414被中断,没有机会执行.
+30414 110 ./rttest 1 70               00:00:01   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:02   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:04   3
+30416  19 ./rttest 1 70               00:00:00   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:04   3
+30416 110 ./rttest 1 70               00:00:01   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:04   3
+30416 110 ./rttest 1 70               00:00:03   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:05   3
+30416 110 ./rttest 1 70               00:00:04   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30414 110 ./rttest 1 70               00:00:07   3
+30416 110 ./rttest 1 70               00:00:04   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30416 110 ./rttest 1 70               00:00:04   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30416 110 ./rttest 1 70               00:00:06   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30416 110 ./rttest 1 70               00:00:08   3
+30418  19 ./rttest 1 70               00:00:00   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30418 110 ./rttest 1 70               00:00:01   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30418 110 ./rttest 1 70               00:00:03   3
+30420  19 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30418 110 ./rttest 1 70               00:00:04   3
+30420  90 ./rttest 1 50               00:00:00   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30418 110 ./rttest 1 70               00:00:05   3
+30420  90 ./rttest 1 50               00:00:01   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30418 110 ./rttest 1 70               00:00:07   3
+30420  90 ./rttest 1 50               00:00:01   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30420  90 ./rttest 1 50               00:00:02   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30420  90 ./rttest 1 50               00:00:04   3
+30422  19 ./rttest 1 30               00:00:00   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30420  90 ./rttest 1 50               00:00:04   3
+30422  70 ./rttest 1 30               00:00:01   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30420  90 ./rttest 1 50               00:00:06   3
+30422  70 ./rttest 1 30               00:00:01   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30420  90 ./rttest 1 50               00:00:08   3
+30422  70 ./rttest 1 30               00:00:01   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30422  70 ./rttest 1 30               00:00:02   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30422  70 ./rttest 1 30               00:00:04   3
+30424  19 ./rttest 1 10               00:00:00   3
+
+  PID PRI CMD                             TIME PSR
+30422  70 ./rttest 1 30               00:00:04   3
+30424  50 ./rttest 1 10               00:00:01   3
+
+  PID PRI CMD                             TIME PSR
+30422  70 ./rttest 1 30               00:00:06   3
+30424  50 ./rttest 1 10               00:00:01   3
+
+  PID PRI CMD                             TIME PSR
+30422  70 ./rttest 1 30               00:00:08   3
+30424  50 ./rttest 1 10               00:00:01   3
+
+  PID PRI CMD                             TIME PSR
+30424  50 ./rttest 1 10               00:00:03   3
+
+  PID PRI CMD                             TIME PSR
+30424  50 ./rttest 1 10               00:00:04   3
+
+  PID PRI CMD                             TIME PSR
+30424  50 ./rttest 1 10               00:00:05   3
+
+  PID PRI CMD                             TIME PSR
+30424  50 ./rttest 1 10               00:00:07   3
+
+  PID PRI CMD                             TIME PSR
+30424  50 ./rttest 1 10               00:00:09   3
+
+  PID PRI CMD                             TIME PSR
+
+  PID PRI CMD                             TIME PSR
+
+  PID PRI CMD                             TIME PSR
+
+  PID PRI CMD                             TIME PSR
+

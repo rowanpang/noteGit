@@ -1,0 +1,43 @@
+$ ./comp.sh 2                                                                           (master|…)
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(937) is 2, priority (99),BEGIN time(s) is :1591583263
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+Cpu affinity is:0,1,2,3.
+
+going sleep PID(937),time(s) is: 1591583268                                           (master|…)
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(939) is 2, priority (70),BEGIN time(s) is :1591583268
+ PID = 937	 priority: 99	END TIME(s) is 1591583275
+going sleep PID(939),time(s) is: 1591583278
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(941) is 2, priority (70),BEGIN time(s) is :1591583278
+going sleep PID(941),time(s) is: 1591583285
+ PID = 939	 priority: 70	END TIME(s) is 1591583287
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(953) is 2, priority (70),BEGIN time(s) is :1591583287
+going sleep PID(953),time(s) is: 1591583297
+ PID = 941	 priority: 70	END TIME(s) is 1591583297
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(957) is 2, priority (50),BEGIN time(s) is :1591583297
+ PID = 953	 priority: 70	END TIME(s) is 1591583303
+going sleep PID(957),time(s) is: 1591583306
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(960) is 2, priority (30),BEGIN time(s) is :1591583306
+ PID = 957	 priority: 50	END TIME(s) is 1591583313
+going sleep PID(960),time(s) is: 1591583316
+Cpu affinity is:3.
+sched method/priority: 0/0
+the scheduler of PID(965) is 2, priority (10),BEGIN time(s) is :1591583316
+ PID = 960	 priority: 30	END TIME(s) is 1591583323
+
