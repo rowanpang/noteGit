@@ -1,3 +1,7 @@
+0,basic
+    a,ref
+	http://blog.chinaunix.net/uid-24774106-id-3379478.html
+
 1,fifo
     a,终端1
 	stap cxswitch.stp 70
