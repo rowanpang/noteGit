@@ -29,7 +29,30 @@ int main(int argc, char const *argv[])
 {
     int fd;
     char line[100];
+    struct flock fltmp;
+
+    int ret;
+
     fd = open(FILENAME,O_RDWR | O_CREAT,644);
+
+    fltmp.l_type = F_RDLCK;
+    fltmp.l_start = 0;
+    fltmp.l_whence = SEEK_SET;
+    fltmp.l_len = 5;
+
+    ret = fcntl(fd,F_GETLK,&fltmp);
+    if (ret !=0 ){
+	printf("fcntl getlk error:%d,%s\n",errno,strerror(errno));
+	goto OUT;
+    } else {
+	printf("fcntl getlk success flock ret:%d\n",fltmp.l_type);
+	/*
+	 *#define F_RDLCK         0
+	 *#define F_WRLCK         1
+	 *#define F_UNLCK         2
+	 */
+    }
+
     if(write_lock(fd,0,SEEK_SET,0) < 0) {
 	if(errno == EACCES || errno == EAGAIN){	//EAGAIN == EWOULDBLOCK
 	    printf("unable to lock %s,is %s already running?\n", FILENAME,argv[0]);
@@ -49,5 +72,6 @@ int main(int argc, char const *argv[])
 
 
 OUT:
+    close(fd);
     return 0;
 }

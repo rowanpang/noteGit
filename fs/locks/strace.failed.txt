@@ -1,0 +1,40 @@
+$ strace -ttf ./posix                                                                                                                                                                      (master|✚1)
+18:17:19.794653 execve("./posix", ["./posix"], 0x7fffa0c65938 /* 54 vars */) = 0
+18:17:19.794863 brk(NULL)               = 0x101b000
+18:17:19.794918 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+18:17:19.794957 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+18:17:19.794979 fstat(3, {st_mode=S_IFREG|0644, st_size=182001, ...}) = 0
+18:17:19.795002 mmap(NULL, 182001, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f0a8ebfa000
+18:17:19.795021 close(3)                = 0
+18:17:19.795042 open("/lib64/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+18:17:19.795060 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\t\2\0\0\0\0\0"..., 832) = 832
+18:17:19.795078 fstat(3, {st_mode=S_IFREG|0755, st_size=2182304, ...}) = 0
+18:17:19.795094 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f0a8ebf8000
+18:17:19.795112 mmap(NULL, 4016416, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f0a8e62d000
+18:17:19.795128 mprotect(0x7f0a8e7f8000, 2097152, PROT_NONE) = 0
+18:17:19.795146 mmap(0x7f0a8e9f8000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1cb000) = 0x7f0a8e9f8000
+18:17:19.795166 mmap(0x7f0a8e9fe000, 14624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f0a8e9fe000
+18:17:19.795185 close(3)                = 0
+18:17:19.795207 arch_prctl(ARCH_SET_FS, 0x7f0a8ebf9440) = 0
+18:17:19.795246 mprotect(0x7f0a8e9f8000, 16384, PROT_READ) = 0
+18:17:19.795263 mprotect(0x600000, 4096, PROT_READ) = 0
+18:17:19.795280 mprotect(0x7f0a8ec27000, 4096, PROT_READ) = 0
+18:17:19.795296 munmap(0x7f0a8ebfa000, 182001) = 0
+18:17:19.795328 open("/tmp/rowanposixlock.lock", O_RDWR|O_CREAT, 01204) = 3
+18:17:19.795348 fcntl(3, F_GETLK, {l_type=F_WRLCK, l_whence=SEEK_SET, l_start=0, l_len=0, l_pid=7241}) = 0
+    #F_GETLK .{l_type=xx},表示的是返回值,而不是传入的参数.
+    #传入时,参数为:fltmp.l_type = F_RDLCK;
+    #表示,相加一个RDLCK,但是但前有一个WRLCK,所以不能加.
+
+18:17:19.795372 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 21), ...}) = 0
+18:17:19.795409 brk(NULL)               = 0x101b000
+18:17:19.795423 brk(0x103c000)          = 0x103c000
+18:17:19.795439 brk(NULL)               = 0x103c000
+18:17:19.795457 write(1, "fcntl getlk success flock ret:1\n", 32fcntl getlk success flock ret:1
+) = 32
+18:17:19.795476 fcntl(3, F_SETLK, {l_type=F_WRLCK, l_whence=SEEK_SET, l_start=0, l_len=0}) = -1 EAGAIN (Resource temporarily unavailable)
+18:17:19.795495 write(1, "unable to lock /tmp/rowanposixlo"..., 68unable to lock /tmp/rowanposixlock.lock,is ./posix already running?
+) = 68
+18:17:19.795512 close(3)                = 0
+18:17:19.795529 exit_group(0)           = ?
+18:17:19.795574 +++ exited with 0 +++
