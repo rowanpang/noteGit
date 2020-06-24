@@ -1,0 +1,29 @@
+
+
+1,flock run
+    a, $ ./flock &
+	[1] 17413
+	pid:17413,tmpfile:/tmp/rowanflock.txt
+	flags O_DIRECT:0x4000,O_RDONLY:0
+	locking success
+
+	1),msg "locking success"
+	2),$ lslocks |grep rowanflock
+	    flock           17413  FLOCK    0B WRITE 0          0          0 /tmp/rowanflock.txt
+
+    b, 再次执行 ./flock
+	$ ./flock
+	    pid:17581,tmpfile:/tmp/rowanflock.txt
+	    flags O_DIRECT:0x4000,O_RDONLY:0
+	    has been locked, cmd lslocks to check:11,Resource temporarily unavailable
+
+2,posix
+    a, $ ./posix &
+	[2] 18540
+	locking success
+
+    b, $ ./posix
+	unable to lock /tmp/rowanposixlock.lock,is ./posix already running?
+
+    c, $ lslocks |grep rowanposi
+	posix           18540  POSIX    6B WRITE 0          0          0 /tmp/rowanposixlock.lock
