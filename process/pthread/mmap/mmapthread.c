@@ -90,6 +90,8 @@ void* threadfn(void *tharg)
     elapsed = (te.tv_sec - ts.tv_sec)*1.0e6 + (te.tv_usec-ts.tv_usec);
     arg->uelapsed = elapsed;
     rc = 0;
+    printf("thread: %d, exit\n");
+
     return ERR_PTR(rc);
 
 out:
