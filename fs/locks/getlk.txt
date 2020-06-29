@@ -1,0 +1,16 @@
+0,basic
+    a, 支持范围的读写.
+
+1,终端1
+    $ ./posix
+	fcntl getlk success flock ret:2
+	fcntl getlk success flock ret:2
+	locking success
+
+2,终端2
+    $ ./posix
+	fcntl getlk success flock ret:1
+	fcntl getlk success flock ret:2		#尝试对不同的区域加RDLCK 可以成功.
+	unable to lock /tmp/rowanposixlock.lock,is ./posix already running?
+
+
