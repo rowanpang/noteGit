@@ -60,6 +60,22 @@ struct zeroa{
  *const int itmp = myint(1,2);	//error| initializer element is not constant
  */
 
+struct weather {
+    int tmp;
+    int type;
+};
+
+static struct weather __attribute__((__used__)) __attribute__((__aligned__(4)))  myweather_1;
+
+int myweather_1_a;
+int myweather_1_a = 3;
+
+static struct weather __attribute__((__used__)) __attribute__((__aligned__(4)))  myweather_1 = {
+    .tmp = 10,
+    .type = 1,
+};
+
+
 int main(int argc,char** argv)
 {
     struct st{

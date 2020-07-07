@@ -5,7 +5,7 @@
 	2),则会在LD_LIBRARY_PATH 路径下查找msg.so 文件.
 
 2,测试方法:
-    make
-    执行 run.sh
+    make; ./run.sh
 
-3,运行种改变LD_LIBRARY_PATH 环境变量,对so的加载路径无效.
+3,运行种首次设置LD_LIBRARY_PATH 环境变量,对dlopen的加载路径无效.
+    make; ./run.env.sh

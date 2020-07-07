@@ -4,4 +4,5 @@ export LD_DEBUG='all'
 export LD_DEBUG='all'
 export LD_DEBUG_OUTPUT='ld-debug.log'
 
-./main-env 
+#LD_LIBRARY_PATH=./ldpathEnv ./main.env
+./main.env
