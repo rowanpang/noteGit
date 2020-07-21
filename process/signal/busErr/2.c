@@ -24,6 +24,7 @@ int main()
     /* THIS is the cause of the problem. */
 
     /*ftruncate(fd, size);*/	    //问题点,enable 运行正常
+    /*Set the size of the shared memory object.  (A newly created shared memory object has a length of zero.)*/
 
     map = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     /* This is what generates the SIGBUS. */
