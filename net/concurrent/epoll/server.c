@@ -129,8 +129,7 @@ int main(int argc, char *argv[])
 		    ret = -6;
 		    goto epollError;
 		}
-		printf("    cli addr# %s:%d\n",inet_ntoa(claddr.sin_addr),
-						ntohs(claddr.sin_port));
+		printf("    cli addr# %s:%d\n",inet_ntoa(claddr.sin_addr), ntohs(claddr.sin_port));
 
 		bzero(&evtmp,sizeof(evtmp));
 		evtmp.data.fd = clfd;
