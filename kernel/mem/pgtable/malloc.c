@@ -10,7 +10,7 @@ int main(int argc,char** argv)
 	int skipshift = 3;
 
         char i = 0;
-	
+
 	if (argc == 2){
 		sizeshift = atoi(argv[1]);
 	} else if (argc == 3){
@@ -20,7 +20,8 @@ int main(int argc,char** argv)
 
 	printf("size shift:%d, skip shift:%d\n",sizeshift,skipshift);
 
-        charp = malloc( (unsigned long)1<<sizeshift );
+        //charp = malloc( (unsigned long)1<<sizeshift );        OR
+        charp = malloc( 1ul<<sizeshift );                       // 默认1为int, << 31后是负数,alloc 失败.
         ctmp = charp;
 
 	printf("charp:%p, valued staring\n",charp);
