@@ -217,6 +217,29 @@ int main(int argc,char** argv)
 	 *&pzeroa->data[2] = pzeroa+4(int a)+4(intb)+4(int data[0])+4(int data[1])
 	 */
 
+/*
+ *    unsigned short int ntu=50;
+ *    unsigned short int cnt=64;
+ *    unsigned short int delt=100;
+ *
+ */
+    int ntu=50;
+    int cnt=64;
+    int delt=100;
+
+    ntu -= cnt;
+    printf("ntu: %d\n",ntu);
+
+    do {
+        ntu++;
+        if(!ntu){
+            break;
+        }
+    } while(delt--);
+
+    printf("ntu: %d,delt:%d\n",ntu,delt);
+
+
     return 0;
 }
 
