@@ -11,7 +11,14 @@ set rusername [lindex $argv 1]
 set rpassword [lindex $argv 2]
 
 spawn ssh $rusername@$rhost echo ok
-expect "Are you sure you want to continue connecting (yes/no)?"
-send "yes\r"
 
-interact
+expect {
+	"Are you sure you want to continue connecting*" {
+		send "yes\r"
+		exp_continue
+	}
+	
+	eof {
+		exit
+	}
+}
