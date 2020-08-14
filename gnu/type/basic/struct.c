@@ -18,6 +18,18 @@ typedef enum hostStatus {
     agentRunning
 } hostStatus_t;
 
+typedef long vec256[8];
+
+vec256 vec256_test = {10,0};
+vec256 vec256_a = {10,0};
+vec256 vec256_b = {10,0};
+
+int vecadd(vec256 ret, vec256 a, vec256 b)      //指针传递
+{
+    ret[0] =  a[0] + b[0];
+    return 0;
+}
+
 #define stStr(st) #st
 
 int hello(int ok){
@@ -97,6 +109,11 @@ int main(int argc,char** argv)
         "rowan",
         "inspur"
         };
+
+    printf("sizeof(vec256):%d\n",sizeof(vec256));
+    printf("vec256_test[0]:%d\n",vec256_test[0]);
+    vecadd(vec256_test,vec256_a,vec256_b);
+    printf("vec256_test[0] after add:%d\n",vec256_test[0]);
 
     printf("sizeof(st_2):%d\n",sizeof(st_2));
 
