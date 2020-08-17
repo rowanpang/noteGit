@@ -72,7 +72,7 @@ void* threadfn(void *tharg)
 	}
 	maddr = mmap(NULL,4096,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
 
-	if ( maddr == MAP_FAILED){
+	if (maddr == MAP_FAILED){
 	    printf("mmap() failed, errno %d\n", errno);
 	    rc = -errno;
 	    goto out;
