@@ -87,6 +87,10 @@ static struct weather __attribute__((__used__)) __attribute__((__aligned__(4))) 
     .type = 1,
 };
 
+#define INT_MAX             ((int)(~0U>>1))
+#define PAGE_SHIFT          16
+#define PAGE_MASK           (~((1 << PAGE_SHIFT) - 1))
+#define MAX_RW_COUNT        (INT_MAX & PAGE_MASK)
 
 int main(int argc,char** argv)
 {
@@ -109,7 +113,7 @@ int main(int argc,char** argv)
         "rowan",
         "inspur"
         };
-
+    printf("MAX_RW_COUNT: %#lx\n",MAX_RW_COUNT);
     printf("sizeof(vec256):%d\n",sizeof(vec256));
     printf("vec256_test[0]:%d\n",vec256_test[0]);
     vecadd(vec256_test,vec256_a,vec256_b);
