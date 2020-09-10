@@ -1,0 +1,25 @@
+https://mp.weixin.qq.com/s?__biz=MzAwMDUwNDgxOA==&mid=2652663542&idx=1&sn=1e19be71d650eba288b0341d09e164df&chksm=810f286bb678a17d06b4659d00717517f3f65ab8a6452a33e799b6010b00814895647bc188d7&scene=21#wechat_redirect
+
+
+cat > function.sh << EOF
+#!/bin/bash
+debugfs=/sys/kernel/debug
+
+echo nop > $debugfs/tracing/current_tracer
+
+echo 0 > $debugfs/tracing/tracing_on
+
+echo $$ > $debugfs/tracing/set_ftrace_pid
+
+echo function_graph > $debugfs/tracing/current_tracer
+
+#replace test_proc_show by your function name
+
+echo test_proc_show > $debugfs/tracing/set_graph_function
+
+echo 1 > $debugfs/tracing/tracing_on
+
+exec "$@"
+EOF
+
+# ./function.sh cat /proc/test_dir/test_rw
