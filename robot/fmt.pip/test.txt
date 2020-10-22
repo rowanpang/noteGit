@@ -1,0 +1,8 @@
+#robot -d out test.txt
+*** Settings ***
+| Resource | configuration.txt
+| Resource | myKeywords.txt
+
+*** Test Cases ***
+| Display the list of configuration files
+| | Show files
