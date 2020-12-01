@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+
 
 /*
  *pangwz
@@ -94,6 +96,8 @@ static struct weather __attribute__((__used__)) __attribute__((__aligned__(4))) 
 
 int main(int argc,char** argv)
 {
+    off_t biah;
+
     struct st{
         char* str1;
         char* str2;
@@ -131,7 +135,7 @@ int main(int argc,char** argv)
     printf("sizeof(*pint):%d\n",sizeof(*pint));
     printf("sizeof(long):%d\n",sizeof(long));
     printf("sizeof(void*):%d\n",sizeof(void*));
-    printf("sizeof(long long):%d\n",sizeof(long long));
+    printf("sizeof(long long):%d\n",sizeof(long long));         //long long 也是8bytes.
     printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
     printf("sizeof(unsigned long):%d\n",sizeof(unsigned long));
     printf("sizeof(unsigned long int):%d\n",sizeof(unsigned long int));
