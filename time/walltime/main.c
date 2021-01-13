@@ -2,6 +2,8 @@
 #include<unistd.h>
 #include<time.h>
 
+
+#define NS_PER_SEC 1000000000
 void nowtime_ns()
 {
     printf("---------------------------struct timespec---------------------------------------\n");
@@ -31,6 +33,9 @@ int main(int argc,char** argv)
     time_t now = time(NULL);
     int length=25;
 
+    struct timespec start,end;
+    long t;
+
     printf("%*s: %ld\n",length,"utc second since 1970",now);
     printf("%*s: %s",length,"gmtime/utc string",asctime(gmtime(&now)));
 
@@ -47,6 +52,12 @@ int main(int argc,char** argv)
 
     nowtime_ns();
     monictime_ns();
+
+    clock_gettime(CLOCK_MONOTONIC,&start);
+    clock_gettime(CLOCK_MONOTONIC,&end);
+
+    t=(end.tv_sec-start.tv_sec)*NS_PER_SEC + end.tv_nsec - start.tv_nsec;
+    printf("escape: %ld.%09ld sec\n",t/NS_PER_SEC, t%NS_PER_SEC);
 
     return 0;
 }
