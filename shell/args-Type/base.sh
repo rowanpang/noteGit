@@ -7,6 +7,9 @@ echo "-var replace--"
 echo ${1+"$@"}
 echo ${1-"$@"}
 
+OS=${OS2-"kkkk"}
+echo "os:$OS"
+
 echo "-while --"
 while [ $# -gt 0 ]; do
     echo "arg is = $#"
