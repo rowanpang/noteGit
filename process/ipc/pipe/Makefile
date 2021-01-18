@@ -6,7 +6,7 @@ LIBS     =
 OBJECTS_DIR = ./
 
 TARGET = pipeSimple pipelimit popenPlot fifoOpen \
-	 fifoRead fifoWrite
+	 fifoRead fifoWrite pipeSelect
 
 ####### Implicit rules
 
