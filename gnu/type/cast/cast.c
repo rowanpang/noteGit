@@ -13,6 +13,15 @@ int main()
     int psz = sysconf(_SC_PAGE_SIZE);
     arr = memalign(psz,LEN);
 
+    /*
+     *for (i = 0; i < LEN; i+=STRID) {
+     *    (char*)((long)arr[i]) = (long)&arr[i+STRID];      compile error
+     *    printf("arr[i]:%#8x,arr[i+1]:%#8x,arr[i+2]:%#8x,&arr[i+%#8x]:%p\n",arr[i],arr[i+1],arr[i+2],STRID,&arr[i+STRID]);
+     *}
+     *arr[i-STRID] = (long)&arr[0];
+     *printf("-------------\n");
+     */
+
     for (i = 0; i < LEN; i+=STRID) {
         arr[i] = (long)&arr[i+STRID];
         printf("arr[i]:%#8x,arr[i+1]:%#8x,arr[i+2]:%#8x,&arr[i+%#8x]:%p\n",arr[i],arr[i+1],arr[i+2],STRID,&arr[i+STRID]);
