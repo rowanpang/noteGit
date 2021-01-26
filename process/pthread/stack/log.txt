@@ -1,0 +1,97 @@
+0,basic
+    a,thread stack 由thread自己实现与process stack 不是一个.
+    b,process stack 是主进程thread_group leader 的stack.
+    c,thread 之间共享task->mm 所以,任意进程的/proc/xx/{maps,smap} 是一样的.
+
+00400000-00402000 r-xp 00000000 fd:00 6819520                            /root/noteGit/process/pthread/stack/stack
+00601000-00602000 r--p 00001000 fd:00 6819520                            /root/noteGit/process/pthread/stack/stack
+00602000-00603000 rw-p 00002000 fd:00 6819520                            /root/noteGit/process/pthread/stack/stack
+00603000-00625000 rw-p 00000000 00:00 0                                  [heap]
+7fffe0000000-7fffe0021000 rw-p 00000000 00:00 0
+7fffe0021000-7fffe4000000 ---p 00000000 00:00 0
+7fffe4000000-7fffe4021000 rw-p 00000000 00:00 0
+7fffe4021000-7fffe8000000 ---p 00000000 00:00 0
+7fffe8000000-7fffe8021000 rw-p 00000000 00:00 0
+7fffe8021000-7fffec000000 ---p 00000000 00:00 0
+7fffed7df000-7fffed7e0000 ---p 00000000 00:00 0
+7fffed7e0000-7fffedfe0000 rw-p 00000000 00:00 0
+7ffff0000000-7ffff0021000 rw-p 00000000 00:00 0
+7ffff0021000-7ffff4000000 ---p 00000000 00:00 0
+7ffff5fe0000-7ffff5fe1000 ---p 00000000 00:00 0
+7ffff5fe1000-7ffff67e1000 rw-p 00000000 00:00 0
+7ffff67e1000-7ffff67e2000 ---p 00000000 00:00 0
+7ffff67e2000-7ffff6fe2000 rw-p 00000000 00:00 0     <---0x6f-0x67 = 8, 8M, 8192K ---------------------------------------------------------------------------------------------\
+7ffff6fe2000-7ffff6fe3000 ---p 00000000 00:00 0     一个PAGE HOLE                                                                                                              |
+7ffff6fe3000-7ffff77e3000 rw-p 00000000 00:00 0     <---0x77-0x6f = 8, 8M, 8192K -----------------------------------------------------------------------------------------     |
+7ffff77e3000-7ffff79ae000 r-xp 00000000 fd:00 10756900                   /usr/lib64/libc-2.25.so                                                                          \    |
+7ffff79ae000-7ffff7bae000 ---p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so                                                                          |    |
+7ffff7bae000-7ffff7bb2000 r--p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so                                                                          |    |
+7ffff7bb2000-7ffff7bb4000 rw-p 001cf000 fd:00 10756900                   /usr/lib64/libc-2.25.so                                                                          |    |
+7ffff7bb4000-7ffff7bb8000 rw-p 00000000 00:00 0                                                                                                                           |    |
+7ffff7bb8000-7ffff7bd1000 r-xp 00000000 fd:00 10761004                   /usr/lib64/libpthread-2.25.so                                                                    |    |
+7ffff7bd1000-7ffff7dd1000 ---p 00019000 fd:00 10761004                   /usr/lib64/libpthread-2.25.so                                                                    |    |
+7ffff7dd1000-7ffff7dd2000 r--p 00019000 fd:00 10761004                   /usr/lib64/libpthread-2.25.so                                                                    |    |
+7ffff7dd2000-7ffff7dd3000 rw-p 0001a000 fd:00 10761004                   /usr/lib64/libpthread-2.25.so                                                                    |    |
+7ffff7dd3000-7ffff7dd7000 rw-p 00000000 00:00 0                                                                                                                           |    |
+7ffff7dd7000-7ffff7dfd000 r-xp 00000000 fd:00 10758760                   /usr/lib64/ld-2.25.so                                                                            |    |
+7ffff7fc5000-7ffff7fca000 rw-p 00000000 00:00 0                                                                                                                           |    |
+7ffff7ff8000-7ffff7ffa000 r--p 00000000 00:00 0                          [vvar]                                                                                           |    |
+7ffff7ffa000-7ffff7ffc000 r-xp 00000000 00:00 0                          [vdso]                                                                                           |    |
+7ffff7ffc000-7ffff7ffd000 r--p 00025000 fd:00 10758760                   /usr/lib64/ld-2.25.so                                                                            |    |
+7ffff7ffd000-7ffff7fff000 rw-p 00026000 fd:00 10758760                   /usr/lib64/ld-2.25.so                                                                            |    |
+7ffffffde000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]                                                                                          |    |
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]                                                                                       |    |
+13963:   ./stack aa bb cc dd                                                                                                                                              |    |
+         Address Perm   Offset Device    Inode   Size  Rss Pss Referenced Anonymous ShmemPmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked Mapping             |    |
+        00400000 r-xp 00000000  fd:00  6819520      8    8   8          8         0              0              0               0    0       0      0 stack               |    |
+        00601000 r--p 00001000  fd:00  6819520      4    4   4          4         4              0              0               0    0       0      0 stack               |    |
+        00602000 rw-p 00002000  fd:00  6819520      4    4   4          4         4              0              0               0    0       0      0 stack               |    |
+        00603000 rw-p 00000000  00:00        0    136    8   8          8         8              0              0               0    0       0      0 [heap]              |    |
+    7fffe0000000 rw-p 00000000  00:00        0    132    4   4          4         4              0              0               0    0       0      0                     |    |
+    7fffe0021000 ---p 00000000  00:00        0  65404    0   0          0         0              0              0               0    0       0      0                     |    |
+    7fffe4000000 rw-p 00000000  00:00        0    132    4   4          4         4              0              0               0    0       0      0                     |    |
+    7fffe4021000 ---p 00000000  00:00        0  65404    0   0          0         0              0              0               0    0       0      0                     |    |
+    7fffe8000000 rw-p 00000000  00:00        0    132    4   4          4         4              0              0               0    0       0      0                     |    |
+    7fffe8021000 ---p 00000000  00:00        0  65404    0   0          0         0              0              0               0    0       0      0                     |    |
+    7fffed7df000 ---p 00000000  00:00        0      4    0   0          0         0              0              0               0    0       0      0                     |    |
+    7fffed7e0000 rw-p 00000000  00:00        0   8192    8   8          8         8              0              0               0    0       0      0                     |    |
+    7ffff0000000 rw-p 00000000  00:00        0    132    4   4          4         4              0              0               0    0       0      0                     |    |
+    7ffff0021000 ---p 00000000  00:00        0  65404    0   0          0         0              0              0               0    0       0      0                     |    |
+    7ffff5fe0000 ---p 00000000  00:00        0      4    0   0          0         0              0              0               0    0       0      0                     |    |
+    7ffff5fe1000 rw-p 00000000  00:00        0   8192    8   8          8         8              0              0               0    0       0      0                     |    |
+    7ffff67e1000 ---p 00000000  00:00        0      4    0   0          0         0              0              0               0    0       0      0                     |    |
+    7ffff67e2000 rw-p 00000000  00:00        0   8192    8   8          8         8              0              0               0    0       0      0 --------------------+---\|
+    7ffff6fe2000 ---p 00000000  00:00        0      4    0   0          0         0              0              0               0    0       0      0                     |    \
+    7ffff6fe3000 rw-p 00000000  00:00        0   8192    8   8          8         8              0              0               0    0       0      0 -------------------\|    |
+    7ffff77e3000 r-xp 00000000  fd:00 10756900   1836 1332   8       1332         0              0              0               0    0       0      0 libc-2.25.so        \    |
+    7ffff79ae000 ---p 001cb000  fd:00 10756900   2048    0   0          0         0              0              0               0    0       0      0 libc-2.25.so        |    |
+    7ffff7bae000 r--p 001cb000  fd:00 10756900     16   16  16         16        16              0              0               0    0       0      0 libc-2.25.so        |    |
+    7ffff7bb2000 rw-p 001cf000  fd:00 10756900      8    8   8          8         8              0              0               0    0       0      0 libc-2.25.so        |    |
+    7ffff7bb4000 rw-p 00000000  00:00        0     16   12  12         12        12              0              0               0    0       0      0                     |    |
+    7ffff7bb8000 r-xp 00000000  fd:00 10761004    100   96   0         96         0              0              0               0    0       0      0 libpthread-2.25.so  |    |
+    7ffff7bd1000 ---p 00019000  fd:00 10761004   2048    0   0          0         0              0              0               0    0       0      0 libpthread-2.25.so  |    |
+    7ffff7dd1000 r--p 00019000  fd:00 10761004      4    4   4          4         4              0              0               0    0       0      0 libpthread-2.25.so  |    |
+    7ffff7dd2000 rw-p 0001a000  fd:00 10761004      4    4   4          4         4              0              0               0    0       0      0 libpthread-2.25.so  |    |
+    7ffff7dd3000 rw-p 00000000  00:00        0     16    4   4          4         4              0              0               0    0       0      0                     |    |
+    7ffff7dd7000 r-xp 00000000  fd:00 10758760    152  152   0        152         0              0              0               0    0       0      0 ld-2.25.so          |    |
+    7ffff7fc5000 rw-p 00000000  00:00        0     20   16  16         16        16              0              0               0    0       0      0                     |    |
+    7ffff7ff8000 r--p 00000000  00:00        0      8    0   0          0         0              0              0               0    0       0      0 [vvar]              |    |
+    7ffff7ffa000 r-xp 00000000  00:00        0      8    4   0          4         0              0              0               0    0       0      0 [vdso]              |    |
+    7ffff7ffc000 r--p 00025000  fd:00 10758760      4    4   4          4         4              0              0               0    0       0      0 ld-2.25.so          |    |
+    7ffff7ffd000 rw-p 00026000  fd:00 10758760      8    8   8          8         8              0              0               0    0       0      0 ld-2.25.so          |    |
+    7ffffffde000 rw-p 00000000  00:00        0    132   12  12         12        12              0              0               0    0       0      0 [stack]             |    |
+ffffffffff600000 r-xp 00000000  00:00        0      4    0   0          0         0              0              0               0    0       0      0 [vsyscall]          |    |
+                                               ====== ==== === ========== ========= ============== ============== =============== ==== ======= ======                     |    |
+                                               301512 1744 168       1744       152              0              0               0    0       0      0 KB                  |    |
+                                                                                                                                                                          |    |
+num_threads:4                                                                                                                                                             |    |
+Thread 1: top of stack near 0x7ffff77e1f28; argv_string=aa --------------------------------------------------------------------------------------------------------------/     |
+Thread 2: top of stack near 0x7ffff6fe0f28; argv_string=bb -------------------------------------------------------------------------------------------------------------------/
+Thread 3: top of stack near 0x7ffff67dff28; argv_string=cc
+Thread 4: top of stack near 0x7fffedfdef28; argv_string=dd
+
+----------------------------------------------
+Joined with thread 1; returned value was AA
+Joined with thread 2; returned value was BB
+Joined with thread 3; returned value was CC
+Joined with thread 4; returned value was DD
