@@ -94,6 +94,8 @@ static struct weather __attribute__((__used__)) __attribute__((__aligned__(4))) 
 #define PAGE_MASK           (~((1 << PAGE_SHIFT) - 1))
 #define MAX_RW_COUNT        (INT_MAX & PAGE_MASK)
 
+int garrary[3]={1,2,3};
+
 int main(int argc,char** argv)
 {
     off_t biah;
@@ -117,6 +119,10 @@ int main(int argc,char** argv)
         "rowan",
         "inspur"
         };
+
+    printf("func:(%%p vecadd):%p,(%%p &vecadd) %p\n",vecadd,&vecadd);
+    printf("func:(%%p vecadd>>4):%p,(%%p vecadd>>4>>4) %p\n",((unsigned long)vecadd)>>4,((unsigned long)vecadd)>>4>>4);
+    printf("func:(%%p garrary):%p,(%%p &garrary) %p\n",garrary,&garrary);
     printf("MAX_RW_COUNT: %#lx\n",MAX_RW_COUNT);
     printf("sizeof(vec256):%d\n",sizeof(vec256));
     printf("vec256_test[0]:%d\n",vec256_test[0]);
@@ -134,6 +140,7 @@ int main(int argc,char** argv)
     printf("sizeof(pint):%d\n",sizeof(pint));
     printf("sizeof(*pint):%d\n",sizeof(*pint));
     printf("sizeof(long):%d\n",sizeof(long));
+    printf("sizeof(float):%d\n",sizeof(float));
     printf("sizeof(void*):%d\n",sizeof(void*));
     printf("sizeof(long long):%d\n",sizeof(long long));         //long long 也是8bytes.
     printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
