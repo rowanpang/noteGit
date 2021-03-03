@@ -1,0 +1,93 @@
+00400000-00402000 r-xp 00000000 fd:00 6819537                            /root/noteGit/process/fork/fork
+00601000-00602000 r--p 00001000 fd:00 6819537                            /root/noteGit/process/fork/fork
+00602000-00603000 rw-p 00002000 fd:00 6819537                            /root/noteGit/process/fork/fork
+025ec000-0260e000 rw-p 00000000 00:00 0                                  [heap]
+7f7563adf000-7f7563caa000 r-xp 00000000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563caa000-7f7563eaa000 ---p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eaa000-7f7563eae000 r--p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eae000-7f7563eb0000 rw-p 001cf000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eb0000-7f7563eb4000 rw-p 00000000 00:00 0 
+7f7563eb4000-7f7563eda000 r-xp 00000000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7f75640a9000-7f75640ab000 rw-p 00000000 00:00 0 
+7f75640d9000-7f75640da000 r--p 00025000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7f75640da000-7f75640dc000 rw-p 00026000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7fffce507000-7fffce528000 rw-p 00000000 00:00 0                          [stack]
+7fffce5e8000-7fffce5ea000 r--p 00000000 00:00 0                          [vvar]
+7fffce5ea000-7fffce5ec000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+19678:   ./fork
+         Address Perm   Offset Device    Inode Size  Rss Pss Referenced Anonymous ShmemPmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked Mapping
+        00400000 r-xp 00000000  fd:00  6819537    8    8   4          8         0              0              0               0    0       0      0 fork
+        00601000 r--p 00001000  fd:00  6819537    4    4   2          4         4              0              0               0    0       0      0 fork
+        00602000 rw-p 00002000  fd:00  6819537    4    4   4          4         4              0              0               0    0       0      0 fork
+        025ec000 rw-p 00000000  00:00        0  136    8   8          8         8              0              0               0    0       0      0 [heap]
+    7f7563adf000 r-xp 00000000  fd:00 10756900 1836 1028   6       1028         0              0              0               0    0       0      0 libc-2.25.so
+    7f7563caa000 ---p 001cb000  fd:00 10756900 2048    0   0          0         0              0              0               0    0       0      0 libc-2.25.so
+    7f7563eaa000 r--p 001cb000  fd:00 10756900   16   16   8         16        16              0              0               0    0       0      0 libc-2.25.so
+    7f7563eae000 rw-p 001cf000  fd:00 10756900    8    8   8          8         8              0              0               0    0       0      0 libc-2.25.so
+    7f7563eb0000 rw-p 00000000  00:00        0   16    8   6          8         8              0              0               0    0       0      0 
+    7f7563eb4000 r-xp 00000000  fd:00 10758760  152  152   0        152         0              0              0               0    0       0      0 ld-2.25.so
+    7f75640a9000 rw-p 00000000  00:00        0    8    8   6          8         8              0              0               0    0       0      0 
+    7f75640d9000 r--p 00025000  fd:00 10758760    4    4   2          4         4              0              0               0    0       0      0 ld-2.25.so
+    7f75640da000 rw-p 00026000  fd:00 10758760    8    8   6          8         8              0              0               0    0       0      0 ld-2.25.so
+    7fffce507000 rw-p 00000000  00:00        0  132   12  10         12        12              0              0               0    0       0      0 [stack]
+    7fffce5e8000 r--p 00000000  00:00        0    8    0   0          0         0              0              0               0    0       0      0 [vvar]
+    7fffce5ea000 r-xp 00000000  00:00        0    8    4   0          4         0              0              0               0    0       0      0 [vdso]
+ffffffffff600000 r-xp 00000000  00:00        0    4    0   0          0         0              0              0               0    0       0      0 [vsyscall]
+                                               ==== ==== === ========== ========= ============== ============== =============== ==== ======= ====== 
+                                               4400 1272  70       1272        80              0              0               0    0       0      0 KB 
+00400000-00402000 r-xp 00000000 fd:00 6819537                            /root/noteGit/process/fork/fork
+00601000-00602000 r--p 00001000 fd:00 6819537                            /root/noteGit/process/fork/fork
+00602000-00603000 rw-p 00002000 fd:00 6819537                            /root/noteGit/process/fork/fork
+025ec000-0260e000 rw-p 00000000 00:00 0                                  [heap]
+7f7563adf000-7f7563caa000 r-xp 00000000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563caa000-7f7563eaa000 ---p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eaa000-7f7563eae000 r--p 001cb000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eae000-7f7563eb0000 rw-p 001cf000 fd:00 10756900                   /usr/lib64/libc-2.25.so
+7f7563eb0000-7f7563eb4000 rw-p 00000000 00:00 0 
+7f7563eb4000-7f7563eda000 r-xp 00000000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7f75640a9000-7f75640ab000 rw-p 00000000 00:00 0 
+7f75640d9000-7f75640da000 r--p 00025000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7f75640da000-7f75640dc000 rw-p 00026000 fd:00 10758760                   /usr/lib64/ld-2.25.so
+7fffce507000-7fffce528000 rw-p 00000000 00:00 0                          [stack]
+7fffce5e8000-7fffce5ea000 r--p 00000000 00:00 0                          [vvar]
+7fffce5ea000-7fffce5ec000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+19679:   ./fork
+         Address Perm   Offset Device    Inode Size  Rss Pss Referenced Anonymous ShmemPmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked Mapping
+        00400000 r-xp 00000000  fd:00  6819537    8    8   4          8         0              0              0               0    0       0      0 fork
+        00601000 r--p 00001000  fd:00  6819537    4    4   2          4         4              0              0               0    0       0      0 fork
+        00602000 rw-p 00002000  fd:00  6819537    4    4   4          4         4              0              0               0    0       0      0 fork
+        025ec000 rw-p 00000000  00:00        0  136    8   8          8         8              0              0               0    0       0      0 [heap]
+    7f7563adf000 r-xp 00000000  fd:00 10756900 1836  900   5        900         0              0              0               0    0       0      0 libc-2.25.so
+    7f7563caa000 ---p 001cb000  fd:00 10756900 2048    0   0          0         0              0              0               0    0       0      0 libc-2.25.so
+    7f7563eaa000 r--p 001cb000  fd:00 10756900   16   16   8          8        16              0              0               0    0       0      0 libc-2.25.so
+    7f7563eae000 rw-p 001cf000  fd:00 10756900    8    8   8          8         8              0              0               0    0       0      0 libc-2.25.so
+    7f7563eb0000 rw-p 00000000  00:00        0   16   12  10         12        12              0              0               0    0       0      0 
+    7f7563eb4000 r-xp 00000000  fd:00 10758760  152  152   0        152         0              0              0               0    0       0      0 ld-2.25.so
+    7f75640a9000 rw-p 00000000  00:00        0    8    8   6          8         8              0              0               0    0       0      0 
+    7f75640d9000 r--p 00025000  fd:00 10758760    4    4   2          4         4              0              0               0    0       0      0 ld-2.25.so
+    7f75640da000 rw-p 00026000  fd:00 10758760    8    8   6          8         8              0              0               0    0       0      0 ld-2.25.so
+    7fffce507000 rw-p 00000000  00:00        0  132   12  10         12        12              0              0               0    0       0      0 [stack]
+    7fffce5e8000 r--p 00000000  00:00        0    8    0   0          0         0              0              0               0    0       0      0 [vvar]
+    7fffce5ea000 r-xp 00000000  00:00        0    8    0   0          0         0              0              0               0    0       0      0 [vdso]
+ffffffffff600000 r-xp 00000000  00:00        0    4    0   0          0         0              0              0               0    0       0      0 [vsyscall]
+                                               ==== ==== === ========== ========= ============== ============== =============== ==== ======= ====== 
+                                               4400 1144  73       1136        84              0              0               0    0       0      0 KB 
+child pid:19679
+read bytes:4
+child: the cmd from parent is 3
+read bytes:4
+child: the cmd from parent is 5
+read bytes:4
+child: invalid command 
+
+----------------------------------------------
+ppid:19678,pid:19679
+send cmd:003
+send cmd:005
+send cmd:777
+send cmd:000
+send cmd finished
+
+----------------------------------------------

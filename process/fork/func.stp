@@ -1,0 +1,13 @@
+probe kernel.function("*@kernel/fork.c")
+{
+    if(pid() == target()) {
+        printf("PID(%d) ,execname(%s) probe point:(%s) \n",pid(),execname(),pp());
+    }
+}
+
+probe kernel.function("*@mm/memory.c")
+{
+    if(pid() == target()) {
+        printf("PID(%d) ,execname(%s) probe point:(%s) \n",pid(),execname(),pp());
+    }
+}
