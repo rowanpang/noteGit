@@ -50,4 +50,6 @@ function testMain(){
     echo "----end"
 }
 
-[ X`basename $0` == Xdebug.sh ] && testMain
+{
+    [ X`basename $0` == Xdebug.sh ] && testMain
+}

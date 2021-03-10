@@ -1,5 +1,5 @@
 .PHONY:all clean
-elfObj = sigtstp
+elfObj = sigtstp ixon
 all:$(elfObj)
 
 %:%.c
