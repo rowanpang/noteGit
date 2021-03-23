@@ -26,7 +26,15 @@ int main(int argc,char **argv)
     int c = a - b;
     int d = 3- (-1);
     int sec=0;
-    printf("hello world\n");
+    c=({
+        long a,b,c;
+        a = 10;
+        b = 10;
+        c = a + b;
+        c;
+        });
+
+    printf("hello world,%d\n",c);
     printf("庞伟振\n");
     /*庞:e5 ba 9e*/
     printf("ch:%s\n","庞");
