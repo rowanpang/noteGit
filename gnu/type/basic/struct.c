@@ -98,6 +98,24 @@ int garrary[3]={1,2,3};
 
 int main(int argc,char** argv)
 {
+    {
+        unsigned int a,b,v;
+        v=10;
+
+        int c1,c2,d1,d2;
+        a=1;
+        b=250;
+        c1 = a - b < v;
+        d1 = a - b;
+
+        a=1;
+        b=4;
+        c2 = a - b < v;
+        d2 = a - b;
+
+        printf("unsigned int cmp %d,%d,cmp2:%d,%d\n",c1,d1,c2,d2);
+    }
+
     off_t biah;
 
     struct st{
