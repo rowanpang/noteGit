@@ -161,6 +161,7 @@ int main(int argc,char** argv)
     printf("sizeof(float):%d\n",sizeof(float));
     printf("sizeof(void*):%d\n",sizeof(void*));
     printf("sizeof(long long):%d\n",sizeof(long long));         //long long 也是8bytes.
+    printf("sizeof(unsigned ):%d\n",sizeof(unsigned ));
     printf("sizeof(unsigned int):%d\n",sizeof(unsigned int));
     printf("sizeof(unsigned long):%d\n",sizeof(unsigned long));
     printf("sizeof(unsigned long int):%d\n",sizeof(unsigned long int));

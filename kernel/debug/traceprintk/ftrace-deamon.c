@@ -1,5 +1,7 @@
 #include <linux/module.h>
 
+//extern int mysayhello(void);
+int mysayhello(void);
 static int ftrace_daemon_init(void)
 {
     trace_printk("ftrace daemon \n");
@@ -10,6 +12,7 @@ static int ftrace_daemon_init(void)
 int sayHello(void)
 {
     printk("hello from kern\n");
+    mysayhello();
     return 0;
 }
 
@@ -21,7 +24,7 @@ static void ftrace_daemon_exit(void)
     return ;
 }
 
-/*EXPORT_SYMBOL(sayHello);*/
+EXPORT_SYMBOL(sayHello);
 
 module_init(ftrace_daemon_init);
 module_exit(ftrace_daemon_exit);
