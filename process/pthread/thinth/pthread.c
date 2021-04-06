@@ -22,6 +22,7 @@ void* threadfn2(void *arg)
     int ret;
     int i = 0;
 
+    printf("in th2:%d\n",gettid());
     while(i++ < 5){
         printf("hello world: %d\n",i);
         sleep(1);
@@ -36,7 +37,7 @@ void* threadfn(void *arg)
     int ret;
     pthread_t th2;
     void *status;
-    printf("in thread:%d\n",gettid());
+    printf("in th:%d\n",gettid());
 
     ret = pthread_create(&th2,NULL,threadfn2,NULL);
     if(ret){

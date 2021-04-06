@@ -104,6 +104,13 @@ int main(int argc, char** argv)
     for(i=0; i<ret; i++){
         printf("evt flg for events %d is %x\n",i,events[i].events);
     }
+/*
+    fix for ppc64le:
+	int nr;
+	do {
+	    nr = epoll_wait(epfd, events, maxevents, timeout);
+	} while (nr < 0 && errno == EINTR);
+*/
     ret = read(events[0].data.fd,buf,READMAX);
     printf("read up %d bytes,wait thread\n",ret);
 

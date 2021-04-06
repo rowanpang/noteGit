@@ -2,7 +2,7 @@
     a,cancel 默认是异步的,延期执行. ref man pthread_cancel.
     b,即便cancel是在disable阶段发送的,当enable时依然有效.
 
-2,outlog parser
+2,output log parser
     in main:21081
     in thread:21082
     start with disable canceled

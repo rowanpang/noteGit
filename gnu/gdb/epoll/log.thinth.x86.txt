@@ -1,0 +1,34 @@
+0,basic
+	a,没有发送sigstop
+
+        sssd_nss-931   [003] d... 494348.292541: signal_deliver: sig=34 errno=0 code=131070 sa_handler=7f1f55b1f7c0 sa_flags=14000000
+             zsh-13003 [001] d... 494351.219744: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+           <...>-12353 [000] d... 494351.219762: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13003 [001] d... 494351.221392: signal_generate: sig=5 errno=0 code=0 comm=thinth pid=13003 grp=0 res=0
+          thinth-13003 [001] d... 494351.221399: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494351.221411: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13003 [001] d... 494351.223605: signal_generate: sig=5 errno=0 code=128 comm=thinth pid=13003 grp=0 res=0
+          thinth-13003 [001] d... 494351.223609: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494351.223621: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13003 [001] d... 494351.242822: signal_generate: sig=5 errno=0 code=196610 comm=thinth pid=13003 grp=0 res=0
+          thinth-13003 [001] d... 494351.242829: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494351.242879: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13003 [002] d... 494351.243045: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+           <...>-13004 [003] d... 494351.243047: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=2
+             gdb-12353 [000] d... 494351.243073: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13004 [003] d... 494351.243253: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=0
+          thinth-13005 [002] d... 494351.243255: signal_generate: sig=17 errno=0 code=262148 comm=gdb pid=12353 grp=1 res=2
+             gdb-12353 [000] d... 494351.243270: signal_deliver: sig=17 errno=0 code=262148 sa_handler=564a1f0ea150 sa_flags=14000000
+
+
+
+         dnsmasq-1269  [002] d... 494353.970913: signal_deliver: sig=17 errno=0 code=262145 sa_handler=556942bb6620 sa_flags=4000000
+          thinth-13005 [002] d... 494356.243572: signal_generate: sig=17 errno=0 code=262145 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494356.243591: signal_deliver: sig=17 errno=0 code=262145 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13004 [001] d... 494356.243605: signal_generate: sig=17 errno=0 code=262145 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494356.243607: signal_deliver: sig=17 errno=0 code=262145 sa_handler=564a1f0ea150 sa_flags=14000000
+          thinth-13003 [001] d... 494356.243692: signal_generate: sig=17 errno=0 code=262145 comm=gdb pid=12353 grp=1 res=0
+             gdb-12353 [000] d... 494356.243709: signal_deliver: sig=17 errno=0 code=262145 sa_handler=564a1f0ea150 sa_flags=14000000
+         sssd_be-917   [001] d... 494356.612038: signal_deliver: sig=34 errno=0 code=131070 sa_handler=7f1dbcc9c7c0 sa_flags=14000000
+        sssd_nss-931   [003] d... 494358.292070: signal_deliver: sig=34 errno=0 code=131070 sa_handler=7f1f55b1f7c0 sa_flags=14000000
+
