@@ -1,6 +1,6 @@
 0,basic
     a,Ctrl+S 并没有直接stop 前台进程,而是对stdio 做了流控.
-    b,这样,前台进程在向stdout write时就需要wait,进而sleep,间接的被sleep.
+    b,这样,前台进程在向stdout write时就需要wait,进而间接的被sleep.
 
 1,follow
     a,终端1
@@ -24,7 +24,7 @@
         --- SIGINT {si_signo=SIGINT, si_code=SI_KERNEL} ---
         +++ killed by SIGINT +++
 
-2,follw
+2,follow
     a,终端1
         ./ixon
 
@@ -45,4 +45,3 @@
 
 
     c,终端1上执行Ctrl+S, 并不影响ixon进程的执行.
-

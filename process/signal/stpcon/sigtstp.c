@@ -4,7 +4,7 @@
 int main(int argc,char** argv)
 {
     int i;
-    printf("do while(1) sleep(1),pid:%d\n",getpid());
+    printf("do{print(); sleep(1);}while(1) pid:%d\n",getpid());
 
     while(1){
         printf("hello world %d\n",i++);
