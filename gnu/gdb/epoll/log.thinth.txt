@@ -1,0 +1,95 @@
+0,basic
+	a,ppc64le上,gdb 因thinth的创建而向主进程发送了sigstop
+
+(gdb) r
+	Starting program: /home/rowan/epoll/thinth 
+	[Thread debugging using libthread_db enabled]
+		Using host libthread_db library "/lib64/libthread_db.so.1".
+		in main pid:29094
+	[New Thread 0x7ffff7d3f1b0 (LWP 29095)]
+		in thread:29095
+	[New Thread 0x7ffff752f1b0 (LWP 29290)]
+		in thread:29290
+		hello world: 1
+		hello world: 2
+		hello world: 3
+		hello world: 4
+		hello world: 5
+		out thread:29290
+		out thread:29095
+	[Thread 0x7ffff752f1b0 (LWP 29290) exited]
+	[Thread 0x7ffff7d3f1b0 (LWP 29095) exited]
+
+		read up 1 bytes,wait thread
+	[Inferior 1 (process 29094) exited normally]
+(gdb)
+            bash-29094 [007] d... 3658407.135231: signal_generate: sig=5 errno=0 code=0 comm=bash pid=29094 grp=0 res=0
+            bash-29094 [007] d... 3658407.135243: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.135263: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658407.136735: signal_generate: sig=5 errno=0 code=0 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658407.136749: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.136768: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658407.140890: signal_generate: sig=5 errno=0 code=1 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658407.140897: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.140919: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658407.165935: signal_generate: sig=5 errno=0 code=2 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658407.165944: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.165969: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658407.166615: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.166637: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658407.166667: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+          thinth-29094 [007] d... 3658407.166693: signal_generate: sig=5 errno=0 code=1 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658407.166698: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=2
+             gdb-26573 [005] d... 3658407.166751: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+             gdb-26573 [005] d... 3658407.166773: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29095 grp=0 res=0
+          thinth-29095 [000] d... 3658407.166824: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.166828: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658407.167928: signal_generate: sig=5 errno=0 code=2 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658407.167933: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658407.167970: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+
+
+          thinth-29095 [000] d... 3658412.173380: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+          thinth-29290 [001] d... 3658412.173399: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=2
+           <...>-26573 [005] d... 3658412.173406: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658412.173490: signal_generate: sig=5 errno=0 code=1 comm=thinth pid=29095 grp=0 res=0
+          thinth-29095 [000] d... 3658412.173495: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658412.173580: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+             gdb-26573 [005] d... 3658412.173607: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29290 grp=0 res=0 			#向第二个thread 发送sigstop,
+             gdb-26573 [005] d... 3658412.173613: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29094 grp=0 res=0 			#向主进程发送sigstop
+          thinth-29290 [001] d... 3658412.173628: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0 	
+          thinth-29094 [007] d... 3658412.173672: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=2
+             gdb-26573 [005] d... 3658412.173793: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658412.174317: signal_generate: sig=5 errno=0 code=2 comm=thinth pid=29095 grp=0 res=0
+          thinth-29095 [000] d... 3658412.174321: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658412.174358: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+
+
+          thinth-29290 [001] d... 3658417.175473: signal_generate: sig=5 errno=0 code=1 comm=thinth pid=29290 grp=0 res=0
+          thinth-29290 [001] d... 3658417.175483: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.175512: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+             gdb-26573 [005] d... 3658417.175583: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29095 grp=0 res=0
+             gdb-26573 [005] d... 3658417.175591: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29094 grp=0 res=0
+          thinth-29095 [000] d... 3658417.175615: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+          thinth-29094 [007] d... 3658417.175644: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=2
+             gdb-26573 [005] d... 3658417.175656: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29290 [001] d... 3658417.176151: signal_generate: sig=5 errno=0 code=2 comm=thinth pid=29290 grp=0 res=0
+          thinth-29290 [001] d... 3658417.176155: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.176201: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29290 [001] d... 3658417.176683: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.176689: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658417.176716: signal_generate: sig=5 errno=0 code=1 comm=thinth pid=29095 grp=0 res=0
+          thinth-29095 [000] d... 3658417.176722: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.176752: signal_generate: sig=19 errno=0 code=-6 comm=thinth pid=29094 grp=0 res=0
+          thinth-29094 [007] d... 3658417.176774: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=2
+             gdb-26573 [005] d... 3658417.176799: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658417.177131: signal_generate: sig=5 errno=0 code=2 comm=thinth pid=29095 grp=0 res=0
+          thinth-29095 [000] d... 3658417.177136: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.177163: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29095 [000] d... 3658417.177587: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.177594: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+          thinth-29094 [007] d... 3658417.985401: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=26573 grp=1 res=0
+             gdb-26573 [005] d... 3658417.985425: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+

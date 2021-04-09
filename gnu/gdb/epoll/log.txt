@@ -1,0 +1,103 @@
+0,gdb run
+	(gdb) r
+		Starting program: /home/rowan/epoll/epoll 
+		[Thread debugging using libthread_db enabled]
+			Using host libthread_db library "/lib64/libthread_db.so.1".
+			main pid:31125
+		[New Thread 0x7ffff7d3f1b0 (LWP 31126)]
+			epoll_wait stdin, press enter to continue...
+			in thread:31126
+		[New Thread 0x7ffff752f1b0 (LWP 31129)]
+			epoll_wait ret:-1, errno:4
+			in threadfn2:31129
+			hello world: 1
+			hello world: 2
+			hello world: 3
+			hello world: 4
+			hello world: 5
+			out threadfn2:31129
+			out thread:31126
+		[Thread 0x7ffff752f1b0 (LWP 31129) exited]
+		[Thread 0x7ffff7d3f1b0 (LWP 31126) exited]
+		 
+			read up 1 bytes,wait thread
+		[Inferior 1 (process 31125) exited normally]
+	(gdb)
+
+1,ftrace
+            bash-31125 [005] d... 3656086.734823: signal_generate: sig=5 errno=0 code=0 comm=bash pid=31125 grp=0 res=0 				#gdb r
+            bash-31125 [005] d... 3656086.734834: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.734856: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31125 [005] d... 3656086.736277: signal_generate: sig=5 errno=0 code=0 comm=epoll pid=31125 grp=0 res=0 				#epoll main
+           epoll-31125 [005] d... 3656086.736291: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.736312: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31125 [005] d... 3656086.740483: signal_generate: sig=5 errno=0 code=1 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656086.740490: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.740516: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31125 [005] d... 3656086.766531: signal_generate: sig=5 errno=0 code=2 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656086.766537: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.766543: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31125 [005] d... 3656086.767115: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.767146: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+           epoll-31126 [006] d... 3656086.767171: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0 				#new thread 31126
+           epoll-31125 [005] d... 3656086.767221: signal_generate: sig=5 errno=0 code=1 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656086.767222: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=2
+             gdb-29002 [003] d... 3656086.767275: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+             gdb-29002 [003] d... 3656086.767297: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31126 grp=0 res=0 				#向31126 发送 sigstop
+           epoll-31126 [006] d... 3656086.767325: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.767346: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+           epoll-31125 [005] d... 3656086.768494: signal_generate: sig=5 errno=0 code=2 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656086.768498: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656086.768542: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+			------------31126 sleep 2 -------------
+
+           epoll-31126 [006] d... 3656088.774009: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0 				#new thread 31126
+           epoll-31129 [007] d... 3656088.774029: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=2 				#new thread 31129, epoll_wait(fd 0)
+
+             gdb-29002 [003] d... 3656088.774042: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31126 [006] d... 3656088.774098: signal_generate: sig=5 errno=0 code=1 comm=epoll pid=31126 grp=0 res=0
+           epoll-31126 [006] d... 3656088.774103: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656088.774187: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+             gdb-29002 [003] d... 3656088.774211: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31129 grp=0 res=0 				#gdb 向31129 发送sigstop
+             gdb-29002 [003] d... 3656088.774215: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31125 grp=0 res=0 				#gdb 向31125 发送sigstop
+           epoll-31129 [007] d... 3656088.774245: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+           epoll-31125 [005] d... 3656088.774250: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=2
+             gdb-29002 [003] d... 3656088.774266: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31126 [006] d... 3656088.774802: signal_generate: sig=5 errno=0 code=2 comm=epoll pid=31126 grp=0 res=0
+           epoll-31126 [006] d... 3656088.774807: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656088.774838: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+
+
+
+           epoll-31129 [007] d... 3656093.775892: signal_generate: sig=5 errno=0 code=1 comm=epoll pid=31129 grp=0 res=0
+           epoll-31129 [007] d... 3656093.775901: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.775927: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+             gdb-29002 [003] d... 3656093.775970: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31126 grp=0 res=0
+           epoll-31126 [006] d... 3656093.775978: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.775983: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656093.776007: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=2
+             gdb-29002 [003] d... 3656093.776090: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31129 [007] d... 3656093.776488: signal_generate: sig=5 errno=0 code=2 comm=epoll pid=31129 grp=0 res=0
+           epoll-31129 [007] d... 3656093.776490: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.776504: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31129 [007] d... 3656093.776943: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=29002 grp=1 res=0
+           epoll-31126 [006] d... 3656093.776962: signal_generate: sig=5 errno=0 code=1 comm=epoll pid=31126 grp=0 res=0
+           epoll-31126 [006] d... 3656093.776964: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=2
+             gdb-29002 [003] d... 3656093.776998: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+             gdb-29002 [003] d... 3656093.777077: signal_generate: sig=19 errno=0 code=-6 comm=epoll pid=31125 grp=0 res=0
+           epoll-31125 [005] d... 3656093.777096: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.777151: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31126 [006] d... 3656093.777553: signal_generate: sig=5 errno=0 code=2 comm=epoll pid=31126 grp=0 res=0
+           epoll-31126 [006] d... 3656093.777557: signal_generate: sig=17 errno=0 code=4 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.777593: signal_deliver: sig=17 errno=0 code=4 sa_handler=100c5be0 sa_flags=10000000
+           epoll-31126 [006] d... 3656093.778103: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656093.778125: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+
+           epoll-31125 [005] d... 3656097.646573: signal_generate: sig=17 errno=0 code=1 comm=gdb pid=29002 grp=1 res=0
+             gdb-29002 [003] d... 3656097.646602: signal_deliver: sig=17 errno=0 code=1 sa_handler=100c5be0 sa_flags=10000000
+
