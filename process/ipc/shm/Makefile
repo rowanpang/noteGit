@@ -33,7 +33,3 @@ install:
 clean:
 	rm -rf *.o
 	-rm -f $(TARGET)
-
-
-
-

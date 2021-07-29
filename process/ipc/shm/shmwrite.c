@@ -28,15 +28,19 @@ int main(int argc,char **argv)
     /* create a share memory if not exist */
     if ((shm_id = shmget(key ,sizeof(COMM_TABLE),IPC_CREAT|IPC_EXCL|0666)) == -1) {
     /* share memory has been created */
-        if ((shm_id = shmget(key , sizeof(COMM_TABLE),0)) == -1)
-        {
+        if ((shm_id = shmget(key , sizeof(COMM_TABLE),0)) == -1) {
             printf("error = %d\n", errno);
             return ret;
         }
     }
 
     comm_reg = (COMM_TABLE *) shmat(shm_id, NULL, 0);
-    comm_reg->tc_number= 10000000;
+    if (argc == 2){
+        comm_reg->tc_number= atoi(argv[1]);
+    } else {
+        comm_reg->tc_number= 10000000;
+    }
+    shmdt(comm_reg);                        //shmdt not destroy the share mem, so data still avaiable
 
     return 0;
 }

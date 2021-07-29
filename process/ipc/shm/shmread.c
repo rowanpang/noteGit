@@ -25,14 +25,18 @@ int main(int argc,char **argv)
     char * pointer;
     key = ftok(".",'w');
 
-    /* share memory has been created */
-    if ((shm_id = shmget(key , sizeof(COMM_TABLE),0)) == -1){
-        printf("error = %d\n", errno);
-        return ret;
+    if ((shm_id = shmget(key ,sizeof(COMM_TABLE),IPC_CREAT|IPC_EXCL|0666)) == -1) {
+        perror("share memory is already exit!!");
+        if ((shm_id = shmget(key , sizeof(COMM_TABLE),0)) == -1) {
+            perror("error when shmget an already exit shm");
+            return -1;
+        }
     }
+
     comm_reg = (COMM_TABLE *) shmat(shm_id, NULL, 0);
     printf("tc number=%d!!!\n", comm_reg->tc_number);
 
+    shmdt(comm_reg);
     /* kill share memory */
     shmctl(shm_id,IPC_RMID,0);
     exit(0);
