@@ -36,8 +36,12 @@ int main(int argc,char **argv)
     comm_reg = (COMM_TABLE *) shmat(shm_id, NULL, 0);
     printf("tc number=%d!!!\n", comm_reg->tc_number);
 
+    printf("press enter do shmdt\n");
+    getchar();
     shmdt(comm_reg);
     /* kill share memory */
+    printf("press enter do rm shmid\n");
+    getchar();
     shmctl(shm_id,IPC_RMID,0);
     exit(0);
 }

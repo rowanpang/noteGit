@@ -25,9 +25,11 @@ int main(int argc,char **argv)
 
     key = ftok(".",'w');
 
+    printf("shm key: %#lx\n",key);
     /* create a share memory if not exist */
     if ((shm_id = shmget(key ,sizeof(COMM_TABLE),IPC_CREAT|IPC_EXCL|0666)) == -1) {
     /* share memory has been created */
+        printf("shm key: %#x my exist, retry get\n",key);
         if ((shm_id = shmget(key , sizeof(COMM_TABLE),0)) == -1) {
             printf("error = %d\n", errno);
             return ret;
