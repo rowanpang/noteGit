@@ -60,7 +60,7 @@ int main(int argc,char* argv[])
     }
 
     int sched_method = atoi(argv[1]);
-    int sched_priority = atoi(argv[2]);
+    int sched_priority = atoi(argv[2]);                 //实时调度策略,值越大优先级越高
     if(sched_method > 2 || sched_method < 0) {
 	fprintf(stderr,"sched_method scope [0,2]\n");
 	return -2;
