@@ -19,13 +19,13 @@ $ stap cxswitch.stp 70                                                          
     #SCHED_RR,所以可以看到同等级别的watchdog 可以中断937.
  time_off (   3676062 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest(   937)(pri=   0)(state=0)
  time_off (   6704066 ),prev:               rttest(   937)(pri=   0)(state=1) -> next:          kworker/3:0( 17218)(pri= 120)(state=0)
-    #937 pri 99, sleep 2.939得到机会被迁移,调度.
+    #937 pri 99, sleep 2.939得到机会被迁移,调度.939 pri 70 run
  time_off (   6704094 ),prev:         kworker/3:1H(   377)(pri= 100)(state=1) -> next:               rttest(   939)(pri= 120)(state=0)
  time_off (   7608056 ),prev:               rttest(   939)(pri=  29)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
-    #939 pri 70 run
  time_off (   7608072 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest(   939)(pri=  29)(state=0)
- time_off (   8704066 ),prev:               rttest(   939)(pri=  29)(state=0) -> next:               rttest(   937)(pri=   0)(state=0)
+
     #937 sleep 2 wakeup, 939 让给937.
+ time_off (   8704066 ),prev:               rttest(   939)(pri=  29)(state=0) -> next:               rttest(   937)(pri=   0)(state=0)
  time_off (  11676055 ),prev:               rttest(   937)(pri=   0)(state=0) -> next:           watchdog/3(    32)(pri=   0)(state=0)
  time_off (  11676060 ),prev:           watchdog/3(    32)(pri=   0)(state=1) -> next:               rttest(   937)(pri=   0)(state=0)
  time_off (  13422969 ),task :rttest PID(937) PRI(0) EXIT
