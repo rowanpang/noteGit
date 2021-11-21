@@ -9,7 +9,7 @@
 
 void* threadfn(void *arg)
 {
-    printf("in thread:%d\n",gettid());
+    printf("in thread:%d,parent:%d \n",gettid(),getppid());
     return NULL;
     exit(0);			//will also exit the whole thread group
     while(1){
@@ -24,7 +24,7 @@ int main(int argc,char** argv)
     int ret;
     int *status = &ret;
     pthread_t th;
-    printf("in main:%d\n",getpid());
+    printf("in main:%d,parent:%d \n",getpid(),getppid());
 
     ret = pthread_create(&th,NULL,threadfn,NULL);
     if(ret){
@@ -32,7 +32,7 @@ int main(int argc,char** argv)
 	goto ERROR_1;
     }
     /*exit(0);*/
-    sleep(30);
+    sleep(5);
 
     printf("thread finished ret:%d\n",ret);
     ret = 0;
