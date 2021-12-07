@@ -18,5 +18,5 @@ clean:
 .PHONY: modules modules_install clean
 
 else
-    obj-m := kthread.o
+    obj-m := slabcache.o
 endif
