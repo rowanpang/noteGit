@@ -5,10 +5,10 @@ import csv
 import openpyxl
 import os,sys
 
-srcf = open("./src.csv",encoding='gbk')         #csv reader 不会自动转换,默认utf8,需要指明encoding.
+srcf = open("/home/pangwz/tmp/src.csv",encoding='gbk')         #csv reader 不会自动转换,默认utf8,需要指明encoding.
 srcreader = csv.reader(srcf)
 
-destf = openpyxl.load_workbook('./dest.xlsx')
+destf = openpyxl.load_workbook('/home/pangwz/tmp/dest.xlsx')
 sheet = destf["硬件"]
 print(sheet.max_row)
 print(sheet.max_column)
@@ -16,37 +16,53 @@ print(sheet.max_column)
 i=1
 curmax=sheet.max_row            #insert_rows()后再次引用会自动+1;
 srcreader.__next__()            #skip header line
+notmatch=[]
 for row in srcreader:
     vid=row[0]
-    user=row[1]
+    adacct=row[1]
     ip=row[2]
 
-    target=user
     ismatch=0;
 
-    print("try for",vid,ip,user)
+    print("try for",vid,ip,adacct)
     for idx in range(3,sheet.max_row+1):
         #print("try match %d" %idx)
-        matchcell=sheet.cell(idx,4)
-        if(matchcell.value.lower()==target):
+        matchcell=sheet.cell(idx,4)                                         #col4: 资产名称
+        assetname=matchcell.value.lower()
+        if(assetname==adacct):
             ismatch=1
-            #print("match %d" %idx)
-            newrow=idx+1
-            sheet.insert_rows(newrow)
-            for srccells in sheet.iter_rows(min_row=idx,max_row=idx):       #获取match 行
-                for srccell in srccells:
-                    sheet.cell(newrow,srccell.column,srccell.value)
-
-            sheet.cell(newrow,4,vid+' '+'('+user+')')
-            sheet.cell(newrow,14,vid)
-            sheet.cell(newrow,15,"虚拟桌面,用于查阅IP资料,设计开发")
-            sheet.cell(newrow,18,ip)
             break
 
-    if(ismatch == 0):
-        print("not match for user:%s" %user)
+        if (assetname in adacct) or (adacct in assetname):
+            print("assetname:",assetname,"adacct",adacct)
+            while 1:
+                usel=input("Not full matching your select y/n[y]:")
+                if len(usel)== 0 or (usel.lower() == "y") or (usel.lower() == "n"):
+                    break;
+            if (usel.lower() != "n"):
+                ismatch=1
+                break
 
-destf.save('./kkkk.xlsx')
+    if(ismatch == 0):
+        print("no matching")
+        notmatch.append(adacct)
+    else:
+        #print("match %d" %idx)
+        newrow=idx+1
+        sheet.insert_rows(newrow)
+        for srccells in sheet.iter_rows(min_row=idx,max_row=idx):       #获取match 行
+            for srccell in srccells:
+                sheet.cell(newrow,srccell.column,srccell.value)
+
+        sheet.cell(idx,5,adacct)                                        #old hw terminal
+        sheet.cell(newrow,4,vid)                                        #newrow for vdesk 资产名称
+        sheet.cell(newrow,5,adacct)                                     #域用户
+        sheet.cell(newrow,15,vid)
+        sheet.cell(newrow,16,"虚拟桌面,用于查阅IP资料,设计开发")
+        sheet.cell(newrow,19,ip)
+
+print("Total no matching %d, %s" %(len(notmatch),notmatch))
+destf.save('/home/pangwz/tmp/kkkk.xlsx')
 exit()
 
 for row in srcreader:
