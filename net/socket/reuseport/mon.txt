@@ -1,0 +1,67 @@
+0,basic
+    a,lsof 可以看到3个进程,netstat 只能看到一个
+    b,
+
+$ lsof -anP -i4TCP -s TCP:LISTEN
+    COMMAND       PID    USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+    dnsmasq       908 dnsmasq    5u  IPv4    36900      0t0  TCP 127.0.0.1:53 (LISTEN)
+    dnsmasq      1056 dnsmasq    6u  IPv4    39221      0t0  TCP 192.168.177.1:53 (LISTEN)
+    dnsmasq      1088 dnsmasq    6u  IPv4    40237      0t0  TCP 192.168.122.1:53 (LISTEN)
+    python3      1370    root   11u  IPv4    44291      0t0  TCP 127.0.0.1:19645 (LISTEN)
+    python       4751    root    0u  IPv4 62912501      0t0  TCP 127.0.0.1:57571 (LISTEN)
+    smbd        16004    root   53u  IPv4   140241      0t0  TCP *:445 (LISTEN)
+    smbd        16004    root   54u  IPv4   140242      0t0  TCP *:139 (LISTEN)
+    sshd        48454    root    4u  IPv4  1545036      0t0  TCP *:22 (LISTEN)
+    ss-local   174239    root    5u  IPv4 67301746      0t0  TCP *:1081 (LISTEN)
+    nc         264627    root    4u  IPv4 69976954      0t0  TCP *:8080 (LISTEN)
+    SecoClien  295972    root    5u  IPv4 28516701      0t0  TCP 127.0.0.1:29191 (LISTEN)
+    SecoClien  295972    root    8u  IPv4 80902676      0t0  TCP 127.0.0.1:19060 (LISTEN)
+    nutstore   302331    root   70u  IPv6 81142704      0t0  TCP 127.0.0.1:19080 (LISTEN)
+    synergys   337661    root    8u  IPv4 82159830      0t0  TCP 10.17.11.39:24800 (LISTEN)
+    server     387364    root    3u  IPv4 83359312      0t0  TCP *:9527 (LISTEN)                        #1
+    server     387383    root    3u  IPv4 83362886      0t0  TCP *:9527 (LISTEN)                        #2
+    server     387404    root    3u  IPv4 83362900      0t0  TCP *:9527 (LISTEN)                        #3
+    qemu-syst 2484476    qemu   14u  IPv4  9861727      0t0  TCP 127.0.0.1:5900 (LISTEN)
+    qemu-syst 2535464    qemu   14u  IPv4 11335615      0t0  TCP 127.0.0.1:5902 (LISTEN)
+    SecoClien 2905882    root    5u  IPv4 28516701      0t0  TCP 127.0.0.1:29191 (LISTEN)
+    Xvnc      3645589    root    6u  IPv4 54214170      0t0  TCP *:5901 (LISTEN)
+
+$ netstat -nptl |grep 9527
+    tcp        0      0 0.0.0.0:9527            0.0.0.0:*               LISTEN      387404/./server
+$ lsof -anP -i4TCP -s TCP:ESTABLISHED                                                                                                                                                      (master|…1)
+    COMMAND       PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+    nautilus    23884 root   21u  IPv4 81140628      0t0  TCP 127.0.0.1:44374->127.0.0.1:19080 (ESTABLISHED)
+    ss-local   174239 root    6u  IPv4 83378390      0t0  TCP 127.0.0.1:1081->127.0.0.1:60174 (ESTABLISHED)
+    ss-local   174239 root    7u  IPv4 83378391      0t0  TCP 10.17.11.39:59682->112.231.226.94:8787 (ESTABLISHED)
+    ss-local   174239 root    8u  IPv4 83328912      0t0  TCP 127.0.0.1:1081->127.0.0.1:59506 (ESTABLISHED)
+    ss-local   174239 root    9u  IPv4 83328913      0t0  TCP 10.17.11.39:59014->112.231.226.94:8787 (ESTABLISHED)
+    ss-local   174239 root   10u  IPv4 83375670      0t0  TCP 127.0.0.1:1081->127.0.0.1:60178 (ESTABLISHED)
+    ss-local   174239 root   11u  IPv4 83375671      0t0  TCP 10.17.11.39:59686->112.231.226.94:8787 (ESTABLISHED)
+    SecoClien  295954 root   11u  IPv4 80901962      0t0  TCP 127.0.0.1:52794->127.0.0.1:29191 (ESTABLISHED)
+    SecoClien  295954 root   12u  IPv4 80902678      0t0  TCP 127.0.0.1:44086->127.0.0.1:19060 (ESTABLISHED)
+    SecoClien  295954 root   13u  IPv4 80902679      0t0  TCP 127.0.0.1:44088->127.0.0.1:19060 (ESTABLISHED)
+    SecoClien  295972 root    6u  IPv4 80902669      0t0  TCP 127.0.0.1:29191->127.0.0.1:52794 (ESTABLISHED)
+    SecoClien  295972 root    9u  IPv4 80902677      0t0  TCP 127.0.0.1:52796->127.0.0.1:29191 (ESTABLISHED)
+    SecoClien  295972 root   10u  IPv4 80902680      0t0  TCP 127.0.0.1:19060->127.0.0.1:44086 (ESTABLISHED)
+    SecoClien  295972 root   11u  IPv4 80902681      0t0  TCP 127.0.0.1:19060->127.0.0.1:44088 (ESTABLISHED)
+    ssh        297176 root    5u  IPv4 81006100      0t0  TCP 172.16.1.98:41014->10.152.30.10:22 (ESTABLISHED)
+    ssh        299505 root    5u  IPv4 81064898      0t0  TCP 172.16.1.98:41922->10.152.30.10:22 (ESTABLISHED)
+    ssh        299620 root    5u  IPv4 81068406      0t0  TCP 172.16.1.98:41944->10.152.30.10:22 (ESTABLISHED)
+    nutstore   302331 root   68u  IPv6 83333823      0t0  TCP 10.17.11.39:60424->58.215.175.59:80 (ESTABLISHED)
+    nutstore   302331 root   74u  IPv6 81142722      0t0  TCP 127.0.0.1:19080->127.0.0.1:44374 (ESTABLISHED)
+    ssh        338289 root    5u  IPv4 82177942      0t0  TCP 172.16.1.98:57154->10.152.30.10:22 (ESTABLISHED)
+    ssh        346658 root    5u  IPv4 82426313      0t0  TCP 172.16.1.98:33358->10.152.30.10:22 (ESTABLISHED)
+    server     387364 root    4u  IPv4 83359313      0t0  TCP 127.0.0.1:9527->127.0.0.1:48010 (ESTABLISHED)                 #3个9527
+    server     387383 root    4u  IPv4 83362887      0t0  TCP 127.0.0.1:9527->127.0.0.1:47996 (ESTABLISHED)
+    server     387404 root    4u  IPv4 83362901      0t0  TCP 127.0.0.1:9527->127.0.0.1:48006 (ESTABLISHED)
+    nc         388093 root    3u  IPv4 83377460      0t0  TCP 127.0.0.1:47996->127.0.0.1:9527 (ESTABLISHED)                 #3个nc
+    nc         388340 root    3u  IPv4 83375920      0t0  TCP 127.0.0.1:48006->127.0.0.1:9527 (ESTABLISHED)
+    nc         388508 root    3u  IPv4 83376114      0t0  TCP 127.0.0.1:48010->127.0.0.1:9527 (ESTABLISHED)
+    SecoClien 2905882 root    6u  IPv4 80902669      0t0  TCP 127.0.0.1:29191->127.0.0.1:52794 (ESTABLISHED)
+    SecoClien 2905882 root    7u  IPv4 80903430      0t0  TCP 127.0.0.1:29191->127.0.0.1:52796 (ESTABLISHED)
+    MainThrea 3508839 root  112u  IPv4 83377489      0t0  TCP 127.0.0.1:60174->127.0.0.1:1081 (ESTABLISHED)
+    MainThrea 3508839 root  125u  IPv4 83326804      0t0  TCP 127.0.0.1:59506->127.0.0.1:1081 (ESTABLISHED)
+    MainThrea 3508839 root  411u  IPv4 83376508      0t0  TCP 127.0.0.1:60178->127.0.0.1:1081 (ESTABLISHED)
+    code      4054632 root   40u  IPv4 68526522      0t0  TCP 10.17.11.39:56242->40.77.226.250:443 (ESTABLISHED)
+
+
