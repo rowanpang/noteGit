@@ -70,8 +70,7 @@ int main(void)
         socklen_t cli_addr_size = sizeof(cli_addr);
         if(svr_poll.events == POLLIN){
             sk = accept(sk_listen,(struct sockaddr*) &cli_addr,&cli_addr_size);
-            printf("cli_addr:%s\n",inet_ntoa(cli_addr.sin_addr));
-            printf("cli_addr:%lx\n",(int)(cli_addr.sin_addr.s_addr));
+            printf("cli_addr:%lx, %s:%d\n",(int)(cli_addr.sin_addr.s_addr),inet_ntoa(cli_addr.sin_addr),ntohs(cli_addr.sin_port));
         }
 
         char buf[100] = {0};

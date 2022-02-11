@@ -22,8 +22,8 @@ int main(void)
     sk = socket(AF_INET,SOCK_STREAM,0);
     cli_addr.sin_family = AF_INET;
     cli_addr.sin_port = htons(4040);
-    /*inet_aton("192.168.137.101",&cli_addr.sin_addr);*/
-     if(bind(sk,(struct sockaddr*)&cli_addr,sizeof(cli_addr))){
+    inet_aton("127.0.0.1",&cli_addr.sin_addr);
+    if(bind(sk,(struct sockaddr*)&cli_addr,sizeof(cli_addr))){
         perror("when bind");
         ret = -1;
         goto out;
