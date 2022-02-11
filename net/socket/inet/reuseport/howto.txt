@@ -1,0 +1,5 @@
+0,basic
+    a,开启3个终端,每个终端分别运行 ./server.
+    b,开启3个.................... nc 127.0.0.1 9527     #与server一一对应. 每个nc 对应一个server进程(负载均衡)
+    c,ref
+        https://programmer.group/so_reuseaddr-and-so_reuseport-socket-options-for-tcp-ip-programming.html
