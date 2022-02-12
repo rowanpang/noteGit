@@ -1,0 +1,19 @@
+0,basic
+    a,ref
+        https://www.jianshu.com/p/c8762eab42ed
+
+1,use
+    a,
+        gcc server.c -o server
+        gcc cli.c -o cli
+
+    b, ./srv
+    c, 分别与2个不同的srv建立连接
+        ./cli 127.0.0.1
+        ./cli 192.168.122.102
+
+
+2,可以复用一个port,estab.
+    netstat -ntp | grep 56646
+    tcp        0      0 127.0.0.1:56646  127.0.0.1:6888   	    TIME_WAIT   -
+    tcp        0      0 192.168.122.1:56646 192.168.122.102:6888    TIME_WAIT   -
