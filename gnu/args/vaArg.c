@@ -30,7 +30,7 @@ void foo(char *fmt, ...)
 	    break;
 	case 'l':              /* int */
 	    l = va_arg(ap, long);
-	    printf("long %lx\n", l);
+	    printf("long %ld\n", l);
 	    break;
 	case 'c':              /* char */
 	   /* need a cast here since va_arg only
@@ -47,7 +47,7 @@ int main(int arg,char **argv)
 {
     int ret;
 
-    foo(argv[1]);
+    foo("sdlc","stringtmp",10,1000,'0'+5);
 
     ret = 0;
 OUT:

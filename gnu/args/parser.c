@@ -48,5 +48,20 @@ int main (int argc, char **argv)
         printf ("Non-option argument %s\n", argv[index]);
     }
 
+    int myArry[5] = {10,20,30,40,50};
+    int *myp = myArry;
+    printf("value of '*myp++'\n");
+    printf("argument %d\n", *myp++);
+    printf("argument %d\n", *myp++);
+    myp = myArry;
+    printf("value of '*++myp'\n");
+    printf("argument %d\n", *++myp);
+    printf("argument %d\n", *++myp);
+
+    myp = myArry;
+    printf("value of '*(myp++)'\n");
+    printf("argument %d\n", *(myp++));
+    printf("argument %d\n", *(myp++));
+
     return 0;
 }
