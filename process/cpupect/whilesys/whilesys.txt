@@ -1,0 +1,72 @@
+(gdb) disassemble main
+    Dump of assembler code for function main:
+       0x0000000000401126 <+0>:	push   %rbp
+       0x0000000000401127 <+1>:	mov    %rsp,%rbp
+       0x000000000040112a <+4>:	sub    $0x20,%rsp
+       0x000000000040112e <+8>:	mov    %edi,-0x14(%rbp)
+       0x0000000000401131 <+11>:	mov    %rsi,-0x20(%rbp)
+       0x0000000000401135 <+15>:	callq  0x401030 <getpid@plt>
+       0x000000000040113a <+20>:	mov    %eax,-0x4(%rbp)
+       0x000000000040113d <+23>:	jmp    0x401135 <main+15>                           #while 实现, jmp bk
+    End of assembler dump.
+(gdb)
+
+
+while top:
+    top - 18:18:37 up 8 days,  9:15,  1 user,  load average: 0.35, 0.49, 0.44
+    Tasks: 275 total,   2 running, 272 sleeping,   0 stopped,   1 zombie
+    %Cpu0  :  1.1 us,  0.0 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu1  :  1.1 us,  1.1 sy,  0.0 ni, 97.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu2  : 69.0 us, 31.0 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu3  :  1.1 us,  0.0 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    MiB Mem :  23726.9 total,   6575.1 free,   6383.0 used,  10768.8 buff/cache
+    MiB Swap:   4096.0 total,   4096.0 free,      0.0 used.  16249.3 avail Mem
+
+        PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+     236902 root      20   0    2212    728    652 R 100.0   0.0   0:08.76 sys
+
+while+usleep
+    $ taskset -c 1 ./sys
+
+    $ top
+        top - 18:29:38 up 8 days,  9:26,  1 user,  load average: 0.61, 0.42, 0.41
+        Tasks: 277 total,   1 running, 275 sleeping,   0 stopped,   1 zombie
+        %Cpu0  :  2.7 us,  1.0 sy,  0.0 ni, 92.3 id,  3.7 wa,  0.3 hi,  0.0 si,  0.0 st
+        %Cpu1  :  8.3 us,  8.0 sy,  0.0 ni, 80.1 id,  0.0 wa,  3.5 hi,  0.0 si,  0.0 st
+        %Cpu2  :  3.4 us,  0.7 sy,  0.0 ni, 95.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+        %Cpu3  :  1.3 us,  1.0 sy,  0.0 ni, 97.6 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+        MiB Mem :  23726.9 total,   6024.4 free,   6634.9 used,  11067.6 buff/cache
+        MiB Swap:   4096.0 total,   4096.0 free,      0.0 used.  15969.4 avail Mem
+
+            PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+         238617 root      20   0    2212    660    588 S   7.0   0.0   0:00.27 sys
+
+    $ strace -c -p 237688
+        strace: Process 237688 attached
+        % time     seconds  usecs/call     calls    errors syscall
+        ------ ----------- ----------- --------- --------- ----------------
+         54.86    0.037663           4      8079           clock_nanosleep
+         45.13    0.030984           3      8080           getpid
+          0.00    0.000001           1         1           restart_syscall
+        ------ ----------- ----------- --------- --------- ----------------
+        100.00    0.068648           4     16160           total
+
+    $ sar -P ALL -w 1
+        Linux 5.8.15-301.fc33.x86_64 (rowanInspur) 	07/05/2022 	_x86_64_	(4 CPU)
+
+        06:28:13 PM    proc/s   cswch/s
+        06:28:14 PM      1.00  37127.00
+        06:28:15 PM      0.00  37463.00
+        06:28:16 PM      0.00  37292.00
+        06:28:17 PM      0.00  39041.00
+        06:28:18 PM      0.00  38416.00
+        06:28:19 PM      1.00  37891.00
+        06:28:20 PM      0.00  39025.00
+        06:28:21 PM      0.00  41887.00
+        06:28:22 PM      0.00  39738.00
+        06:28:23 PM     16.00  24468.00
+        06:28:24 PM      0.00   3407.00
+        06:28:25 PM      0.00   4225.00
+        06:28:26 PM      0.00   3898.00
+        06:28:27 PM      0.00   3748.00
+
