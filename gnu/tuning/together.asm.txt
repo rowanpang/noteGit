@@ -1,0 +1,308 @@
+
+together:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000401000 <_init>:
+  401000:	f3 0f 1e fa          	endbr64 
+  401004:	48 83 ec 08          	sub    $0x8,%rsp
+  401008:	48 8b 05 e9 2f 00 00 	mov    0x2fe9(%rip),%rax        # 403ff8 <__gmon_start__>
+  40100f:	48 85 c0             	test   %rax,%rax
+  401012:	74 02                	je     401016 <_init+0x16>
+  401014:	ff d0                	callq  *%rax
+  401016:	48 83 c4 08          	add    $0x8,%rsp
+  40101a:	c3                   	retq   
+
+Disassembly of section .plt:
+
+0000000000401020 <.plt>:
+  401020:	ff 35 e2 2f 00 00    	pushq  0x2fe2(%rip)        # 404008 <_GLOBAL_OFFSET_TABLE_+0x8>
+  401026:	ff 25 e4 2f 00 00    	jmpq   *0x2fe4(%rip)        # 404010 <_GLOBAL_OFFSET_TABLE_+0x10>
+  40102c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000401030 <puts@plt>:
+  401030:	ff 25 e2 2f 00 00    	jmpq   *0x2fe2(%rip)        # 404018 <puts@GLIBC_2.2.5>
+  401036:	68 00 00 00 00       	pushq  $0x0
+  40103b:	e9 e0 ff ff ff       	jmpq   401020 <.plt>
+
+0000000000401040 <printf@plt>:
+  401040:	ff 25 da 2f 00 00    	jmpq   *0x2fda(%rip)        # 404020 <printf@GLIBC_2.2.5>
+  401046:	68 01 00 00 00       	pushq  $0x1
+  40104b:	e9 d0 ff ff ff       	jmpq   401020 <.plt>
+
+0000000000401050 <strtol@plt>:
+  401050:	ff 25 d2 2f 00 00    	jmpq   *0x2fd2(%rip)        # 404028 <strtol@GLIBC_2.2.5>
+  401056:	68 02 00 00 00       	pushq  $0x2
+  40105b:	e9 c0 ff ff ff       	jmpq   401020 <.plt>
+
+Disassembly of section .text:
+
+0000000000401060 <main>:
+#define likely(x)      __builtin_expect(!!(x), 1)               //!!(x) 得到x的布尔值.
+#define unlikely(x)    __builtin_expect(!!(x), 0)
+
+
+int main(int argc,char **argv)
+{
+  401060:	55                   	push   %rbp
+
+#ifdef __USE_EXTERN_INLINES
+__extern_inline int
+__NTH (atoi (const char *__nptr))
+{
+  return (int) strtol (__nptr, (char **) NULL, 10);
+  401061:	ba 0a 00 00 00       	mov    $0xa,%edx
+  401066:	53                   	push   %rbx
+  401067:	48 89 f3             	mov    %rsi,%rbx
+  40106a:	48 83 ec 08          	sub    $0x8,%rsp
+  40106e:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
+  401072:	31 f6                	xor    %esi,%esi
+  401074:	e8 d7 ff ff ff       	callq  401050 <strtol@plt>
+  401079:	48 8b 7b 10          	mov    0x10(%rbx),%rdi
+  40107d:	ba 0a 00 00 00       	mov    $0xa,%edx
+  401082:	31 f6                	xor    %esi,%esi
+  401084:	48 89 c5             	mov    %rax,%rbp
+  401087:	e8 c4 ff ff ff       	callq  401050 <strtol@plt>
+  40108c:	48 89 c3             	mov    %rax,%rbx
+    int a,b;
+    a = atoi(argv[1]);
+    b = atoi(argv[2]);
+
+    int e = (a ?: b);		    //gnu extention for c. ref using-GCC_Using the GNU.... 6.7
+  40108f:	85 ed                	test   %ebp,%ebp
+  401091:	74 67                	je     4010fa <main+0x9a>
+    int c = (a==2 ?: b);
+  401093:	89 e9                	mov    %ebp,%ecx
+  401095:	83 fd 02             	cmp    $0x2,%ebp
+  401098:	75 62                	jne    4010fc <main+0x9c>
+    int d = (a!=2 ?: b);
+
+    printf("a:%d,b:%d,e:%d,c:%d,d:%d\n",a,b,e,c,d);
+  40109a:	41 89 c1             	mov    %eax,%r9d
+  40109d:	89 c2                	mov    %eax,%edx
+  40109f:	bf 10 20 40 00       	mov    $0x402010,%edi
+  4010a4:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+  4010aa:	b9 02 00 00 00       	mov    $0x2,%ecx
+  4010af:	be 02 00 00 00       	mov    $0x2,%esi
+  4010b4:	31 c0                	xor    %eax,%eax
+  4010b6:	e8 85 ff ff ff       	callq  401040 <printf@plt>
+
+    if (likely(a == 2)){
+        printf("likely a=2\n");
+  4010bb:	bf 7f 20 40 00       	mov    $0x40207f,%edi
+  4010c0:	e8 6b ff ff ff       	callq  401030 <puts@plt>
+    } else {
+        printf("likely a!=2\n");
+    }
+
+    if (b){
+  4010c5:	85 db                	test   %ebx,%ebx
+  4010c7:	74 5f                	je     401128 <main+0xc8>
+        printf("b!=0\n");
+  4010c9:	bf 3f 20 40 00       	mov    $0x40203f,%edi
+  4010ce:	e8 5d ff ff ff       	callq  401030 <puts@plt>
+    } else {
+        printf("b==0\n");
+    }
+
+    if (likely(b)){
+        printf("likely b!=0\n");
+  4010d3:	bf 38 20 40 00       	mov    $0x402038,%edi
+  4010d8:	e8 53 ff ff ff       	callq  401030 <puts@plt>
+    } else {
+        printf("likely b==0\n");
+    }
+
+    if (unlikely(b)){
+        printf("unlikely b!=0\n");
+  4010dd:	bf 36 20 40 00       	mov    $0x402036,%edi
+  4010e2:	e8 49 ff ff ff       	callq  401030 <puts@plt>
+    } else {
+        printf("unlikely b==0\n");
+    }
+
+    if (__builtin_expect(b,1)){
+        printf("__builtin_expect(b,1)\n");
+  4010e7:	bf 44 20 40 00       	mov    $0x402044,%edi
+  4010ec:	e8 3f ff ff ff       	callq  401030 <puts@plt>
+    } else {
+        printf("__builtin_expect(!b,1)\n");
+    }
+    return 0;
+}
+  4010f1:	48 83 c4 08          	add    $0x8,%rsp
+  4010f5:	31 c0                	xor    %eax,%eax
+  4010f7:	5b                   	pop    %rbx
+  4010f8:	5d                   	pop    %rbp
+  4010f9:	c3                   	retq   
+  4010fa:	89 c1                	mov    %eax,%ecx
+    printf("a:%d,b:%d,e:%d,c:%d,d:%d\n",a,b,e,c,d);
+  4010fc:	45 31 c9             	xor    %r9d,%r9d
+  4010ff:	83 fd 02             	cmp    $0x2,%ebp
+  401102:	41 89 d8             	mov    %ebx,%r8d
+  401105:	89 da                	mov    %ebx,%edx
+  401107:	41 0f 95 c1          	setne  %r9b
+  40110b:	89 ee                	mov    %ebp,%esi
+  40110d:	bf 10 20 40 00       	mov    $0x402010,%edi
+  401112:	31 c0                	xor    %eax,%eax
+  401114:	e8 27 ff ff ff       	callq  401040 <printf@plt>
+        printf("likely a!=2\n");
+  401119:	bf 2a 20 40 00       	mov    $0x40202a,%edi
+  40111e:	e8 0d ff ff ff       	callq  401030 <puts@plt>
+  401123:	eb a0                	jmp    4010c5 <main+0x65>
+  401125:	0f 1f 00             	nopl   (%rax)
+        printf("b==0\n");
+  401128:	bf 63 20 40 00       	mov    $0x402063,%edi
+  40112d:	e8 fe fe ff ff       	callq  401030 <puts@plt>
+        printf("likely b==0\n");
+  401132:	bf 5c 20 40 00       	mov    $0x40205c,%edi
+  401137:	e8 f4 fe ff ff       	callq  401030 <puts@plt>
+        printf("unlikely b==0\n");
+  40113c:	bf 5a 20 40 00       	mov    $0x40205a,%edi
+  401141:	e8 ea fe ff ff       	callq  401030 <puts@plt>
+        printf("__builtin_expect(!b,1)\n");
+  401146:	bf 68 20 40 00       	mov    $0x402068,%edi
+  40114b:	e8 e0 fe ff ff       	callq  401030 <puts@plt>
+}
+  401150:	48 83 c4 08          	add    $0x8,%rsp
+  401154:	31 c0                	xor    %eax,%eax
+  401156:	5b                   	pop    %rbx
+  401157:	5d                   	pop    %rbp
+  401158:	c3                   	retq   
+
+0000000000401159 <.annobin_abi_note.c.hot>:
+  401159:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000401160 <_start>:
+  401160:	f3 0f 1e fa          	endbr64 
+  401164:	31 ed                	xor    %ebp,%ebp
+  401166:	49 89 d1             	mov    %rdx,%r9
+  401169:	5e                   	pop    %rsi
+  40116a:	48 89 e2             	mov    %rsp,%rdx
+  40116d:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+  401171:	50                   	push   %rax
+  401172:	54                   	push   %rsp
+  401173:	49 c7 c0 c0 12 40 00 	mov    $0x4012c0,%r8
+  40117a:	48 c7 c1 50 12 40 00 	mov    $0x401250,%rcx
+  401181:	48 c7 c7 60 10 40 00 	mov    $0x401060,%rdi
+  401188:	ff 15 62 2e 00 00    	callq  *0x2e62(%rip)        # 403ff0 <__libc_start_main@GLIBC_2.2.5>
+  40118e:	f4                   	hlt    
+
+000000000040118f <.annobin_abi_note.c>:
+  40118f:	90                   	nop
+
+0000000000401190 <_dl_relocate_static_pie>:
+  401190:	f3 0f 1e fa          	endbr64 
+  401194:	c3                   	retq   
+
+0000000000401195 <.annobin__dl_relocate_static_pie.end>:
+  401195:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  40119c:	00 00 00 
+  40119f:	90                   	nop
+
+00000000004011a0 <deregister_tm_clones>:
+  4011a0:	b8 38 40 40 00       	mov    $0x404038,%eax
+  4011a5:	48 3d 38 40 40 00    	cmp    $0x404038,%rax
+  4011ab:	74 13                	je     4011c0 <deregister_tm_clones+0x20>
+  4011ad:	b8 00 00 00 00       	mov    $0x0,%eax
+  4011b2:	48 85 c0             	test   %rax,%rax
+  4011b5:	74 09                	je     4011c0 <deregister_tm_clones+0x20>
+  4011b7:	bf 38 40 40 00       	mov    $0x404038,%edi
+  4011bc:	ff e0                	jmpq   *%rax
+  4011be:	66 90                	xchg   %ax,%ax
+  4011c0:	c3                   	retq   
+  4011c1:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+  4011c8:	00 00 00 00 
+  4011cc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+00000000004011d0 <register_tm_clones>:
+  4011d0:	be 38 40 40 00       	mov    $0x404038,%esi
+  4011d5:	48 81 ee 38 40 40 00 	sub    $0x404038,%rsi
+  4011dc:	48 89 f0             	mov    %rsi,%rax
+  4011df:	48 c1 ee 3f          	shr    $0x3f,%rsi
+  4011e3:	48 c1 f8 03          	sar    $0x3,%rax
+  4011e7:	48 01 c6             	add    %rax,%rsi
+  4011ea:	48 d1 fe             	sar    %rsi
+  4011ed:	74 11                	je     401200 <register_tm_clones+0x30>
+  4011ef:	b8 00 00 00 00       	mov    $0x0,%eax
+  4011f4:	48 85 c0             	test   %rax,%rax
+  4011f7:	74 07                	je     401200 <register_tm_clones+0x30>
+  4011f9:	bf 38 40 40 00       	mov    $0x404038,%edi
+  4011fe:	ff e0                	jmpq   *%rax
+  401200:	c3                   	retq   
+  401201:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+  401208:	00 00 00 00 
+  40120c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000401210 <__do_global_dtors_aux>:
+  401210:	f3 0f 1e fa          	endbr64 
+  401214:	80 3d 19 2e 00 00 00 	cmpb   $0x0,0x2e19(%rip)        # 404034 <completed.0>
+  40121b:	75 13                	jne    401230 <__do_global_dtors_aux+0x20>
+  40121d:	55                   	push   %rbp
+  40121e:	48 89 e5             	mov    %rsp,%rbp
+  401221:	e8 7a ff ff ff       	callq  4011a0 <deregister_tm_clones>
+  401226:	c6 05 07 2e 00 00 01 	movb   $0x1,0x2e07(%rip)        # 404034 <completed.0>
+  40122d:	5d                   	pop    %rbp
+  40122e:	c3                   	retq   
+  40122f:	90                   	nop
+  401230:	c3                   	retq   
+  401231:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+  401238:	00 00 00 00 
+  40123c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000401240 <frame_dummy>:
+  401240:	f3 0f 1e fa          	endbr64 
+  401244:	eb 8a                	jmp    4011d0 <register_tm_clones>
+  401246:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  40124d:	00 00 00 
+
+0000000000401250 <__libc_csu_init>:
+  401250:	f3 0f 1e fa          	endbr64 
+  401254:	41 57                	push   %r15
+  401256:	4c 8d 3d b3 2b 00 00 	lea    0x2bb3(%rip),%r15        # 403e10 <__frame_dummy_init_array_entry>
+  40125d:	41 56                	push   %r14
+  40125f:	49 89 d6             	mov    %rdx,%r14
+  401262:	41 55                	push   %r13
+  401264:	49 89 f5             	mov    %rsi,%r13
+  401267:	41 54                	push   %r12
+  401269:	41 89 fc             	mov    %edi,%r12d
+  40126c:	55                   	push   %rbp
+  40126d:	48 8d 2d a4 2b 00 00 	lea    0x2ba4(%rip),%rbp        # 403e18 <__do_global_dtors_aux_fini_array_entry>
+  401274:	53                   	push   %rbx
+  401275:	4c 29 fd             	sub    %r15,%rbp
+  401278:	48 83 ec 08          	sub    $0x8,%rsp
+  40127c:	e8 7f fd ff ff       	callq  401000 <_init>
+  401281:	48 c1 fd 03          	sar    $0x3,%rbp
+  401285:	74 1f                	je     4012a6 <__libc_csu_init+0x56>
+  401287:	31 db                	xor    %ebx,%ebx
+  401289:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  401290:	4c 89 f2             	mov    %r14,%rdx
+  401293:	4c 89 ee             	mov    %r13,%rsi
+  401296:	44 89 e7             	mov    %r12d,%edi
+  401299:	41 ff 14 df          	callq  *(%r15,%rbx,8)
+  40129d:	48 83 c3 01          	add    $0x1,%rbx
+  4012a1:	48 39 dd             	cmp    %rbx,%rbp
+  4012a4:	75 ea                	jne    401290 <__libc_csu_init+0x40>
+  4012a6:	48 83 c4 08          	add    $0x8,%rsp
+  4012aa:	5b                   	pop    %rbx
+  4012ab:	5d                   	pop    %rbp
+  4012ac:	41 5c                	pop    %r12
+  4012ae:	41 5d                	pop    %r13
+  4012b0:	41 5e                	pop    %r14
+  4012b2:	41 5f                	pop    %r15
+  4012b4:	c3                   	retq   
+  4012b5:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+  4012bc:	00 00 00 00 
+
+00000000004012c0 <__libc_csu_fini>:
+  4012c0:	f3 0f 1e fa          	endbr64 
+  4012c4:	c3                   	retq   
+
+Disassembly of section .fini:
+
+00000000004012c8 <_fini>:
+  4012c8:	f3 0f 1e fa          	endbr64 
+  4012cc:	48 83 ec 08          	sub    $0x8,%rsp
+  4012d0:	48 83 c4 08          	add    $0x8,%rsp
+  4012d4:	c3                   	retq   
