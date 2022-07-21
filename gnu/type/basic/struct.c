@@ -99,6 +99,11 @@ int garrary[3]={1,2,3};
 int main(int argc,char** argv)
 {
     {
+        char a = -1;
+        short b = -1;
+        int c = -1;
+    }
+    {
         unsigned int a,b,v;
         v=10;
 

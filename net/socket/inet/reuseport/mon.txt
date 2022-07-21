@@ -2,6 +2,9 @@
     a,lsof 可以看到3个进程,netstat 只能看到一个
     b,
 
+1,./cli
+    reuseport bind()addr 5s,可以同时bind 成功多次.
+
 $ lsof -anP -i4TCP -s TCP:LISTEN
     COMMAND       PID    USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
     dnsmasq       908 dnsmasq    5u  IPv4    36900      0t0  TCP 127.0.0.1:53 (LISTEN)
