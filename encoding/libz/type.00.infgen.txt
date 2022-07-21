@@ -1,0 +1,263 @@
+! infgen 2.8 output
+!
+gzip
+!
+last			! 1
+stored			! 00
+			! 00000             #Any bits of input up to the next byte boundary are ignored.  ignore的bits.
+data '5                                     #'5说明是字符'5'
+data 12 'PT                                 #12 即demical,十进制的12.
+data 140 'J
+data 130 'H
+data 7 'E
+data 23 253 178 9 'YBW
+data 246 '/
+data 137 'JJH
+data 163 150 141 'i
+data 128 't
+data 190 '4m
+data 165 175 235 205 'e
+data 13 'p
+data 241 'M
+data 183 ']Deo80
+data 174 'N~
+data 248 217 'G
+data 224 156 'L
+data 202 190 215 160 254 214 '3
+data 130 148 138 '4
+data 16 '&~.r
+data 216 'y}e
+data 191 128 4 '@
+data 189 'Ts
+data 155 'Bs
+data 240 214 6 6 ']
+data 160 153 ':
+data 196 184 7 213 '\
+data 251 174 'A
+data 186 173 156 13 'r
+data 17 205 224 225 240 244 'k
+data 9 220 163 'R
+data 17 148 227 143 173 'u
+data 252 170 248 181 '4
+data 152 152 218 'p
+data 187 '6
+data 28 213 133 169 232 'a
+data 187 20 207 27 185 172 211 199 213 'f}
+data 6 ')f
+data 20 253 249 '&
+data 163 151 ':v
+data 188 182 217 170 140 '{
+data 185 ';
+data 211 167 '@D!I
+data 139 251 '}
+data 194 227 193 166 227 179 9 187 '=
+data 145 245 251 '~1y
+data 20 '_
+data 163 189 13 231 'E'
+data 2 'Z
+data 175 253 205 212 196 'M
+data 251 '9
+data 142 ':
+data 133 179 'r_\g
+data 18 225 'O>
+data 156 133 234 192 179 '[
+data 217 131 '^
+data 6 146 200 215 'b
+data 135 '-
+data 230 147 216 '`X'
+data 208 '[
+data 214 8 194 202 197 'Sd
+data 212 'C
+data 171 228 '<
+data 166 24 30 209 '8
+data 247 202 '
+data 231 '0
+data 202 193 '_
+data 241 208 237 197 'f
+data 153 '%{
+data 13 200 'b
+data 236 '@
+data 162 'T
+data 210 228 218 150 ',
+data 249 '~
+data 143 ''
+data 13 144 190 '^r
+data 174 207 'mq
+data 154 '+_
+data 238 14 'c
+data 175 '. ^
+data 175 147 'QIHJ
+data 1 168 253 '+
+data 3 255 'k
+data 205 '{
+data 185 207 205 246 247 141 'Z
+data 175 'P
+data 141 187 208 0 236 4 201 21 141 143 'q
+data 127 '4
+data 168 'ZJJ
+data 157 214 '4
+data 226 '
+data 194 '[i
+data 128 252 146 157 '?
+data 197 '
+data 184 'GV/
+data 199 164 200 'q
+data 221 192 168 234 12 244 'N
+data 14 143 '?
+data 173 '%
+data 254 'T
+data 29 163 'A
+data 184 'fh.
+data 191 '\
+data 27 178 'b
+data 21 154 177 133 239 197 185 'fW
+data 236 '^8X
+data 163 131 'y.
+data 218 4 158 249 'H
+data 169 9 'b
+data 195 15 ']X
+data 217 142 '7[3
+data 203 '"
+data 239 167 ':f
+data 10 142 127 31 23 '^I
+data 249 'n
+data 19 148 202 1 '(
+data 235 159 'V
+data 182 '7
+data 22 5 153 'U,
+data 168 245 216 161 'X
+data 196 ',1
+data 252 '@
+data 29 'B
+data 190 168 230 243 21 'bN
+data 151 138 'Z
+data 195 154 'j
+data 183 207 'ms
+data 162 'AH
+data 143 '-
+data 215 25 211 'qR
+data 182 23 158 241 '|
+data 191 163 4 134 5 ',
+data 157 '{
+data 145 '(
+data 165 254 222 'f
+data 18 254 30 230 228 176 160 '\3
+data 175 '8}B
+data 235 222 147 '>
+data 225 241 159 21 133 13 229 'F
+data 213 188 209 182 4 217 '&
+data 244 225 137 '9
+data 7 'u
+data 187 199 234 17 143 '3
+data 171 'Ua`
+data 29 255 'P
+data 183 '/{A<
+data 228 209 'bK
+data 179 21 '$
+data 10 192 222 'vI-
+data 236 211 136 227 242 233 0 195 188 'B
+data 230 '|K
+data 184 'OA
+data 169 129 ')h
+data 149 0 229 235 214 13 218 18 213 229 'qS
+data 188 128 193 185 170 '|
+data 227 128 'j
+data 166 167 17 171 '<'
+data 138 '~
+data 20 20 191 16 212 191 21 224 '/
+data 177 'q
+data 21 225 'jk
+data 145 '^
+data 156 'I
+data 227 142 'uS
+data 14 'j
+data 160 21 20 21 188 164 152 'J
+data 217 '"
+data 208 244 'P
+data 216 172 231 229 163 'p
+data 20 224 23 144 8 0 'El0*
+data 25 5 242 25 '>
+data 133 'dYU
+data 134 209 228 'o\|
+data 216 252 30 220 228 159 185 138 203 'x
+data 217 '_
+data 135 '^f
+data 230 'W
+data 203 150 '2
+data 181 '8
+data 251 129 15 '"^k
+data 175 'x
+data 1 198 207 137 145 240 212 '{X
+data 220 '^Q
+data 24 229 248 '|-r
+data 175 '?
+data 189 'Uz
+data 21 'bi
+data 145 'Sj
+data 18 '3
+data 6 236 '`
+data 224 '-
+data 136 189 168 220 131 'H
+data 22 180 132 'H
+data 131 'm
+data 209 'L
+data 26 232 226 173 '`
+data 133 147 148 ''P
+data 178 25 '@
+data 149 'fDu
+data 181 24 236 197 'l
+data 174 'AP
+data 144 '#
+data 171 198 171 '3
+data 192 ''
+data 19 233 '<
+data 236 195 184 '=
+data 243 255 143 174 218 137 181 13 192 29 '`c
+data 27 251 '7
+data 10 174 'G
+data 219 8 252 153 241 210 't?WE
+data 15 'ny
+data 160 129 212 152 'B
+data 11 '`\o
+data 168 184 187 251 179 17 'l
+data 16 162 't
+data 21 233 154 189 213 190 'o
+data 135 247 215 '~
+data 168 131 2 'W
+data 249 230 133 223 228 225 '`
+data 27 136 'Q
+data 228 'K
+data 161 '"X
+data 14 '%
+data 26 207 222 239 'd"hHR7
+data 234 192 '|
+data 217 'u
+data 133 131 'l
+data 197 '_
+data 226 'J
+data 19 215 'K
+data 175 234 'g
+data 219 20 'y
+data 150 10 25 193 'O
+data 139 149 183 2 31 130 235 176 18 160 192 2 '[
+data 192 '?
+data 228 163 'U
+data 176 179 '0
+data 128 'w
+data 15 161 '/U
+data 239 '
+data 172 'v
+data 10 185 136 169 '1
+data 250 'I
+data 156 231 'n
+data 166 184 'C2`B
+data 145 174 180 '[
+data 189 191 'Juw
+data 176 '-
+data 28 'am
+data 2 156 'cG
+data 18 '&
+end
+!
+crc
+length

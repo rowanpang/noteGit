@@ -1,0 +1,4 @@
+.PHONY:alll
+alll: simple infgen
+%:%.c
+	gcc -lz $< -o $@

@@ -1,0 +1,73 @@
+! infgen 2.8 output
+!
+time 1658368187		! [UTC Thu Jul 21 01:49:47 2022]
+name 'Makefile
+gzip
+!
+last			! 1
+fixed			! 01
+literal '.		! 01111010
+literal 'P		! 00000001
+literal 'H		! 00011110
+literal 'O		! 11111110
+literal 'N		! 01111110
+literal 'Y		! 10010001
+literal ':		! 01010110
+literal 'a		! 10001001
+literal 'l		! 00111001
+literal 'l		! 00111001
+literal 10		! 01011100
+match 3 4		! 11000 1000000
+literal ':		! 01010110
+literal ' 		! 00001010
+literal 's		! 11000101
+literal 'i		! 10011001
+literal 'm		! 10111001
+literal 'p		! 00000101
+literal 'l		! 00111001
+literal 'e		! 10101001
+literal ' 		! 00001010
+literal 'i		! 10011001
+literal 'n		! 01111001
+literal 'f		! 01101001
+literal 'g		! 11101001
+literal 'e		! 10101001
+literal 'n		! 01111001
+literal 10		! 01011100
+literal '%		! 10101010
+literal ':		! 01010110
+literal '%		! 10101010
+literal '.		! 01111010
+literal 'c		! 11001001
+literal 10		! 01011100
+literal 9		! 10011100
+literal 'g		! 11101001
+literal 'c		! 11001001
+literal 'c		! 11001001
+literal ' 		! 00001010
+literal '-		! 10111010
+literal 'l		! 00111001
+literal 'z		! 01010101
+literal ' 		! 00001010
+literal '$		! 00101010
+literal '<		! 00110110
+literal ' 		! 00001010
+literal '-		! 10111010
+literal 'o		! 11111001
+literal ' 		! 00001010
+literal '$		! 00101010
+literal '@		! 00001110
+literal 10		! 01011100
+end			! 0000000
+! stats literals 8.0 bits each (408/51)
+! stats matches 5.6% (1 x 3.0)
+! stats inout 53:6 (52) 54 0
+			! 00
+! stats total inout 53:6 (52) 54
+! stats total block average 54.0 uncompressed
+! stats total block average 52.0 symbols
+! stats total literals 8.0 bits each
+! stats total matches 5.6% (1 x 3.0)
+!
+crc
+length
