@@ -1,0 +1,23 @@
+[root@bogon noploop]# perf stat ./noploop
+
+ Performance counter stats for './noploop':
+
+            631.31 msec task-clock                #    0.999 CPUs utilized          
+                 1      context-switches          #    0.002 K/sec                  
+                 0      cpu-migrations            #    0.000 K/sec                  
+                30      page-faults               #    0.048 K/sec                  
+     1,733,724,679      cycles                    #    2.746 GHz                      (33.15%)
+         8,050,653      stalled-cycles-frontend   #    0.46% frontend cycles idle     (50.58%)
+       177,686,318      stalled-cycles-backend    #   10.25% backend cycles idle      (17.42%)
+    10,082,868,163      instructions              #    5.82  insn per cycle         
+                                                  #    0.02  stalled cycles per insn  (33.58%)
+        10,099,203      branches                  #   15.997 M/sec                    (49.42%)
+             2,500      branch-misses             #    0.02% of all branches          (15.84%)
+
+       0.631669174 seconds time elapsed
+
+       0.631746000 seconds user
+       0.000000000 seconds sys
+
+
+[root@bogon noploop]# 

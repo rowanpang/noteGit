@@ -62,7 +62,8 @@ int main(int argc,char **argv)
 {
     char s[6]="\\101";
     puts("hello");	//"auto newline"
-    puts("\101\n");
+    puts("\101");
+    puts("\xe5\xba\x9e\345\272\236\346\235\216");       //shell printf "\345\272\236\n"
     puts(s);
 
     puts(quote("ssss=","=\n"));
