@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os
 import binascii
 
@@ -85,15 +85,15 @@ ciphertext = cipherHex
 taghexStr = 'dae02deea4aa98f18d487762fd7224a6'
 tag = binascii.unhexlify(taghexStr)
 
-print '------------ssl frame139 record info---------------------'
-print 'nceLen:',len(nonce)
-print 'iv/nce: ' + binascii.hexlify(nonce)
-print '   add:' ,additionalStr
-print '   cip:' ,cipherHexStr
-print '   tag:' ,taghexStr
+print('------------ssl frame139 record info---------------------')
+print('noncelen:', len(nonce))
+print("iv/nce:", binascii.hexlify(nonce))
+print("   add:", additionalStr)
+print("   cip:", cipherHexStr)
+print("   tag:", taghexStr)
 
 
-print
+print()
 print('------------decrypt---------------------')
 plaintext = decrypt(
             server_write_key,
@@ -102,10 +102,10 @@ plaintext = decrypt(
             ciphertext,
             tag
         )
-print 'plain:',binascii.hexlify(plaintext)
-print 'ptLen:',len(plaintext)
+print('plain:', binascii.hexlify(plaintext))
+print('ptLen:', len(plaintext))
 
-print
+print()
 print('------------encrypt---------------------')
 
 plainhexStr = '1400000c4bb5c78b0c01d695180f5ea4'
@@ -117,6 +117,6 @@ iv, ciphertext, tag = encrypt(
                         additionalData,
                         nonce
                     )
-print(' iv: ' + binascii.hexlify(iv))
-print('cip: ' + binascii.hexlify(ciphertext))
-print('tag: ' + binascii.hexlify(tag))
+print(" iv: ", binascii.hexlify(iv))
+print("cip: ", binascii.hexlify(ciphertext))
+print("tag: ", binascii.hexlify(tag))

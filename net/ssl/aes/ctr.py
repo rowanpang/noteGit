@@ -27,7 +27,7 @@ def decrypt(key, iv, ciphertext):
     cipher = Cipher( algorithms.AES(key), modes.CTR(iv), backend=default_backend())
     cipher.mode.validate_for_algorithm(cipher.algorithm)
         #if invalid will raise error.
-    print cipher.mode.name
+    print(cipher.mode.name)
 
     decryptor = cipher.decryptor()
 
@@ -89,11 +89,12 @@ ctrStr = '00000002'
     # * at 1, and gets incremented before passing to the block cipher. */
 nonce = server_write_iv[:4] + nonceExplicithex + binascii.unhexlify(ctrStr)
     #nonce len = 4+8+4 = 16bytes
-print('nce: ' + binascii.hexlify(nonce))
+print('nonce len: ',len(nonce))
+print('nonce: ',binascii.hexlify(nonce))
 
 cipherOffset = nonceEnd
 ciphertext = sslRecord[cipherOffset:]
-print('cipher str: ' + binascii.hexlify(ciphertext))
+print('cipher str: ',binascii.hexlify(ciphertext))
 
 print
 print('-----use ctr mode decrypt tls_ecdhe_rsa_with_aes_128_gcm_sha256,frame 169-----')
@@ -106,4 +107,4 @@ plaintext = decrypt(
 taglen = 16
 trueLen = len(plaintext) - taglen
 
-print('plt: ' + binascii.hexlify(plaintext[:trueLen]))
+print('plt: ' ,binascii.hexlify(plaintext[:trueLen]))
