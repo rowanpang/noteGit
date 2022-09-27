@@ -4,7 +4,7 @@ CFLAGS   = -g -c
 INCPATH  =
 LIBS     =
 OBJECTS_DIR = ./
-TARGET=blockTest sigAction sig3
+TARGET=blockTest sigAction uhandle
 
 
 all: $(TARGET)

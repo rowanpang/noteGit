@@ -1,0 +1,44 @@
+(gdb) info proc
+    process 771025
+    cmdline = '/root/noteGit/process/ipc/signal/basic/uhandle'
+    cwd = '/root/noteGit/process/ipc/signal/basic'
+    exe = '/root/noteGit/process/ipc/signal/basic/uhandle'
+(gdb) info breakpoints
+    Num     Type           Disp Enb Address            What
+    8       breakpoint     keep y   <MULTIPLE>
+    8.1                         y   0x00007ffff7e1eb19 in __GI___libc_sigaction at ../sysdeps/unix/sysv/linux/sigaction.c:58
+    8.2                         y   0x00007ffff7feed36 in __libc_sigaction at ../sysdeps/unix/sysv/linux/sigaction.c:58
+    9       breakpoint     keep y   <MULTIPLE>
+    9.1                         y   0x00007ffff7e1ea70 <__restore_rt>
+    9.2                         y   0x00007ffff7feeca0 <__restore_rt>
+(gdb) r
+    ....
+(gdb) list -10
+    43	{
+    44	  int result;
+    45
+    46	  struct kernel_sigaction kact, koact;
+    47
+    48	  if (act)
+    49	    {
+    50	      kact.k_sa_handler = act->sa_handler;
+    51	      memcpy (&kact.sa_mask, &act->sa_mask, sizeof (sigset_t));
+    52	      kact.sa_flags = act->sa_flags;
+(gdb) p kact
+    $3 = {k_sa_handler = 0x401156 <test_hander>, sa_flags = 335544320, sa_restorer = 0x7ffff7e1ea70 <__restore_rt>, sa_mask = {__val = {268435456, 0 <repeats 15 times>}}}
+(gdb) c
+    ....
+(gdb) bt
+    #0  <signal handler called>
+    #1  __GI_raise (sig=<optimized out>) at ../sysdeps/unix/sysv/linux/raise.c:49
+    #2  0x00000000004011a0 in main (argc=1, argv=0x7fffffffdc48) at uhandle.c:12
+(gdb) disassemble
+    Dump of assembler code for function __restore_rt:
+    => 0x00007ffff7e1ea70 <+0>:	mov    $0xf,%rax                                        #即前面prepare的__restore_rt
+       0x00007ffff7e1ea77 <+7>:	syscall
+       0x00007ffff7e1ea79 <+0>:	nopl   0x0(%rax)
+    End of assembler dump.
+(gdb) !ausyscall 15
+    rt_sigreturn                                                                        #也即syscall rt_sigreturn
+(gdb)
+
