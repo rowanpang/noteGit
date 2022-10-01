@@ -1,0 +1,113 @@
+
+direct.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <early_idt_handler_common>:
+   0:	6a 00                	pushq  $0x0
+   2:	66 90                	xchg   %ax,%ax
+
+0000000000000004 <early_idt_handler_array>:
+   4:	6a 00                	pushq  $0x0
+   6:	6a 00                	pushq  $0x0
+   8:	eb f6                	jmp    0 <early_idt_handler_common>
+   a:	cc                   	int3   
+   b:	cc                   	int3   
+   c:	cc                   	int3   
+   d:	6a 00                	pushq  $0x0
+   f:	6a 01                	pushq  $0x1
+  11:	eb ed                	jmp    0 <early_idt_handler_common>
+  13:	cc                   	int3   
+  14:	cc                   	int3   
+  15:	cc                   	int3   
+  16:	6a 00                	pushq  $0x0
+  18:	6a 02                	pushq  $0x2
+  1a:	eb e4                	jmp    0 <early_idt_handler_common>
+  1c:	cc                   	int3   
+  1d:	cc                   	int3   
+  1e:	cc                   	int3   
+  1f:	6a 00                	pushq  $0x0
+  21:	6a 03                	pushq  $0x3
+  23:	eb db                	jmp    0 <early_idt_handler_common>
+  25:	cc                   	int3   
+  26:	cc                   	int3   
+  27:	cc                   	int3   
+  28:	6a 00                	pushq  $0x0
+  2a:	6a 04                	pushq  $0x4
+  2c:	eb d2                	jmp    0 <early_idt_handler_common>
+  2e:	cc                   	int3   
+  2f:	cc                   	int3   
+  30:	cc                   	int3   
+  31:	6a 00                	pushq  $0x0
+  33:	6a 05                	pushq  $0x5
+  35:	eb c9                	jmp    0 <early_idt_handler_common>
+  37:	cc                   	int3   
+  38:	cc                   	int3   
+  39:	cc                   	int3   
+  3a:	6a 00                	pushq  $0x0
+  3c:	6a 06                	pushq  $0x6
+  3e:	eb c0                	jmp    0 <early_idt_handler_common>
+  40:	cc                   	int3   
+  41:	cc                   	int3   
+  42:	cc                   	int3   
+  43:	6a 00                	pushq  $0x0
+  45:	6a 07                	pushq  $0x7
+  47:	eb b7                	jmp    0 <early_idt_handler_common>
+  49:	cc                   	int3   
+  4a:	cc                   	int3   
+  4b:	cc                   	int3   
+  4c:	6a 00                	pushq  $0x0
+  4e:	6a 08                	pushq  $0x8
+  50:	eb ae                	jmp    0 <early_idt_handler_common>
+  52:	cc                   	int3   
+  53:	cc                   	int3   
+  54:	cc                   	int3   
+  55:	6a 00                	pushq  $0x0
+  57:	6a 09                	pushq  $0x9
+  59:	eb a5                	jmp    0 <early_idt_handler_common>
+  5b:	cc                   	int3   
+  5c:	cc                   	int3   
+  5d:	cc                   	int3   
+  5e:	6a 00                	pushq  $0x0
+  60:	6a 0a                	pushq  $0xa
+  62:	eb 9c                	jmp    0 <early_idt_handler_common>
+  64:	cc                   	int3   
+  65:	cc                   	int3   
+  66:	cc                   	int3   
+  67:	6a 00                	pushq  $0x0
+  69:	6a 0b                	pushq  $0xb
+  6b:	eb 93                	jmp    0 <early_idt_handler_common>
+  6d:	cc                   	int3   
+  6e:	cc                   	int3   
+  6f:	cc                   	int3   
+  70:	6a 00                	pushq  $0x0
+  72:	6a 0c                	pushq  $0xc
+  74:	eb 8a                	jmp    0 <early_idt_handler_common>
+  76:	cc                   	int3   
+  77:	cc                   	int3   
+  78:	cc                   	int3   
+  79:	6a 00                	pushq  $0x0
+  7b:	6a 0d                	pushq  $0xd
+  7d:	eb 81                	jmp    0 <early_idt_handler_common>
+  7f:	cc                   	int3   
+  80:	cc                   	int3   
+  81:	cc                   	int3   
+  82:	6a 00                	pushq  $0x0
+  84:	6a 0e                	pushq  $0xe
+  86:	e9 75 ff ff ff       	jmpq   0 <early_idt_handler_common>
+  8b:	6a 00                	pushq  $0x0
+  8d:	6a 0f                	pushq  $0xf
+  8f:	e9 6c ff ff ff       	jmpq   0 <early_idt_handler_common>
+  94:	6a 00                	pushq  $0x0
+  96:	6a 10                	pushq  $0x10
+  98:	e9 63 ff ff ff       	jmpq   0 <early_idt_handler_common>
+  9d:	6a 00                	pushq  $0x0
+  9f:	6a 11                	pushq  $0x11
+  a1:	e9 5a ff ff ff       	jmpq   0 <early_idt_handler_common>
+  a6:	6a 00                	pushq  $0x0
+  a8:	6a 12                	pushq  $0x12
+  aa:	e9 51 ff ff ff       	jmpq   0 <early_idt_handler_common>
+  af:	6a 00                	pushq  $0x0
+  b1:	6a 13                	pushq  $0x13
+  b3:	e9 48 ff ff ff       	jmpq   0 <early_idt_handler_common>
