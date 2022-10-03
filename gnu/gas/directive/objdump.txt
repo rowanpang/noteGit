@@ -111,3 +111,12 @@ Disassembly of section .text:
   af:	6a 00                	pushq  $0x0
   b1:	6a 13                	pushq  $0x13
   b3:	e9 48 ff ff ff       	jmpq   0 <early_idt_handler_common>
+  b8:	55                   	push   %rbp
+  b9:	55                   	push   %rbp
+  ba:	55                   	push   %rbp
+  bb:	55                   	push   %rbp
+  bc:	55                   	push   %rbp
+  bd:	55                   	push   %rbp
+  be:	55                   	push   %rbp
+  bf:	55                   	push   %rbp
+  c0:	55                   	push   %rbp

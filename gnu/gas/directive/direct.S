@@ -42,6 +42,10 @@ ENTRY(early_idt_handler_array)
 	    #目标size - ., 即还需要填充的字节数.
 	    #用0xcc(int3)填充.
         .endr
+
+	.rept 3
+	.fill 3,1,0x55
+	.endr
 ENDPROC(early_idt_handler_array)
 
 
