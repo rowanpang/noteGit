@@ -1,29 +1,16 @@
 #include <stdio.h>
-char msg[128]="Hello world";
-int hh = 100;
 
-char msg2[128]="msg2,Hello world";
-int hh2 = 100;
+char foo_msg[128]="Hello world";
+int foo_init = 100;
+int foo_static = 30;
+int foo_uninit;
 
-static int hh_static = 10;
-
-void foo_print(void)
+void show_foo(int isfree)
 {
-	printf("%s,from %s\n", msg,__FILE__);
-	return ;
+    foo_init = 10;
+    foo_uninit = 30;
+    foo_static = 20;
+    printf("%s,from %s\n", foo_msg,__FILE__);
+    return ;
 }
 
-void foo_print2(void)
-{
-	int hh_local = 0;
-	hh2 = 20;
-	hh_static = 40;
-	hh_local = 50;
-
-	foo_print();
-
-	printf("compatible foo.so.1\n");
-	printf("%s,from %s\n", msg2,__FILE__);
-
-	return;
-}
