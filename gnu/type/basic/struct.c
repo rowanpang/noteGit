@@ -99,6 +99,16 @@ int garrary[3]={1,2,3};
 int main(int argc,char** argv)
 {
     {
+        int bits_int1[2] = { [0 ... 1] = ~0 };
+        int bits_int2[2] = { ~0,-1 };
+        unsigned int bits_uint1[2] = { [0 ... 1] = ~0 };
+        unsigned int bits_uint2[2] = { ~0,-1 };
+        printf("bits_int1[0]:%#x, [1]:%#x\n",bits_int1[0],bits_int1[1]);
+        printf("bits_int2[0]:%#x, [1]:%#x\n",bits_int2[0],bits_int2[1]);
+        printf("bits_uint1[0]:%#x, [1]:%#x\n",bits_uint1[0],bits_uint1[1]);
+        printf("bits_uint2[0]:%#x, [1]:%#x\n",bits_uint2[0],bits_uint2[1]);
+    }
+    {
         char a = -1;
         short b = -1;
         int c = -1;
