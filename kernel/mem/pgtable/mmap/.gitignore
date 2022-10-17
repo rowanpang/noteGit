@@ -1,2 +1,5 @@
-a-no.out
-perf.data
+*
+!fbase.c
+!Makefile
+!readme.txt
+

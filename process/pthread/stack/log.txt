@@ -2,6 +2,7 @@
     a,thread stack 由thread自己实现与process stack 不是一个.
     b,process stack 是主进程thread_group leader 的stack.
     c,thread 之间共享task->mm 所以,任意进程的/proc/xx/{maps,smap} 是一样的.
+    d,根据‘near stack` 地址 确认个thread的stack 地址.
 
 00400000-00402000 r-xp 00000000 fd:00 6819520                            /root/noteGit/process/pthread/stack/stack
 00601000-00602000 r--p 00001000 fd:00 6819520                            /root/noteGit/process/pthread/stack/stack
