@@ -1,0 +1,114 @@
+[ 2226.492026] In func hardlock_exit
+[ 2246.327110] In func hardlock_init,cpu:120,delay:60s
+[ 2263.895949] watchdog: CPU 15 detected hard LOCKUP on other CPUs 120
+[ 2263.896688] watchdog: CPU 15 TB:101475427547066, last SMP heartbeat TB:101467240643499 (15990ms ago)
+[ 2263.908705] watchdog: CPU 120 Hard LOCKUP
+[ 2263.908706] watchdog: CPU 120 TB:101475428918204, last heartbeat TB:101465233515363 (19912ms ago)
+[ 2263.908707] Modules linked in: hardlock(OE+) binfmt_misc i2c_dev ext4 mbcache jbd2 xts ofpart vmx_crypto at24 uio_pdrv_genirq powernv_flash mtd ibmpowernv ipmi_powernv ipmi_devintf uio ipmi_msghandler opal_prd ip_tables xfs libcrc32c sr_mod cdrom sd_mod sg ast drm_vram_helper ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm ixgbe igb megaraid_sas i2c_algo_bit mdio drm_panel_orientation_quirks uas usb_storage dm_mirror dm_region_hash dm_log dm_mod [last unloaded: hardlock]
+[ 2263.908721] CPU: 120 PID: 22123 Comm: insmod Kdump: loaded Tainted: G        W  OE    --------- -  - 4.18.0-193.28.1.el8_2.ppc64le #1
+[ 2263.908721] NIP:  c00800000de70080 LR: c00800000de70074 CTR: 0000000000000000
+[ 2263.908722] REGS: c000201fff203d80 TRAP: 0100   Tainted: G        W  OE    --------- -  -  (4.18.0-193.28.1.el8_2.ppc64le)
+[ 2263.908722] MSR:  9000000002081033 <SF,HV,VEC,ME,IR,DR,RI,LE>  CR: 88008282  XER: 20040000
+[ 2263.908725] CFAR: c00800000de70080 IRQMASK: 1 
+[ 2263.908726] GPR00: c00800000de70074 c000201b35373960 c00800000de78400 0000000000000027 
+[ 2263.908727] GPR04: c000201cc5f0cf90 c000201cc5f95628 000000000000050c 0000000035d40060 
+[ 2263.908728] GPR08: 0000000000000007 ffffffffffffef6d 0000201cc4cc0000 9000000002001033 
+[ 2263.908730] GPR12: 0000000000008000 c000201fff640800 c00800000fe20600 0000000000000000 
+[ 2263.908731] GPR16: 000000000000ff20 000000000000fff1 000000000000fff2 c00800000fb00000 
+[ 2263.908732] GPR20: c00800000de70880 c000201b35373c50 c000000000e2adf8 c000201b35373c50 
+[ 2263.908733] GPR24: c00800000de70488 c000000001661870 0000000000000000 c0000000016618b0 
+[ 2263.908734] GPR28: c000201cb69eafe0 0000000000000000 c000000001953b00 0000000100030fc9 
+[ 2263.908736] NIP [c00800000de70080] hardlock_init+0x78/0xac [hardlock]
+[ 2263.908736] LR [c00800000de70074] hardlock_init+0x6c/0xac [hardlock]
+[ 2263.908736] Call Trace:
+[ 2263.908737] [c000201b35373960] [c00800000de70074] hardlock_init+0x6c/0xac [hardlock] (unreliable)
+[ 2263.908738] [c000201b353739d0] [c000000000010244] do_one_initcall+0x64/0x274
+[ 2263.908738] [c000201b35373aa0] [c000000000256a80] do_init_module+0x80/0x360
+[ 2263.908739] [c000201b35373b30] [c00000000025c934] load_module+0x3994/0x3d40
+[ 2263.908739] [c000201b35373d20] [c00000000025cff0] sys_finit_module+0xd0/0x150
+[ 2263.908740] [c000201b35373e30] [c00000000000b388] system_call+0x5c/0x70
+[ 2263.908740] Instruction dump:
+[ 2263.908741] 7fff4214 994d098a e8c90002 a0ad0008 3c820000 e8848010 3c620000 e8638018 
+[ 2263.908743] 480000d9 e8410018 e93e0000 7d3f4851 <4180fff8> 38600000 48000099 e8410018 
+
+[ 2275.906211] watchdog: BUG: soft lockup - CPU#75 stuck for 22s! [node_exporter:5114]
+[ 2275.906247] Modules linked in: hardlock(OE+) binfmt_misc i2c_dev ext4 mbcache jbd2 xts ofpart vmx_crypto at24 uio_pdrv_genirq powernv_flash mtd ibmpowernv ipmi_powernv ipmi_devintf uio ipmi_msghandler opal_prd ip_tables xfs libcrc32c sr_mod cdrom sd_mod sg ast drm_vram_helper ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm ixgbe igb megaraid_sas i2c_algo_bit mdio drm_panel_orientation_quirks uas usb_storage dm_mirror dm_region_hash dm_log dm_mod [last unloaded: hardlock]
+[ 2275.906363] CPU: 75 PID: 5114 Comm: node_exporter Kdump: loaded Tainted: G        W  OE    --------- -  - 4.18.0-193.28.1.el8_2.ppc64le #1
+[ 2275.906375] NIP:  c00000000024fe00 LR: c00000000024fdf0 CTR: c000000000054c70
+[ 2275.906384] REGS: c000201c8f3e77e0 TRAP: 0901   Tainted: G        W  OE    --------- -  -  (4.18.0-193.28.1.el8_2.ppc64le)
+[ 2275.906395] MSR:  9000000000009033 <SF,HV,EE,ME,IR,DR,RI,LE>  CR: 44400482  XER: 00000000
+[ 2275.906406] CFAR: c00000000024fe10 IRQMASK: 0 
+               GPR00: c00000000024fdf0 c000201c8f3e7a60 c000000001930b00 0000000000000000 
+               GPR04: c000201c8f3e7a80 c000201cc5f99d80 c000201c8f3e7b50 c000000001961ed8 
+               GPR08: 0000000000000001 0000000000000001 0000000000000001 0000000000000008 
+               GPR12: c000000000054c70 c000001ffffaaa00 
+[ 2275.906488] NIP [c00000000024fe00] smp_call_function_single+0x130/0x180
+[ 2275.906496] LR [c00000000024fdf0] smp_call_function_single+0x120/0x180
+[ 2275.906503] Call Trace:
+[ 2275.906507] [c000201c8f3e7a60] [c00000000024fdf0] smp_call_function_single+0x120/0x180 (unreliable)
+[ 2275.906517] [c000201c8f3e7ad0] [c00000000024ffc0] smp_call_function_any+0x170/0x1f0
+[ 2275.906527] [c000201c8f3e7b30] [c000000000add3ec] powernv_cpufreq_get+0x5c/0x90
+[ 2275.906536] [c000201c8f3e7b60] [c000000000ad4a60] show_cpuinfo_cur_freq+0x80/0x200
+[ 2275.906547] [c000201c8f3e7c00] [c000000000ad17a0] show+0x60/0xa0
+[ 2275.906557] [c000201c8f3e7c40] [c0000000005fccf0] sysfs_kf_seq_show+0xc0/0x1e0
+[ 2275.906566] [c000201c8f3e7cd0] [c0000000005fa234] kernfs_seq_show+0x44/0x60
+[ 2275.906575] [c000201c8f3e7cf0] [c00000000054a564] seq_read+0x1c4/0x650
+[ 2275.906583] [c000201c8f3e7d80] [c0000000005fb270] kernfs_fop_read+0x40/0x290
+[ 2275.906593] [c000201c8f3e7dd0] [c000000000500068] sys_read+0x118/0x320
+[ 2275.906602] [c000201c8f3e7e30] [c00000000000b388] system_call+0x5c/0x70
+[ 2275.906608] Instruction dump:
+[ 2275.906614] e8010010 ebe1fff8 7c0803a6 4e800020 7ca62b78 7c852378 7fe4fb78 4bfffd3d 
+[ 2275.906642] 813f0018 71290001 4182001c 60000000 <7c210b78> 7c421378 813f0018 71290001 
+
+[ 2275.926212] watchdog: BUG: soft lockup - CPU#100 stuck for 22s! [node_exporter:5125]
+[ 2275.926236] Modules linked in: hardlock(OE+) binfmt_misc i2c_dev ext4 mbcache jbd2 xts ofpart vmx_crypto at24 uio_pdrv_genirq powernv_flash mtd ibmpowernv ipmi_powernv ipmi_devintf uio ipmi_msghandler opal_prd ip_tables xfs libcrc32c sr_mod cdrom sd_mod sg ast drm_vram_helper ttm drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops drm ixgbe igb megaraid_sas i2c_algo_bit mdio drm_panel_orientation_quirks uas usb_storage dm_mirror dm_region_hash dm_log dm_mod [last unloaded: hardlock]
+[ 2275.926303] CPU: 100 PID: 5125 Comm: node_exporter Kdump: loaded Tainted: G        W  OEL   --------- -  - 4.18.0-193.28.1.el8_2.ppc64le #1
+[ 2275.926318] NIP:  c00000000024fe04 LR: c00000000024fdf0 CTR: c000000000add390
+[ 2275.926329] REGS: c000201c44aff7e0 TRAP: 0901   Tainted: G        W  OEL   --------- -  -  (4.18.0-193.28.1.el8_2.ppc64le)
+[ 2275.926341] MSR:  9000000000009033 <SF,HV,EE,ME,IR,DR,RI,LE>  CR: 44400482  XER: 00000000
+[ 2275.926354] CFAR: c00000000024fe10 IRQMASK: 0 
+               GPR00: c00000000024fdf0 c000201c44affa60 c000000001930b00 0000000000000000 
+               GPR04: c000201c44affa80 c000201cc5f99d80 c000201c44affb50 c000000001961ed8 
+               GPR08: c000000001961ed8 0000000000000001 c000201c8f3e7a80 0000000000000008 
+               GPR12: c000000000add390 c000201fff657000 
+[ 2275.926399] NIP [c00000000024fe04] smp_call_function_single+0x134/0x180
+[ 2275.926408] LR [c00000000024fdf0] smp_call_function_single+0x120/0x180
+[ 2275.926417] Call Trace:
+[ 2275.926421] [c000201c44affa60] [c00000000024fdf0] smp_call_function_single+0x120/0x180 (unreliable)
+[ 2275.926434] [c000201c44affad0] [c00000000025000c] smp_call_function_any+0x1bc/0x1f0
+[ 2275.926445] [c000201c44affb30] [c000000000add3ec] powernv_cpufreq_get+0x5c/0x90
+[ 2275.926456] [c000201c44affb60] [c000000000ad4a60] show_cpuinfo_cur_freq+0x80/0x200
+[ 2275.976501] [c000201c44affc00] [c000000000ad17a0] show+0x60/0xa0
+[ 2275.976511] [c000201c44affc40] [c0000000005fccf0] sysfs_kf_seq_show+0xc0/0x1e0
+[ 2275.976533] [c000201c44affcd0] [c0000000005fa234] kernfs_seq_show+0x44/0x60
+[ 2275.976543] [c000201c44affcf0] [c00000000054a564] seq_read+0x1c4/0x650
+[ 2275.976552] [c000201c44affd80] [c0000000005fb270] kernfs_fop_read+0x40/0x290
+[ 2275.976564] [c000201c44affdd0] [c000000000500068] sys_read+0x118/0x320
+[ 2275.976608] [c000201c44affe30] [c00000000000b388] system_call+0x5c/0x70
+[ 2275.976616] Instruction dump:
+[ 2275.976623] ebe1fff8 7c0803a6 4e800020 7ca62b78 7c852378 7fe4fb78 4bfffd3d 813f0018 
+[ 2275.976635] 71290001 4182001c 60000000 7c210b78 <7c421378> 813f0018 71290001 4082fff0 
+......
+[ 2306.326945] watchdog: CPU 120 became unstuck TB:101497152229076
+[ 2306.326977] CPU: 120 PID: 22123 Comm: insmod Kdump: loaded Tainted: G        W  OEL   --------- -  - 4.18.0-193.28.1.el8_2.ppc64le #1
+[ 2306.326992] NIP:  c00000000000a8ec LR: c00000000001add4 CTR: c000000000052d50
+[ 2306.327035] REGS: c000201b353736c0 TRAP: 0901   Tainted: G        W  OEL   --------- -  -  (4.18.0-193.28.1.el8_2.ppc64le)
+[ 2306.327048] MSR:  9000000002009033 <SF,HV,VEC,EE,ME,IR,DR,RI,LE>  CR: 28008284  XER: 20040000
+[ 2306.327062] CFAR: c000000000754f0c IRQMASK: 0 
+               GPR00: c00800000de7008c c000201b35373940 c000000001930b00 0000000000000900 
+               GPR04: 0000201cc4cc0000 00005c4fa5b43b5a 00005c487ee93a6b c000201fff640800 
+               GPR08: 0000000800000000 0000000000001337 0000000000005c15 0000000000000046 
+               GPR12: c000000000052d50 c000201fff640800 
+[ 2306.327107] NIP [c00000000000a8ec] replay_interrupt_return+0x0/0x4
+[ 2306.327117] LR [c00000000001add4] arch_local_irq_restore+0x74/0x90
+[ 2306.327125] Call Trace:
+[ 2306.327131] [c000201b35373940] [c0000000001f6184] printk+0x40/0x54 (unreliable)
+[ 2306.327144] [c000201b35373960] [c00800000de7008c] hardlock_init+0x84/0xac [hardlock]
+[ 2306.327155] [c000201b353739d0] [c000000000010244] do_one_initcall+0x64/0x274
+[ 2306.327166] [c000201b35373aa0] [c000000000256a80] do_init_module+0x80/0x360
+[ 2306.327176] [c000201b35373b30] [c00000000025c934] load_module+0x3994/0x3d40
+[ 2306.327185] [c000201b35373d20] [c00000000025cff0] sys_finit_module+0xd0/0x150
+[ 2306.327196] [c000201b35373e30] [c00000000000b388] system_call+0x5c/0x70
+[ 2306.327204] Instruction dump:
+[ 2306.327210] 7d200026 618c8000 2c030900 4182e7e8 2c030500 4182f2e0 2c030f00 4182f3f8 
+[ 2306.327222] 2c030a00 4182ff9c 2c030e60 4182f088 <4e800020> 7c781b78 48000395 480003ad 

@@ -7,12 +7,15 @@
 #include <linux/kthread.h>
 
 
+static int delays = 30;
+module_param(delays,int,0700);
+
 static int __init softlock_init(void)
 {
     int ret = 0;
-    unsigned long delay=jiffies+30*HZ;	    //delay 30s 
+    unsigned long delay=jiffies+delays*HZ;	    //delay 30s 
 
-    printk("In func %s\n",__func__);
+    printk("In func %s,delay:%ds\n",__func__,delays);
     while(time_before(jiffies,delay));
 
     return ret;

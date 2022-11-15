@@ -18,5 +18,5 @@ clean:
 .PHONY: modules modules_install clean
 
 else
-    obj-m := softlock.o
+    obj-m := softlock.o hardlock.o
 endif
