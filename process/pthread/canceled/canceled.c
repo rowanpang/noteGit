@@ -7,12 +7,12 @@
 
 #define gettid() syscall(__NR_gettid)
 
-static inline void * ERR_PTR(long error)                                   
+static inline void * ERR_PTR(long error)
 {
     return (void *) error;
 }
 
-static inline long PTR_ERR(const void* ptr)                                   
+static inline long PTR_ERR(const void* ptr)
 {
     return (long)ptr;
 }
@@ -49,7 +49,7 @@ int main(int argc,char** argv)
     int ret;
     void *status;
     pthread_t th;
-    printf("in main:%d\n",getpid());
+    printf("in main:%d,canceled:%p\n",getpid(),PTHREAD_CANCELED);
 
     ret = pthread_create(&th,NULL,threadfn,NULL);
     if(ret){

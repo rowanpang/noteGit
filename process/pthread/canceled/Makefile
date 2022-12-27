@@ -1,6 +1,8 @@
 .PHONY: all clean
-all:
-	@gcc pthread.c -lpthread -std=gnu99
+all:canceled
+
+%:%.c
+	@gcc -g -lpthread -std=gnu99 $< -o $@
 
 clean:
-	@rm a.out
+	@rm canceled

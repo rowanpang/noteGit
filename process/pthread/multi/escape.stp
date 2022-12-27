@@ -1,0 +1,17 @@
+global sends
+
+probe begin {
+    sends <<< 1000000           //inhibit aggregation empty error.
+}
+probe process("./multi").function("sleeptest").return{
+    sends <<< gettimeofday_us()-@entry(gettimeofday_us())
+}
+
+probe timer.s(2){
+    print(@hist_linear(sends,800000,1200000,100000))
+    //delete sends
+}
+
+probe timer.s(10) {
+    exit()
+}
