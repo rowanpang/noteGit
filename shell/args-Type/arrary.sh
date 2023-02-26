@@ -26,3 +26,25 @@ for mac in $macs;do
     [ $index -eq 3 ] && echo $mac
     let index+=1
 done
+
+macsarry=($macs)
+echo ${macsarry[@]}
+
+b=(
+    aaaa
+    bbbb
+    cccc
+    dddd
+    eeee
+)
+
+echo "b:${b[@]}"
+
+for i in `seq 1 5`;do
+    ar[$i]=$i
+done
+
+echo ${ar[@]}
+for i in ${b[@]};do
+    echo $i
+done
