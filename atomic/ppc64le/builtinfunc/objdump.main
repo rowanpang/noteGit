@@ -1,0 +1,576 @@
+
+main:     file format elf64-powerpcle
+
+
+Disassembly of section .init:
+
+0000000010000420 <00000024.plt_call.__gmon_start__>:
+    10000420:	18 00 41 f8 	std     r2,24(r1)
+    10000424:	20 81 82 e9 	ld      r12,-32480(r2)
+    10000428:	a6 03 89 7d 	mtctr   r12
+    1000042c:	20 04 80 4e 	bctr
+
+0000000010000430 <_init>:
+    10000430:	02 10 40 3c 	lis     r2,4098
+    10000434:	00 7f 42 38 	addi    r2,r2,32512
+    10000438:	a6 02 08 7c 	mflr    r0
+    1000043c:	10 00 01 f8 	std     r0,16(r1)
+    10000440:	a1 ff 21 f8 	stdu    r1,-96(r1)
+    10000444:	00 00 00 60 	nop
+    10000448:	08 80 02 e8 	ld      r0,-32760(r2)
+    1000044c:	00 00 a0 2f 	cmpdi   cr7,r0,0
+    10000450:	0c 00 fe 41 	beq+    cr7,1000045c <_init+0x2c>
+    10000454:	cd ff ff 4b 	bl      10000420 <00000024.plt_call.__gmon_start__>
+    10000458:	18 00 41 e8 	ld      r2,24(r1)
+    1000045c:	60 00 21 38 	addi    r1,r1,96
+    10000460:	10 00 01 e8 	ld      r0,16(r1)
+    10000464:	a6 03 08 7c 	mtlr    r0
+    10000468:	20 00 80 4e 	blr
+
+Disassembly of section .text:
+
+0000000010000480 <00000017.plt_call.atoi@@GLIBC_2.17>:
+    10000480:	18 00 41 f8 	std     r2,24(r1)
+    10000484:	10 81 82 e9 	ld      r12,-32496(r2)
+    10000488:	a6 03 89 7d 	mtctr   r12
+    1000048c:	20 04 80 4e 	bctr
+
+0000000010000490 <00000017.plt_call.putchar@@GLIBC_2.17>:
+    10000490:	18 00 41 f8 	std     r2,24(r1)
+    10000494:	28 81 82 e9 	ld      r12,-32472(r2)
+    10000498:	a6 03 89 7d 	mtctr   r12
+    1000049c:	20 04 80 4e 	bctr
+
+00000000100004a0 <00000017.plt_call.__libc_start_main@@GLIBC_2.17>:
+    100004a0:	18 00 41 f8 	std     r2,24(r1)
+    100004a4:	18 81 82 e9 	ld      r12,-32488(r2)
+    100004a8:	a6 03 89 7d 	mtctr   r12
+    100004ac:	20 04 80 4e 	bctr
+
+00000000100004b0 <_start>:
+    100004b0:	02 10 40 3c 	lis     r2,4098
+    100004b4:	00 7f 42 38 	addi    r2,r2,32512
+    100004b8:	78 0b 29 7c 	mr      r9,r1
+    100004bc:	e4 06 21 78 	rldicr  r1,r1,0,59
+    100004c0:	00 00 00 38 	li      r0,0
+    100004c4:	81 ff 21 f8 	stdu    r1,-128(r1)
+    100004c8:	a6 03 08 7c 	mtlr    r0
+    100004cc:	00 00 01 f8 	std     r0,0(r1)
+    100004d0:	10 80 02 e9 	ld      r8,-32752(r2)
+    100004d4:	cc ff ff 4b 	b       100004a0 <00000017.plt_call.__libc_start_main@@GLIBC_2.17>
+    100004d8:	00 00 00 60 	nop
+	...
+    100004e4:	40 20 0c 00 	.long 0xc2040
+    100004e8:	2c 00 00 00 	.long 0x2c
+    100004ec:	06 00 5f 73 	andi.   r31,r26,6
+    100004f0:	74 61 72 74 	andis.  r18,r3,24948
+    100004f4:	00 00 00 60 	nop
+    100004f8:	00 00 00 60 	nop
+    100004fc:	00 00 00 60 	nop
+
+0000000010000500 <deregister_tm_clones>:
+    10000500:	02 10 40 3c 	lis     r2,4098
+    10000504:	00 7f 42 38 	addi    r2,r2,32512
+    10000508:	00 00 00 60 	nop
+    1000050c:	00 00 00 60 	nop
+    10000510:	3f 81 22 39 	addi    r9,r2,-32449
+    10000514:	38 81 62 38 	addi    r3,r2,-32456
+    10000518:	50 48 23 7d 	subf    r9,r3,r9
+    1000051c:	0e 00 a9 2b 	cmpldi  cr7,r9,14
+    10000520:	20 00 fd 4c 	blelr+  cr7
+    10000524:	00 00 00 60 	nop
+    10000528:	18 80 22 e9 	ld      r9,-32744(r2)
+    1000052c:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    10000530:	20 00 9e 4d 	beqlr   cr7
+    10000534:	a6 02 08 7c 	mflr    r0
+    10000538:	78 4b 2c 7d 	mr      r12,r9
+    1000053c:	a6 03 29 7d 	mtctr   r9
+    10000540:	10 00 01 f8 	std     r0,16(r1)
+    10000544:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    10000548:	18 00 41 f8 	std     r2,24(r1)
+    1000054c:	21 04 80 4e 	bctrl
+    10000550:	18 00 41 e8 	ld      r2,24(r1)
+    10000554:	20 00 21 38 	addi    r1,r1,32
+    10000558:	10 00 01 e8 	ld      r0,16(r1)
+    1000055c:	a6 03 08 7c 	mtlr    r0
+    10000560:	20 00 80 4e 	blr
+    10000564:	00 00 00 60 	nop
+    10000568:	00 00 00 60 	nop
+    1000056c:	00 00 42 60 	ori     r2,r2,0
+
+0000000010000570 <register_tm_clones>:
+    10000570:	02 10 40 3c 	lis     r2,4098
+    10000574:	00 7f 42 38 	addi    r2,r2,32512
+    10000578:	00 00 00 60 	nop
+    1000057c:	00 00 00 60 	nop
+    10000580:	38 81 22 39 	addi    r9,r2,-32456
+    10000584:	38 81 62 38 	addi    r3,r2,-32456
+    10000588:	50 48 23 7d 	subf    r9,r3,r9
+    1000058c:	74 1e 29 7d 	sradi   r9,r9,3
+    10000590:	74 0e 24 7d 	sradi   r4,r9,1
+    10000594:	95 01 84 7c 	addze.  r4,r4
+    10000598:	20 00 e2 4d 	beqlr+  
+    1000059c:	00 00 00 60 	nop
+    100005a0:	20 80 22 e9 	ld      r9,-32736(r2)
+    100005a4:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    100005a8:	20 00 9e 4d 	beqlr   cr7
+    100005ac:	a6 02 08 7c 	mflr    r0
+    100005b0:	78 4b 2c 7d 	mr      r12,r9
+    100005b4:	a6 03 29 7d 	mtctr   r9
+    100005b8:	10 00 01 f8 	std     r0,16(r1)
+    100005bc:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    100005c0:	18 00 41 f8 	std     r2,24(r1)
+    100005c4:	21 04 80 4e 	bctrl
+    100005c8:	18 00 41 e8 	ld      r2,24(r1)
+    100005cc:	20 00 21 38 	addi    r1,r1,32
+    100005d0:	10 00 01 e8 	ld      r0,16(r1)
+    100005d4:	a6 03 08 7c 	mtlr    r0
+    100005d8:	20 00 80 4e 	blr
+    100005dc:	00 00 42 60 	ori     r2,r2,0
+
+00000000100005e0 <__do_global_dtors_aux>:
+    100005e0:	02 10 40 3c 	lis     r2,4098
+    100005e4:	00 7f 42 38 	addi    r2,r2,32512
+    100005e8:	00 00 00 60 	nop
+    100005ec:	34 81 22 89 	lbz     r9,-32460(r2)
+    100005f0:	00 00 89 2f 	cmpwi   cr7,r9,0
+    100005f4:	20 00 de 4c 	bnelr-  cr7
+    100005f8:	a6 02 08 7c 	mflr    r0
+    100005fc:	10 00 01 f8 	std     r0,16(r1)
+    10000600:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    10000604:	05 ff ff 4b 	bl      10000508 <deregister_tm_clones+0x8>
+    10000608:	20 00 21 38 	addi    r1,r1,32
+    1000060c:	01 00 20 39 	li      r9,1
+    10000610:	00 00 00 60 	nop
+    10000614:	10 00 01 e8 	ld      r0,16(r1)
+    10000618:	34 81 22 99 	stb     r9,-32460(r2)
+    1000061c:	a6 03 08 7c 	mtlr    r0
+    10000620:	20 00 80 4e 	blr
+    10000624:	00 00 00 60 	nop
+    10000628:	00 00 00 60 	nop
+    1000062c:	00 00 42 60 	ori     r2,r2,0
+
+0000000010000630 <frame_dummy>:
+    10000630:	02 10 40 3c 	lis     r2,4098
+    10000634:	00 7f 42 38 	addi    r2,r2,32512
+    10000638:	ff ff 22 3d 	addis   r9,r2,-1
+    1000063c:	08 7e 29 e9 	ld      r9,32264(r9)
+    10000640:	ff ff 62 3c 	addis   r3,r2,-1
+    10000644:	08 7e 63 38 	addi    r3,r3,32264
+    10000648:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    1000064c:	44 00 9e 41 	beq     cr7,10000690 <frame_dummy+0x60>
+    10000650:	00 00 00 60 	nop
+    10000654:	28 80 22 e9 	ld      r9,-32728(r2)
+    10000658:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    1000065c:	34 00 9e 41 	beq     cr7,10000690 <frame_dummy+0x60>
+    10000660:	a6 02 08 7c 	mflr    r0
+    10000664:	78 4b 2c 7d 	mr      r12,r9
+    10000668:	a6 03 29 7d 	mtctr   r9
+    1000066c:	10 00 01 f8 	std     r0,16(r1)
+    10000670:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    10000674:	18 00 41 f8 	std     r2,24(r1)
+    10000678:	21 04 80 4e 	bctrl
+    1000067c:	18 00 41 e8 	ld      r2,24(r1)
+    10000680:	20 00 21 38 	addi    r1,r1,32
+    10000684:	10 00 01 e8 	ld      r0,16(r1)
+    10000688:	a6 03 08 7c 	mtlr    r0
+    1000068c:	ec fe ff 4b 	b       10000578 <register_tm_clones+0x8>
+    10000690:	e8 fe ff 4b 	b       10000578 <register_tm_clones+0x8>
+
+0000000010000694 <main>:
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(int argc,char** argv)
+{
+    10000694:	02 10 40 3c 	lis     r2,4098
+    10000698:	00 7f 42 38 	addi    r2,r2,32512
+    1000069c:	a6 02 08 7c 	mflr    r0
+    100006a0:	10 00 01 f8 	std     r0,16(r1)
+    100006a4:	f8 ff e1 fb 	std     r31,-8(r1)
+    100006a8:	a1 ff 21 f8 	stdu    r1,-96(r1)
+    100006ac:	78 0b 3f 7c 	mr      r31,r1
+    100006b0:	78 1b 69 7c 	mr      r9,r3
+    100006b4:	48 00 9f f8 	std     r4,72(r31)
+    100006b8:	40 00 3f 91 	stw     r9,64(r31)
+	int a=atoi(argv[1]);
+    100006bc:	48 00 3f e9 	ld      r9,72(r31)
+    100006c0:	08 00 29 39 	addi    r9,r9,8
+    100006c4:	00 00 29 e9 	ld      r9,0(r9)
+    100006c8:	78 4b 23 7d 	mr      r3,r9
+    100006cc:	b5 fd ff 4b 	bl      10000480 <00000017.plt_call.atoi@@GLIBC_2.17>
+    100006d0:	18 00 41 e8 	ld      r2,24(r1)
+    100006d4:	78 1b 69 7c 	mr      r9,r3
+    100006d8:	34 00 3f 91 	stw     r9,52(r31)
+	int *pa=&a;
+    100006dc:	34 00 3f 39 	addi    r9,r31,52
+    100006e0:	20 00 3f f9 	std     r9,32(r31)
+
+	int b=0;
+    100006e4:	00 00 20 39 	li      r9,0
+    100006e8:	38 00 3f 91 	stw     r9,56(r31)
+	int *pb=&b;
+    100006ec:	38 00 3f 39 	addi    r9,r31,56
+    100006f0:	28 00 3f f9 	std     r9,40(r31)
+
+	int ret=1;
+    100006f4:	01 00 20 39 	li      r9,1
+    100006f8:	30 00 3f 91 	stw     r9,48(r31)
+									 ^
+		make: *** [main] Error 1
+		[root@xsky201 test]# 
+	*/
+
+	__sync_bool_compare_and_swap(pa,4,5);
+    100006fc:	20 00 3f e9 	ld      r9,32(r31)
+    10000700:	05 00 40 39 	li      r10,5
+    10000704:	ac 04 00 7c 	hwsync
+    10000708:	28 48 00 7d 	lwarx   r8,0,r9
+    1000070c:	04 00 88 2f 	cmpwi   cr7,r8,4
+    10000710:	10 00 9e 40 	bne     cr7,10000720 <main+0x8c>
+    10000714:	2d 49 40 7d 	stwcx.  r10,0,r9
+    10000718:	00 00 80 4f 	mcrf    cr7,cr0
+    1000071c:	ec ff 9e 40 	bne     cr7,10000708 <main+0x74>
+    10000720:	2c 01 00 4c 	isync
+	__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELAXED,__ATOMIC_RELAXED);
+    10000724:	20 00 5f e9 	ld      r10,32(r31)
+    10000728:	28 00 3f e9 	ld      r9,40(r31)
+    1000072c:	00 00 e9 80 	lwz     r7,0(r9)
+    10000730:	03 00 00 39 	li      r8,3
+    10000734:	28 50 20 7d 	lwarx   r9,0,r10
+    10000738:	00 38 89 7f 	cmpw    cr7,r9,r7
+    1000073c:	10 00 9e 40 	bne     cr7,1000074c <main+0xb8>
+    10000740:	2d 51 00 7d 	stwcx.  r8,0,r10
+    10000744:	00 00 80 4f 	mcrf    cr7,cr0
+    10000748:	ec ff 9e 40 	bne     cr7,10000734 <main+0xa0>
+    1000074c:	26 10 50 7d 	mfocrf  r10,1
+    10000750:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    10000754:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    10000758:	0c 00 9e 40 	bne     cr7,10000764 <main+0xd0>
+    1000075c:	28 00 5f e9 	ld      r10,40(r31)
+    10000760:	00 00 2a 91 	stw     r9,0(r10)
+	//__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELAXED,__ATOMIC_ACQUIRE);
+	//__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELAXED,__ATOMIC_RELEASE);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_RELAXED,__ATOMIC_SEQ_CST);
+	printf("\n");
+    10000764:	0a 00 60 38 	li      r3,10
+    10000768:	29 fd ff 4b 	bl      10000490 <00000017.plt_call.putchar@@GLIBC_2.17>
+    1000076c:	18 00 41 e8 	ld      r2,24(r1)
+
+	__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_ACQUIRE,__ATOMIC_RELAXED);
+    10000770:	20 00 5f e9 	ld      r10,32(r31)
+    10000774:	28 00 3f e9 	ld      r9,40(r31)
+    10000778:	00 00 e9 80 	lwz     r7,0(r9)
+    1000077c:	03 00 00 39 	li      r8,3
+    10000780:	28 50 20 7d 	lwarx   r9,0,r10
+    10000784:	00 38 89 7f 	cmpw    cr7,r9,r7
+    10000788:	14 00 9e 40 	bne     cr7,1000079c <main+0x108>
+    1000078c:	2d 51 00 7d 	stwcx.  r8,0,r10
+    10000790:	00 00 80 4f 	mcrf    cr7,cr0
+    10000794:	ec ff 9e 40 	bne     cr7,10000780 <main+0xec>
+    10000798:	2c 01 00 4c 	isync
+    1000079c:	26 10 50 7d 	mfocrf  r10,1
+    100007a0:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    100007a4:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    100007a8:	0c 00 9e 40 	bne     cr7,100007b4 <main+0x120>
+    100007ac:	28 00 5f e9 	ld      r10,40(r31)
+    100007b0:	00 00 2a 91 	stw     r9,0(r10)
+	__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_ACQUIRE,__ATOMIC_ACQUIRE);
+    100007b4:	20 00 5f e9 	ld      r10,32(r31)
+    100007b8:	28 00 3f e9 	ld      r9,40(r31)
+    100007bc:	00 00 e9 80 	lwz     r7,0(r9)
+    100007c0:	03 00 00 39 	li      r8,3
+    100007c4:	28 50 20 7d 	lwarx   r9,0,r10
+    100007c8:	00 38 89 7f 	cmpw    cr7,r9,r7
+    100007cc:	10 00 9e 40 	bne     cr7,100007dc <main+0x148>
+    100007d0:	2d 51 00 7d 	stwcx.  r8,0,r10
+    100007d4:	00 00 80 4f 	mcrf    cr7,cr0
+    100007d8:	ec ff 9e 40 	bne     cr7,100007c4 <main+0x130>
+    100007dc:	2c 01 00 4c 	isync
+    100007e0:	26 10 50 7d 	mfocrf  r10,1
+    100007e4:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    100007e8:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    100007ec:	0c 00 9e 40 	bne     cr7,100007f8 <main+0x164>
+    100007f0:	28 00 5f e9 	ld      r10,40(r31)
+    100007f4:	00 00 2a 91 	stw     r9,0(r10)
+	//__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_ACQUIRE,__ATOMIC_RELEASE);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQUIRE,__ATOMIC_SEQ_CST);
+	printf("\n");
+    100007f8:	0a 00 60 38 	li      r3,10
+    100007fc:	95 fc ff 4b 	bl      10000490 <00000017.plt_call.putchar@@GLIBC_2.17>
+    10000800:	18 00 41 e8 	ld      r2,24(r1)
+
+	__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELEASE,__ATOMIC_RELAXED);
+    10000804:	20 00 5f e9 	ld      r10,32(r31)
+    10000808:	28 00 3f e9 	ld      r9,40(r31)
+    1000080c:	00 00 e9 80 	lwz     r7,0(r9)
+    10000810:	03 00 00 39 	li      r8,3
+    10000814:	ac 04 20 7c 	lwsync
+    10000818:	28 50 20 7d 	lwarx   r9,0,r10
+    1000081c:	00 38 89 7f 	cmpw    cr7,r9,r7
+    10000820:	10 00 9e 40 	bne     cr7,10000830 <main+0x19c>
+    10000824:	2d 51 00 7d 	stwcx.  r8,0,r10
+    10000828:	00 00 80 4f 	mcrf    cr7,cr0
+    1000082c:	ec ff 9e 40 	bne     cr7,10000818 <main+0x184>
+    10000830:	26 10 50 7d 	mfocrf  r10,1
+    10000834:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    10000838:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    1000083c:	0c 00 9e 40 	bne     cr7,10000848 <main+0x1b4>
+    10000840:	28 00 5f e9 	ld      r10,40(r31)
+    10000844:	00 00 2a 91 	stw     r9,0(r10)
+	__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELEASE,__ATOMIC_ACQUIRE);
+    10000848:	20 00 5f e9 	ld      r10,32(r31)
+    1000084c:	28 00 3f e9 	ld      r9,40(r31)
+    10000850:	00 00 e9 80 	lwz     r7,0(r9)
+    10000854:	03 00 00 39 	li      r8,3
+    10000858:	ac 04 20 7c 	lwsync
+    1000085c:	28 50 20 7d 	lwarx   r9,0,r10
+    10000860:	00 38 89 7f 	cmpw    cr7,r9,r7
+    10000864:	10 00 9e 40 	bne     cr7,10000874 <main+0x1e0>
+    10000868:	2d 51 00 7d 	stwcx.  r8,0,r10
+    1000086c:	00 00 80 4f 	mcrf    cr7,cr0
+    10000870:	ec ff 9e 40 	bne     cr7,1000085c <main+0x1c8>
+    10000874:	26 10 50 7d 	mfocrf  r10,1
+    10000878:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    1000087c:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    10000880:	0c 00 9e 40 	bne     cr7,1000088c <main+0x1f8>
+    10000884:	28 00 5f e9 	ld      r10,40(r31)
+    10000888:	00 00 2a 91 	stw     r9,0(r10)
+	//__atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELEASE,__ATOMIC_RELEASE);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_RELEASE,__ATOMIC_SEQ_CST);
+	printf("\n");
+    1000088c:	0a 00 60 38 	li      r3,10
+    10000890:	01 fc ff 4b 	bl      10000490 <00000017.plt_call.putchar@@GLIBC_2.17>
+    10000894:	18 00 41 e8 	ld      r2,24(r1)
+
+	__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_RELAXED);
+    10000898:	20 00 5f e9 	ld      r10,32(r31)
+    1000089c:	28 00 3f e9 	ld      r9,40(r31)
+    100008a0:	00 00 e9 80 	lwz     r7,0(r9)
+    100008a4:	04 00 00 39 	li      r8,4
+    100008a8:	ac 04 20 7c 	lwsync
+    100008ac:	28 50 20 7d 	lwarx   r9,0,r10
+    100008b0:	00 38 89 7f 	cmpw    cr7,r9,r7
+    100008b4:	14 00 9e 40 	bne     cr7,100008c8 <main+0x234>
+    100008b8:	2d 51 00 7d 	stwcx.  r8,0,r10
+    100008bc:	00 00 80 4f 	mcrf    cr7,cr0
+    100008c0:	ec ff 9e 40 	bne     cr7,100008ac <main+0x218>
+    100008c4:	2c 01 00 4c 	isync
+    100008c8:	26 10 50 7d 	mfocrf  r10,1
+    100008cc:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    100008d0:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    100008d4:	0c 00 9e 40 	bne     cr7,100008e0 <main+0x24c>
+    100008d8:	28 00 5f e9 	ld      r10,40(r31)
+    100008dc:	00 00 2a 91 	stw     r9,0(r10)
+	__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_ACQUIRE);
+    100008e0:	20 00 5f e9 	ld      r10,32(r31)
+    100008e4:	28 00 3f e9 	ld      r9,40(r31)
+    100008e8:	00 00 e9 80 	lwz     r7,0(r9)
+    100008ec:	04 00 00 39 	li      r8,4
+    100008f0:	ac 04 20 7c 	lwsync
+    100008f4:	28 50 20 7d 	lwarx   r9,0,r10
+    100008f8:	00 38 89 7f 	cmpw    cr7,r9,r7
+    100008fc:	10 00 9e 40 	bne     cr7,1000090c <main+0x278>
+    10000900:	2d 51 00 7d 	stwcx.  r8,0,r10
+    10000904:	00 00 80 4f 	mcrf    cr7,cr0
+    10000908:	ec ff 9e 40 	bne     cr7,100008f4 <main+0x260>
+    1000090c:	2c 01 00 4c 	isync
+    10000910:	26 10 50 7d 	mfocrf  r10,1
+    10000914:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    10000918:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    1000091c:	0c 00 9e 40 	bne     cr7,10000928 <main+0x294>
+    10000920:	28 00 5f e9 	ld      r10,40(r31)
+    10000924:	00 00 2a 91 	stw     r9,0(r10)
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_RELEASE);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_ACQ_REL);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_SEQ_CST);
+	printf("\n");
+    10000928:	0a 00 60 38 	li      r3,10
+    1000092c:	65 fb ff 4b 	bl      10000490 <00000017.plt_call.putchar@@GLIBC_2.17>
+    10000930:	18 00 41 e8 	ld      r2,24(r1)
+
+	__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_SEQ_CST,__ATOMIC_RELAXED);
+    10000934:	20 00 5f e9 	ld      r10,32(r31)
+    10000938:	28 00 3f e9 	ld      r9,40(r31)
+    1000093c:	00 00 e9 80 	lwz     r7,0(r9)
+    10000940:	04 00 00 39 	li      r8,4
+    10000944:	ac 04 00 7c 	hwsync
+    10000948:	28 50 20 7d 	lwarx   r9,0,r10
+    1000094c:	00 38 89 7f 	cmpw    cr7,r9,r7
+    10000950:	14 00 9e 40 	bne     cr7,10000964 <main+0x2d0>
+    10000954:	2d 51 00 7d 	stwcx.  r8,0,r10
+    10000958:	00 00 80 4f 	mcrf    cr7,cr0
+    1000095c:	ec ff 9e 40 	bne     cr7,10000948 <main+0x2b4>
+    10000960:	2c 01 00 4c 	isync
+    10000964:	26 10 50 7d 	mfocrf  r10,1
+    10000968:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    1000096c:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    10000970:	0c 00 9e 40 	bne     cr7,1000097c <main+0x2e8>
+    10000974:	28 00 5f e9 	ld      r10,40(r31)
+    10000978:	00 00 2a 91 	stw     r9,0(r10)
+	__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_SEQ_CST,__ATOMIC_ACQUIRE);
+    1000097c:	20 00 5f e9 	ld      r10,32(r31)
+    10000980:	28 00 3f e9 	ld      r9,40(r31)
+    10000984:	00 00 e9 80 	lwz     r7,0(r9)
+    10000988:	04 00 00 39 	li      r8,4
+    1000098c:	ac 04 00 7c 	hwsync
+    10000990:	28 50 20 7d 	lwarx   r9,0,r10
+    10000994:	00 38 89 7f 	cmpw    cr7,r9,r7
+    10000998:	10 00 9e 40 	bne     cr7,100009a8 <main+0x314>
+    1000099c:	2d 51 00 7d 	stwcx.  r8,0,r10
+    100009a0:	00 00 80 4f 	mcrf    cr7,cr0
+    100009a4:	ec ff 9e 40 	bne     cr7,10000990 <main+0x2fc>
+    100009a8:	2c 01 00 4c 	isync
+    100009ac:	26 10 50 7d 	mfocrf  r10,1
+    100009b0:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    100009b4:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    100009b8:	0c 00 9e 40 	bne     cr7,100009c4 <main+0x330>
+    100009bc:	28 00 5f e9 	ld      r10,40(r31)
+    100009c0:	00 00 2a 91 	stw     r9,0(r10)
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_SEQ_CST,__ATOMIC_RELEASE);
+	//__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_SEQ_CST,__ATOMIC_ACQ_REL);
+	__atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_SEQ_CST,__ATOMIC_SEQ_CST);
+    100009c4:	20 00 5f e9 	ld      r10,32(r31)
+    100009c8:	28 00 3f e9 	ld      r9,40(r31)
+    100009cc:	00 00 e9 80 	lwz     r7,0(r9)
+    100009d0:	04 00 00 39 	li      r8,4
+    100009d4:	ac 04 00 7c 	hwsync
+    100009d8:	28 50 20 7d 	lwarx   r9,0,r10
+    100009dc:	00 38 89 7f 	cmpw    cr7,r9,r7
+    100009e0:	10 00 9e 40 	bne     cr7,100009f0 <main+0x35c>
+    100009e4:	2d 51 00 7d 	stwcx.  r8,0,r10
+    100009e8:	00 00 80 4f 	mcrf    cr7,cr0
+    100009ec:	ec ff 9e 40 	bne     cr7,100009d8 <main+0x344>
+    100009f0:	2c 01 00 4c 	isync
+    100009f4:	26 10 50 7d 	mfocrf  r10,1
+    100009f8:	fe ff 4a 55 	rlwinm  r10,r10,31,31,31
+    100009fc:	00 00 8a 2f 	cmpwi   cr7,r10,0
+    10000a00:	0c 00 9e 40 	bne     cr7,10000a0c <main+0x378>
+    10000a04:	28 00 5f e9 	ld      r10,40(r31)
+    10000a08:	00 00 2a 91 	stw     r9,0(r10)
+	printf("\n");
+    10000a0c:	0a 00 60 38 	li      r3,10
+    10000a10:	81 fa ff 4b 	bl      10000490 <00000017.plt_call.putchar@@GLIBC_2.17>
+    10000a14:	18 00 41 e8 	ld      r2,24(r1)
+
+	b=4;    //expect a==4, but now a=3, will not change to desire value 2
+	ret = __atomic_compare_exchange_n(pa,pb,2,0,__ATOMIC_CONSUME,__ATOMIC_ACQUIRE);
+	printf("now a:%d,ret:%d\n",a,ret);
+	*/
+	return 0;
+    10000a18:	00 00 20 39 	li      r9,0
+}
+    10000a1c:	78 4b 23 7d 	mr      r3,r9
+    10000a20:	60 00 3f 38 	addi    r1,r31,96
+    10000a24:	10 00 01 e8 	ld      r0,16(r1)
+    10000a28:	a6 03 08 7c 	mtlr    r0
+    10000a2c:	f8 ff e1 eb 	ld      r31,-8(r1)
+    10000a30:	20 00 80 4e 	blr
+    10000a34:	00 00 00 00 	.long 0x0
+    10000a38:	00 00 00 01 	.long 0x1000000
+    10000a3c:	80 01 00 01 	.long 0x1000180
+
+0000000010000a40 <__libc_csu_init>:
+    10000a40:	02 10 40 3c 	lis     r2,4098
+    10000a44:	00 7f 42 38 	addi    r2,r2,32512
+    10000a48:	a6 02 08 7c 	mflr    r0
+    10000a4c:	d0 ff 41 fb 	std     r26,-48(r1)
+    10000a50:	d8 ff 61 fb 	std     r27,-40(r1)
+    10000a54:	e0 ff 81 fb 	std     r28,-32(r1)
+    10000a58:	e8 ff a1 fb 	std     r29,-24(r1)
+    10000a5c:	f0 ff c1 fb 	std     r30,-16(r1)
+    10000a60:	f8 ff e1 fb 	std     r31,-8(r1)
+    10000a64:	10 00 01 f8 	std     r0,16(r1)
+    10000a68:	b1 ff 21 f8 	stdu    r1,-80(r1)
+    10000a6c:	00 00 e0 3b 	li      r31,0
+    10000a70:	ff ff c2 3f 	addis   r30,r2,-1
+    10000a74:	ff ff a2 3f 	addis   r29,r2,-1
+    10000a78:	f8 7d de 3b 	addi    r30,r30,32248
+    10000a7c:	00 7e bd 3b 	addi    r29,r29,32256
+    10000a80:	50 e8 be 7f 	subf    r29,r30,r29
+    10000a84:	78 1b 7a 7c 	mr      r26,r3
+    10000a88:	78 23 9b 7c 	mr      r27,r4
+    10000a8c:	78 2b bc 7c 	mr      r28,r5
+    10000a90:	a9 f9 ff 4b 	bl      10000438 <_init+0x8>
+    10000a94:	00 00 00 60 	nop
+    10000a98:	75 1e bd 7f 	sradi.  r29,r29,3
+    10000a9c:	f8 ff de 3b 	addi    r30,r30,-8
+    10000aa0:	40 00 82 41 	beq     10000ae0 <__libc_csu_init+0xa0>
+    10000aa4:	00 00 00 60 	nop
+    10000aa8:	00 00 00 60 	nop
+    10000aac:	00 00 42 60 	ori     r2,r2,0
+    10000ab0:	09 00 3e e9 	ldu     r9,8(r30)
+    10000ab4:	78 d3 43 7f 	mr      r3,r26
+    10000ab8:	18 00 41 f8 	std     r2,24(r1)
+    10000abc:	78 db 64 7f 	mr      r4,r27
+    10000ac0:	78 e3 85 7f 	mr      r5,r28
+    10000ac4:	01 00 ff 3b 	addi    r31,r31,1
+    10000ac8:	a6 03 29 7d 	mtctr   r9
+    10000acc:	78 4b 2c 7d 	mr      r12,r9
+    10000ad0:	21 04 80 4e 	bctrl
+    10000ad4:	18 00 41 e8 	ld      r2,24(r1)
+    10000ad8:	40 e8 bf 7f 	cmpld   cr7,r31,r29
+    10000adc:	d4 ff 9e 40 	bne     cr7,10000ab0 <__libc_csu_init+0x70>
+    10000ae0:	50 00 21 38 	addi    r1,r1,80
+    10000ae4:	10 00 01 e8 	ld      r0,16(r1)
+    10000ae8:	d0 ff 41 eb 	ld      r26,-48(r1)
+    10000aec:	d8 ff 61 eb 	ld      r27,-40(r1)
+    10000af0:	e0 ff 81 eb 	ld      r28,-32(r1)
+    10000af4:	e8 ff a1 eb 	ld      r29,-24(r1)
+    10000af8:	f0 ff c1 eb 	ld      r30,-16(r1)
+    10000afc:	f8 ff e1 eb 	ld      r31,-8(r1)
+    10000b00:	a6 03 08 7c 	mtlr    r0
+    10000b04:	20 00 80 4e 	blr
+    10000b08:	00 00 00 00 	.long 0x0
+    10000b0c:	00 00 00 01 	.long 0x1000000
+    10000b10:	80 06 00 00 	.long 0x680
+    10000b14:	00 00 00 60 	nop
+    10000b18:	00 00 00 60 	nop
+    10000b1c:	00 00 42 60 	ori     r2,r2,0
+
+0000000010000b20 <__libc_csu_fini>:
+    10000b20:	20 00 80 4e 	blr
+	...
+    10000b30:	c0 f4 01 00 	.long 0x1f4c0
+    10000b34:	00 00 00 00 	.long 0x0
+
+0000000010000b38 <__glink_PLTresolve>:
+    10000b38:	a6 02 08 7c 	mflr    r0
+    10000b3c:	05 00 9f 42 	bcl     20,4*cr7+so,10000b40 <__glink_PLTresolve+0x8>
+    10000b40:	a6 02 68 7d 	mflr    r11
+    10000b44:	f0 ff 4b e8 	ld      r2,-16(r11)
+    10000b48:	a6 03 08 7c 	mtlr    r0
+    10000b4c:	50 60 8b 7d 	subf    r12,r11,r12
+    10000b50:	14 5a 62 7d 	add     r11,r2,r11
+    10000b54:	d0 ff 0c 38 	addi    r0,r12,-48
+    10000b58:	00 00 8b e9 	ld      r12,0(r11)
+    10000b5c:	82 f0 00 78 	rldicl  r0,r0,62,2
+    10000b60:	a6 03 89 7d 	mtctr   r12
+    10000b64:	08 00 6b e9 	ld      r11,8(r11)
+    10000b68:	20 04 80 4e 	bctr
+    10000b6c:	00 00 00 60 	nop
+
+0000000010000b70 <atoi@plt>:
+    10000b70:	c8 ff ff 4b 	b       10000b38 <__glink_PLTresolve>
+
+0000000010000b74 <__libc_start_main@plt>:
+    10000b74:	c4 ff ff 4b 	b       10000b38 <__glink_PLTresolve>
+
+0000000010000b78 <__gmon_start__@plt>:
+    10000b78:	c0 ff ff 4b 	b       10000b38 <__glink_PLTresolve>
+
+0000000010000b7c <putchar@plt>:
+    10000b7c:	bc ff ff 4b 	b       10000b38 <__glink_PLTresolve>
+
+Disassembly of section .fini:
+
+0000000010000b80 <_fini>:
+    10000b80:	02 10 40 3c 	lis     r2,4098
+    10000b84:	00 7f 42 38 	addi    r2,r2,32512
+    10000b88:	a6 02 08 7c 	mflr    r0
+    10000b8c:	10 00 01 f8 	std     r0,16(r1)
+    10000b90:	a1 ff 21 f8 	stdu    r1,-96(r1)
+    10000b94:	60 00 21 38 	addi    r1,r1,96
+    10000b98:	10 00 01 e8 	ld      r0,16(r1)
+    10000b9c:	a6 03 08 7c 	mtlr    r0
+    10000ba0:	20 00 80 4e 	blr

@@ -1,0 +1,23 @@
+gcc -g3 main.c -o main
+main.c: In function ‘main’:
+main.c:16:29: error: failure memory model cannot be stronger than success memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELAXED,__ATOMIC_ACQUIRE);
+                             ^
+main.c:17:29: error: invalid failure memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELAXED,__ATOMIC_RELEASE);
+                             ^
+main.c:22:29: error: invalid failure memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_ACQUIRE,__ATOMIC_RELEASE);
+                             ^
+main.c:27:29: error: invalid failure memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,3,0,__ATOMIC_RELEASE,__ATOMIC_RELEASE);
+                             ^
+main.c:32:29: error: invalid failure memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_RELEASE);
+                             ^
+main.c:33:29: error: invalid failure memory model for ‘__atomic_compare_exchange’
+  __atomic_compare_exchange_n(pa,pb,4,0,__ATOMIC_ACQ_REL,__ATOMIC_ACQ_REL);
+                             ^
+make: *** [main] Error 1
+[root@xsky201 test]# 
+
