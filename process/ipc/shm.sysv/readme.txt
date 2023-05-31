@@ -23,16 +23,18 @@
 
 3,shm
     a,./shm
-    b,即便没有rm shmid之前 pmap 也是显示为 (deleted),而posix只在只在删除/dev/shm/a 文件后才标记为deleted. why??
-    $ pmap -X `pgrep shm`
-    825440:   ./shm
-         Address Perm   Offset Device   Inode Size  Rss Pss Referenced Anonymous LazyFree ShmemPmdMapped FilePmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked THPeligible Mapping
-        00400000 r--p 00000000  00:22 3190682    4    4   4          4         0        0              0             0              0               0    0       0      0           0 shm
-        .......
-    7f9cfbb92000 rw-s 00000000  00:01  753817  128    4   2          4         0        0              0             0              0               0    0       0      0           0 SYSV0000004a (deleted)
-    7f9cfbbb2000 rw-s 00000000  00:01  753817  128    4   2          4         0        0              0             0              0               0    0       0      0           0 SYSV0000004a (deleted)
-    7f9cfbbd2000 rw-p 00000000  00:00       0    8    4   4          4         4        0              0             0              0               0    0       0      0           0
-    ................
-                                              ==== ==== === ========== ========= ======== ============== ============= ============== =============== ==== ======= ====== ===========
-                                              2604 1480 179       1480        84        0              0             0              0               0    0       0      0           0 KB
+    b,
+        $ pmap -X `pgrep shm`
+        825440:   ./shm
+             Address Perm   Offset Device   Inode Size  Rss Pss Referenced Anonymous LazyFree ShmemPmdMapped FilePmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked THPeligible Mapping
+            00400000 r--p 00000000  00:22 3190682    4    4   4          4         0        0              0             0              0               0    0       0      0           0 shm
+            .......
+        7f9cfbb92000 rw-s 00000000  00:01  753817  128    4   2          4         0        0              0             0              0               0    0       0      0           0 SYSV0000004a (deleted)
+        7f9cfbbb2000 rw-s 00000000  00:01  753817  128    4   2          4         0        0              0             0              0               0    0       0      0           0 SYSV0000004a (deleted)
+        7f9cfbbd2000 rw-p 00000000  00:00       0    8    4   4          4         4        0              0             0              0               0    0       0      0           0
+        ................
+                                                  ==== ==== === ========== ========= ======== ============== ============= ============== =============== ==== ======= ====== ===========
+                                                  2604 1480 179       1480        84        0              0             0              0               0    0       0      0           0 KB
 
+    c,即便没有rm shmid(shmdt)之前 pmap 也是显示为 (deleted),而posix只在只在删除/dev/shm/a 文件后才标记为deleted. why??
+        因为shmefs inode 对应的dentry没有dhash.
