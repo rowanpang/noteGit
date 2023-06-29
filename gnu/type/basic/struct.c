@@ -45,20 +45,54 @@ int hello(int ok){
  *ref
  *    https://gcc.gnu.org/onlinedocs/gcc-9.1.0/gcc/Structure-Layout-Pragmas.html#Structure-Layout-Pragmas
  */
-#pragma pack(4)		    //修改编译器对struct默认对齐规则.
-#pragma pack(1)		    //same as -fpack-struct[=n]
+//#pragma pack(show)	    //
+#pragma pack(1)		    //same as -fpack-struct[=n]   change the maximum alignment of members of structures
 struct alignTest{
     int a;
     char b;
     int c;
+    long d;
 };
+#pragma pack()
 
-#pragma pack()		    //改回最早定义的pack(4)
+#pragma pack(4)	            //修改编译器对struct默认对齐规则.
 struct alignTest2{
     int a;
     char b;
     int c;
+    long d;
 };
+#pragma pack()
+
+struct alignTest3 {
+    int a;
+    char b;
+    int c;
+    long d;
+} __attribute__ ((aligned (64)));
+
+struct alignTest4 {
+    int a;
+    char b __attribute__ ((aligned (64)));
+    int c;
+    long d;
+} __attribute__ ((aligned (64)));
+
+struct alignTest5 {
+    int a;
+    char b;
+    int c;
+    long d;
+} __attribute__ ((packed,aligned (64)));
+
+#pragma pack(8)	            //修改编译器对struct默认对齐规则.
+struct alignTest6{
+    int a;
+    char b;
+    int c;
+    long d;
+};
+#pragma pack()
 
 struct zeroa{
     int a;
@@ -249,19 +283,53 @@ int main(int argc,char** argv)
     printf("char-as-d:%d\n",ca);
 
 
-    printf("-pack(4)-pack(1)---align Test---------\n");
+    printf("pack(1)---align Test---------\n");
     struct alignTest algin;
     printf("sizeof(alignTest):%d\n",sizeof(struct alignTest));
     UPRINT(algin.a);
     UPRINT(algin.b);
     UPRINT(algin.c);
+    UPRINT(algin.d);
 
-    printf("-pack(4)-pack(1)-pack()-align Test---------\n");
+    printf("pack(4)-align Test---------\n");
     struct alignTest2 algin2;
     printf("sizeof(alignTest2):%d\n",sizeof(struct alignTest2));
     UPRINT(algin2.a);
     UPRINT(algin2.b);
     UPRINT(algin2.c);
+    UPRINT(algin2.d);
+
+    printf("pack(8)-align Test---------\n");
+    struct alignTest6 algin6;
+    printf("sizeof(alignTest6):%d\n",sizeof(struct alignTest6));
+    UPRINT(algin6.a);
+    UPRINT(algin6.b);
+    UPRINT(algin6.c);
+    UPRINT(algin6.d);
+
+    printf("__attribute__ ((aligned (64)))---------\n");
+    struct alignTest3 algin3;
+    printf("sizeof(alignTest3):%d\n",sizeof(struct alignTest3));
+    UPRINT(algin3.a);
+    UPRINT(algin3.b);
+    UPRINT(algin3.c);
+    UPRINT(algin3.d);
+
+    printf("struct field __attribute__ ((aligned (64)))---------\n");
+    struct alignTest4 algin4;
+    printf("sizeof(alignTest4):%d\n",sizeof(struct alignTest4));
+    UPRINT(algin4.a);
+    UPRINT(algin4.b);
+    UPRINT(algin4.c);
+    UPRINT(algin4.d);
+
+    printf("packed struct field __attribute__ ((aligned (64)))---------\n");
+    struct alignTest5 algin5;
+    printf("sizeof(alignTest5):%d\n",sizeof(struct alignTest5));
+    UPRINT(algin5.a);
+    UPRINT(algin5.b);
+    UPRINT(algin5.c);
+    UPRINT(algin5.d);
 
     printf("sizeof(zeroa):%d\n",sizeof(struct zeroa));
     struct zeroa zeroa_a;
