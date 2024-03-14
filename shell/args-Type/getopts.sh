@@ -12,8 +12,8 @@ function usage () {
 
 function main(){
     n=3
-    #while getopts ":hdca:vp" opt;do	    #first colon silent error mode
-    while getopts "hdca:vp" opt;do
+    #while getopts ":hdca:vp" opt;do	    #first colon silent error mode or 'OPTERR is set to  0'
+    while getopts ":hdca:vp" opt;do
         case $opt in
             h)
                 usage
@@ -36,7 +36,7 @@ function main(){
 		usage
 		;;
 	    :)
-                echo "--Need arguement $OPTARG"
+                echo "Need arguement $OPTARG"
                 usage
 		;;
 
