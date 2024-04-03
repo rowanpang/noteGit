@@ -1,259 +1,425 @@
 
-binelf.dyn.hello.c:     file format elf64-x86-64
+binelf.dyn.hello.c:     file format elf64-powerpcle
 
 
 Disassembly of section .init:
 
-0000000000401000 <_init>:
-  401000:	f3 0f 1e fa          	endbr64 
-  401004:	48 83 ec 08          	sub    $0x8,%rsp
-  401008:	48 8b 05 e9 2f 00 00 	mov    0x2fe9(%rip),%rax        # 403ff8 <__gmon_start__>
-  40100f:	48 85 c0             	test   %rax,%rax
-  401012:	74 02                	je     401016 <_init+0x16>
-  401014:	ff d0                	callq  *%rax
-  401016:	48 83 c4 08          	add    $0x8,%rsp
-  40101a:	c3                   	retq   
+0000000010000640 <00000024.plt_call.__gmon_start__>:
+    10000640:	18 00 41 f8 	std     r2,24(r1)
+    10000644:	18 81 82 e9 	ld      r12,-32488(r2)
+    10000648:	a6 03 89 7d 	mtctr   r12
+    1000064c:	20 04 80 4e 	bctr
 
-Disassembly of section .plt:
-
-0000000000401020 <.plt>:
-  401020:	ff 35 e2 2f 00 00    	pushq  0x2fe2(%rip)        # 404008 <_GLOBAL_OFFSET_TABLE_+0x8>
-  401026:	ff 25 e4 2f 00 00    	jmpq   *0x2fe4(%rip)        # 404010 <_GLOBAL_OFFSET_TABLE_+0x10>
-  40102c:	0f 1f 40 00          	nopl   0x0(%rax)
-
-0000000000401030 <printf@plt>:
-  401030:	ff 25 e2 2f 00 00    	jmpq   *0x2fe2(%rip)        # 404018 <printf@GLIBC_2.2.5>
-  401036:	68 00 00 00 00       	pushq  $0x0
-  40103b:	e9 e0 ff ff ff       	jmpq   401020 <.plt>
-
-0000000000401040 <show_foo@plt>:
-  401040:	ff 25 da 2f 00 00    	jmpq   *0x2fda(%rip)        # 404020 <show_foo>
-  401046:	68 01 00 00 00       	pushq  $0x1
-  40104b:	e9 d0 ff ff ff       	jmpq   401020 <.plt>
+0000000010000650 <_init>:
+    10000650:	02 10 40 3c 	lis     r2,4098
+    10000654:	00 7f 42 38 	addi    r2,r2,32512
+    10000658:	a6 02 08 7c 	mflr    r0
+    1000065c:	10 00 01 f8 	std     r0,16(r1)
+    10000660:	a1 ff 21 f8 	stdu    r1,-96(r1)
+    10000664:	00 00 00 60 	nop
+    10000668:	08 80 02 e8 	ld      r0,-32760(r2)
+    1000066c:	00 00 a0 2f 	cmpdi   cr7,r0,0
+    10000670:	0c 00 fe 41 	beq+    cr7,1000067c <_init+0x2c>
+    10000674:	cd ff ff 4b 	bl      10000640 <00000024.plt_call.__gmon_start__>
+    10000678:	18 00 41 e8 	ld      r2,24(r1)
+    1000067c:	60 00 21 38 	addi    r1,r1,96
+    10000680:	10 00 01 e8 	ld      r0,16(r1)
+    10000684:	a6 03 08 7c 	mtlr    r0
+    10000688:	20 00 80 4e 	blr
 
 Disassembly of section .text:
 
-0000000000401050 <_start>:
-  401050:	f3 0f 1e fa          	endbr64 
-  401054:	31 ed                	xor    %ebp,%ebp
-  401056:	49 89 d1             	mov    %rdx,%r9
-  401059:	5e                   	pop    %rsi
-  40105a:	48 89 e2             	mov    %rsp,%rdx
-  40105d:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
-  401061:	50                   	push   %rax
-  401062:	54                   	push   %rsp
-  401063:	49 c7 c0 90 12 40 00 	mov    $0x401290,%r8
-  40106a:	48 c7 c1 20 12 40 00 	mov    $0x401220,%rcx
-  401071:	48 c7 c7 60 11 40 00 	mov    $0x401160,%rdi
-  401078:	ff 15 72 2f 00 00    	callq  *0x2f72(%rip)        # 403ff0 <__libc_start_main@GLIBC_2.2.5>
-  40107e:	f4                   	hlt    
+00000000100006a0 <00000017.plt_call.printf@@GLIBC_2.17>:
+    100006a0:	18 00 41 f8 	std     r2,24(r1)
+    100006a4:	28 81 82 e9 	ld      r12,-32472(r2)
+    100006a8:	a6 03 89 7d 	mtctr   r12
+    100006ac:	20 04 80 4e 	bctr
 
-000000000040107f <.annobin_abi_note.c>:
-  40107f:	90                   	nop
+00000000100006b0 <00000017.plt_call.show_foo>:
+    100006b0:	18 00 41 f8 	std     r2,24(r1)
+    100006b4:	20 81 82 e9 	ld      r12,-32480(r2)
+    100006b8:	a6 03 89 7d 	mtctr   r12
+    100006bc:	20 04 80 4e 	bctr
 
-0000000000401080 <_dl_relocate_static_pie>:
-  401080:	f3 0f 1e fa          	endbr64 
-  401084:	c3                   	retq   
+00000000100006c0 <00000017.plt_call.__libc_start_main@@GLIBC_2.17>:
+    100006c0:	18 00 41 f8 	std     r2,24(r1)
+    100006c4:	10 81 82 e9 	ld      r12,-32496(r2)
+    100006c8:	a6 03 89 7d 	mtctr   r12
+    100006cc:	20 04 80 4e 	bctr
 
-0000000000401085 <.annobin__dl_relocate_static_pie.end>:
-  401085:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-  40108c:	00 00 00 
-  40108f:	90                   	nop
+00000000100006d0 <_start>:
+    100006d0:	02 10 40 3c 	lis     r2,4098
+    100006d4:	00 7f 42 38 	addi    r2,r2,32512
+    100006d8:	78 0b 29 7c 	mr      r9,r1
+    100006dc:	e4 06 21 78 	rldicr  r1,r1,0,59
+    100006e0:	00 00 00 38 	li      r0,0
+    100006e4:	81 ff 21 f8 	stdu    r1,-128(r1)
+    100006e8:	a6 03 08 7c 	mtlr    r0
+    100006ec:	00 00 01 f8 	std     r0,0(r1)
+    100006f0:	10 80 02 e9 	ld      r8,-32752(r2)
+    100006f4:	cc ff ff 4b 	b       100006c0 <00000017.plt_call.__libc_start_main@@GLIBC_2.17>
+    100006f8:	00 00 00 60 	nop
+	...
+    10000704:	40 20 0c 00 	.long 0xc2040
+    10000708:	2c 00 00 00 	.long 0x2c
+    1000070c:	06 00 5f 73 	andi.   r31,r26,6
+    10000710:	74 61 72 74 	andis.  r18,r3,24948
+    10000714:	00 00 00 60 	nop
+    10000718:	00 00 00 60 	nop
+    1000071c:	00 00 00 60 	nop
 
-0000000000401090 <deregister_tm_clones>:
-  401090:	b8 08 41 40 00       	mov    $0x404108,%eax
-  401095:	48 3d 08 41 40 00    	cmp    $0x404108,%rax
-  40109b:	74 13                	je     4010b0 <deregister_tm_clones+0x20>
-  40109d:	b8 00 00 00 00       	mov    $0x0,%eax
-  4010a2:	48 85 c0             	test   %rax,%rax
-  4010a5:	74 09                	je     4010b0 <deregister_tm_clones+0x20>
-  4010a7:	bf 08 41 40 00       	mov    $0x404108,%edi
-  4010ac:	ff e0                	jmpq   *%rax
-  4010ae:	66 90                	xchg   %ax,%ax
-  4010b0:	c3                   	retq   
-  4010b1:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
-  4010b8:	00 00 00 00 
-  4010bc:	0f 1f 40 00          	nopl   0x0(%rax)
+0000000010000720 <deregister_tm_clones>:
+    10000720:	02 10 40 3c 	lis     r2,4098
+    10000724:	00 7f 42 38 	addi    r2,r2,32512
+    10000728:	a6 02 08 7c 	mflr    r0
+    1000072c:	00 00 00 60 	nop
+    10000730:	00 00 00 60 	nop
+    10000734:	c8 81 62 38 	addi    r3,r2,-32312
+    10000738:	cf 81 22 39 	addi    r9,r2,-32305
+    1000073c:	50 48 23 7d 	subf    r9,r3,r9
+    10000740:	0e 00 a9 2b 	cmpldi  cr7,r9,14
+    10000744:	10 00 01 f8 	std     r0,16(r1)
+    10000748:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    1000074c:	14 00 dd 41 	bgt-    cr7,10000760 <deregister_tm_clones+0x40>
+    10000750:	20 00 21 38 	addi    r1,r1,32
+    10000754:	10 00 01 e8 	ld      r0,16(r1)
+    10000758:	a6 03 08 7c 	mtlr    r0
+    1000075c:	20 00 80 4e 	blr
+    10000760:	00 00 00 60 	nop
+    10000764:	18 80 22 e9 	ld      r9,-32744(r2)
+    10000768:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    1000076c:	e4 ff 9e 41 	beq     cr7,10000750 <deregister_tm_clones+0x30>
+    10000770:	a6 03 29 7d 	mtctr   r9
+    10000774:	18 00 41 f8 	std     r2,24(r1)
+    10000778:	78 4b 2c 7d 	mr      r12,r9
+    1000077c:	21 04 80 4e 	bctrl
+    10000780:	18 00 41 e8 	ld      r2,24(r1)
+    10000784:	cc ff ff 4b 	b       10000750 <deregister_tm_clones+0x30>
+    10000788:	00 00 00 60 	nop
+    1000078c:	00 00 42 60 	ori     r2,r2,0
 
-00000000004010c0 <register_tm_clones>:
-  4010c0:	be 08 41 40 00       	mov    $0x404108,%esi
-  4010c5:	48 81 ee 08 41 40 00 	sub    $0x404108,%rsi
-  4010cc:	48 89 f0             	mov    %rsi,%rax
-  4010cf:	48 c1 ee 3f          	shr    $0x3f,%rsi
-  4010d3:	48 c1 f8 03          	sar    $0x3,%rax
-  4010d7:	48 01 c6             	add    %rax,%rsi
-  4010da:	48 d1 fe             	sar    %rsi
-  4010dd:	74 11                	je     4010f0 <register_tm_clones+0x30>
-  4010df:	b8 00 00 00 00       	mov    $0x0,%eax
-  4010e4:	48 85 c0             	test   %rax,%rax
-  4010e7:	74 07                	je     4010f0 <register_tm_clones+0x30>
-  4010e9:	bf 08 41 40 00       	mov    $0x404108,%edi
-  4010ee:	ff e0                	jmpq   *%rax
-  4010f0:	c3                   	retq   
-  4010f1:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
-  4010f8:	00 00 00 00 
-  4010fc:	0f 1f 40 00          	nopl   0x0(%rax)
+0000000010000790 <register_tm_clones>:
+    10000790:	02 10 40 3c 	lis     r2,4098
+    10000794:	00 7f 42 38 	addi    r2,r2,32512
+    10000798:	a6 02 08 7c 	mflr    r0
+    1000079c:	00 00 00 60 	nop
+    100007a0:	00 00 00 60 	nop
+    100007a4:	c8 81 62 38 	addi    r3,r2,-32312
+    100007a8:	c8 81 22 39 	addi    r9,r2,-32312
+    100007ac:	50 48 23 7d 	subf    r9,r3,r9
+    100007b0:	74 1e 29 7d 	sradi   r9,r9,3
+    100007b4:	74 0e 24 7d 	sradi   r4,r9,1
+    100007b8:	95 01 84 7c 	addze.  r4,r4
+    100007bc:	10 00 01 f8 	std     r0,16(r1)
+    100007c0:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    100007c4:	14 00 c2 40 	bne-    100007d8 <register_tm_clones+0x48>
+    100007c8:	20 00 21 38 	addi    r1,r1,32
+    100007cc:	10 00 01 e8 	ld      r0,16(r1)
+    100007d0:	a6 03 08 7c 	mtlr    r0
+    100007d4:	20 00 80 4e 	blr
+    100007d8:	00 00 00 60 	nop
+    100007dc:	20 80 22 e9 	ld      r9,-32736(r2)
+    100007e0:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    100007e4:	e4 ff 9e 41 	beq     cr7,100007c8 <register_tm_clones+0x38>
+    100007e8:	a6 03 29 7d 	mtctr   r9
+    100007ec:	18 00 41 f8 	std     r2,24(r1)
+    100007f0:	78 4b 2c 7d 	mr      r12,r9
+    100007f4:	21 04 80 4e 	bctrl
+    100007f8:	18 00 41 e8 	ld      r2,24(r1)
+    100007fc:	cc ff ff 4b 	b       100007c8 <register_tm_clones+0x38>
 
-0000000000401100 <__do_global_dtors_aux>:
-  401100:	f3 0f 1e fa          	endbr64 
-  401104:	80 3d b9 30 00 00 00 	cmpb   $0x0,0x30b9(%rip)        # 4041c4 <completed.0>
-  40110b:	75 13                	jne    401120 <__do_global_dtors_aux+0x20>
-  40110d:	55                   	push   %rbp
-  40110e:	48 89 e5             	mov    %rsp,%rbp
-  401111:	e8 7a ff ff ff       	callq  401090 <deregister_tm_clones>
-  401116:	c6 05 a7 30 00 00 01 	movb   $0x1,0x30a7(%rip)        # 4041c4 <completed.0>
-  40111d:	5d                   	pop    %rbp
-  40111e:	c3                   	retq   
-  40111f:	90                   	nop
-  401120:	c3                   	retq   
-  401121:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
-  401128:	00 00 00 00 
-  40112c:	0f 1f 40 00          	nopl   0x0(%rax)
+0000000010000800 <__do_global_dtors_aux>:
+    10000800:	02 10 40 3c 	lis     r2,4098
+    10000804:	00 7f 42 38 	addi    r2,r2,32512
+    10000808:	a6 02 08 7c 	mflr    r0
+    1000080c:	00 00 00 60 	nop
+    10000810:	c4 81 22 89 	lbz     r9,-32316(r2)
+    10000814:	00 00 89 2f 	cmpwi   cr7,r9,0
+    10000818:	10 00 01 f8 	std     r0,16(r1)
+    1000081c:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    10000820:	14 00 de 40 	bne-    cr7,10000834 <__do_global_dtors_aux+0x34>
+    10000824:	05 ff ff 4b 	bl      10000728 <deregister_tm_clones+0x8>
+    10000828:	01 00 20 39 	li      r9,1
+    1000082c:	00 00 00 60 	nop
+    10000830:	c4 81 22 99 	stb     r9,-32316(r2)
+    10000834:	20 00 21 38 	addi    r1,r1,32
+    10000838:	10 00 01 e8 	ld      r0,16(r1)
+    1000083c:	a6 03 08 7c 	mtlr    r0
+    10000840:	20 00 80 4e 	blr
+    10000844:	00 00 00 60 	nop
+    10000848:	00 00 00 60 	nop
+    1000084c:	00 00 42 60 	ori     r2,r2,0
 
-0000000000401130 <frame_dummy>:
-  401130:	f3 0f 1e fa          	endbr64 
-  401134:	eb 8a                	jmp    4010c0 <register_tm_clones>
+0000000010000850 <frame_dummy>:
+    10000850:	02 10 40 3c 	lis     r2,4098
+    10000854:	00 7f 42 38 	addi    r2,r2,32512
+    10000858:	a6 02 08 7c 	mflr    r0
+    1000085c:	ff ff 22 3d 	addis   r9,r2,-1
+    10000860:	e8 7d 29 e9 	ld      r9,32232(r9)
+    10000864:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    10000868:	10 00 01 f8 	std     r0,16(r1)
+    1000086c:	e1 ff 21 f8 	stdu    r1,-32(r1)
+    10000870:	30 00 9e 41 	beq     cr7,100008a0 <frame_dummy+0x50>
+    10000874:	00 00 00 60 	nop
+    10000878:	28 80 22 e9 	ld      r9,-32728(r2)
+    1000087c:	00 00 a9 2f 	cmpdi   cr7,r9,0
+    10000880:	20 00 9e 41 	beq     cr7,100008a0 <frame_dummy+0x50>
+    10000884:	a6 03 29 7d 	mtctr   r9
+    10000888:	ff ff 62 3c 	addis   r3,r2,-1
+    1000088c:	18 00 41 f8 	std     r2,24(r1)
+    10000890:	e8 7d 63 38 	addi    r3,r3,32232
+    10000894:	78 4b 2c 7d 	mr      r12,r9
+    10000898:	21 04 80 4e 	bctrl
+    1000089c:	18 00 41 e8 	ld      r2,24(r1)
+    100008a0:	20 00 21 38 	addi    r1,r1,32
+    100008a4:	10 00 01 e8 	ld      r0,16(r1)
+    100008a8:	a6 03 08 7c 	mtlr    r0
+    100008ac:	ec fe ff 4b 	b       10000798 <register_tm_clones+0x8>
 
-0000000000401136 <show>:
+00000000100008b0 <show>:
 static int hello_static = 10;
 static int hello_static_uninit;
 char msg_hello[128]="msg hello,Hello world";
 
 void show(char* msg)
 {
-  401136:	55                   	push   %rbp
-  401137:	48 89 e5             	mov    %rsp,%rbp
-  40113a:	48 83 ec 10          	sub    $0x10,%rsp
-  40113e:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+    100008b0:	02 10 40 3c 	lis     r2,4098
+    100008b4:	00 7f 42 38 	addi    r2,r2,32512
+    100008b8:	a6 02 08 7c 	mflr    r0
+    100008bc:	10 00 01 f8 	std     r0,16(r1)
+    100008c0:	f8 ff e1 fb 	std     r31,-8(r1)
+    100008c4:	81 ff 21 f8 	stdu    r1,-128(r1)
+    100008c8:	78 0b 3f 7c 	mr      r31,r1
+    100008cc:	60 00 7f f8 	std     r3,96(r31)
     printf("in func:%s,msg:%s\n",__FILE__,msg);
-  401142:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-  401146:	48 89 c2             	mov    %rax,%rdx
-  401149:	be 10 20 40 00       	mov    $0x402010,%esi
-  40114e:	bf 18 20 40 00       	mov    $0x402018,%edi
-  401153:	b8 00 00 00 00       	mov    $0x0,%eax
-  401158:	e8 d3 fe ff ff       	callq  401030 <printf@plt>
+    100008d0:	fe ff 62 3c 	addis   r3,r2,-2
+    100008d4:	e8 8c 63 38 	addi    r3,r3,-29464
+    100008d8:	fe ff 82 3c 	addis   r4,r2,-2
+    100008dc:	00 8d 84 38 	addi    r4,r4,-29440
+    100008e0:	60 00 bf e8 	ld      r5,96(r31)
+    100008e4:	bd fd ff 4b 	bl      100006a0 <00000017.plt_call.printf@@GLIBC_2.17>
+    100008e8:	18 00 41 e8 	ld      r2,24(r1)
     return;
-  40115d:	90                   	nop
+    100008ec:	00 00 00 60 	nop
 }
-  40115e:	c9                   	leaveq 
-  40115f:	c3                   	retq   
+    100008f0:	80 00 3f 38 	addi    r1,r31,128
+    100008f4:	10 00 01 e8 	ld      r0,16(r1)
+    100008f8:	a6 03 08 7c 	mtlr    r0
+    100008fc:	f8 ff e1 eb 	ld      r31,-8(r1)
+    10000900:	20 00 80 4e 	blr
+    10000904:	00 00 00 00 	.long 0x0
+    10000908:	00 00 00 01 	.long 0x1000000
+    1000090c:	80 01 00 01 	.long 0x1000180
 
-0000000000401160 <main>:
+0000000010000910 <main>:
 
 int main(int argc, char** argv)
 {
-  401160:	55                   	push   %rbp
-  401161:	48 89 e5             	mov    %rsp,%rbp
-  401164:	48 83 ec 10          	sub    $0x10,%rsp
-  401168:	89 7d fc             	mov    %edi,-0x4(%rbp)
-  40116b:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    10000910:	02 10 40 3c 	lis     r2,4098
+    10000914:	00 7f 42 38 	addi    r2,r2,32512
+    10000918:	a6 02 08 7c 	mflr    r0
+    1000091c:	10 00 01 f8 	std     r0,16(r1)
+    10000920:	f8 ff e1 fb 	std     r31,-8(r1)
+    10000924:	81 ff 21 f8 	stdu    r1,-128(r1)
+    10000928:	78 0b 3f 7c 	mr      r31,r1
+    1000092c:	78 1b 69 7c 	mr      r9,r3
+    10000930:	68 00 9f f8 	std     r4,104(r31)
+    10000934:	60 00 3f 91 	stw     r9,96(r31)
     static int local_static = 10;
     static int local_static_uninit;
 
     printf("in func %s\n",__FILE__);
-  40116f:	be 10 20 40 00       	mov    $0x402010,%esi
-  401174:	bf 2b 20 40 00       	mov    $0x40202b,%edi
-  401179:	b8 00 00 00 00       	mov    $0x0,%eax
-  40117e:	e8 ad fe ff ff       	callq  401030 <printf@plt>
+    10000938:	fe ff 62 3c 	addis   r3,r2,-2
+    1000093c:	08 8d 63 38 	addi    r3,r3,-29432
+    10000940:	fe ff 82 3c 	addis   r4,r2,-2
+    10000944:	00 8d 84 38 	addi    r4,r4,-29440
+    10000948:	59 fd ff 4b 	bl      100006a0 <00000017.plt_call.printf@@GLIBC_2.17>
+    1000094c:	18 00 41 e8 	ld      r2,24(r1)
 
     printf("foo_msg:%s,\n",foo_msg);
-  401183:	be 40 41 40 00       	mov    $0x404140,%esi
-  401188:	bf 37 20 40 00       	mov    $0x402037,%edi
-  40118d:	b8 00 00 00 00       	mov    $0x0,%eax
-  401192:	e8 99 fe ff ff       	callq  401030 <printf@plt>
+    10000950:	fe ff 62 3c 	addis   r3,r2,-2
+    10000954:	18 8d 63 38 	addi    r3,r3,-29416
+    10000958:	00 00 00 60 	nop
+    1000095c:	30 80 82 e8 	ld      r4,-32720(r2)
+    10000960:	41 fd ff 4b 	bl      100006a0 <00000017.plt_call.printf@@GLIBC_2.17>
+    10000964:	18 00 41 e8 	ld      r2,24(r1)
     printf("msg_hello:%s\n",msg_hello);
-  401197:	be 80 40 40 00       	mov    $0x404080,%esi
-  40119c:	bf 44 20 40 00       	mov    $0x402044,%edi
-  4011a1:	b8 00 00 00 00       	mov    $0x0,%eax
-  4011a6:	e8 85 fe ff ff       	callq  401030 <printf@plt>
+    10000968:	fe ff 62 3c 	addis   r3,r2,-2
+    1000096c:	28 8d 63 38 	addi    r3,r3,-29400
+    10000970:	00 00 00 60 	nop
+    10000974:	40 81 82 38 	addi    r4,r2,-32448
+    10000978:	29 fd ff 4b 	bl      100006a0 <00000017.plt_call.printf@@GLIBC_2.17>
+    1000097c:	18 00 41 e8 	ld      r2,24(r1)
 
     foo_init = 10;
-  4011ab:	c7 05 6b 2f 00 00 0a 	movl   $0xa,0x2f6b(%rip)        # 404120 <foo_init>
-  4011b2:	00 00 00 
+    10000980:	00 00 00 60 	nop
+    10000984:	38 80 22 e9 	ld      r9,-32712(r2)
+    10000988:	0a 00 40 39 	li      r10,10
+    1000098c:	00 00 49 91 	stw     r10,0(r9)
     foo_uninit = 20;
-  4011b5:	c7 05 01 30 00 00 14 	movl   $0x14,0x3001(%rip)        # 4041c0 <foo_uninit>
-  4011bc:	00 00 00 
+    10000990:	00 00 00 60 	nop
+    10000994:	40 80 22 e9 	ld      r9,-32704(r2)
+    10000998:	14 00 40 39 	li      r10,20
+    1000099c:	00 00 49 91 	stw     r10,0(r9)
 
     hello_init = 40;
-  4011bf:	c7 05 97 2e 00 00 28 	movl   $0x28,0x2e97(%rip)        # 404060 <hello_init>
-  4011c6:	00 00 00 
+    100009a0:	00 00 00 60 	nop
+    100009a4:	38 81 22 39 	addi    r9,r2,-32456
+    100009a8:	28 00 40 39 	li      r10,40
+    100009ac:	00 00 49 91 	stw     r10,0(r9)
     hello_uninit = 30;
-  4011c9:	c7 05 f5 2f 00 00 1e 	movl   $0x1e,0x2ff5(%rip)        # 4041c8 <hello_uninit>
-  4011d0:	00 00 00 
+    100009b0:	00 00 00 60 	nop
+    100009b4:	d0 81 22 39 	addi    r9,r2,-32304
+    100009b8:	1e 00 40 39 	li      r10,30
+    100009bc:	00 00 49 91 	stw     r10,0(r9)
 
     hello_static = 20;
-  4011d3:	c7 05 87 2e 00 00 14 	movl   $0x14,0x2e87(%rip)        # 404064 <hello_static>
-  4011da:	00 00 00 
+    100009c0:	00 00 00 60 	nop
+    100009c4:	3c 81 22 39 	addi    r9,r2,-32452
+    100009c8:	14 00 40 39 	li      r10,20
+    100009cc:	00 00 49 91 	stw     r10,0(r9)
     hello_static_uninit = 20;
-  4011dd:	c7 05 e5 2f 00 00 14 	movl   $0x14,0x2fe5(%rip)        # 4041cc <hello_static_uninit>
-  4011e4:	00 00 00 
+    100009d0:	00 00 00 60 	nop
+    100009d4:	c8 81 22 39 	addi    r9,r2,-32312
+    100009d8:	14 00 40 39 	li      r10,20
+    100009dc:	00 00 49 91 	stw     r10,0(r9)
     local_static = 20;
-  4011e7:	c7 05 0f 2f 00 00 14 	movl   $0x14,0x2f0f(%rip)        # 404100 <local_static.1>
-  4011ee:	00 00 00 
+    100009e0:	00 00 00 60 	nop
+    100009e4:	c0 81 22 39 	addi    r9,r2,-32320
+    100009e8:	14 00 40 39 	li      r10,20
+    100009ec:	00 00 49 91 	stw     r10,0(r9)
     local_static_uninit = 20;
-  4011f1:	c7 05 d5 2f 00 00 14 	movl   $0x14,0x2fd5(%rip)        # 4041d0 <local_static_uninit.0>
-  4011f8:	00 00 00 
+    100009f0:	00 00 00 60 	nop
+    100009f4:	cc 81 22 39 	addi    r9,r2,-32308
+    100009f8:	14 00 40 39 	li      r10,20
+    100009fc:	00 00 49 91 	stw     r10,0(r9)
 
     show(foo_msg);
-  4011fb:	bf 40 41 40 00       	mov    $0x404140,%edi
-  401200:	e8 31 ff ff ff       	callq  401136 <show>
+    10000a00:	00 00 00 60 	nop
+    10000a04:	30 80 62 e8 	ld      r3,-32720(r2)
+    10000a08:	b1 fe ff 4b 	bl      100008b8 <show+0x8>
     show_foo(hello_init);
-  401205:	8b 05 55 2e 00 00    	mov    0x2e55(%rip),%eax        # 404060 <hello_init>
-  40120b:	89 c7                	mov    %eax,%edi
-  40120d:	e8 2e fe ff ff       	callq  401040 <show_foo@plt>
+    10000a0c:	00 00 00 60 	nop
+    10000a10:	38 81 22 39 	addi    r9,r2,-32456
+    10000a14:	00 00 29 81 	lwz     r9,0(r9)
+    10000a18:	b4 07 29 7d 	extsw   r9,r9
+    10000a1c:	78 4b 23 7d 	mr      r3,r9
+    10000a20:	91 fc ff 4b 	bl      100006b0 <00000017.plt_call.show_foo>
+    10000a24:	18 00 41 e8 	ld      r2,24(r1)
     return 0;
-  401212:	b8 00 00 00 00       	mov    $0x0,%eax
+    10000a28:	00 00 20 39 	li      r9,0
 }
-  401217:	c9                   	leaveq 
-  401218:	c3                   	retq   
-  401219:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+    10000a2c:	78 4b 23 7d 	mr      r3,r9
+    10000a30:	80 00 3f 38 	addi    r1,r31,128
+    10000a34:	10 00 01 e8 	ld      r0,16(r1)
+    10000a38:	a6 03 08 7c 	mtlr    r0
+    10000a3c:	f8 ff e1 eb 	ld      r31,-8(r1)
+    10000a40:	20 00 80 4e 	blr
+    10000a44:	00 00 00 00 	.long 0x0
+    10000a48:	00 00 00 01 	.long 0x1000000
+    10000a4c:	80 01 00 01 	.long 0x1000180
 
-0000000000401220 <__libc_csu_init>:
-  401220:	f3 0f 1e fa          	endbr64 
-  401224:	41 57                	push   %r15
-  401226:	4c 8d 3d c3 2b 00 00 	lea    0x2bc3(%rip),%r15        # 403df0 <__frame_dummy_init_array_entry>
-  40122d:	41 56                	push   %r14
-  40122f:	49 89 d6             	mov    %rdx,%r14
-  401232:	41 55                	push   %r13
-  401234:	49 89 f5             	mov    %rsi,%r13
-  401237:	41 54                	push   %r12
-  401239:	41 89 fc             	mov    %edi,%r12d
-  40123c:	55                   	push   %rbp
-  40123d:	48 8d 2d b4 2b 00 00 	lea    0x2bb4(%rip),%rbp        # 403df8 <__do_global_dtors_aux_fini_array_entry>
-  401244:	53                   	push   %rbx
-  401245:	4c 29 fd             	sub    %r15,%rbp
-  401248:	48 83 ec 08          	sub    $0x8,%rsp
-  40124c:	e8 af fd ff ff       	callq  401000 <_init>
-  401251:	48 c1 fd 03          	sar    $0x3,%rbp
-  401255:	74 1f                	je     401276 <__libc_csu_init+0x56>
-  401257:	31 db                	xor    %ebx,%ebx
-  401259:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
-  401260:	4c 89 f2             	mov    %r14,%rdx
-  401263:	4c 89 ee             	mov    %r13,%rsi
-  401266:	44 89 e7             	mov    %r12d,%edi
-  401269:	41 ff 14 df          	callq  *(%r15,%rbx,8)
-  40126d:	48 83 c3 01          	add    $0x1,%rbx
-  401271:	48 39 dd             	cmp    %rbx,%rbp
-  401274:	75 ea                	jne    401260 <__libc_csu_init+0x40>
-  401276:	48 83 c4 08          	add    $0x8,%rsp
-  40127a:	5b                   	pop    %rbx
-  40127b:	5d                   	pop    %rbp
-  40127c:	41 5c                	pop    %r12
-  40127e:	41 5d                	pop    %r13
-  401280:	41 5e                	pop    %r14
-  401282:	41 5f                	pop    %r15
-  401284:	c3                   	retq   
-  401285:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
-  40128c:	00 00 00 00 
+0000000010000a50 <__libc_csu_init>:
+    10000a50:	02 10 40 3c 	lis     r2,4098
+    10000a54:	00 7f 42 38 	addi    r2,r2,32512
+    10000a58:	a6 02 08 7c 	mflr    r0
+    10000a5c:	d0 ff 41 fb 	std     r26,-48(r1)
+    10000a60:	d8 ff 61 fb 	std     r27,-40(r1)
+    10000a64:	e0 ff 81 fb 	std     r28,-32(r1)
+    10000a68:	e8 ff a1 fb 	std     r29,-24(r1)
+    10000a6c:	f0 ff c1 fb 	std     r30,-16(r1)
+    10000a70:	f8 ff e1 fb 	std     r31,-8(r1)
+    10000a74:	10 00 01 f8 	std     r0,16(r1)
+    10000a78:	b1 ff 21 f8 	stdu    r1,-80(r1)
+    10000a7c:	00 00 e0 3b 	li      r31,0
+    10000a80:	ff ff c2 3f 	addis   r30,r2,-1
+    10000a84:	ff ff a2 3f 	addis   r29,r2,-1
+    10000a88:	d8 7d de 3b 	addi    r30,r30,32216
+    10000a8c:	e0 7d bd 3b 	addi    r29,r29,32224
+    10000a90:	50 e8 be 7f 	subf    r29,r30,r29
+    10000a94:	78 1b 7a 7c 	mr      r26,r3
+    10000a98:	78 23 9b 7c 	mr      r27,r4
+    10000a9c:	78 2b bc 7c 	mr      r28,r5
+    10000aa0:	b9 fb ff 4b 	bl      10000658 <_init+0x8>
+    10000aa4:	00 00 00 60 	nop
+    10000aa8:	75 1e bd 7f 	sradi.  r29,r29,3
+    10000aac:	f8 ff de 3b 	addi    r30,r30,-8
+    10000ab0:	40 00 82 41 	beq     10000af0 <__libc_csu_init+0xa0>
+    10000ab4:	00 00 00 60 	nop
+    10000ab8:	00 00 00 60 	nop
+    10000abc:	00 00 42 60 	ori     r2,r2,0
+    10000ac0:	09 00 3e e9 	ldu     r9,8(r30)
+    10000ac4:	78 d3 43 7f 	mr      r3,r26
+    10000ac8:	18 00 41 f8 	std     r2,24(r1)
+    10000acc:	78 db 64 7f 	mr      r4,r27
+    10000ad0:	78 e3 85 7f 	mr      r5,r28
+    10000ad4:	01 00 ff 3b 	addi    r31,r31,1
+    10000ad8:	a6 03 29 7d 	mtctr   r9
+    10000adc:	78 4b 2c 7d 	mr      r12,r9
+    10000ae0:	21 04 80 4e 	bctrl
+    10000ae4:	18 00 41 e8 	ld      r2,24(r1)
+    10000ae8:	40 e8 bf 7f 	cmpld   cr7,r31,r29
+    10000aec:	d4 ff 9e 40 	bne     cr7,10000ac0 <__libc_csu_init+0x70>
+    10000af0:	50 00 21 38 	addi    r1,r1,80
+    10000af4:	10 00 01 e8 	ld      r0,16(r1)
+    10000af8:	d0 ff 41 eb 	ld      r26,-48(r1)
+    10000afc:	d8 ff 61 eb 	ld      r27,-40(r1)
+    10000b00:	e0 ff 81 eb 	ld      r28,-32(r1)
+    10000b04:	e8 ff a1 eb 	ld      r29,-24(r1)
+    10000b08:	f0 ff c1 eb 	ld      r30,-16(r1)
+    10000b0c:	f8 ff e1 eb 	ld      r31,-8(r1)
+    10000b10:	a6 03 08 7c 	mtlr    r0
+    10000b14:	20 00 80 4e 	blr
+    10000b18:	00 00 00 00 	.long 0x0
+    10000b1c:	00 00 00 01 	.long 0x1000000
+    10000b20:	80 06 00 00 	.long 0x680
+    10000b24:	00 00 00 60 	nop
+    10000b28:	00 00 00 60 	nop
+    10000b2c:	00 00 42 60 	ori     r2,r2,0
 
-0000000000401290 <__libc_csu_fini>:
-  401290:	f3 0f 1e fa          	endbr64 
-  401294:	c3                   	retq   
+0000000010000b30 <__libc_csu_fini>:
+    10000b30:	20 00 80 4e 	blr
+	...
+    10000b40:	b0 f4 01 00 	.long 0x1f4b0
+    10000b44:	00 00 00 00 	.long 0x0
+
+0000000010000b48 <__glink_PLTresolve>:
+    10000b48:	a6 02 08 7c 	mflr    r0
+    10000b4c:	05 00 9f 42 	bcl     20,4*cr7+so,10000b50 <__glink_PLTresolve+0x8>
+    10000b50:	a6 02 68 7d 	mflr    r11
+    10000b54:	f0 ff 4b e8 	ld      r2,-16(r11)
+    10000b58:	a6 03 08 7c 	mtlr    r0
+    10000b5c:	50 60 8b 7d 	subf    r12,r11,r12
+    10000b60:	14 5a 62 7d 	add     r11,r2,r11
+    10000b64:	d0 ff 0c 38 	addi    r0,r12,-48
+    10000b68:	00 00 8b e9 	ld      r12,0(r11)
+    10000b6c:	82 f0 00 78 	rldicl  r0,r0,62,2
+    10000b70:	a6 03 89 7d 	mtctr   r12
+    10000b74:	08 00 6b e9 	ld      r11,8(r11)
+    10000b78:	20 04 80 4e 	bctr
+    10000b7c:	00 00 00 60 	nop
+
+0000000010000b80 <__libc_start_main@plt>:
+    10000b80:	c8 ff ff 4b 	b       10000b48 <__glink_PLTresolve>
+
+0000000010000b84 <__gmon_start__@plt>:
+    10000b84:	c4 ff ff 4b 	b       10000b48 <__glink_PLTresolve>
+
+0000000010000b88 <show_foo@plt>:
+    10000b88:	c0 ff ff 4b 	b       10000b48 <__glink_PLTresolve>
+
+0000000010000b8c <printf@plt>:
+    10000b8c:	bc ff ff 4b 	b       10000b48 <__glink_PLTresolve>
 
 Disassembly of section .fini:
 
-0000000000401298 <_fini>:
-  401298:	f3 0f 1e fa          	endbr64 
-  40129c:	48 83 ec 08          	sub    $0x8,%rsp
-  4012a0:	48 83 c4 08          	add    $0x8,%rsp
-  4012a4:	c3                   	retq   
+0000000010000b90 <_fini>:
+    10000b90:	02 10 40 3c 	lis     r2,4098
+    10000b94:	00 7f 42 38 	addi    r2,r2,32512
+    10000b98:	a6 02 08 7c 	mflr    r0
+    10000b9c:	10 00 01 f8 	std     r0,16(r1)
+    10000ba0:	a1 ff 21 f8 	stdu    r1,-96(r1)
+    10000ba4:	60 00 21 38 	addi    r1,r1,96
+    10000ba8:	10 00 01 e8 	ld      r0,16(r1)
+    10000bac:	a6 03 08 7c 	mtlr    r0
+    10000bb0:	20 00 80 4e 	blr
