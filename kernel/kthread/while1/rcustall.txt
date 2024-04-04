@@ -1,0 +1,70 @@
+0,basic
+	a,验证kthread while1 对rcu的影响;
+
+1,步骤
+	a,config 确认
+		[root@localhost while1]# cat  /sys/module/rcupdate/parameters/rcu_cpu_stall_timeout
+			60
+		[root@localhost while1]# sysctl debug.panic_on_rcu_stall=1
+			debug.panic_on_rcu_stall = 1
+		[root@localhost while1]# sysctl kernel.softlockup_panic=1
+			kernel.softlockup_panic = 1
+		[root@localhost while1]# sysctl kernel.watchdog_thresh=60 				#调整thresh,避免先soft lockup panic
+			kernel.watchdog_thresh = 60
+		[root@localhost while1]#
+
+	
+	b,insmod while1.ko 	
+		[ 2265.300841] while1: loading out-of-tree module taints kernel.
+		[ 2265.301953] while1: module verification failed: signature and/or required key missing - tainting kernel
+		[ 2265.302106] In func pmount_init
+		[ 2265.302204] thread create,ret:0,pid:8384,tgid:8384,father:2
+		[ 2265.302228] In func threadfn
+		[ 2267.294071] threadfn pid:8384
+		[ 2267.294075] delay 500ms:     0
+		[ 2267.794077] delay 500ms:     1
+		...
+		[ 2326.294342] delay 500ms:   118
+		[ 2326.794344] delay 500ms:   119
+		[ 2327.294346] delay 500ms:   120 							#panic
+		login as: root 										#putty restart after reboot;
+		root@10.128.8.80's password:
+
+	c,wait panic
+
+	d,crash 分析
+		cpu 6, 没有经过静默态,导致grace period 会太长, rcu stall!!!
+
+2,crash
+	[root@localhost ~]#  crash /usr/lib/debug/lib/modules/3.10.0-1160.99.1.el7.ppc64le/vmlinux /var/crash/127.0.0.1-2024-04-04-08\:56\:01/vmcore
+		crash> bt
+			PID: 8384   TASK: c000000004f69a00  CPU: 6   COMMAND: "pmount_kthread"
+			 #0 [c0000003e67e35d0] panic at c000000000b04558
+			 #1 [c0000003e67e3660] rcu_check_callbacks at c000000000216044
+			 #2 [c0000003e67e37a0] update_process_times at c000000000111714
+			 #3 [c0000003e67e37e0] tick_sched_timer at c0000000001a38dc 			#tick 时check;
+			 #4 [c0000003e67e3820] __hrtimer_run_queues at c00000000013d1e4
+			 #5 [c0000003e67e38d0] hrtimer_interrupt at c00000000013e544
+			 #6 [c0000003e67e39a0] __timer_interrupt at c000000000027300
+			 #7 [c0000003e67e39f0] timer_interrupt at c000000000027544
+			 #8 [c0000003e67e3a20] decrementer_common at c000000000002c14
+			 Decrementer [901] exception frame:
+			 R0:  d000000007e800ec    R1:  c0000003e67e3d10    R2:  c00000000148c600
+			 R3:  000000000f424000    R4:  c000000001b8a820    R5:  c000000001b9d8e8
+			 R6:  312020203a736d30    R7:  0000000000000000    R8:  0000000000000007
+			 R9:  00000d8aebaacade    R10: 00000d8aeb196dc2    R11: d000000007e802b0
+			 R12: c000000000026e80    R13: c000000007b43900
+			 NIP: c000000000026ec8    MSR: 8000000000009033    OR3: c000000000026ed0
+			 CTR: c000000000026e80    LR:  d000000007e800fc    XER: 0000000020000000
+			 CCR: 0000000028018f24    MQ:  0000000000000001    DAR: c000000048018f28
+			 DSISR: c0000000005a6384     Syscall Result: 0000000000000000
+			 [NIP  : udelay+72]
+			 [LR   : threadfn+252]
+			 #9 [c0000003e67e3d10] udelay at c000000000026ec8
+			#10 [c0000003e67e3d80] kthread at c0000000001372d4
+			#11 [c0000003e67e3e30] ret_from_kernel_thread at c00000000000a62c
+		crash> foreach active bt | less
+		crash>
+
+
+
