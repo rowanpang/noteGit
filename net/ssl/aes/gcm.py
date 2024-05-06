@@ -89,7 +89,7 @@ print('------------ssl frame139 record info---------------------')
 print('noncelen:', len(nonce))
 print("iv/nce:", binascii.hexlify(nonce))
 print("   add:", additionalStr)
-print("   cip:", cipherHexStr)
+print("cipper:", cipherHexStr)
 print("   tag:", taghexStr)
 
 
