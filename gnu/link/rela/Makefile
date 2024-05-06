@@ -1,5 +1,7 @@
-.PHONY:all clean ln
-all:binelf hello.dyn binelf.oo
+.PHONY:all clean elf objdump
+all:elf objdump
+
+elf:binelf hello.dyn binelf.oo binelf.static binelf.static.fpic 
 
 binelf:hello.c foo.c
 	gcc -g hello.c foo.c -o $@
@@ -9,6 +11,12 @@ binelf.oo:hello.o foo.o
 	gcc hello.fpic.o foo.fpic.o -o binelf.fpic
 	gcc hello.o foo.fpic.o -o binelf.foo.fpic
 	gcc hello.fpic.o foo.o -o binelf.hello.fpic
+
+binelf.static:hello.o foo.o
+	gcc -static $^ -o $@
+
+binelf.static.fpic:hello.fpic.o foo.fpic.o
+	gcc -static $^ -o $@
 
 hello.o:hello.c
 	gcc -g -c $^ -o $@
@@ -30,7 +38,7 @@ libfoo.so:foo.c
 #collect2: error: ld returned 1 exit status
 #make: *** [Makefile:26: libfoo.so] Error 1
 
-objdump:all
+objdump:elf
 	objdump -S binelf > objdump.binelf.txt
 	objdump -S binelf.oo > objdump.binelf.oo.txt
 	objdump -S binelf.hello.fpic > objdump.binelf.hello.fpic.txt
@@ -45,3 +53,4 @@ clean:
 	-rm -rf foo.o foo.fpic.o hello.o hello.*.o
 	-rm binelf*
 	-rm libfoo.so
+	-rm objdump*.txt

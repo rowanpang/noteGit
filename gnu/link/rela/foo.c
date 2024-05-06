@@ -5,6 +5,11 @@ int foo_init = 100;
 int foo_static = 30;
 int foo_uninit;
 
+void show_foo2()
+{
+    printf("%s,from %s\n", __func__, __FILE__);
+}
+
 void show_foo(int isfree)
 {
     foo_init = 10;

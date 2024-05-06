@@ -1,0 +1,46 @@
+crash> task
+	PID: 12100  TASK: c0000003ec94c600  CPU: 3   COMMAND: "pmount_kthread"
+	struct task_struct {
+	  state = 0,
+	  stack = 0xc0000003f0afc000,
+	  usage = {
+	    counter = 2
+	  },
+	  flags = 2129984,
+	  ptrace = 0,
+	  wake_entry = {
+	    next = 0x0
+	  },
+	  on_cpu = 1,
+	  last_wakee = 0xc0000003e665e400,
+	  wakee_flips = 9,
+	  wakee_flip_decay_ts = 4296789242,
+	  wake_cpu = 3,
+	  on_rq = 1,
+	  prio = 120, 										#prio 120, 对应nice 0
+	  static_prio = 120,
+	  normal_prio = 120,
+	  rt_priority = 0,
+	  sched_class = 0xc000000001444900 <fair_sched_class>, 					#fair policy
+	  se = {
+	    load = {
+	      weight = 1024,
+	      inv_weight = 4194304
+	    },
+	    run_node = {
+	      __rb_parent_color = 1,
+	      rb_right = 0x0,
+	      rb_left = 0x0
+	    },
+	    group_node = {
+	      next = 0xc00000000405ce90,
+	      prev = 0xc000000001ae1538
+	    },
+	    on_rq = 1,
+	    exec_start = 18494921851962,
+	    sum_exec_runtime = 1299092124,
+	    vruntime = 100054330649,
+	    prev_sum_exec_runtime = 158476,
+	    nr_migrations = 1,
+	 -- MORE --  forward: <SPACE>, <ENTER> or j  backward: b or k  quit: q
+

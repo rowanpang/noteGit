@@ -1,0 +1,160 @@
+0,basic
+	a,rmmod 过程中服务器hung,没有响应
+
+1,步骤
+	a,sysctl
+		sysctl kernel.softlockup_panic=1
+
+	b,在softlockup 前执行rmmod
+	
+	c,发现无任何响应;
+
+2,过程
+	a,分析代码
+		1),whil1 copy自simple, 经测试,simple可以正常insmod/rmmod
+		2),怀疑 kthread_stop 过程引发问题
+			在kthread_stop 之前加sleep,还是一运行rmmod就没响应.
+			应该也不是这里的问题.
+
+	b,等待softlockup panic, crash 分析kdump.
+
+3,kdump 分析
+	a,首先分析panic 时active 的task,看下bt;
+		发现,除pmont_kthread(insmod时create的kthread)之外,都死在了multi_cpu_stop 里.
+		且RIP 接近
+
+	b,disassemble 分析
+		发现, 都在状态stop state 状态机里
+		
+	c,接着分析multi cpu stop 是一个smphp thread, 应该有queue stopwk的thread, 有可能是rmmod.
+		发现, 果真是rmmod过程调用了stop machine,
+	
+	d,hung 原因:
+		1),rmmod 在真正执行mod->exit()方法前调用了stop_machine
+		2),stop_machine,需要唤醒所有online cpu的stoper kthread, 但
+			pmount_kthread 一直在执行没有让出cpu,也就是说
+			对应cpu上的stoper kthread得不到执行
+
+		3),导致,其它cpu 上的stoper kthread 也无法退出(state 要同步),只能在state machine中idle,
+		4),也即,目前为止,所有cpu都在跑kthread, 且无法退出,相当于死循环了.
+		5),用户态程序也就没有机会被调度到
+	
+	e,为何ping 有响应
+		ping 的echo(响应),是在softirq中做的,可以有机会执行.(ksoftirqd 无法被唤醒,但hwirq exit时有机会)
+
+4,crash log
+	[root@localhost while1]# crash /usr/lib/debug/lib/modules/3.10.0-1160.99.1.el7.ppc64le/vmlinux /var/crash/127.0.0.1-2024-04-04-03\:08\:00/vmcore
+		crash> sys
+			      KERNEL: /usr/lib/debug/lib/modules/3.10.0-1160.99.1.el7.ppc64le/vmlinux
+			    DUMPFILE: /var/crash/127.0.0.1-2024-04-04-03:08:00/vmcore  [PARTIAL DUMP]
+				CPUS: 8
+				DATE: Thu Apr  4 03:07:37 2024
+			      UPTIME: 00:18:23
+			LOAD AVERAGE: 24.97, 6.51, 2.22
+			       TASKS: 349
+			    NODENAME: localhost.localdomain
+			     RELEASE: 3.10.0-1160.99.1.el7.ppc64le
+			     VERSION: #1 SMP Tue Sep 12 15:13:13 UTC 2023
+			     MACHINE: ppc64le  (2200 Mhz)
+			      MEMORY: 16 GB
+			       PANIC: "Kernel panic - not syncing: softlockup: hung tasks"
+
+		crash> foreach active bt
+			PID: 7      TASK: c0000003f8b68400  CPU: 0   COMMAND: "migration/0"
+			 R0:  c0000000001d92a4    R1:  c0000003f8c4fba0    R2:  c00000000148c600
+			 R3:  0000000000000000    R4:  0000000000000800    R5:  0000000000000000
+			 R6:  0000000000000000    R7:  0000000000000000    R8:  00000000000000ff
+			 R9:  0000000000000001    R10: c0000000014d63b0    R11: 000003ca1b3c2d87
+			 R12: 0000000000000000    R13: c000000007b40980
+			 NIP: c0000000001d8f0c    MSR: 8000000000009033    OR3: c0000000001d8f20
+			 CTR: c0000000001d8e10    LR:  c0000000001d9048    XER: 0000000020000000
+			 CCR: 0000000024002082    MQ:  0000000000000001    DAR: c000000001a60c00
+			 DSISR: 0000000000000000     Syscall Result: 0000000000000000
+			 [NIP  : multi_cpu_stop+252]
+			 [LR   : multi_cpu_stop+568]
+
+			PID: 13     TASK: c0000003f8b7a200  CPU: 1   COMMAND: "migration/1"
+			 R0:  c0000000001bec6c    R1:  c0000003f8c63580    R2:  c00000000148c600
+			 R3:  c0000003f8c63400    R4:  0000000000000000    R5:  c0000003fffd4ad0
+			 R6:  c0000003fffd8ad0    R7:  0000000000000000    R8:  0000000000000000
+			 R9:  c0000003e78b8800    R10: 0000000000000001    R11: c00000000165c600
+			 R12: 0000000000002000    R13: c000000007b41300    R14: c0000000001371e8
+			 R15: c0000003f8c03980    R16: 0000000000000000    R17: c0000000002008d0
+			 R18: 0000000000000000    R19: 0000000000000001    R20: 00000100cf9c2537
+			 R21: 0000000000000001    R22: 0000000000000001    R23: 0000000000000001
+			 R24: c0000003f8c63920    R25: c0000000014d7960    R26: 0000000000000000
+			 R27: c00000000138a210    R28: c0000000016593e0    R29: c0000003f8c63400
+			 R30: 0000000000000000    R31: c000000001429fd0
+			 NIP: c000000000b04558    MSR: 8000000000009033    OR3: 0000000000000001
+			 CTR: 00000000000002c8    LR:  c000000000b04558    XER: 0000000000000000
+			 CCR: 0000000028002042    MQ:  c00000000138a210    DAR: c000000000d27008
+			 DSISR: 0000000000000000     Syscall Result: c000000001659418
+			 [NIP  : panic+348]
+
+			PID: 18     TASK: c0000003f8de1600  CPU: 2   COMMAND: "migration/2"
+
+			PID: 23     TASK: c0000003f8de8400  CPU: 3   COMMAND: "migration/3"
+			c0000003f8de8400: GPR1 register value (SP) was not saved
+			 #0 [c0000003f8c77a00] (null) at 0  (unreliable)
+			 #1 [c0000003f8c77bd0] multi_cpu_stop at c0000000001d8e10
+
+			PID: 28     TASK: c0000003f8def200  CPU: 4   COMMAND: "migration/4"
+			c0000003f8def200: GPR1 register value (SP) was not saved
+			 #0 [c0000003f8e8ba00] (null) at 0  (unreliable)
+			 #1 [c0000003f8e8bbd0] multi_cpu_stop at c0000000001d8e10
+
+			PID: 33     TASK: c0000003f8df6000  CPU: 5   COMMAND: "migration/5"
+			c0000003f8df6000: GPR1 register value (SP) was not saved
+			 #0 [c0000003f8e9fa00] (null) at 0  (unreliable)
+			 #1 [c0000003f8e9fbd0] multi_cpu_stop at c0000000001d8e10
+
+			PID: 43     TASK: c0000003f7024200  CPU: 7   COMMAND: "migration/7"
+			c0000003f7024200: GPR1 register value (SP) was not saved
+			 #0 [c0000003f8ec7a00] (null) at 0  (unreliable)
+			 #1 [c0000003f8ec7bd0] multi_cpu_stop at c0000000001d8e10
+
+			PID: 8689   TASK: c0000003e5b29a00  CPU: 6   COMMAND: "pmount_kthread"
+			c0000003e5b29a00: GPR1 register value (SP) was not saved
+			 #0 [c0000003ef4378f0] (null) at 0  (unreliable)
+			 #1 [c0000003ef437ac0] (null) at 7  (unreliable)
+		crash> disassemble /m  multi_cpu_stop+252
+			.....
+			204             /* Simple state machine */
+			205             do {
+			206                     /* Chill out and ensure we re-read multi_stop_state. */
+			207                     cpu_relax();
+			   0xc0000000001d8e90 <+128>:   mr      r1,r1
+			   0xc0000000001d8e94 <+132>:   mr      r2,r2
+			   0xc0000000001d8f08 <+248>:   mr      r1,r1
+			   0xc0000000001d8f0c <+252>:   mr      r2,r2
+			.....
+		crash> foreach rmmod bt
+			PID: 8702   TASK: c0000003ed593400  CPU: 2   COMMAND: "rmmod"
+			 #0 [c0000003e56d7a80] __schedule at c000000000aef328
+			 #1 [c0000003e56d7b70] wait_for_completion at c000000000aeff2c
+			 #2 [c0000003e56d7bf0] __stop_machine at c0000000001da278
+			 #3 [c0000003e56d7cc0] stop_machine at c0000000001da340 			#stop machine;
+			 #4 [c0000003e56d7d00] sys_delete_module at c0000000001b3f68
+			 #5 [c0000003e56d7e30] system_call at c00000000000a288
+			 System Call [c00] exception frame:
+			 R0:  0000000000000081    R1:  00003fffd8e14a10    R2:  00003fff9c7a7400
+			 R3:  0000010024f50298    R4:  0000000000000800    R5:  000000000000000a
+			 R6:  0000000000000000    R7:  00003fff9c7a1178    R8:  0000000000000000
+			 R9:  0000000000000000    R10: 0000000000000000    R11: 0000000000000000
+			 R12: 0000000000000000    R13: 00003fff9c91c0a0    R14: 0000000000000000
+			 R15: 0000000000000000    R16: 0000000000000000    R17: 0000000000000000
+			 R18: 0000010024f50230    R19: 0000000010020598    R20: 0000000010020550
+			 R21: 0000000010020538    R22: 0000000010020578    R23: 00000000100205b0
+			 R24: 0000000000000000    R25: 0000000000000000    R26: 0000000010020590
+			 R27: 0000000000000001    R28: 0000010024f50010    R29: 0000000000000000
+			 R30: 0000000000000000    R31: 0000010024f50230
+			 NIP: 00003fff9c6e88c8    MSR: 800000000000d033    OR3: 0000010024f50298
+			 CTR: 0000000000000000    LR:  00000000100179ec    XER: 0000000000000000
+			 CCR: 0000000042002844    MQ:  0000000000000001    DAR: 00003fff9c639c20
+			 DSISR: 0000000040000000     Syscall Result: 0000000000000000
+		crash>
+
+
+
+
+
